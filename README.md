@@ -14,7 +14,8 @@ what I have found useful, so if you find value, great. If not, that's cool, I do
 
 ## Installation
 
-Install any skill from this repo using the [skills CLI](https://skills.sh/):
+Install any skill from using the [skills CLI](https://skills.sh/), **I highly
+recommend install only what you want and to read each skill before you blindly install.**
 
 ```bash
 npx skills add edheltzel/skills
