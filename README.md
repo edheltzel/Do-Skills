@@ -9,7 +9,7 @@ This is my personal collection of [Agent Skills](https://skills.sh/) for my [DA]
 
 Skills are reusable capabilities for AI agents. They provide procedural knowledge that helps agents accomplish specific tasks more effectively. Each skill is a folder containing a `SKILL.md` file with instructions, examples, and guidelines.
 
-This repo souly exist for my own use and isn't intended to be shared. It's just
+This repo solely exist for my own use and isn't intended to be shared. It's just
 what I have found useful, so if you find value, great. If not, that's cool, I don't care :)
 
 ## Installation
