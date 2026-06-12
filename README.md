@@ -1,6 +1,6 @@
 # Skills
 
-A collection of [Agent Skills](https://skills.sh/) for AI coding agents.
+This is my personal collection of [Agent Skills](https://skills.sh/) for my , Atlas.
 
 ## What are Skills?
 
