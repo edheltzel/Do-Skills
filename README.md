@@ -2,7 +2,7 @@
 
 This is my personal collection of [Agent Skills](https://skills.sh/) for my [DA](https://danielmiessler.com/blog/we-are-all-building-single-digital-assistant), Atlas.
 
->[! INFO]
+>[!NOTE]
 > This is a **WIP** and changes often. It is a collection of skills that I have found valuable for improving my workflow. Many, if not most, are from talented developers, engineers, creators, and researchers. I have unashamedly copied and improved or modified most of the skills to fit my use case.
 
 ## What are Skills and Why's this repo exist?
