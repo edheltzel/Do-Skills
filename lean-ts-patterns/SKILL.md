@@ -1,5 +1,5 @@
 ---
-name: lean-ts-patterns
+name: LeanTSPatterns
 description: >-
   Patterns for building lightweight, zero-dependency TypeScript tools and libraries.
   Use when building new CLI tools, libraries, or utilities from scratch. Use when refactoring

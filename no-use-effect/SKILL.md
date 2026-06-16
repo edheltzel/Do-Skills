@@ -1,5 +1,5 @@
 ---
-name: no-use-effect
+name: NoUseEffect
 description: >-
   Prevent unnecessary React `useEffect` usage by steering code toward derived state,
   event handlers, memoization, `key`-based resets, `useSyncExternalStore`, and

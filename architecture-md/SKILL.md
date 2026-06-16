@@ -1,5 +1,5 @@
 ---
-name: architecture-md
+name: ArchitectureMD
 description: >-
   Generate an ARCHITECTURE.md file for a codebase following matklad's principles.
   Use when asked to "write an architecture doc", "create ARCHITECTURE.md", "document the

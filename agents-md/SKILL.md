@@ -1,5 +1,5 @@
 ---
-name: agents-md
+name: AgentsMD
 description: >-
   Write effective AGENTS.md files that give coding agents the context they need to work
   in a repository. Use when creating a new AGENTS.md, improving an existing one, setting up

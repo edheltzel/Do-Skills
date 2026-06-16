@@ -1,5 +1,5 @@
 ---
-name: git-safe-pr-workflow
+name: GitSafePRWorkflow
 description: >-
   Safe GitHub pull request workflow for low-experience Git users. Use when pulling,
   syncing a feature branch with `main`, resolving conflicts, undoing mistakes,

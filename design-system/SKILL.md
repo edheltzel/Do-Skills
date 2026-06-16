@@ -1,5 +1,5 @@
 ---
-name: design-system
+name: DesignSystem
 description: >-
   Build design system components and UI that are accessible, themeable, and
   visually polished. Use when building buttons, dialogs, forms, cards, or any

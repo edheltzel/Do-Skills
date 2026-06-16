@@ -1,5 +1,5 @@
 ---
-name: cleanup-web
+name: CleanupWeb
 description: End-of-session cleanup pass for TypeScript, React, and web code. Use this skill whenever the user asks to "clean up", "polish", "tidy", "refactor", or "review" web/frontend work at the end of a coding session, or when they invoke this skill by name. Performs a holistic review of files modified during the session — simplification, type safety, React patterns, CSS modernization, and comment hygiene. Make sure to use this skill anytime the user signals they want to wrap up or finalize TypeScript/React/web work, even if they don't explicitly say "cleanup". Do NOT use for one-off edits, bug fixes, or active feature work.
 ---
 

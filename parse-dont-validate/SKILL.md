@@ -1,5 +1,5 @@
 ---
-name: parse-dont-validate
+name: ParseDontValidate
 description: >-
   Type-driven design principle: transform unstructured data into structured types at system
   boundaries, making illegal states unrepresentable. Use when writing or reviewing code that

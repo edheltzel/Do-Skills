@@ -1,5 +1,5 @@
 ---
-name: macos-swift-desktop
+name: MacOS SwiftDesktop
 description: "Build native macOS desktop applications in Swift using AppKit and SwiftUI. Use when building or modifying macOS .app bundles, NSDocument-based apps, menu bar apps, preferences windows, NSWindow/NSToolbar/NSSplitView layouts, NSMenu/NSStatusItem, Core Data/SwiftData/GRDB persistence, drag-and-drop, undo/redo, sandboxing, notarization, Sparkle auto-updates, XPC helpers, or XCTest for macOS. Also covers GPU-accelerated rendering with Metal and CAMetalLayer, infinite canvas UIs, libghostty terminal embedding, and WKWebView embedding. Trigger on AppKit, NSApplicationDelegate, NSDocument, NSViewController, Swift+Metal, macOS code signing, or when a user asks for production-grade Swift desktop patterns from repos like CodeEdit, Rectangle, CotEditor, IINA, Ice, Stats, Xcodes.app, STTextView, or Ghostty."
 ---
 

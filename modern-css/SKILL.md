@@ -1,5 +1,5 @@
 ---
-name: modern-css
+name: ModernCSS
 description: >
   Teaches agents to write modern CSS using native features instead of legacy hacks,
   workarounds, and JavaScript. Covers layout, animation, color, typography, selectors,

@@ -1,5 +1,5 @@
 ---
-name: typescript-refactoring
+name: TypescriptRefactoring
 description: >-
   Systematically refactor TypeScript codebases for readability, type safety,
   and AI-friendliness. Use when asked to "refactor this", "clean up this code",

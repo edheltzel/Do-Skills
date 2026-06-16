@@ -1,5 +1,5 @@
 ---
-name: "Technical Writing"
+name: "TechnicalWriting"
 description: "Write clean, terse technical docs — commits, issues, PRDs, specs, and technical communication"
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: update-readme
+name: UpdateReadme
 description: Use when adding, removing, or renaming a skill in this repository to keep the Available Skills table in README.md current.
 ---
 

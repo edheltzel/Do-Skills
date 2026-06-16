@@ -1,5 +1,5 @@
 ---
-name: distill-to-skill
+name: DistillToSkill
 description: >-
   Distill knowledge from any source — blog posts, articles, documentation, GitHub repos,
   video transcripts, books, papers — into a well-structured agent skill. Use when the user

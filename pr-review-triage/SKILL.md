@@ -1,5 +1,5 @@
 ---
-name: pr-review-triage
+name: PR ReviewTriage
 description: Pull PR review comments and triage them — separate substantive feedback from bikeshedding, stale comments, misreads, AI slop, and other noise. Use this skill whenever the user asks to "review my PR comments", "triage feedback", "go through my PR", or wants help deciding what to address vs push back on. Make sure to use this skill anytime the user mentions PR comments or code review feedback, even if they don't explicitly say "triage". Pulls comments via the `gh` CLI, classifies each, and proposes an action with a draft response. Do NOT use for writing PR descriptions, reviewing someone else's PR, or applying the changes — this skill triages and drafts only.
 ---
 

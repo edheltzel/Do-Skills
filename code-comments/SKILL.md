@@ -1,5 +1,5 @@
 ---
-name: code-comments
+name: CodeComments
 description: >-
   Write high-signal code comments for humans and coding agents.
   Use when adding inline comments, docstrings, API comments, or local rationale near code.

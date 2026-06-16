@@ -1,5 +1,5 @@
 ---
-name: "Git Worktree"
+name: "GitWorktree"
 description: "Create, remove, and list git worktrees in a standardized location"
 alwaysAllow: ["Bash"]
 ---

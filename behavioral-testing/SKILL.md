@@ -1,5 +1,5 @@
 ---
-name: behavioral-testing
+name: BehavioralTesting
 description: >
   Behavioral testing methodology — test what users experience, not how code is structured.
   Use when writing tests, reviewing test quality, planning test strategy for new features,

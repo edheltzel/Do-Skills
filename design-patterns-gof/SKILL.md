@@ -1,5 +1,5 @@
 ---
-name: design-patterns-gof
+name: DesignPatternsGOF
 description: >-
   The 23 Gang of Four object-oriented design patterns (Gamma, Helm, Johnson, Vlissides, 1994)
   distilled as a practical field guide, not a catalog. Use when naming a shape in code review,

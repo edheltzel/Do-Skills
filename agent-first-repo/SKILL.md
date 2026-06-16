@@ -1,5 +1,5 @@
 ---
-name: agent-first-repo
+name: AgentFirstRepo
 description: >-
   Structure a repository and its documentation so AI coding agents can work effectively.
   Covers knowledge hierarchy, progressive disclosure, mechanical enforcement of architecture,
