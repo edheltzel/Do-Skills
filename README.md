@@ -42,7 +42,7 @@ npx skills add edheltzel/skills@<skill-name>
 | [`design-patterns-gof`](./design-patterns-gof/) | The 23 Gang of Four object-oriented design patterns (Gamma, Helm, Johnson, Vlissides, 1994) distilled as a practical field guide, not a catalog. |
 | [`design-system`](./design-system/) | Build design system components and UI that are accessible, themeable, and visually polished. |
 | [`distill-to-skill`](./distill-to-skill/) | Distill knowledge from any source — blog posts, articles, documentation, GitHub repos, video transcripts, books, papers — into a well-structured agent skill. |
-| [`Git Worktree`](./worktree/) | Create, remove, and list git worktrees in a standardized location |
+| [`worktree`](./worktree/) | Create, remove, and list git worktrees in a standardized location |
 | [`git-safe-pr-workflow`](./git-safe-pr-workflow/) | Safe GitHub pull request workflow for low-experience Git users. |
 | [`karpathy-guidelines`](./karpathy-guidelines/) | Behavioral guidelines to reduce common LLM coding mistakes. |
 | [`lean-ts-patterns`](./lean-ts-patterns/) | Patterns for building lightweight, zero-dependency TypeScript tools and libraries. |
@@ -51,8 +51,8 @@ npx skills add edheltzel/skills@<skill-name>
 | [`no-use-effect`](./no-use-effect/) | Prevent unnecessary React `useEffect` usage by steering code toward derived state, event handlers, memoization, `key`-based resets, `useSyncExternalStore`, and framework or query-library data APIs. |
 | [`parse-dont-validate`](./parse-dont-validate/) | Type-driven design principle: transform unstructured data into structured types at system boundaries, making illegal states unrepresentable. |
 | [`pr-review-triage`](./pr-review-triage/) | Pull PR review comments and triage them — separate substantive feedback from bikeshedding, stale comments, misreads, AI slop, and other noise. |
-| [`Technical Writing`](./tech-writing/) | Write clean, terse technical docs — commits, issues, PRDs, specs, and technical communication |
-| [`TypeScript`](./typescript/) | Write clean, pragmatically functional TypeScript — simple, composable, soundly typed |
+| [`tech-writing`](./tech-writing/) | Write clean, terse technical docs — commits, issues, PRDs, specs, and technical communication |
+| [`typescript`](./typescript/) | Write clean, pragmatically functional TypeScript — simple, composable, soundly typed |
 | [`typescript-refactoring`](./typescript-refactoring/) | Systematically refactor TypeScript codebases for readability, type safety, and AI-friendliness. |
 | [`update-readme`](./update-readme/) | Use when adding, removing, or renaming a skill in this repository to keep the Available Skills table in README. |
 <!-- skills-end -->
