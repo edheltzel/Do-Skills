@@ -4,7 +4,7 @@ Stack-specific code craft — reached for once the language, framework, or platf
 
 | Skill | Description |
 | --- | --- |
-| [`bootstrap-design-system`](./bootstrap-design-system/) | Generate a portable DESIGN. |
+| [`bootstrap-design-system`](./bootstrap-design-system/) | Generate a portable DESIGN.md source-of-truth plus a live HTML style-guide page for the current project — discover brand tokens, write the 9-section spec, build and verify a visual reference page. |
 | [`cleanup-swift`](./cleanup-swift/) | End-of-session cleanup pass for Swift code. |
 | [`cleanup-web`](./cleanup-web/) | End-of-session cleanup pass for TypeScript, React, and web code. |
 | [`design-system`](./design-system/) | Build design system components and UI that are accessible, themeable, and visually polished. |
