@@ -38,8 +38,8 @@ Always-on standards, process, and operational skills. Stack-agnostic — they ap
 | Skill | Description |
 | --- | --- |
 | [`agent-first-repo`](./skills/core/agent-first-repo/) | Structure a repository and its documentation so AI coding agents can work effectively. |
-| [`agents-md`](./skills/core/agents-md/) | Write effective AGENTS. |
-| [`architecture-md`](./skills/core/architecture-md/) | Generate an ARCHITECTURE. |
+| [`agents-md`](./skills/core/agents-md/) | Write effective AGENTS.md files that give coding agents the context they need to work in a repository. |
+| [`architecture-md`](./skills/core/architecture-md/) | Generate an ARCHITECTURE.md file for a codebase following matklad's principles. |
 | [`behavioral-testing`](./skills/core/behavioral-testing/) | Behavioral testing methodology — test what users experience, not how code is structured. |
 | [`code-comments`](./skills/core/code-comments/) | Write high-signal code comments for humans and coding agents. |
 | [`design-patterns-gof`](./skills/core/design-patterns-gof/) | The 23 Gang of Four object-oriented design patterns (Gamma, Helm, Johnson, Vlissides, 1994) distilled as a practical field guide, not a catalog. |
@@ -55,7 +55,7 @@ Stack-specific code craft — reached for once the language, framework, or platf
 
 | Skill | Description |
 | --- | --- |
-| [`bootstrap-design-system`](./skills/engineering/bootstrap-design-system/) | Generate a portable DESIGN. |
+| [`bootstrap-design-system`](./skills/engineering/bootstrap-design-system/) | Generate a portable DESIGN.md source-of-truth plus a live HTML style-guide page for the current project — discover brand tokens, write the 9-section spec, build and verify a visual reference page. |
 | [`cleanup-swift`](./skills/engineering/cleanup-swift/) | End-of-session cleanup pass for Swift code. |
 | [`cleanup-web`](./skills/engineering/cleanup-web/) | End-of-session cleanup pass for TypeScript, React, and web code. |
 | [`design-system`](./skills/engineering/design-system/) | Build design system components and UI that are accessible, themeable, and visually polished. |
@@ -83,18 +83,25 @@ Tied to this repository's own tooling. Not portable.
 
 | Skill | Description |
 | --- | --- |
-| [`update-readme`](./skills/personal/update-readme/) | Use when adding, removing, or renaming a skill in this repository to keep the Available Skills section in README. |
+| [`update-readme`](./skills/personal/update-readme/) | Use when adding, removing, or renaming a skill in this repository to keep the Available Skills section in README.md current. |
 
 <!-- skills-end -->
 
 ## Creating a Skill
 
-Each skill follows a simple structure:
+Each skill lives in its own folder, grouped into a bucket under `skills/`:
 
 ```
-skill-name/
+skills/<bucket>/skill-name/
 └── SKILL.md
 ```
+
+Buckets group skills by purpose and scope:
+
+- `core/` — always-on, stack-agnostic standards, process, and operational skills
+- `engineering/` — stack-specific code craft
+- `productivity/` — non-code workflow tools
+- `personal/` — this repository's own tooling
 
 The `SKILL.md` file contains YAML frontmatter and markdown instructions:
 
@@ -107,6 +114,12 @@ description: A clear description of what this skill does and when to use it
 # Skill Name
 
 [Instructions for the agent go here]
+```
+
+After adding, moving, or renaming a skill, regenerate the Available Skills section:
+
+```bash
+bash skills/personal/update-readme/update-readme.sh
 ```
 
 ## License

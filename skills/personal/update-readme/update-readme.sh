@@ -73,11 +73,13 @@ parse_skill() {
     ' "$1"
 }
 
-# Return the first sentence of a string (up to the first .!?).
+# Return the first sentence of a string. A sentence ends at a . ! or ? that is
+# followed by whitespace or end of line; a period inside a token (AGENTS.md,
+# ARCHITECTURE.md) is not a boundary.
 first_sentence() {
     awk '{
-        if (match($0, /^[^.!?]+[.!?]/))
-            print substr($0, RSTART, RLENGTH)
+        if (match($0, /[.!?]([[:space:]]|$)/))
+            print substr($0, 1, RSTART)
         else
             print $0
         exit
