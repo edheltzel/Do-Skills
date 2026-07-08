@@ -30,31 +30,61 @@ npx skills add edheltzel/skills@<skill-name>
 ## Available Skills
 
 <!-- skills-start -->
+
+### Core
+
+Always-on standards, process, and operational skills. Stack-agnostic — they apply to any project.
+
 | Skill | Description |
 | --- | --- |
-| [`agent-first-repo`](./agent-first-repo/) | Structure a repository and its documentation so AI coding agents can work effectively. |
-| [`agents-md`](./agents-md/) | Write effective AGENTS. |
-| [`architecture-md`](./architecture-md/) | Generate an ARCHITECTURE. |
-| [`behavioral-testing`](./behavioral-testing/) | Behavioral testing methodology — test what users experience, not how code is structured. |
-| [`cleanup-swift`](./cleanup-swift/) | End-of-session cleanup pass for Swift code. |
-| [`cleanup-web`](./cleanup-web/) | End-of-session cleanup pass for TypeScript, React, and web code. |
-| [`code-comments`](./code-comments/) | Write high-signal code comments for humans and coding agents. |
-| [`design-patterns-gof`](./design-patterns-gof/) | The 23 Gang of Four object-oriented design patterns (Gamma, Helm, Johnson, Vlissides, 1994) distilled as a practical field guide, not a catalog. |
-| [`design-system`](./design-system/) | Build design system components and UI that are accessible, themeable, and visually polished. |
-| [`distill-to-skill`](./distill-to-skill/) | Distill knowledge from any source — blog posts, articles, documentation, GitHub repos, video transcripts, books, papers — into a well-structured agent skill. |
-| [`worktree`](./worktree/) | Create, remove, and list git worktrees in a standardized location |
-| [`git-safe-pr-workflow`](./git-safe-pr-workflow/) | Safe GitHub pull request workflow for low-experience Git users. |
-| [`karpathy-guidelines`](./karpathy-guidelines/) | Behavioral guidelines to reduce common LLM coding mistakes. |
-| [`lean-ts-patterns`](./lean-ts-patterns/) | Patterns for building lightweight, zero-dependency TypeScript tools and libraries. |
-| [`macos-swift-desktop`](./macos-swift-desktop/) | Build native macOS desktop applications in Swift using AppKit and SwiftUI. |
-| [`modern-css`](./modern-css/) | Teaches agents to write modern CSS using native features instead of legacy hacks, workarounds, and JavaScript. |
-| [`no-use-effect`](./no-use-effect/) | Prevent unnecessary React `useEffect` usage by steering code toward derived state, event handlers, memoization, `key`-based resets, `useSyncExternalStore`, and framework or query-library data APIs. |
-| [`parse-dont-validate`](./parse-dont-validate/) | Type-driven design principle: transform unstructured data into structured types at system boundaries, making illegal states unrepresentable. |
-| [`pr-review-triage`](./pr-review-triage/) | Pull PR review comments and triage them — separate substantive feedback from bikeshedding, stale comments, misreads, AI slop, and other noise. |
-| [`tech-writing`](./tech-writing/) | Write clean, terse technical docs — commits, issues, PRDs, specs, and technical communication |
-| [`typescript`](./typescript/) | Write clean, pragmatically functional TypeScript — simple, composable, soundly typed |
-| [`typescript-refactoring`](./typescript-refactoring/) | Systematically refactor TypeScript codebases for readability, type safety, and AI-friendliness. |
-| [`update-readme`](./update-readme/) | Use when adding, removing, or renaming a skill in this repository to keep the Available Skills table in README. |
+| [`agent-first-repo`](./skills/core/agent-first-repo/) | Structure a repository and its documentation so AI coding agents can work effectively. |
+| [`agents-md`](./skills/core/agents-md/) | Write effective AGENTS. |
+| [`architecture-md`](./skills/core/architecture-md/) | Generate an ARCHITECTURE. |
+| [`behavioral-testing`](./skills/core/behavioral-testing/) | Behavioral testing methodology — test what users experience, not how code is structured. |
+| [`code-comments`](./skills/core/code-comments/) | Write high-signal code comments for humans and coding agents. |
+| [`design-patterns-gof`](./skills/core/design-patterns-gof/) | The 23 Gang of Four object-oriented design patterns (Gamma, Helm, Johnson, Vlissides, 1994) distilled as a practical field guide, not a catalog. |
+| [`git:pr-review-triage`](./skills/core/git-pr-review-triage/) | Pull PR review comments and triage them — separate substantive feedback from bikeshedding, stale comments, misreads, AI slop, and other noise. |
+| [`git:safe-pr-workflow`](./skills/core/git-safe-pr-workflow/) | Safe GitHub pull request workflow for low-experience Git users. |
+| [`git:worktree`](./skills/core/git-worktree/) | Create, remove, and list git worktrees in a standardized location |
+| [`karpathy-guidelines`](./skills/core/karpathy-guidelines/) | Behavioral guidelines to reduce common LLM coding mistakes. |
+| [`roughdraft`](./skills/core/roughdraft/) | Install and drive the published `roughdraft` CLI — a local-first markdown editor/viewer for reviewing markdown with an AI agent (comments + CriticMarkup suggestions). |
+
+### Engineering
+
+Stack-specific code craft — reached for once the language, framework, or platform is known.
+
+| Skill | Description |
+| --- | --- |
+| [`bootstrap-design-system`](./skills/engineering/bootstrap-design-system/) | Generate a portable DESIGN. |
+| [`cleanup-swift`](./skills/engineering/cleanup-swift/) | End-of-session cleanup pass for Swift code. |
+| [`cleanup-web`](./skills/engineering/cleanup-web/) | End-of-session cleanup pass for TypeScript, React, and web code. |
+| [`design-system`](./skills/engineering/design-system/) | Build design system components and UI that are accessible, themeable, and visually polished. |
+| [`lean-ts-patterns`](./skills/engineering/lean-ts-patterns/) | Patterns for building lightweight, zero-dependency TypeScript tools and libraries. |
+| [`macos-swift-desktop`](./skills/engineering/macos-swift-desktop/) | Build native macOS desktop applications in Swift using AppKit and SwiftUI. |
+| [`modern-css`](./skills/engineering/modern-css/) | Teaches agents to write modern CSS using native features instead of legacy hacks, workarounds, and JavaScript. |
+| [`no-use-effect`](./skills/engineering/no-use-effect/) | Prevent unnecessary React `useEffect` usage by steering code toward derived state, event handlers, memoization, `key`-based resets, `useSyncExternalStore`, and framework or query-library data APIs. |
+| [`parse-dont-validate`](./skills/engineering/parse-dont-validate/) | Type-driven design principle: transform unstructured data into structured types at system boundaries, making illegal states unrepresentable. |
+| [`typescript`](./skills/engineering/typescript/) | Write clean, pragmatically functional TypeScript — simple, composable, soundly typed |
+| [`typescript-refactoring`](./skills/engineering/typescript-refactoring/) | Systematically refactor TypeScript codebases for readability, type safety, and AI-friendliness. |
+
+### Productivity
+
+Non-code workflow tools.
+
+| Skill | Description |
+| --- | --- |
+| [`distill-to-skill`](./skills/productivity/distill-to-skill/) | Distill knowledge from any source — blog posts, articles, documentation, GitHub repos, video transcripts, books, papers — into a well-structured agent skill. |
+| [`pm-tools`](./skills/productivity/pm-tools/) | GitHub Projects management via gh CLI — creating projects, managing items/fields, plus opinionated PM recipes — board bootstrap, Epic→Feature→Task issue hierarchy with sub-issue linking, label policy, running a plan against the board, picking next work, and status reporting. |
+| [`tech-writing`](./skills/productivity/tech-writing/) | Write clean, terse technical docs — commits, issues, PRDs, specs, and technical communication |
+
+### Personal
+
+Tied to this repository's own tooling. Not portable.
+
+| Skill | Description |
+| --- | --- |
+| [`update-readme`](./skills/personal/update-readme/) | Use when adding, removing, or renaming a skill in this repository to keep the Available Skills section in README. |
+
 <!-- skills-end -->
 
 ## Creating a Skill
