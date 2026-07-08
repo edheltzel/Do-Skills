@@ -4,6 +4,7 @@ Thumbs.db
 
 # Editor
 .vscode/
+.agents/atlas/
 .idea/
 *.swp
 *.swo
