@@ -22,13 +22,14 @@ Each skill below represents a review lens. Every lens gets its own sub-agent.
 
 | Lens | Skill | Focus |
 |------|-------|-------|
-| Simplification | `simplify` | Dead code, needless abstractions, single-use helpers, unused params, over-engineered utilities |
+| Simplification | `simplify` | Dead code, needless abstractions, unused params, over-engineered utilities, and helpers whose names do not add meaning. Do not inline single-use helpers that clarify call sites or hide non-trivial conditions. |
 | TypeScript | `typescript` | Type soundness, pragmatic generics, discriminated unions over type assertions, `unknown` over `any` |
 | Type-driven design | `parse-dont-validate` | Push checks into types; make invalid states unrepresentable; branded types where warranted |
 | React effects | `no-use-effect` | Derived state over effects, event handlers over sync effects, `key`-resets over effect-driven resets, `useSyncExternalStore` over manual subscriptions |
 | React performance | `vercel-react-best-practices` | Component boundaries, `use client` / `use server` placement, data fetching patterns, bundle impact, memoization |
 | CSS | `modern-css` | Native CSS over JS workarounds, logical properties, container queries, modern selectors, no legacy hacks |
 | Comment hygiene | `code-comments` | Strip "what" comments and AI narration; keep "why" comments only |
+| Correctness | `adversarial-review` | Behavior changes, dropped guards or edge cases, async/effect timing, server/client boundary, stale callers — bugs the session introduced |
 
 ## Approach
 

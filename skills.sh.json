@@ -1,0 +1,58 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Core",
+      "description": "Stack-agnostic standards, processes, and operational skills for any project.",
+      "skills": [
+        "agent-first-repo",
+        "adversarial-review",
+        "agents-md",
+        "architecture-md",
+        "behavioral-testing",
+        "code-comments",
+        "design-patterns-gof",
+        "git-pr-review-triage",
+        "git-safe-pr-workflow",
+        "git-worktree",
+        "karpathy-guidelines",
+        "roughdraft",
+        "simplify"
+      ]
+    },
+    {
+      "title": "Engineering",
+      "description": "Language, framework, platform, and interface engineering practices.",
+      "skills": [
+        "bootstrap-design-system",
+        "cleanup-swift",
+        "cleanup-web",
+        "design-system",
+        "lean-ts-patterns",
+        "macos-swift-desktop",
+        "modern-css",
+        "no-use-effect",
+        "parse-dont-validate",
+        "typescript",
+        "typescript-refactoring"
+      ]
+    },
+    {
+      "title": "Productivity",
+      "description": "Reusable tools for planning, writing, and distilling knowledge.",
+      "skills": [
+        "distill-to-skill",
+        "pm-tools",
+        "tech-writing"
+      ]
+    },
+    {
+      "title": "Personal",
+      "description": "Repository-specific maintenance skills that are not broadly portable.",
+      "skills": [
+        "update-readme"
+      ]
+    }
+  ]
+}

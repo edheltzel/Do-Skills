@@ -15,11 +15,11 @@ npx skills update cleanup-swift
 ## What it does
 
 `cleanup-swift` runs an end-of-session cleanup pass over the Swift code you
-touched — a holistic review across simplification, type-driven design, macOS
-conventions, and comment hygiene, aimed at leaving the session's work in a
-pristine state. It proposes, it does not apply: every change comes with a
-before/after, the principle behind it, and any trade-off, and nothing lands
-until you approve. "No changes" is a valid outcome — if the code is already
+touched — a holistic review across simplification, correctness, type-driven
+design, macOS conventions, and comment hygiene, aimed at leaving the session's
+work in a pristine state. It proposes, it does not apply: every change comes
+with a before/after, the principle behind it, and any trade-off, and nothing
+lands until you approve. "No changes" is a valid outcome — if the code is already
 clean, it says so and stops rather than inventing work.
 
 ## When to reach for it
@@ -40,8 +40,8 @@ Scope is strictly the files modified this session (found via `git status` /
 It then dispatches one sub-agent per review lens, all in parallel, each loading
 its own skill first and reviewing only through that lens:
 
-- **Simplification** (`simplify`) — dead code, needless abstractions, single-use
-  helpers, unused params.
+- **Simplification** ([simplify](../core/simplify.md)) — dead code, needless
+  abstractions, and helpers whose names do not improve the call site.
 - **Type-driven design** ([parse-dont-validate](./parse-dont-validate.md)) — push
   checks into types; make invalid states unrepresentable.
 - **Design patterns** ([design-patterns-gof](../core/design-patterns-gof.md)) —
@@ -50,6 +50,9 @@ its own skill first and reviewing only through that lens:
   naming, ARC, AppKit/SwiftUI boundaries, threading, main-actor isolation.
 - **Comment hygiene** ([code-comments](../core/code-comments.md)) — strip "what"
   comments and AI narration; keep "why" only.
+- **Correctness** ([adversarial-review](../core/adversarial-review.md)) —
+  dropped guards, edge cases, concurrency hazards, swallowed errors, stale
+  callers, and other regressions introduced by the session.
 
 Findings aggregate into a single batch grouped by file, with conflicts between
 lenses flagged for you to decide.
@@ -58,5 +61,8 @@ lenses flagged for you to decide.
 
 A periodic-maintenance skill you run once, at the end of a session — the Swift
 sibling of [cleanup-web](./cleanup-web.md). It doesn't author code; it composes
-several authoring skills (including [macos-swift-desktop](./macos-swift-desktop.md))
-into review lenses and turns them on the diff you just produced.
+several authoring and review skills — including
+[simplify](../core/simplify.md),
+[adversarial-review](../core/adversarial-review.md), and
+[macos-swift-desktop](./macos-swift-desktop.md) — into review lenses and turns
+them on the diff you just produced.
