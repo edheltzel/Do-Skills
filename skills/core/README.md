@@ -4,6 +4,7 @@ Always-on standards, process, and operational skills. Stack-agnostic — they ap
 
 | Skill | Description |
 | --- | --- |
+| [`adversarial-review`](./adversarial-review/) | Adversarially hunt for correctness bugs and regressions in a change set. |
 | [`agent-first-repo`](./agent-first-repo/) | Structure a repository and its documentation so AI coding agents can work effectively. |
 | [`agents-md`](./agents-md/) | Write effective AGENTS.md files that give coding agents the context they need to work in a repository. |
 | [`architecture-md`](./architecture-md/) | Generate an ARCHITECTURE.md file for a codebase following matklad's principles. |
@@ -15,3 +16,4 @@ Always-on standards, process, and operational skills. Stack-agnostic — they ap
 | [`git:worktree`](./git-worktree/) | Create, remove, and list git worktrees in a standardized location |
 | [`karpathy-guidelines`](./karpathy-guidelines/) | Behavioral guidelines to reduce common LLM coding mistakes. |
 | [`roughdraft`](./roughdraft/) | Install and drive the published `roughdraft` CLI — a local-first markdown editor/viewer for reviewing markdown with an AI agent (comments + CriticMarkup suggestions). |
+| [`simplify`](./simplify/) | Simplify and refine recently modified code for clarity and consistency. |
