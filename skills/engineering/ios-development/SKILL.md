@@ -31,6 +31,7 @@ If ownership is unclear, inspect the project or package, scheme, target settings
 | URLSession requests, status handling, retries, caching, downloads, background transfer | [`references/urlsession-networking.md`](references/urlsession-networking.md) |
 | Swift Testing assertions, arguments, concurrency, async behavior, coverage | [`references/swift-testing.md`](references/swift-testing.md) |
 | WidgetKit, App Intents, HealthKit, CloudKit, or platform-specific animation | [`references/platform-integrations-and-animation.md`](references/platform-integrations-and-animation.md) |
+| Driving the app on a simulator for runtime evidence (screenshots, logs, per-screen checks, human-verification flows) | [`references/simulator-verification.md`](references/simulator-verification.md) |
 
 Load more than one reference when the changed behavior crosses those boundaries; do not load unrelated framework guidance.
 
@@ -49,6 +50,8 @@ A completed change:
 ## Evidence-first verification
 
 Implementation completion and review findings are independent results. Record one matrix row for every applicable contract, splitting rows whenever targets, destinations, commands, fixtures, or scenarios differ.
+
+To produce the Observable-behavior, Failure-boundary, Accessibility, and Platform-configuration rows on a simulator, [`references/simulator-verification.md`](references/simulator-verification.md) gives an XcodeBuildMCP-driven boot -> build -> install -> launch -> per-screen screenshot/log loop, and folds device-only flows (Sign in with Apple, push, IAP, camera, location, SwiftUI Text inline links) into `BLOCKED`/`PASS` matrix rows. It is MCP-gated: when XcodeBuildMCP is absent, fall back to the literal build/test commands in the matrix below — those remain canonical.
 
 | Contract | Required applicability | Executed check | Result | Evidence |
 | --- | --- | --- | --- | --- |

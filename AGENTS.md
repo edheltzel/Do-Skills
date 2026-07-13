@@ -105,6 +105,10 @@ Default section order:
 - Process skills keep confirm-first human gates (seams before tests, quiz before
   ticket publish, triage/wayfinder confirms); the TDD loop is strictly red→green
   with refactoring at review; `spec` synthesizes and publishes without pausing
+- Review skills are propose-only by default; applying fixes is an explicit opt-in
+  mode gated on behavior-preservation verification
+- Autonomous shipping exists only as the explicit opt-in `lfg` autopilot — nothing
+  auto-invokes it, and invoking it authorizes that session's pushes only
 
 ## Child DOX Index
 

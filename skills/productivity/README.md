@@ -4,11 +4,15 @@ Non-code workflow tools.
 
 | Skill | Description |
 | --- | --- |
+| [`compound`](./compound/) | Capture a just-solved problem or hard-won practice as a searchable doc in docs/solutions/, so the next occurrence takes minutes instead of research. |
+| [`compound-refresh`](./compound-refresh/) | Audit docs/solutions/ learnings against the current codebase and keep the library trustworthy — per-doc Keep / Update / Consolidate / Replace / Delete verdicts plus document-set analysis across the whole library. |
 | [`distill-to-skill`](./distill-to-skill/) | Distill knowledge from any source — blog posts, articles, documentation, GitHub repos, video transcripts, books, papers — into a well-structured agent skill. |
+| [`explain`](./explain/) | A personal explainer with four modes — concept | diff | idea | work-recap — that turns one thing into a dense, visual explainer written for you personally, then makes it stick with a check-in (predict-then-reveal for diffs, corrected exercises otherwise). |
 | [`grill-me`](./grill-me/) | A relentless interview to sharpen a plan or design. |
 | [`grill-with-docs`](./grill-with-docs/) | A relentless interview to sharpen a plan or design that also writes the docs — ADRs and a glossary — as it goes. |
 | [`grilling`](./grilling/) | Grill the user relentlessly about a plan or design until you reach shared understanding — one question at a time, each with a recommended answer. |
 | [`handoff`](./handoff/) | Compact the current conversation into a handoff a fresh agent can pick up — written as a repo-versioned doc, or optionally seeded straight into a background agent. |
+| [`ideate`](./ideate/) | Generate many grounded candidate directions, critique them all with reasons, and present only the survivors — a ranked ideation doc, not a plan. |
 | [`loop-me`](./loop-me/) | Grill me about the specs for the workflows I want to build, within a stateful workspace — the loop/workflow/trigger/checkpoint/push-right/brief vocabulary. |
 | [`pm-tools`](./pm-tools/) | GitHub Projects management via gh CLI — creating projects, managing items/fields, plus opinionated PM recipes — board bootstrap, Epic→Feature→Task issue hierarchy with sub-issue linking, label policy, running a plan against the board, picking next work, and status reporting. |
 | [`research`](./research/) | Investigate a question against primary sources in a background agent and capture the findings as a cited Markdown note under docs/. |

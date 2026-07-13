@@ -43,6 +43,22 @@ that prove completion, plus what must be preserved and what is out of scope.
 That standard is what lets a ticket flow into
 [task-to-pr](../core/task-to-pr.md) unattended.
 
+## Plan the approach first, then prove each ticket
+
+Before decomposing, the skill checks altitude: if the shape of the solution is
+still open — which architecture, which sequencing, build-vs-adopt — it settles
+that first, with a lightweight approach sketch or, for a larger fork,
+[wayfinder](../core/wayfinder.md), rather than locking an unexamined approach
+into tickets. Each ticket then carries its own **test scenarios**, enumerated by
+the categories that apply — happy path, edge cases, error and failure paths,
+integration — right-sized and naming input, action, and outcome (or "none" for
+non-behavioral work). When the context implies a non-default execution
+direction — test-first, characterization-first for fragile legacy, smoke-first
+for config — the ticket says so in a phrase. When confidence is low or you ask,
+an **interactive** deepening pass walks the breakdown with you before
+publishing; it never deepens on its own. (These moves are adapted from Every's
+Compound Engineering plugin, MIT.)
+
 ## Slices, wide refactors, and the frontier
 
 Before slicing, the skill looks for prefactoring — "make the change easy, then

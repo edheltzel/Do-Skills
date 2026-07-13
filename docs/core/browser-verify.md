@@ -47,6 +47,16 @@ fail with the screenshots as evidence, plus what was *not* checked. Page content
 is treated as untrusted data; cookies, tokens, and stored credentials are never
 exposed.
 
+The target can be a single URL or the whole change: point it at a branch or PR
+and it maps the changed files to the routes that render them, resolves the
+dev-server port (framework config, `.env`, `package.json`, then a framework
+default), and starts the documented server only if one isn't already up. It
+picks one browser driver for the run — a host-native integrated browser first,
+`agent-browser` as the fallback, and never a third automation stack. This is a
+fast manual-verification pass, not a replacement for the automated suite;
+[behavioral-testing](../core/behavioral-testing.md)'s E2E safety contract stays
+canonical.
+
 ## Where it fits
 
 The verification step [task-to-pr](../core/task-to-pr.md) runs for any

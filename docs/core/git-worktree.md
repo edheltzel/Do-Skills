@@ -20,6 +20,12 @@ The defining constraint is location: every worktree lands in a standardized path
 `~/.git-worktrees/<repo>/<branch>`, never inside a project directory — so your
 working trees stay tidy and a worktree never gets mistaken for repo content.
 
+Before creating anything it **detects existing isolation** — most harnesses open a
+worktree at session start, so the common case is that isolation already exists and
+the right move is to work in place, not nest a second one. When it does create, it
+**prefers the harness's native worktree tool** over raw `git worktree add` so the
+harness can track and clean up what it made.
+
 ## When to reach for it
 
 Type `/git-worktree`, or the agent reaches for it automatically when you ask to
@@ -40,8 +46,17 @@ at it.
 - **List**: shows every worktree and flags which is the main working tree.
 - **Prune**: clears stale references left by a manually deleted directory.
 
-Safety is built in: `--force` never runs without your explicit confirmation, and
-ambiguous intent resolves to the non-destructive create.
+Create works in two modes: **new work** branches a fresh feature branch from the
+trunk; **isolate an existing ref** attaches a worktree to a branch, tag, commit,
+or PR you name — a PR is checked out on a local branch (never a detached
+`FETCH_HEAD`, which would orphan later commits) so the fix loop still updates it.
+One hard rule governs both: a branch can live in only one worktree at a time, so a
+ref already checked out elsewhere is reported, never forced into a second tree.
+
+Safety is built in: `--force` never runs without your explicit confirmation,
+ambiguous intent resolves to the non-destructive create, and a worktree that can't
+be created (a sandbox or permission failure) blocks for your decision rather than
+silently working in the checkout you meant to protect.
 
 ## Where it fits
 

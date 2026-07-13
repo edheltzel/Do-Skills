@@ -42,6 +42,18 @@ Style preferences where both approaches are valid don't get flagged at all. Issu
 checklists ("unused variable", "missing validation", "memory leak", "performance")
 enumerate the checks that must produce artifacts before the flag ships.
 
+## Independent verification, when the stakes justify it
+
+Beyond the single-reviewer gates, the protocol carries an optional overlay for
+high-stakes or fix-driving reviews: a per-finding **validator wave** (one
+independent second opinion per surviving finding, so a batched reviewer's shared
+bias can't confirm false positives) and a **cross-model adversarial pass** (the
+same brief through a different model family). Both operationalize the
+try-to-disprove-it discipline at scale; [code-review](./code-review.md) carries
+ready implementations of each. The "quote-the-line gate" some review skills use
+is not a separate mechanism — it is the echo gate applied to a finding, and the
+overlay notes the equivalence so the two aren't run twice.
+
 ## It's working if
 
 - Every reported finding cites file:line from code read in the same turn.

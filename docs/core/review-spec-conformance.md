@@ -39,7 +39,12 @@ It pins the fixed point (three-dot diff against the merge-base), then **finds th
 fixed order: issue references in the commit messages (fetched with `gh issue view`), a path you
 passed, a PRD under `docs/`/`specs/`, then asking you — and if there genuinely is no spec, it
 stops and says so. Findings quote the spec line so you can check each one, and ambiguous
-requirements are raised as questions rather than asserted as omissions. Because it carries only
+requirements are raised as questions rather than asserted as omissions. It also
+walks the spec's own enumerated requirements as a completeness trace — every
+`R#`/`AE#`/acceptance-checkbox item marked implemented (with the `file:line`),
+explicitly deferred (with where the author said so), or omitted — so nothing
+falls silently through, and silence counts as an omission rather than a
+deferral. Because it carries only
 the spec — never the coding standards — its judgement stays uncoloured; when you want a
 two-axis review, run it as one **context-isolated sub-agent** in parallel with
 [review-structure](../core/review-structure.md) or

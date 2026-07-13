@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Code Review Findings",
+  "description": "Return contract for a lens sub-agent. The sub-agent returns this JSON in its final message — there is no artifact file.",
+  "type": "object",
+  "required": ["reviewer", "findings", "residual_risks", "testing_gaps"],
+  "properties": {
+    "reviewer": {
+      "type": "string",
+      "description": "The lens skill applied (e.g. 'adversarial-review', 'review-structure', 'typescript')"
+    },
+    "findings": {
+      "type": "array",
+      "description": "Review findings. Empty array if none.",
+      "items": {
+        "type": "object",
+        "required": ["title", "severity", "file", "line", "why_it_matters", "confidence", "evidence", "pre_existing"],
+        "properties": {
+          "title": { "type": "string", "description": "Short, specific issue title. 10 words or fewer.", "maxLength": 100 },
+          "severity": {
+            "type": "string",
+            "enum": ["Critical", "Major", "Minor", "Informational"],
+            "description": "Severity per review-verification-protocol. Critical: security vuln, data corruption, happy-path crash, broken public contract. Major: logic bug affecting functionality, missing error handling, measurable perf/a11y issue. Minor: clarity, docs, non-critical coverage. Informational: net-new code requests, future ideas, optimizations with no measurable impact — excluded from the actionable count."
+          },
+          "file": { "type": "string", "description": "Repo-relative file path" },
+          "line": { "type": "integer", "description": "Primary line number", "minimum": 1 },
+          "why_it_matters": {
+            "type": "string",
+            "description": "Observable behavior first — what breaks and who is hit, not a restatement of the code. 2-4 sentences plus the minimum quoted code."
+          },
+          "confidence": {
+            "type": "integer",
+            "enum": [0, 25, 50, 75, 100],
+            "description": "Anchored confidence. 0: false positive or pre-existing — do not emit. 25: speculative, unverifiable from the diff — do not emit. 50: verified but minor/uncertain — surfaces only when Critical or routed to a soft bucket. 75: highly confident, will affect users/callers/runtime in normal usage — actionable. 100: verifiable from the code alone (compile/type error, definitive logic bug, quotable standards violation)."
+          },
+          "evidence": {
+            "type": "array",
+            "description": "Code-grounded evidence, >=1 item. For any finding at anchor 75 or 100, the FIRST item MUST be the verbatim motivating line(s) with file:line — the quote-the-line gate. A finding whose trigger cannot be quoted steps down to anchor 50.",
+            "items": { "type": "string" },
+            "minItems": 1
+          },
+          "suggested_fix": {
+            "type": ["string", "null"],
+            "description": "Concrete minimal fix defensible from the diff, parallel patterns, or framework conventions. Propose one whenever any defensible change is reachable; name any assumption rather than punting. Omit only when there is no code-level change to propose (the finding is a question, or the resolution is purely organizational)."
+          },
+          "requires_verification": {
+            "type": "boolean",
+            "description": "True when a fix for this finding needs targeted tests or a follow-up review before it can be trusted."
+          },
+          "pre_existing": {
+            "type": "boolean",
+            "description": "True only for issues in unchanged code unrelated to this diff. If the diff makes the issue newly relevant, it is NOT pre-existing."
+          }
+        }
+      }
+    },
+    "residual_risks": {
+      "type": "array",
+      "description": "Risks noticed but not confirmed as findings",
+      "items": { "type": "string" }
+    },
+    "testing_gaps": {
+      "type": "array",
+      "description": "Missing test coverage identified",
+      "items": { "type": "string" }
+    }
+  },
+  "_meta": {
+    "return_note": "The full return above IS what the sub-agent sends in its final message. The orchestrator merges from these returns — no run-id, no /tmp artifact tree. For the quote-the-line gate the orchestrator reads evidence[0] directly from the return.",
+    "confidence_gate": "Governs the actionable tier only (Critical/Major/Minor competing to surface). Below anchor 75 they are suppressed, except Critical at 50+ so critical-but-uncertain issues are not silently dropped; 75/100 are actionable. Informational findings and the residual_risks/testing_gaps buckets are non-actionable and reported in their own sections regardless of anchor — the gate does not apply to them.",
+    "net_new_overlay": "A finding requesting code that did not exist before (new module, test suite, abstraction, dependency) is Informational and excluded from the actionable count, regardless of merit."
+  }
+}

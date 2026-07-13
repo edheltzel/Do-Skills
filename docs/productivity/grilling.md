@@ -20,7 +20,7 @@ The defining constraint is the fact/decision split: if a question can be answere
 
 ## When to reach for it
 
-Type `/grilling`, or the agent reaches for it automatically when you want to pressure-test a plan or use any "grill" phrasing. Reach for it before committing to a design, when a plan feels underspecified, or when you want the assumptions dragged into the open. For a grilling that also writes ADRs and a glossary as it goes, use [grill-with-docs](./grill-with-docs.md); for workflow specs specifically, use [loop-me](./loop-me.md); to mine raw fragments toward something to write, use [writing-fragments](./writing-fragments.md).
+Type `/grilling`, or the agent reaches for it automatically when you want to pressure-test a plan or use any "grill" phrasing. Reach for it before committing to a design, when a plan feels underspecified, or when you want the assumptions dragged into the open. For a grilling that also writes ADRs and a glossary as it goes, use [grill-with-docs](./grill-with-docs.md); for workflow specs specifically, use [loop-me](./loop-me.md); to mine raw fragments toward something to write, use [writing-fragments](./writing-fragments.md). An adopt/switch/compare question about a named external tool is not a grilling at all — it routes to [pov](../core/pov.md) for a project-grounded verdict.
 
 ## The interview discipline
 
@@ -28,6 +28,10 @@ Type `/grilling`, or the agent reaches for it automatically when you want to pre
 - **Every question carries a recommended answer** — the agent commits to a position, you correct it.
 - **Facts are looked up, decisions are yours.** The agent does the legwork on anything the codebase can settle.
 - **A confirm-first gate.** Nothing gets built until you say the understanding is shared.
+
+## Optional passes
+
+Three situational probes fold into the interview when the moment arms them (adapted from Every's Compound Engineering plugin, MIT): a **blindspot pass** that maps a territory's decision surface when you flag "I know nothing about X", so you choose among options you can actually weigh; a **product pressure test** that raises only the rigor gaps your opening actually has — evidence, specificity, counterfactual, attachment, durability; and an **integration check** that combines your stated answers with the agent's defaults to surface a non-obvious downstream consequence before the grilling closes. A tight, well-framed plan may trigger none of them.
 
 ## Where it fits
 

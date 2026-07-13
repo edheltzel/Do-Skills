@@ -35,11 +35,15 @@ already happened. When the fix is known and just needs building, hand off to
 The method is six phases, and the first one *is* the skill: build a tight,
 red-capable feedback loop — a single command, already run, that drives the real
 bug path and asserts the user's exact symptom. Everything downstream just
-consumes it: reproduce and minimise to the smallest scenario that still goes red,
-generate 3–5 ranked falsifiable hypotheses before testing any, instrument one
-variable at a time (debugger over logs, tagged `[DEBUG-…]` logs, measure-first
-for performance), fix at a correct seam with the regression test written failing
-first, then a post-mortem asking *what would have prevented this*. No fix lands
+consumes it: first check the issue tracker and merged/open PR history for prior
+attempts (a past repro seeds the loop; a failed fix is negative evidence that
+prunes hypotheses), reproduce and minimise to the smallest scenario that still
+goes red, generate 3–5 ranked falsifiable hypotheses before testing any,
+instrument one variable at a time (debugger over logs, tagged `[DEBUG-…]` logs,
+measure-first for performance), fix at a correct seam with the regression test
+written failing first — reaching for defense-in-depth (validate at multiple
+layers) when the bug is a recurring invalid-state pattern that a refactor could
+reintroduce — then a post-mortem asking *what would have prevented this*. No fix lands
 before the failure is reproduced and *explained*; if a loop genuinely can't be
 built, the skill stops and asks for access or an artifact instead of guessing.
 One bug at a time, and it stops when the fix needs a product or code-owner

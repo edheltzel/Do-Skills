@@ -61,8 +61,17 @@ part of the evidence. Cached tracking state and a successful push exit status
 are insufficient; an absent ref, failed lookup, or unequal object ID is reported
 as blocked or failed.
 
+Opening a PR is covered too: it splits work into logical commits (file-level,
+two or three max, no `git add -p`), composes the title and body to explain what
+the diff cannot show — sizing by the reviewer's decision cost, leading with a
+user-visible before/after, and classifying related-work references per tracker —
+and creates the PR safely (fork-PR disambiguation, `--body-file` never stdin).
+
 Deeper playbooks live in the skill's `references/` — `conflict-resolution.md`,
-`recovery.md`, and `repo-settings.md`.
+`recovery.md`, `repo-settings.md`, `pr-description-writing.md` (composing the
+title and body — imported/adapted from Every's Compound Engineering plugin,
+github.com/EveryInc/compound-engineering, MIT), and `branch-creation.md`
+(branching safely off a possibly-stale default — same source).
 
 ## It's working if
 

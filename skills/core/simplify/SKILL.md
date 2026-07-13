@@ -15,6 +15,7 @@ Simplify code by making intent easier to see without changing behavior.
 - Remove code that no longer earns its place: dead branches, unused parameters, duplicate logic, speculative options, and redundant wrappers.
 - Keep related logic together. Split code only when the new boundary has a clear name and purpose.
 - Match the surrounding style. Do not reformat or modernize unrelated code.
+- **Never simplify away a safety check.** Input validation at trust boundaries, error handling that prevents data loss, security checks (authorization, escaping, sanitization), and accessibility affordances are not removable boilerplate — preserve them even when they look redundant or inline-able. Code that drops one of these is not simpler, it is unfinished; skip any simplification that would thin or remove one.
 
 ## What to simplify
 
@@ -82,6 +83,15 @@ Stop when:
 3. Check each candidate against the call site: is the code easier to understand after the change?
 4. Preserve behavior exactly.
 5. If no change improves clarity, say so.
+
+## Behavior-preservation gate (when applying)
+
+This skill's premise is that simplification preserves exact behavior. When a coordinator *applies* these proposals rather than only listing them — the `/simplify` command, or a review workflow acting on the findings — it must verify preservation before committing, because behavior review alone does not catch every regression:
+
+- **Typecheck and lint** the project (or the affected package) — these are fast and catch the common simplification regressions: broken imports, unused exports, dropped type narrowings, dead code other modules still reference.
+- **Run the tests scoped to the changed paths** (broaden when a heavily-imported helper or shared code was touched). Match scope to blast radius; a 3-line change does not warrant the full suite.
+
+Never relax an assertion, weaken a type, or skip a test to make a check pass — that defeats the guarantee. On any failure, fix the break or revert the specific change that caused it; never leave the tree red. If no typecheck, lint, or test suite is configured, say so in the summary rather than silently skipping verification.
 
 ## Output
 

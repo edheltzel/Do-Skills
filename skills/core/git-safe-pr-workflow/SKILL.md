@@ -67,6 +67,22 @@ A commit is ready only when current repository evidence establishes all of the f
 For a commit-only request, completion is the verified local commit. Stop without pushing, setting
 an upstream, creating a remote branch, or performing any other operation that writes remote state.
 
+### Logical Commit Splitting
+
+Before staging everything together, scan the changed files for naturally distinct concerns. If they
+clearly group into separate logical changes (a refactor in one directory and a new feature in another,
+or test files for a different change than the source files), create separate commits.
+
+- Group at the **file level only** — do not use `git add -p` or split hunks within a file.
+- Two or three logical commits is the sweet spot. Do not over-slice into many tiny commits; when the
+  separation is ambiguous, one commit is fine.
+- Stage specific files by name (`git add file1 file2`); avoid `git add -A` / `git add .`, which sweep
+  in `.env`, build artifacts, and generated files.
+
+When matching commit-message convention and the repo uses Conventional Commits, default to `fix:` over
+`feat:` when both seem to fit — adding code to remedy broken or missing behavior is `fix:`. Reserve
+`feat:` for capabilities the user could not previously accomplish. The user may override.
+
 ### Push Checks
 
 Proceed beyond the local boundary only when the user explicitly authorizes a push. A request that
@@ -92,7 +108,10 @@ from being mistaken for delivery of the intended commit to the intended branch.
 
 Use this as the default GitHub workflow for low-experience users:
 
-1. Branch from `main`.
+1. Branch from `main`. When branching off the default branch, local `main` may be stale or carry
+   unpushed commits — read `references/branch-creation.md` and follow its decision flow (fresh
+   fetch, unpushed-commit detection, carry-forward ask, stash collision handling) rather than
+   branching blind.
 2. Commit locally on the feature branch in small logical steps.
 3. Open a PR early.
 4. When the branch falls behind `main`, merge `origin/main` into the feature branch.
@@ -106,7 +125,10 @@ That workflow is where many novices re-introduce old code or lose work.
 
 ## Opening PRs
 
-When helping a user open a PR, treat the PR title as the likely final squash-merge commit.
+When helping a user open a PR, treat the PR title as the likely final squash-merge commit. For
+composing the title and body themselves — what to cut, how to size by decision cost, how to lead
+with a before/after, and how to classify related-work references — read
+`references/pr-description-writing.md`.
 
 - Write the title so it reads well on `main` after `Squash and merge`.
 - Use a concise Conventional Commit style title when the repo uses that convention.
@@ -139,6 +161,24 @@ breaks that force users to change configuration, CLI invocations, or API integra
 not internal refactors that leave external consumers untouched.
 
 If the repo uses GitHub squash merges, prefer the PR title as the default squash commit message.
+
+### Creating the PR safely
+
+- **Fork PR — find the right existing PR.** `gh pr list --head <branch>` filters by branch **name
+  only**, not `<owner>:<branch>`, so in a base repo with multiple forks another contributor's PR can
+  share the branch name. Never blindly take index 0: select the entry whose `headRepositoryOwner` and
+  `headRefName` match the head you are pushing. Do **not** pass `<owner>:<branch>` to `--head` — it is
+  silently unsupported and returns `[]`, which reads as "no PR" and opens a duplicate. The PR lives on
+  the base repo, so target it with `gh`'s default-repo resolution or an explicit `-R <base-owner>/<repo>`.
+- **Pass the body via `--body-file`, never stdin.** Write the composed body to a temp file and pass
+  `--body-file <path>`. Never use `--body-file -`, a stdin pipe, a heredoc-to-stdin, or
+  `--body "$(cat ...)"` — wrappers and stdin handling can silently produce an empty PR body while `gh`
+  still exits 0 and returns a URL.
+- **One command per shell tool call.** When gathering context (`git status`, `git branch --show-current`,
+  `gh pr list`, …), run each as its own single-program invocation. Do not join them with `;`, `&&`,
+  `||`, pipes, `$(...)`, or redirects like `2>/dev/null`: that syntax parses only under POSIX shells and
+  aborts under Windows PowerShell. Read each command's exit status directly — a non-zero exit is often a
+  normal state to interpret (no PR yet, no `origin/HEAD`, detached HEAD), not a failure to suppress.
 
 ## Sync Decision Tree
 

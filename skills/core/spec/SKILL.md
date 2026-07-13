@@ -29,6 +29,8 @@ An exhaustive numbered list, each as "As an <actor>, I want <feature>, so that <
 ## Design
 Important components, data flow, and implementation decisions. Do not include specific file paths or code snippets — they go stale fast. Exception: if a `prototype` produced a snippet that encodes a decision more precisely than prose can (state machine, reducer, schema, type shape), inline it in the relevant decision and note it came from a prototype; trim to the decision-rich parts.
 
+When the approach is not obvious, generate at least one non-obvious angle before settling — inversion (what if we did the opposite?), constraint removal (what if X weren't a limitation?), or a cross-domain analogy from how another field solves this. Hold each to an anti-genericness test: if it would appear in a generic listicle for this problem category, sharpen it against the actual code and constraints or drop it. Where it earns its cost, record one higher-upside challenger alongside the baseline approach, marked as the challenger — never silently promoted to the default.
+
 ## Interfaces and data
 APIs, commands, events, schemas, or compatibility requirements.
 
@@ -36,7 +38,7 @@ APIs, commands, events, schemas, or compatibility requirements.
 What happens on invalid input, failure, or partial completion.
 
 ## Test plan
-How the requirements will be proved: what makes a good test here (assert observable behavior, not implementation details), which modules or seams will be tested, and prior art — similar tests already in the codebase to follow.
+How the requirements will be proved: what makes a good test here (assert observable behavior, not implementation details), which modules or seams will be tested, and prior art — similar tests already in the codebase to follow. Enumerate the scenarios to prove, drawn from every category that applies — happy path (expected inputs and outputs), edge cases (boundaries, empty, null, concurrent access), error behavior (invalid input, failure, partial completion), and integration (behaviors crossing layers that mocks alone won't prove). Name each scenario's input, action, and expected outcome, right-sized to the feature — one scenario for trivial work, many for a rich flow.
 
 ## Out of scope
 - Related work this spec does not include.

@@ -229,6 +229,15 @@ Flag missing try/catch **ONLY IF**:
 - [ ] The error would cause a crash, not just a failed operation
 - [ ] User needs specific feedback for this error type
 
+## Independent verification overlay (optional)
+
+The gates above are what a single reviewer does before reporting. When the stakes justify more assurance — a large or risky change, a review whose findings will drive automated fixes — escalate with either or both of these. They **operationalize, at scale, the try-to-disprove-it discipline the gates already ask for** (the counterevidence pass adversarial-review runs per finding); they do not replace the per-finding gates.
+
+- **Per-finding independent validator wave.** After a review produces its surviving findings, dispatch one independent validator per finding — a *fresh second opinion*, not a critic of the original reviewer. Each validator re-verifies the finding from the code alone (is it real as written, introduced by this change, and not already handled elsewhere) and returns a confirm/reject verdict; rejected findings are dropped with a recorded reason. Independence is the point — a single validator looking at all findings together pattern-matches across them and recreates the original reviewer's bias, so dispatch one per finding. `code-review` implements this as its validator stage; run it standalone the same way whenever a review's findings warrant a second, uncommitted pass.
+- **Cross-model adversarial pass.** Run the same review brief through a *different model family* in a separate read-only process (a peer CLI). Two model families reviewing the same change in separate processes is the strongest counterevidence signal available — agreement across families is far more trustworthy than agreement within one. This is optional and harness-gated (needs a peer CLI); `code-review` carries a ready implementation. Skip silently when no peer is available — it is additive, never blocking.
+
+**Equivalence note — the quote-the-line gate is gate 0.** Some review skills phrase the same discipline as a "quote-the-line gate": before claiming high confidence in a finding, quote the verbatim line that makes it true, with `file:line`. That is not a second mechanism — it is [Anti-confabulation (gate 0)](#anti-confabulation-gate-0--applies-to-all-reviewverify-skills) applied to a finding: reading, in this turn, the source that substantiates the claim, and echoing it. A reviewer that satisfies gate 0 has satisfied the quote-the-line gate and vice versa; do not run or report them as two separate checks.
+
 ## Before Submitting Review
 
 Final verification:

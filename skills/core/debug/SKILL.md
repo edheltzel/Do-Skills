@@ -13,7 +13,9 @@ A discipline for hard bugs and performance regressions. Skip phases only when ex
 
 **This is the skill.** Everything else is mechanical. With a tight pass/fail signal that goes red on *this* bug, bisection, hypothesis-testing, and instrumentation all just consume it; without one, staring at code won't save you. Spend disproportionate effort here — be aggressive, be creative, refuse to give up.
 
-Ways to construct one, in roughly this order:
+**Check for prior attempts first.** Before sinking effort into a loop, search the issue tracker and the merged/open PR history for earlier runs at this bug (`gh issue list --search`, `gh pr list --search`, `git log --grep`). A prior repro seeds your loop faster, and a *failed* fix is negative evidence — it tells you which hypotheses are already ruled out, so Phase 3 doesn't re-test them.
+
+Ways to construct the loop, in roughly this order:
 
 1. **Failing test** at whatever seam reaches the bug — unit, integration, e2e.
 2. **Curl / HTTP script** against a running dev server.
@@ -50,9 +52,11 @@ Each probe maps to a specific prediction; change one variable at a time. Prefer 
 
 Write the regression test **before the fix**, but only if a **correct seam** exists — one where the test exercises the real bug pattern as it occurs at the call site. A too-shallow seam (a single-caller test for a multi-caller bug) gives false confidence; if no correct seam exists, that itself is the finding — note it and flag it for Phase 6. With a correct seam: turn the minimised repro into a failing test, watch it fail, apply the fix, watch it pass, then re-run the Phase 1 loop against the original un-minimised scenario.
 
+**Consider defense-in-depth for the fix shape.** When the bug was invalid state reaching a vulnerable path — and the pattern recurs across files, the failure would be catastrophic, or the operation is dangerous regardless of caller — a single-point fix leaves the door open for a refactor or a new caller to reintroduce it. Load [references/defense-in-depth.md](references/defense-in-depth.md) and validate at multiple layers (entry validation / invariant / environment guard / diagnostic breadcrumb). Skip it for a one-off logic error with no realistic recurrence path — the trigger gate is in that file.
+
 ## Phase 6 — Cleanup and post-mortem
 
-Before declaring done: the original repro no longer reproduces (re-run the Phase 1 loop), the regression test passes (or the absence of a seam is documented), all `[DEBUG-...]` instrumentation is removed (grep the prefix), throwaway prototypes are deleted, and the correct hypothesis is stated in the commit or PR message so the next debugger learns. Then ask: **what would have prevented this bug?** If the answer is architectural — no good test seam, tangled callers, hidden coupling — hand off to `review-structure` with the specifics. Make that recommendation after the fix is in, when you know the most.
+Before declaring done: the original repro no longer reproduces (re-run the Phase 1 loop), the regression test passes (or the absence of a seam is documented), all `[DEBUG-...]` instrumentation is removed (grep the prefix), throwaway prototypes are deleted, and the correct hypothesis is stated in the commit or PR message so the next debugger learns. Then ask: **what would have prevented this bug?** If the answer is architectural — no good test seam, tangled callers, hidden coupling — hand off to `review-structure` with the specifics. If it is a recurring invalid-state pattern that will resurface through other callers, the structural prevention is defense-in-depth ([references/defense-in-depth.md](references/defense-in-depth.md)) — apply it now if you did not in Phase 5. Make that recommendation after the fix is in, when you know the most.
 
 ## Rules
 

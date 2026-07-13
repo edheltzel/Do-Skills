@@ -37,7 +37,13 @@ end-of-session multi-lens review, use
 The skill rejects brevity as a goal by itself. It favors clear control flow,
 intent-revealing names, and boundaries that hide meaningful low-level detail.
 It stops when the remaining changes are taste preferences, require broader
-context, or would need new tests, migrations, or API changes.
+context, or would need new tests, migrations, or API changes. One line it never
+crosses: a safety check — input validation at a trust boundary, error handling
+that prevents data loss, a security check, an accessibility affordance — is not
+removable boilerplate, so a "simplification" that thins one is skipped as
+unfinished, not merged. When a coordinator *applies* these proposals rather than
+only listing them, it verifies behavior held with a typecheck, lint, and scoped
+tests before committing, and reverts any change that fails.
 
 Single-use helpers get the same test. A helper is a candidate for inlining when
 its body communicates more than its name. It stays when the name captures a

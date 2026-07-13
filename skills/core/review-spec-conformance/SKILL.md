@@ -57,9 +57,17 @@ Read the spec and the diff, then report — per requirement, quoting the spec li
 
 Quote the spec line for every finding so the reader can check it. Keep judgement calls labelled as such — an ambiguous requirement is a question to raise, not a hard omission to assert.
 
+**Requirements-completeness trace.** Beyond spotting missing behaviour ad hoc, walk the spec's own enumerated requirements as a checklist so nothing falls silently through. Extract every identified requirement or acceptance item — `R1`/`R2`… requirement IDs, `AE1`/`AC1`… acceptance-example or acceptance-criterion IDs, checkbox acceptance lists, or a numbered "must" list — and for each one record exactly one status:
+
+- **Implemented** — the diff delivers it; cite the `file:line` that does.
+- **Explicitly deferred** — the change, PR body, or an issue comment says this item is out of scope for now; cite where. A deferral the author stated is not an omission.
+- **Omitted** — asked for, not delivered, and not deferred anywhere. This is a category (a) finding; quote the spec ID and line.
+
+An item is only "explicitly deferred" when the author said so — silence is an omission, not a deferral. Report the trace as a compact checklist (ID -> status) so the reader sees coverage at a glance, and surface every omission as a spec finding. This trace stays on the **spec axis** with everything else here — never merge it into a standards or correctness pass.
+
 ### 4. Report
 
-Present findings under a single `## Spec` heading, grouped by the three categories above. End with a one-line summary: total findings and the worst omission or contradiction. Do not fold in or reorder anything from a standards or correctness pass. For the report-shape conventions (echo-the-artifact discipline, severity vs confidence), follow review-verification-protocol.
+Present findings under a single `## Spec` heading, grouped by the three categories above, and include the requirements-completeness checklist (each requirement/acceptance ID -> implemented / deferred / omitted) so coverage is visible at a glance. End with a one-line summary: total findings, requirements covered vs omitted, and the worst omission or contradiction. Do not fold in or reorder anything from a standards or correctness pass. For the report-shape conventions (echo-the-artifact discipline, severity vs confidence), follow review-verification-protocol.
 
 ## Running as one lens of a parallel review
 

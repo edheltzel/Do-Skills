@@ -43,6 +43,17 @@ gate. Requirements
 are observable and testable, user stories cover every aspect of the feature, and
 sections that do not apply are omitted so the spec stays short enough to read.
 
+Two moves sharpen the synthesis (adapted from Every's Compound Engineering
+plugin, MIT). In Design, when the approach is not obvious, the skill generates
+at least one non-obvious angle — inversion, constraint removal, or a
+cross-domain analogy — holds every approach to an anti-genericness test (if it
+would appear in a generic listicle for the problem category, sharpen it against
+the actual code or drop it), and where it earns its cost records one
+higher-upside challenger beside the baseline, marked as the challenger. In the
+Test plan, scenarios are enumerated by category — happy path, edge cases, error
+behavior, integration — each naming its input, action, and expected outcome,
+right-sized to the feature.
+
 ## Where it fits
 
 The middle stage of the Decide flow: [design-doc](../core/design-doc.md) →
