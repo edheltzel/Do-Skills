@@ -1,6 +1,6 @@
 ---
 name: plan
-description: "Break a spec or brief into agent-ready tickets (github issuesm, linear, jira) that each deliver a working outcome. Output in chat or push to ticketing system if asked"
+description: "Break a spec or brief into agent-ready tickets (GitHub Issues, Linear, Jira) that each deliver a working outcome. Output in chat or push to the ticketing system if asked."
 user-invocable: true
 argument-hint: "<spec, brief, issue, or repo path>"
 ---

@@ -120,7 +120,12 @@ Good default patterns:
 - `fix(<skill-name>): correct <problem>`
 - `docs: document <policy or workflow>`
 
-For the PR body:
+Before writing the body, check for a repository PR template and fill it instead of inventing
+a structure. Look in `.github/pull_request_template.md`, `pull_request_template.md` at the
+repo root or under `docs/`, and any files under `.github/PULL_REQUEST_TEMPLATE/` (multiple
+templates — ask which one applies).
+
+For the PR body (when no template exists):
 
 - briefly state what changed
 - briefly state why it changed
@@ -177,6 +182,8 @@ For recovery playbooks, read `references/recovery.md`.
 - Do not use `git reset --hard`, `git clean -fd`, branch deletion, or tag deletion unless the user
   clearly wants destructive cleanup.
 - Do not bypass branch protections, required checks, or required review flows.
+- Do not commit or push with `--no-verify`. When a hook fails, fix the cause or stop and
+  report it; bypassing the hook hides the failure it exists to catch.
 
 If the user explicitly wants a risky operation, explain the safer alternative first. Only proceed
 when the request is clear and the branch is not a protected/shared branch.
