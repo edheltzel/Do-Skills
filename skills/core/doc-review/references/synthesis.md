@@ -42,7 +42,7 @@ Document reviews fan out: one premise challenge ("is this work justified?") spaw
 
 ## 8. Route by tier
 
-Actionable findings (anchor 75/100) route by `autofix_class`:
+Actionable findings — anchor 75/100 and **not** `Informational` severity — route by `autofix_class` (Informational-severity findings, whatever their anchor, and all anchor-50 findings go to the FYI & Informational bucket, not this routing):
 
 - `safe_auto` at anchor `100` — the clearly-safe, one-correct-fix tier. In **apply mode** these are applied automatically first (see below); in propose-only they enter the walk-through with Apply recommended.
 - `gated_auto` — a concrete fix; enter the walk-through with Apply recommended (requires `suggested_fix`; demote to `manual` if missing).

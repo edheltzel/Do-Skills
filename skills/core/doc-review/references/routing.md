@@ -23,8 +23,9 @@ Decisions (need judgment):
   Dependents (resolve if this root is rejected):
     [Major] <section> — <title> (<reviewer>, confidence <anchor>)
 
-FYI observations (anchor 50, no decision):
-[Minor] <section> — <title> (<reviewer>, confidence <anchor>)
+FYI & Informational (anchor-50 findings, plus any Informational-severity finding regardless of anchor — surfaced for awareness, no decision):
+[Minor] <section> — <title> (<reviewer>, confidence 50)
+[Informational] <section> — <title> (<reviewer>, confidence <anchor>)   (net-new / advisory — excluded from the actionable count)
 
 Residual concerns / Deferred questions:
 - <item> (<source>)
@@ -53,7 +54,7 @@ No option is marked `(recommended)` — the route depends on user intent (engage
 
 ## Per-finding walk-through (option A)
 
-Iterate actionable findings in severity order, but **root-first**: a finding with `dependents` comes before them so its decision can cascade. For each finding, print a markdown block, then fire a plain-text question — never merge the two.
+Iterate the actionable findings — anchor 75/100 with `autofix_class` `gated_auto`/`manual`, **excluding `Informational` severity** (Informational and anchor-50 findings are non-actionable and appear only in the FYI & Informational report bucket, never the walk-through) — in severity order, but **root-first**: a finding with `dependents` comes before them so its decision can cascade. For each finding, print a markdown block, then fire a plain-text question — never merge the two.
 
 Block:
 
@@ -96,7 +97,7 @@ Then emit the completion report — the same structure for every terminal path:
 - **Failures first** (any Apply that failed, any Open-Questions append that failed) — above the per-finding list.
 - **Per-finding entries** grouped `Applied / Deferred / Skipped / Acknowledged`, each with title, severity, action, and a one-line reason (Deferred: append location; Skipped: the anchor or a `why_it_matters` snippet; Acknowledged: the acknowledgement reason).
 - **Summary counts** per bucket (omit a bucket at zero).
-- **Coverage** — FYI observations, residual concerns, deferred questions, and the footnotes (`Dropped:`, `Chains:`, round-suppression notes).
+- **Coverage** — FYI & Informational observations (anchor-50 findings plus any Informational-severity finding), residual concerns, deferred questions, and the footnotes (`Dropped:`, `Chains:`, round-suppression notes).
 - **Verdict** — Ready / Ready with revisions / Not ready.
 
 ## Terminal question and iteration
