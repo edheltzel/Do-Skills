@@ -17,6 +17,8 @@
         "git-safe-pr-workflow",
         "git-worktree",
         "karpathy-guidelines",
+        "review-structure",
+        "review-verification-protocol",
         "roughdraft",
         "simplify"
       ]
@@ -29,11 +31,17 @@
         "cleanup-swift",
         "cleanup-web",
         "design-system",
+        "full-stack-web",
+        "ios-animation-design",
+        "ios-animation-implementation",
+        "ios-development",
         "lean-ts-patterns",
         "macos-swift-desktop",
         "modern-css",
         "no-use-effect",
         "parse-dont-validate",
+        "react-native-expo",
+        "tailwind-v4",
         "typescript",
         "typescript-refactoring"
       ]
@@ -44,6 +52,7 @@
       "skills": [
         "distill-to-skill",
         "pm-tools",
+        "skill-builder",
         "tech-writing"
       ]
     },

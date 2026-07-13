@@ -1,10 +1,11 @@
 ---
 name: git:safe-pr-workflow
 description: >-
-  Safe GitHub pull request workflow for low-experience Git users. Use when pulling,
-  syncing a feature branch with `main`, resolving conflicts, undoing mistakes,
-  recovering from a bad rebase, or deciding how to merge a PR while keeping `main`
-  clean. Triggers on: "update my branch", "rebase my branch", "resolve git conflicts",
+  Safe GitHub pull request workflow for low-experience Git users. Use when committing
+  or pushing changes, pulling, syncing a feature branch with `main`, resolving conflicts,
+  undoing mistakes, recovering from a bad rebase, or deciding how to merge a PR while
+  keeping `main` clean. Triggers on: "commit and push", "push my changes",
+  "update my branch", "rebase my branch", "resolve git conflicts",
   "recover from rebase", "undo pushed commit", "keep main clean", "squash merge".
 ---
 
@@ -41,6 +42,51 @@ Before any Git operation that changes history, branches, or remote state, inspec
 
 If you cannot determine whether a branch is shared, assume it is shared and choose the
 safer path.
+
+## Local Commit Boundary And Remote Push Boundary
+
+Treat a local commit and a remote update as two separately authorized outcomes. Permission to
+commit ends at the local repository unless the user also names pushing as part of the request.
+
+### Local Commit Checks
+
+A commit is ready only when current repository evidence establishes all of the following:
+
+1. **The change set is understood.** Review status, staged changes, unstaged changes, and
+   untracked paths. Account for every intended path and identify unrelated work before staging.
+2. **The commit is coherent.** Draft a summary that accurately describes the complete result and
+   follows the repository's message style. If the staged work needs more than one honest summary,
+   divide it into separate commits.
+3. **The index is correct.** Reinspect the staged file summary and relevant staged hunks after
+   staging. The index must include the whole intended change and exclude unrelated files,
+   generated debris, credentials, and changes whose required companion edits remain unstaged.
+4. **The recorded commit matches the index.** After committing, inspect the new local `HEAD`, its
+   subject, and its file summary. Reconcile any remaining working-tree changes; otherwise the
+   task's local tree should be clean.
+
+For a commit-only request, completion is the verified local commit. Stop without pushing, setting
+an upstream, creating a remote branch, or performing any other operation that writes remote state.
+
+### Push Checks
+
+Proceed beyond the local boundary only when the user explicitly authorizes a push. A request that
+expressly asks to commit and push grants both permissions, in that order.
+
+Before pushing, identify the current branch, configured upstream, remote URL, and the full
+destination ref. The destination must be intentional and must not be a protected default branch.
+Creating an upstream is allowed only as part of this authorized push and only for the named
+destination.
+
+After the push command completes, obtain new evidence directly for that exact destination ref.
+For example, query `git ls-remote --exit-code <remote> refs/heads/<branch>`, or fetch only that ref
+and inspect the fetched object ID. Record the remote name and URL, full ref, local `HEAD` object
+ID, and newly returned remote object ID. Success requires the query to resolve that exact ref and
+the two object IDs to be identical. A command exit status, cached remote-tracking branch, missing
+ref, failed query, or mismatched object ID cannot establish success; report the result as
+`BLOCKED` or `FAIL` and explain any remaining tree or ahead/behind state.
+
+These checks prove both content and destination. They prevent a technically successful Git command
+from being mistaken for delivery of the intended commit to the intended branch.
 
 ## Standard Workflow
 
@@ -79,6 +125,13 @@ For the PR body:
 - briefly state what changed
 - briefly state why it changed
 - mention testing or validation if relevant
+
+Before creating: the final title and body contain no unreplaced placeholders (`<...>`,
+`TODO`, `TBD`), and template sections with no content are removed, not left as stubs.
+
+If applying a `breaking-change` label (or `!` in the title), reserve it for **user-facing**
+breaks that force users to change configuration, CLI invocations, or API integrations —
+not internal refactors that leave external consumers untouched.
 
 If the repo uses GitHub squash merges, prefer the PR title as the default squash commit message.
 
@@ -166,14 +219,31 @@ Before syncing a feature branch:
 - [ ] merge `origin/main`, do not rebase by default
 - [ ] inspect and verify conflict resolutions
 
+Before committing:
+
+- [ ] describe the complete diff in one sentence
+- [ ] choose a coherent commit line that matches repo convention
+- [ ] verify the staged summary and diff contain only the intended change
+- [ ] verify the local commit OID, message, and file summary
+- [ ] for a commit-only request, stop without mutating a remote
+
 Before pushing:
 
-- [ ] review `status` and diff
-- [ ] confirm no accidental changes to unrelated files
-- [ ] explain any conflict resolution that changed behavior
+- [ ] confirm push authorization, current branch, upstream, remote URL, and exact destination ref
+- [ ] confirm the destination is not a protected default branch
+- [ ] freshly query or fetch the exact destination ref after push
+- [ ] record the remote/ref plus local and remote OIDs, and require them to match
+- [ ] treat a failed query, missing ref, or OID mismatch as `BLOCKED`/`FAIL`
 
 Before undoing:
 
 - [ ] determine whether the commits are pushed
 - [ ] choose `revert` for pushed work
 - [ ] use local-only undo only for unpublished work
+
+## Gotchas
+
+- Local commit permission does not cross the network boundary. Remote changes require a separate,
+  explicit request.
+- Remote-tracking branches are cached observations. Push completion is established only by a new
+  exact-ref lookup whose object ID equals local `HEAD`.

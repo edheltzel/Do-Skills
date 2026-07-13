@@ -14,3 +14,4 @@ Only **promoted** buckets have docs pages:
 `personal/` is not promoted and has no docs pages.
 
 To add or update a page, follow [`.agents/writing-docs.md`](../.agents/writing-docs.md).
+

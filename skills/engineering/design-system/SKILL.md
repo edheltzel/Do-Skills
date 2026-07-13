@@ -81,6 +81,8 @@ type ButtonProps = {
 - **Consistent naming** across all components: Root, Trigger, Content, Item, Label, Description
 - **Open code over black boxes** — prefer owning the component source (shadcn/ui model) over fighting an npm package's API
 
+For the concrete shadcn/ui implementation patterns — `React.ComponentProps<>` prop typing, `asChild` + Radix `Slot`, `data-slot` targeting, CVA variants, and the modern-CSS selectors these rely on — see [references/shadcn-patterns.md](references/shadcn-patterns.md).
+
 ## 2. Design Tokens
 
 Structure tokens in two layers. Primitive tokens define raw values. Semantic tokens assign meaning. Use semantic tokens directly in components — don't add a third "component token" layer unless you're building a white-label product with per-customer theming.

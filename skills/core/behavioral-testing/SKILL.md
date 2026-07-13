@@ -1,126 +1,71 @@
 ---
 name: behavioral-testing
 description: >
-  Behavioral testing methodology — test what users experience, not how code is structured.
-  Use when writing tests, reviewing test quality, planning test strategy for new features,
-  or when existing tests are brittle/verbose/coupled to implementation details.
-  Triggers: writing tests, TDD, test review, "tests keep breaking", "too many mocks",
-  "tests are verbose", test coverage planning, behavior-driven development.
+  Behavior-first testing for user-observable contracts, test quality review, and safe
+  executable E2E plans. Use when writing or reviewing tests, planning coverage,
+  generating an E2E plan, or executing a named E2E plan against a real environment.
+  Triggers: writing tests, TDD, brittle tests, excessive mocks, test strategy,
+  behavior-driven development, "generate an E2E test plan", "run the test plan",
+  "execute end-to-end tests".
 ---
 
 # Behavioral Testing
 
-Test observable behavior. Keep tests terse. Never test implementation details.
+Prove what a user can observe. A refactor that preserves behavior should not break the test.
 
 ## Core Laws
 
-```
-1. Test what the user sees, not how the code works
-2. If a refactor breaks a test, the test was wrong
-3. Mocks isolate — they are never the thing being tested
-4. Every assertion must trace to a user-observable outcome
-5. Terse tests > thorough ceremony
-```
+1. Assert on rendered output, navigation, responses, persisted state, files, or process behavior—not internal wiring.
+2. Name tests for the behavior and boundary they prove.
+3. Mock only external boundaries; a mock is isolation, never proof of product behavior.
+4. Keep setup to the minimum needed to expose the contract.
+5. Verify a new test fails under a plausible behavior regression.
 
-## Writing Tests
+## Test Shape
 
-### The Pattern
-
-```
-Arrange: Set up the minimum preconditions
-Act:     Do the thing the user would do
-Assert:  Check what the user would see
+```text
+Arrange: establish the minimum preconditions
+Act:     perform the action a user or caller performs
+Assert:  inspect the outcome that user or caller can observe
 ```
 
-That's it. No red-green-red ritual. No verbose setup. If test setup is longer than the assertion, something is wrong.
+Prioritize boundaries and transitions: empty or malformed input, visible errors, loading-to-success and loading-to-error transitions, retry and recovery, duplicate actions, authorization changes, and persistence across the boundary. Avoid helper-call order, internal state-container details, and mock call counts unless the call itself is the public contract.
 
-### What to Test
+## Executable E2E Contract
 
-Test **behavior at boundaries**, not every line of code:
+Load [the E2E plan reference](references/e2e-test-plan.md) before generating or executing a plan. The following contract applies in full:
 
-| Always test | Skip |
-|-------------|------|
-| What happens with empty/null/whitespace input | Internal method call order |
-| Error messages users see | Which helper function was called |
-| State transitions (loading → success → error) | Implementation details of state management |
-| API failure recovery | Mock call counts (unless it IS the behavior) |
-| Edge cases users will hit | Happy-path-only coverage |
+- **Generation and execution are separate operations.** Generate writes a plan from verified repository and environment facts; it does not run the plan or disguise an automated test suite as E2E coverage. Execute requires a named, existing, valid plan and never silently regenerates missing content.
+- **A plan contains real product coverage.** It must define at least one executable case through a user-facing application, browser, CLI, API, device, or simulator entry point. Setup-only plans, empty case lists, placeholders, and commands that merely invoke existing test suites are invalid.
+- **Safety is decided before setup.** Classify the environment as `local`, `test`, `staging`, `production`, or `unknown`, then classify every command, API call, database operation, and filesystem action by mutation, target, scope, reversibility, and cleanup ownership. `unknown` is unsafe. Production is rejected unless the user explicitly overrides that default for the disclosed run.
+- **Mutation requires proof and authority.** Any destructive or non-local mutation requires explicit user authorization for the named environment, exact action, and bounded scope. Use isolated test accounts and data. Missing authorization, isolation, scope, reversibility, or environment evidence blocks execution before mutation.
+- **Cleanup is bounded.** Define cleanup before execution; remove only resources created or owned by this run, apply cleanup after success, failure, or blockage where safe, and retain cleanup evidence. Cleanup must not broaden the original mutation or erase failure evidence.
+- **Evidence is part of the result.** Every setup gate and every case ID receives `PASS`, `FAIL`, `BLOCKED`, or `NOT RUN`, a reason, and retrievable evidence or an explicit statement that evidence is unavailable. A passing assertion cites the observed value or artifact; command success alone is not proof of product behavior.
 
-### Test Naming
+### Overall Result
 
-Name tests after the behavior, not the function:
+Apply these predicates in order:
 
-```
-✅ "shows error when email is empty"
-✅ "redirects to login after session expires"
-✅ "prevents duplicate submission on double-click"
+1. `FAIL` — a required gate or case ran and an observed result violated its expected outcome.
+2. `BLOCKED` — no required result failed, but a specific safety, environment, authorization, prerequisite, service, or health condition prevented a required action.
+3. `INCOMPLETE` — neither failure nor blocker was established, but required execution, statuses, cleanup accounting, or evidence are missing.
+4. `PASS` — every required gate and case ran and passed with retrievable evidence, cleanup is accounted for, and at least one real product case passed.
 
-❌ "test validateEmail"
-❌ "test handleSubmit calls api"
-❌ "test useAuth hook returns null"
-```
+An empty case set, a `0/0` run, a setup-only run, an unexecuted required case, or missing required evidence can never be `PASS`. Stop on the first required case failure, preserve its evidence, mark later cases `NOT RUN`, and perform only the run-owned cleanup that remains safe.
 
-### Keep Tests Terse
+## Review Checks
 
-```typescript
-// ✅ Terse — tests one behavior, reads in 3 seconds
-test('shows error when email is empty', () => {
-  render(<LoginForm />);
-  click(submitButton());
-  expect(screen.getByText('Email is required')).toBeVisible();
-});
-
-// ❌ Verbose — ceremony obscures intent
-test('should display an error message when the user submits the form without entering an email address', () => {
-  const mockOnSubmit = vi.fn();
-  const mockOnError = vi.fn();
-  const { container } = render(
-    <LoginForm onSubmit={mockOnSubmit} onError={mockOnError} />
-  );
-  const form = container.querySelector('form');
-  const button = screen.getByRole('button', { name: /submit/i });
-  await userEvent.click(button);
-  expect(mockOnSubmit).not.toHaveBeenCalled();
-  expect(mockOnError).toHaveBeenCalledWith(expect.objectContaining({ field: 'email' }));
-  expect(screen.getByText('Email is required')).toBeVisible();
-});
-```
-
-The terse test catches the same bug. The verbose test also asserts on mock internals — those assertions break when you refactor, even if behavior is unchanged.
-
-## Stop Checks
-
-Before writing or reviewing any test, run these checks:
-
-```
-□ Am I asserting on a mock instead of real output?
-  → If yes: delete the assertion or unmock it
-
-□ Would a refactor break this test even though behavior hasn't changed?
-  → If yes: the test is coupled to implementation — rewrite it
-
-□ Is mock setup > 50% of the test?
-  → If yes: use an integration test with real components instead
-
-□ Does this test name describe a user-visible behavior?
-  → If no: rename it or question whether it needs to exist
-
-□ Did I write this test after the implementation?
-  → If yes: verify it actually fails when behavior is broken, not just when code changes
-```
-
-## When to Mock
-
-**Mock external boundaries only.** Network calls, third-party services, timers — things outside your control.
-
-**Never mock** internal modules, components you own, or "just to be safe."
-
-If you need to mock a thing to test it, the design has a coupling problem — fix the design, not the test.
+- Would the assertion still pass after an internal refactor that preserves behavior?
+- Does the test name state an observable contract?
+- Is the assertion reading a real output rather than a mock?
+- Does each mock isolate an external boundary?
+- Does the test fail when the behavior is plausibly broken?
+- For E2E execution, did preflight prove environment, mutation scope, authorization, isolation, and cleanup before setup?
 
 ## Detailed References
 
-Load these only when needed:
-
-- **[references/anti-patterns.md](references/anti-patterns.md)** — Common testing mistakes with examples: testing mock behavior, test-only production methods, incomplete mocks, over-mocking
-- **[references/test-templates.md](references/test-templates.md)** — Copy-paste test patterns for unit, integration, and E2E tests. Factories, helpers, and terse assertion patterns
-- **[references/branch-coverage.md](references/branch-coverage.md)** — Branch matrix methodology for systematic coverage: how to map conditions, prioritize, and verify completeness without testing every permutation
+- [Anti-patterns](references/anti-patterns.md)
+- [Test templates](references/test-templates.md)
+- [Branch coverage](references/branch-coverage.md)
+- [Executable E2E plans](references/e2e-test-plan.md)
+- [E2E execution mechanics](references/e2e-execution-mechanics.md)
