@@ -6,8 +6,8 @@ description: >-
   shares a URL, article, repo, or body of knowledge and wants it turned into a reusable skill.
   Triggers on: "make a skill from this", "distill this into a skill", "create a skill from
   this article", "turn this repo into a skill", "extract patterns from", "convert to a skill".
-  This skill complements the `skill-creator` skill — skill-creator handles the mechanics
-  (frontmatter, packaging, init scripts), this skill handles the distillation process.
+  This skill complements the `skill-builder` skill — skill-builder handles the mechanics
+  (frontmatter, packaging, validation), this skill handles the distillation process.
 ---
 
 # Distill to Skill
@@ -15,7 +15,7 @@ description: >-
 Turn any source of knowledge into a well-structured agent skill. This is the process
 skill — it covers how to extract, filter, restructure, and encode knowledge. For the
 mechanical aspects of skill creation (directory structure, frontmatter format, validation,
-packaging), use the `skill-creator` skill.
+packaging), use the `skill-builder` skill.
 
 ## The Distillation Mindset
 

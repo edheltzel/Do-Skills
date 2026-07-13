@@ -31,25 +31,65 @@ half-finished refactor. For readability and unnecessary complexity, use
 [simplify](./simplify.md). For feedback already left on a pull request, use
 [git-pr-review-triage](./git-pr-review-triage.md).
 
-## The concrete-trigger gate
+## Trigger and source requirements
 
-The review starts from changed lines, traces affected callers, and states each
-changed function's contract before judging its implementation. For every
-candidate bug it constructs a failing input, follows that path through the
-surrounding guards and sanitizers, and then tries to disprove its own finding.
-Anything that cannot survive that self-attack is dropped.
+Every actionable defect begins with a specific input, state, or event sequence.
+The reviewer must show that this trigger reaches a changed line and produces the
+claimed behavior. A plausible risk without a reachable trigger remains a lead,
+not a finding.
 
-The hunt emphasizes failure modes that fresh code commonly misses: empty,
-zero, negative, huge, or absent inputs; external dependency failure; forgotten
-`await`; check-then-act races; mutation visible to callers; changed return
-shapes; and one branch updated without its twin.
+The evidence comes from the current change set. The reviewer rereads the exact
+hunk and enclosing symbol, cites the changed file and line, and follows the path
+through relevant callers, validation, guards, runtime or framework guarantees,
+error handling, and cleanup. Task descriptions and remembered snapshots provide
+context but cannot replace the code under review.
+
+Common attack surfaces include empty or absent values, numeric boundaries,
+dependency failures, asynchronous ordering, caller-visible mutation, contract
+changes, resource lifetime, and edits applied to one branch but not its
+counterpart.
+
+## Counterevidence and calibration
+
+Before reporting a candidate, the reviewer actively looks for facts that defeat
+it: an upstream caller constraint, a guard, a sanitizer, a runtime guarantee, a
+recovery branch, or guaranteed cleanup. Candidates disproved by that pass are
+removed.
+
+Severity describes the consequence that was actually demonstrated. Confidence
+describes how directly the trigger, path, and impact were established. A severe
+hypothesis with incomplete evidence is not promoted into a release blocker.
+Low-confidence suspicions stay outside the actionable count.
+
+## Verdict and coverage
+
+The result contains:
+
+- `FINDINGS` when one or more evidence-bound defects survive.
+- `HOLDS UP` only when no actionable defects survive and every required path and
+  counterevidence check for each selected review surface completed.
+- `INCONCLUSIVE/BLOCKED` when any required evidence check cannot complete,
+  including caller, guard, runtime, or cleanup inspection. This verdict applies
+  even when the actionable count is zero.
+- A coverage ledger marking every selected surface complete or blocked. Each
+  blocked entry names the unavailable source, tool result, environment, or other
+  artifact and the behavior that remains unresolved.
+
+Unavailable evidence is neither proof of a bug nor evidence that the change is
+safe. Blocked coverage remains visible beside any verified findings.
 
 ## It's working if
 
-- Every finding points to a changed line and names a reproducible trigger.
-- Callers are checked when signatures, units, nullability, or return shapes move.
-- Speculative findings disappear during self-verification.
-- A clean result is reported plainly instead of padded with weak concerns.
+- Every actionable item cites a changed line and supplies a trigger that reaches
+  it.
+- The path assessment covers affected callers, validation and guards, runtime
+  behavior, error handling, and cleanup where material.
+- Each candidate is challenged with counterevidence before it survives.
+- Severity follows demonstrated impact, while confidence separately describes
+  the strength of the evidence.
+- Blocked checks identify both the missing prerequisite and the behavior left
+  unresolved.
+- `HOLDS UP` is never used when a required evidence check is unavailable.
 
 ## Where it fits
 
@@ -59,3 +99,4 @@ A read-only correctness lens for the end of a change. It complements
 a different concern. It also runs as the correctness lens inside
 [cleanup-web](../engineering/cleanup-web.md) and
 [cleanup-swift](../engineering/cleanup-swift.md).
+

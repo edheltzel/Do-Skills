@@ -1,6 +1,6 @@
 ---
 name: tech-writing
-description: "Write clean, terse technical docs — commits, issues, PRDs, specs, and technical communication"
+description: "Draft clear tutorials, how-to guides, reference docs, explanations, commit messages, issues, PRDs, specs, PR descriptions, and comments. Use for writing, revising, or classifying those artifacts, including drafting commit-message text and revising text that reads as AI-generated; not for creating commits or pushing changes (use git:safe-pr-workflow)."
 ---
 
 # Technical Writing
@@ -9,50 +9,63 @@ Write for humans and machines. Every sentence earns its place or gets cut.
 
 ## Core Principles
 
-**Lead with the point.** First sentence = the takeaway. Context comes after, if needed.
+**Lead with the point.** Put the takeaway first. Add context only when it changes the reader's understanding or action.
 
 **One idea per unit.** One point per sentence. One topic per paragraph. One concern per section.
 
 **Concrete over abstract.** Name the thing. Show the example. Skip the preamble.
 
-**Active voice, imperative mood.** "Add retry logic" not "Retry logic should be added" or "Added retry logic."
+**Active voice, imperative mood.** Write "Add retry logic," not "Retry logic should be added" or "Added retry logic."
 
-**No filler words.** Cut: "basically", "simply", "just", "in order to", "it should be noted that", "as mentioned above", "please note that", "going forward". If removing a word doesn't change the meaning, remove it.
+**Delete filler.** Cut "basically," "simply," "just," "in order to," "it should be noted that," "as mentioned above," "please note that," and "going forward." If a word does not change the meaning, remove it.
 
-**No hedging unless uncertainty is the point.** Say "This will break X" not "This could potentially have an impact on X."
+**Reserve hedging for real uncertainty.** Write "This breaks X" when the failure is known. State the evidence and confidence when it is not.
 
-**Prefer short words.** "use" over "utilize", "start" over "initialize", "show" over "indicate", "about" over "approximately."
+**Prefer short words.** Use "use" over "utilize," "start" over "initialize," "show" over "indicate," and "about" over "approximately."
 
-## Format: Git Commits
+## Choose the Documentation Type
 
-Structure:
-```
+For tutorials, how-to guides, reference material, explanations, and conceptual pages, load [references/documentation-types.md](references/documentation-types.md). Choose one primary type from the result the reader needs: learning a capability, completing a task, retrieving a fact, or understanding a system. Keep small supporting material inline; split material that has its own reader journey.
+
+When the type is ambiguous — a page that could be a tutorial or a how-to, or a reference or an explanation — use [references/diataxis-compass.md](references/diataxis-compass.md). It resolves the two hard cases with one question each: study versus work, and acquisition versus application.
+
+## Commit-Message Boundary
+
+This skill writes commit-message text. It may draft, edit, shorten, or explain a subject and body without changing repository state.
+
+Creating or amending a commit is an operation, even when the request says "local commit only." Pushing is also an operation. Route either request to `git:safe-pr-workflow`. If one request asks for both message wording and a commit or push, the operational workflow owns the request and may apply these writing rules.
+
+### Commit message format
+
+```text
 <type>: <what changed>
 
-<why it changed — optional, only if non-obvious>
+<why it changed — optional; include only when non-obvious>
 ```
 
 Types: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `perf`, `ci`
 
 Rules:
-- Subject line under 72 characters
-- Imperative mood: "Add X" not "Added X" or "Adds X"
-- No period at end of subject
-- Body explains *why*, not *what* — the diff shows what
-- Reference issue numbers when relevant: `Fixes #42`
+- Keep the subject under 72 characters.
+- Use imperative mood: "Add X," not "Added X" or "Adds X."
+- Do not end the subject with a period.
+- Use the body for rationale; the diff already records the mechanics.
+- Reference an issue when relevant: `Fixes #42`.
 
 Good:
-```
-feat: add rate limiting to /api/upload
 
-Prevents abuse from automated clients. Limits to 100 req/min
-per API key. Returns 429 with Retry-After header.
+```text
+feat: limit requests to the upload API
+
+Prevent automated clients from exhausting upload capacity. Return 429
+with Retry-After after 100 requests per minute for one API key.
 
 Fixes #187
 ```
 
 Bad:
-```
+
+```text
 Updated the upload endpoint to add some rate limiting functionality
 so that we can prevent potential abuse issues going forward
 ```
@@ -63,11 +76,11 @@ so that we can prevent potential abuse issues going forward
 
 ```markdown
 ## Problem
-<What's broken — one sentence>
+<What is broken — one sentence>
 
 ## Steps to Reproduce
-1. <Exact steps>
-2. <No ambiguity>
+1. <Exact step>
+2. <Exact step>
 
 ## Expected
 <What should happen>
@@ -78,108 +91,105 @@ so that we can prevent potential abuse issues going forward
 ## Context
 - Version/commit: <hash or version>
 - Environment: <OS, browser, runtime>
-- Logs/screenshots: <if relevant>
+- Logs/screenshots: <when relevant>
 ```
 
 ### Feature Requests
 
 ```markdown
 ## Problem
-<What user need is unmet — not the solution, the problem>
+<The unmet user need, not the proposed feature>
 
 ## Proposed Solution
-<How to solve it — be specific>
+<The specific change>
 
 ## Alternatives Considered
-<What else you evaluated and why it lost>
+<Other options and why they lost>
 
 ## Scope
-<What's in, what's explicitly out>
+<What is included and excluded>
 ```
 
-## Format: PRD (Product Requirements Document)
+## Format: Product Requirements Documents
 
 ```markdown
 # <Feature Name>
 
 ## Problem
-<Who has this problem. What they can't do. Why it matters now.>
+<Who has the problem, what they cannot do, and why it matters now>
 
 ## Solution
-<What we're building. 2-3 sentences max.>
+<What to build in two or three sentences>
 
 ## Requirements
 
 ### Must Have
-- <Requirement — testable, unambiguous>
-- <Each one starts with a verb>
+- <Testable requirement beginning with a verb>
 
 ### Nice to Have
-- <Lower priority items>
+- <Lower-priority requirement>
 
 ### Out of Scope
-- <Explicitly excluded to prevent scope creep>
+- <Explicit exclusion>
 
 ## Success Criteria
 - <Measurable outcome>
-- <How we know this worked>
 
 ## Technical Notes
-<Constraints, dependencies, migration concerns — only if relevant>
+<Constraints, dependencies, or migration concerns when relevant>
 
 ## Open Questions
-- <Unresolved decisions, with owners and deadlines>
+- <Decision, owner, and deadline>
 ```
 
-Rules:
-- Requirements are testable. "Fast" is not a requirement. "Page loads in < 200ms at p95" is.
-- Each requirement starts with a verb: "Support", "Display", "Validate", "Allow".
-- Success criteria are measurable. If you can't measure it, sharpen it.
-- Open questions have owners. Unowned questions don't get answered.
+Requirements must be testable. Replace "fast" with a threshold such as "loads in under 200 ms at p95." Start requirements with verbs such as "Support," "Display," "Validate," or "Allow." Give each open question an owner.
 
-## Format: Technical Specs / Design Docs
+## Format: Technical Specs and Design Docs
 
 ```markdown
 # <Title>
 
 ## Context
-<Why this doc exists. What decision or system it describes. 2-3 sentences.>
+<Why the document exists and what decision or system it covers>
 
 ## Design
 
 ### Architecture
-<How it works. Diagrams welcome, walls of text not.>
+<How it works; prefer a useful diagram over a wall of text>
 
 ### Data Model
-<Schema changes, new entities, relationships.>
+<Schema changes, entities, and relationships>
 
 ### API
-<Endpoints, contracts, examples.>
+<Endpoints, contracts, and examples>
 
 ## Tradeoffs
-<What you chose and what you gave up. Be honest about costs.>
+<What the design gains and gives up>
 
 ## Risks
-<What could go wrong. What's the mitigation.>
+<Failure modes and mitigations>
 ```
 
 ## Format: Inline Code Comments
 
-Only comment *why*, never *what*. The code says what.
+Comment on the reason the code cannot express, not the operation it already shows.
 
 Good:
-```
-// Retry 3x because the payment API returns transient 503s under load
+
+```text
+// Retry three times because the payment API returns transient 503s under load.
 ```
 
 Bad:
-```
-// Call the payment API with retries
+
+```text
+// Call the payment API with retries.
 ```
 
-Don't comment:
-```
-// Increment counter
+Do not write:
+
+```text
+// Increment counter.
 count += 1
 ```
 
@@ -187,37 +197,50 @@ count += 1
 
 ```markdown
 ## What
-<One sentence — what this PR does>
+<One sentence describing the change>
 
 ## Why
-<Motivation — link to issue if applicable>
+<Motivation and issue link when relevant>
 
 ## How
-<Brief summary of approach — not a line-by-line walkthrough>
+<Approach, not a line-by-line account>
 
 ## Testing
-<How you verified this works>
+<Observed verification>
 ```
 
 ## Anti-Patterns
 
-**The Wall of Context.** Three paragraphs of background before the point. Invert it. Point first, context if needed.
+**The wall of context.** Move the conclusion ahead of the background.
 
-**The Passive Report.** "It was determined that the service should be restarted." By whom? Say who did what.
+**The passive report.** Name the actor and action instead of writing "It was determined."
 
-**Weasel Words.** "Some users", "significant impact", "may cause issues." Quantify or be specific.
+**Weasel words.** Quantify "some users," "significant impact," and "may cause issues," or replace them with the exact claim.
 
-**Premature Abstraction.** Don't generalize when a concrete example communicates faster.
+**Premature abstraction.** Prefer one concrete example when it communicates faster than a general model.
 
-**The Apology Prefix.** Don't start with "Sorry for the long message" — make the message shorter instead.
+**The apology prefix.** Shorten the message instead of apologizing for its length.
 
-**Redundant Structure.** Don't add sections just because the template has them. Empty "Risks: None" sections waste attention. Omit sections that add nothing.
+**Redundant structure.** Omit empty or content-free template sections.
+
+## Remove AI-Writing Tells
+
+When revising text that reads as AI-generated, load [references/ai-writing-tells.md](references/ai-writing-tells.md) for the pattern catalog (filler, promotional language, vague authority, formatting and communication tells) and [references/vocabulary-swaps.md](references/vocabulary-swaps.md) for word-by-word replacements.
+
+The core heuristic is density, not individual words: flag a passage only when three or more tells cluster in proximity, not when one flagged word appears alone. Watch the false positives — "ensure" is a legitimate term in security docs, formal prose is not itself a tell, and uncertainty backed by evidence must stay. For comment and docstring tells, use [code-comments](../../core/code-comments/SKILL.md).
+
+## Gotchas
+
+- A document's topic does not determine its type. The reader's immediate result does.
+- A short rationale inside a procedure does not turn it into an explanation. Split only when the secondary material serves a separate journey.
+- "Write a commit message" is a text task. "Commit with this message" changes repository state and belongs to `git:safe-pr-workflow`.
+- A measured uncertainty is not a weasel word. Preserve uncertainty when the evidence requires it.
 
 ## Editing Checklist
 
-Before publishing, read it once and cut:
-1. Sentences that repeat what another sentence already said
-2. Adjectives and adverbs that don't change the meaning
-3. Throat-clearing openers ("So basically...", "As you may know...")
-4. Sections with no actionable content
-5. Anything the reader already knows or can infer
+Before publishing, cut:
+1. Repeated claims.
+2. Adjectives and adverbs that do not change meaning.
+3. Throat-clearing openers.
+4. Sections with no useful content.
+5. Facts the intended reader can already infer.

@@ -18,6 +18,10 @@ gh api repos/{owner}/{repo}/pulls/{number}/comments
 
 Pull both review-level comments and inline thread comments. For each, capture: author, body, file + line (if inline), thread resolution status, and the commit SHA the comment was made against. Where possible, note whether the code at that line has changed since the comment was posted.
 
+On bot-reviewed PRs (CodeRabbit, Copilot, etc.), strip boilerplate before classifying and
+exclude comments in already-resolved threads — otherwise the noise labels land on the
+packaging instead of the point. Copy-paste recipes: [references/fetch-plumbing.md](references/fetch-plumbing.md).
+
 ## Classify each comment
 
 Apply labels. Multiple can apply.

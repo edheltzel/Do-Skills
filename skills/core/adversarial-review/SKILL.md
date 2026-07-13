@@ -21,13 +21,30 @@ Assume the change is wrong until a concrete input proves it right. Hunt correctn
 
 ## Scope
 
-Review the change, not the codebase.
+Review only the specified change set and its blast radius. Every finding must tie to a changed line and pass the Evidence Gate below.
 
-- Read the diff's added and changed lines (`git diff`). Every finding ties to a changed line.
-- Trace the blast radius: for each changed signature, return shape, nullability, or unit, read its callers. A rename or a newly-nullable return breaks stale callers the diff never shows — the regression pure-diff review structurally misses.
-- Hand off, do not duplicate. Style → `simplify`. Comment intent → `code-comments`. Type design → `parse-dont-validate`. Security → `security-review`. Framework idioms → `typescript` / `no-use-effect` / `macos-swift-desktop`.
+Hand off, do not duplicate. Style → `simplify`. Comment intent → `code-comments`. Type design → `parse-dont-validate`. Security → `security-review`. Framework idioms → `typescript` / `no-use-effect` / `macos-swift-desktop`. Structural/architecture health → `review-structure`.
+
+Before reporting findings, apply `review-verification-protocol` — its anti-confabulation echo gate, per-issue-type checklists, and valid-pattern tables complement the Evidence Gate below on the false-positive side.
 
 This is read-only. Propose fixes; do not apply them, and do not touch code outside the change.
+
+## Evidence Requirements
+
+An actionable finding starts at a line in the current diff. During the review pass, reread that
+hunk and its enclosing symbol, then cite the file and changed line. Describe the code that is
+actually present rather than relying on a task description, branch name, earlier snapshot, or
+similar-looking code elsewhere.
+
+Supply a concrete input, state, or event sequence that reaches the changed line and produces the
+claimed failure. Trace the path through relevant callers, validation, guards, framework/runtime
+semantics, and resource cleanup. Separate observations from deductions; source, tool output, or a
+repeatable execution must support the path.
+
+For each selected review surface, mark the material path and rebuttal checks as `complete` or
+`blocked`. A blocked check belongs in coverage, not in the actionable count. Name what evidence or
+environment is unavailable and which behavior therefore remains undecided. Missing evidence
+neither proves a defect nor permits a clean result.
 
 ## What to hunt
 
@@ -57,31 +74,46 @@ For each changed function:
 3. Construct one concrete failing input and trace it line by line to the suspect spot. Verify it actually reaches that line — not a plausible neighbor.
 4. Ask "if I deleted this change, what breaks?" — tests whether it is necessary and what it regresses.
 
-## Report only what you can trigger
+## Finding Threshold And Calibration
 
-The gate that keeps findings high-signal:
+Report a defect only when a named trigger reaches the changed code and demonstrates the incorrect
+outcome. If the path cannot be established, keep it out of actionable findings. A question or
+low-confidence lead may guide follow-up, but it is not a verified defect.
 
-- Name the input or path that triggers the bug. Cannot name it → do not report it.
-- Do not speculate about breakage you cannot trace to a specific code path.
-- Read the surrounding context first — callers, guards, sanitizers. A line that looks unsafe alone is often safe in context.
-- Tag each finding with severity and a confidence: high / medium / low.
-- Exception: high-impact bugs (data loss, corruption, crash on common input) — report even at lower confidence, and state what is uncertain.
-- Prefer one strong finding over five weak ones. Do not pad.
+Assign severity from the demonstrated consequence:
 
-## Self-verification
+| Severity | Required consequence |
+|---|---|
+| **Critical** | Reachable data loss or corruption, common-path crash, or a broken public contract that prevents safe release |
+| **Major** | Reachable wrong behavior or failed recovery with material impact on ordinary use |
+| **Minor** | Reachable, contained defect with limited impact and a usable workaround |
+| **Informational** | Non-blocking observation or improvement; excluded from the actionable count |
 
-Before surfacing anything, attack your own findings. For each, try to prove it false: re-read the trigger path, confirm the guard you assumed was missing really is missing, confirm the input really reaches the line. Drop anything you cannot defend.
+Record confidence independently. `high` means both trigger and impact were directly established;
+`medium` means reachability is established while one impact detail is inferred; `low` is an
+investigation lead rather than a finding. Potential impact never compensates for weak evidence.
 
-This pass is what separates real findings from plausible noise. Do not skip it.
+## Counterevidence Pass
+
+Try to invalidate every candidate before reporting it. Recheck upstream callers, defensive
+branches, sanitizers, runtime guarantees, error handling, and cleanup paths that could prevent or
+contain the failure. Remove candidates defeated by this counterevidence. If a material check cannot
+be completed, preserve that limitation in coverage and do not convert uncertainty into a pass.
 
 ## Output
 
-For each surviving finding:
+Return:
 
-- Location — file and line in the diff
-- The bug — one sentence
-- The trigger — the concrete input or sequence that makes it fail
-- Severity + confidence
-- Suggested fix — propose, do not apply
+- **Verdict** — `FINDINGS`, `HOLDS UP`, or `INCONCLUSIVE/BLOCKED`.
+- **Actionable findings** — each includes the changed file and line, one-sentence defect,
+  concrete trigger, demonstrated path and impact, severity, confidence, and a proposed fix that
+  remains unapplied.
+- **Coverage** — every selected surface with its material trigger-path and counterevidence checks
+  marked complete or blocked. A blocked entry names the missing source, execution environment, or
+  other artifact and the behavior left unresolved.
 
-If the change holds up under attack, say so plainly. Finding nothing is a valid, honest result — do not invent bugs to look thorough.
+`HOLDS UP` is available only when no actionable findings survive and all required evidence checks
+completed. Use `INCONCLUSIVE/BLOCKED` whenever a required path, guard, caller, runtime, or cleanup
+check could not be completed, even if the actionable count is zero. Use `FINDINGS` when verified
+defects remain; disclose blocked coverage alongside them rather than hiding it.
+

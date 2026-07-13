@@ -166,6 +166,30 @@ test('login redirects to dashboard', async () => {
 
 ---
 
+## 7. Un-awaited Async Assertions
+
+`expect(...).resolves` and `expect(...).rejects` return a promise. Without
+`await`, the test finishes before the assertion settles — a broken expectation
+passes silently.
+
+```typescript
+// ❌ Assertion never settles — test passes even when the promise rejects
+test('loads user', () => {
+  expect(fetchUser('123')).resolves.toEqual({ id: '123', name: 'Alice' });
+});
+
+// ✅ Awaited — the assertion actually runs
+test('loads user', async () => {
+  await expect(fetchUser('123')).resolves.toEqual({ id: '123', name: 'Alice' });
+});
+```
+
+**Gate:** Every `expect(...).resolves` or `expect(...).rejects` must be
+`await`-prefixed. Grep for `.resolves` / `.rejects` and confirm each is preceded
+by `await`.
+
+---
+
 ## Summary
 
 | Anti-Pattern | One-line fix |
@@ -176,3 +200,4 @@ test('login redirects to dashboard', async () => {
 | Incomplete mocks | Mirror the real API shape completely |
 | Over-mocking | Use integration tests instead |
 | Asserting on implementation | Assert on what the user sees |
+| Un-awaited async assertions | `await` every `.resolves` / `.rejects` |
