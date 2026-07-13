@@ -11,16 +11,25 @@
         "agents-md",
         "architecture-md",
         "behavioral-testing",
+        "browser-verify",
         "code-comments",
+        "debug",
+        "design-doc",
         "design-patterns-gof",
         "git-pr-review-triage",
         "git-safe-pr-workflow",
         "git-worktree",
+        "implement",
         "karpathy-guidelines",
+        "plan",
+        "pr-to-ready",
         "review-structure",
         "review-verification-protocol",
         "roughdraft",
-        "simplify"
+        "simplify",
+        "spec",
+        "task-to-pr",
+        "tdd"
       ]
     },
     {
