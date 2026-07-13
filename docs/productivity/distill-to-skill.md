@@ -48,9 +48,11 @@ layout, YAML, init scripts — hand off to `skill-creator`.
   ~150–250 lines — a 10:1 to 20:1 ratio. If your skill nears the source's length,
   you're summarizing, not distilling.
 - **Write the description last and hardest.** The YAML `description` is the only
-  thing that decides whether the skill ever triggers. Lead with what it enables,
-  name concrete scenarios and file types, and list the trigger phrases a user
-  would actually say.
+  thing that decides whether the skill ever triggers. Front-load the skill's
+  leading word so it recruits the model's priors first, name concrete scenarios
+  and file types, and list one trigger per branch — synonyms that rename a single
+  branch are duplication. For the reasoning behind leading words and trigger
+  collapse, see [writing-great-skills](./writing-great-skills.md).
 
 ## It's working if
 

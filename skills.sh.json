@@ -13,23 +13,31 @@
         "behavioral-testing",
         "browser-verify",
         "code-comments",
+        "codebase-design",
         "debug",
         "design-doc",
         "design-patterns-gof",
+        "domain-modeling",
+        "git-guardrails",
         "git-pr-review-triage",
         "git-safe-pr-workflow",
         "git-worktree",
         "implement",
+        "improve-codebase-architecture",
         "karpathy-guidelines",
         "plan",
         "pr-to-ready",
+        "prototype",
+        "review-spec-conformance",
         "review-structure",
         "review-verification-protocol",
         "roughdraft",
         "simplify",
         "spec",
         "task-to-pr",
-        "tdd"
+        "tdd",
+        "triage",
+        "wayfinder"
       ]
     },
     {
@@ -50,9 +58,12 @@
         "no-use-effect",
         "parse-dont-validate",
         "react-native-expo",
+        "setup-pre-commit",
+        "setup-ts-deep-modules",
         "tailwind-v4",
         "typescript",
-        "typescript-refactoring"
+        "typescript-refactoring",
+        "wizard"
       ]
     },
     {
@@ -60,9 +71,19 @@
       "description": "Reusable tools for planning, writing, and distilling knowledge.",
       "skills": [
         "distill-to-skill",
+        "grill-me",
+        "grill-with-docs",
+        "grilling",
+        "handoff",
+        "loop-me",
         "pm-tools",
+        "research",
         "skill-builder",
-        "tech-writing"
+        "teach",
+        "tech-writing",
+        "writing-drafting",
+        "writing-fragments",
+        "writing-great-skills"
       ]
     },
     {

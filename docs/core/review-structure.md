@@ -40,6 +40,20 @@ Structural claims must carry artifacts: a "no canonical helper exists" finding c
 search pattern and result; a file-size finding cites a line count. Every file in scope is
 read in full before findings are drafted.
 
+## Fowler smell baseline
+
+On top of the repo's own documented standards, the skill carries a fixed twelve-smell baseline
+from Fowler's _Refactoring_ (ch.3) — Mysterious Name, Duplicated Code, Feature Envy, Data
+Clumps, Primitive Obsession, Repeated Switches, Shotgun Surgery, Divergent Change, Speculative
+Generality, Message Chains, Middle Man, Refused Bequest — each a *what it is → how to fix*
+decomposition trigger. Two rules bind it: a documented repo standard always overrides, and every
+smell is a labelled judgement call you skip when tooling already enforces it.
+
+One reconciliation worth knowing: the 1k-line guard measures **file** size, while depth (from
+[codebase-design](../core/codebase-design.md)) measures **interface** size. A deep module can
+hold a large implementation behind a small interface, so a file crossing the budget calls for
+extracting internal seams, not widening the interface.
+
 ## It's working if
 
 - Findings are few, structural, and high-conviction — not a list of cosmetic notes.

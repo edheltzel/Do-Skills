@@ -44,23 +44,31 @@ Always-on standards, process, and operational skills. Stack-agnostic — they ap
 | [`behavioral-testing`](./skills/core/behavioral-testing/) | Behavior-first testing for user-observable contracts, test quality review, and safe executable E2E plans. |
 | [`browser-verify`](./skills/core/browser-verify/) | Independently verify browser-rendered work in a real browser. |
 | [`code-comments`](./skills/core/code-comments/) | Write high-signal code comments for humans and coding agents. |
+| [`codebase-design`](./skills/core/codebase-design/) | Shared vocabulary for designing deep modules — a lot of behaviour behind a small interface, placed at a clean seam, testable through that interface. |
 | [`debug`](./skills/core/debug/) | Find and fix the root cause when something breaks: a failing test, a broken build, a bug report, or behavior that doesn't match expectations. |
 | [`design-doc`](./skills/core/design-doc/) | Write a short design document for unclear or important architecture decisions before implementation. |
 | [`design-patterns-gof`](./skills/core/design-patterns-gof/) | The 23 Gang of Four object-oriented design patterns (Gamma, Helm, Johnson, Vlissides, 1994) distilled as a practical field guide, not a catalog. |
+| [`domain-modeling`](./skills/core/domain-modeling/) | Actively build and sharpen a project's domain model — a ubiquitous-language glossary in CONTEXT.md and architectural decision records in docs/adr/. |
+| [`git:guardrails`](./skills/core/git-guardrails/) | Install a Claude Code PreToolUse hook that blocks dangerous git commands (push, reset --hard, clean -fd, branch -D, checkout ./restore .) before they run. |
 | [`git:pr-review-triage`](./skills/core/git-pr-review-triage/) | Pull PR review comments and triage them — separate substantive feedback from bikeshedding, stale comments, misreads, AI slop, and other noise. |
 | [`git:safe-pr-workflow`](./skills/core/git-safe-pr-workflow/) | Safe GitHub pull request workflow for low-experience Git users. |
 | [`git:worktree`](./skills/core/git-worktree/) | Create, remove, and list git worktrees in a standardized location |
 | [`implement`](./skills/core/implement/) | Finish one code task: understand it, make the smallest change, test it, review it, and report or open the requested PR. |
+| [`improve-codebase-architecture`](./skills/core/improve-codebase-architecture/) | Scan a codebase for deepening opportunities — refactors that turn shallow modules into deep ones — and grill through whichever one the user picks. |
 | [`karpathy-guidelines`](./skills/core/karpathy-guidelines/) | Behavioral guidelines to reduce common LLM coding mistakes. |
 | [`plan`](./skills/core/plan/) | Break a spec or brief into agent-ready tickets (GitHub Issues, Linear, Jira) that each deliver a working outcome. |
 | [`pr-to-ready`](./skills/core/pr-to-ready/) | Make an open pull request ready to merge by checking live feedback, fixing required items, running checks, and reporting the result. |
+| [`prototype`](./skills/core/prototype/) | Build a throwaway prototype to answer a design question — a logic/state model driven by hand, or several UI variations to pick from. |
+| [`review-spec-conformance`](./skills/core/review-spec-conformance/) | Review a diff for faithful implementation of its originating issue or spec — completeness, omissions, scope creep, and contradictions — reported as its own axis, never merged with coding-standards findings. |
 | [`review-structure`](./skills/core/review-structure/) | Repo-wide structural-maintainability review — code-judo restructurings, 1k-line file guard, anti-spaghetti branching, canonical-layer enforcement, anti-magic abstractions, explicit type/boundary contracts. |
 | [`review-verification-protocol`](./skills/core/review-verification-protocol/) | False-positive discipline for code review — anti-confabulation echo gate, per-issue-type verification checklists, severity calibration, and valid-pattern tables that keep reviews honest. |
 | [`roughdraft`](./skills/core/roughdraft/) | Install and drive the published `roughdraft` CLI — a local-first markdown editor/viewer for reviewing markdown with an AI agent (comments + CriticMarkup suggestions). |
 | [`simplify`](./skills/core/simplify/) | Simplify and refine recently modified code for clarity and consistency. |
-| [`spec`](./skills/core/spec/) | Write a short implementation spec at docs/<feature-slug>/spec.md and pause for review. |
+| [`spec`](./skills/core/spec/) | Synthesize the current conversation into an implementation spec and publish it to GitHub as a ready-for-agent issue. |
 | [`task-to-pr`](./skills/core/task-to-pr/) | Turn one ticket from GitHub, Linear, Jira, or pasted context into a tested and reviewed GitHub pull request in a dedicated branch and worktree. |
-| [`tdd`](./skills/core/tdd/) | Test-first variant of implement: understand the desired behavior, write a failing test, make it pass, then simplify. |
+| [`tdd`](./skills/core/tdd/) | Test-first variant of implement: confirm the seams, write a failing test, then make it pass. |
+| [`triage`](./skills/core/triage/) | Move GitHub issues through a triage state machine — categorise, verify the claim, grill into shape, and write agent-ready briefs. |
+| [`wayfinder`](./skills/core/wayfinder/) | Plan work too big for one agent session as a shared map of investigation tickets on GitHub, resolved one per session until the way to the destination is clear. |
 
 ### Engineering
 
@@ -82,9 +90,12 @@ Stack-specific code craft — reached for once the language, framework, or platf
 | [`no-use-effect`](./skills/engineering/no-use-effect/) | Prevent unnecessary React `useEffect` usage by steering code toward derived state, event handlers, memoization, `key`-based resets, `useSyncExternalStore`, and framework or query-library data APIs. |
 | [`parse-dont-validate`](./skills/engineering/parse-dont-validate/) | Type-driven design principle: transform unstructured data into structured types at system boundaries, making illegal states unrepresentable. |
 | [`react-native-expo`](./skills/engineering/react-native-expo/) | Build and review React Native or Expo apps for iOS, Android, or native mobile. |
+| [`setup-pre-commit`](./skills/engineering/setup-pre-commit/) | Set up Husky pre-commit hooks with lint-staged (Prettier), type checking, and tests in a JS/TS repo, detecting the package manager. |
+| [`setup-ts-deep-modules`](./skills/engineering/setup-ts-deep-modules/) | Wire dependency-cruiser into a TypeScript repo so each package is a deep module — implementation hidden in subfolders, reachable only through its entry-point files — and prove the rules bite. |
 | [`tailwind-v4`](./skills/engineering/tailwind-v4/) | Tailwind CSS v4 with CSS-first configuration, @theme design tokens, OKLCH color, and dark-mode strategies. |
 | [`typescript`](./skills/engineering/typescript/) | Write clean, pragmatically functional TypeScript — simple, composable, soundly typed |
 | [`typescript-refactoring`](./skills/engineering/typescript-refactoring/) | Systematically refactor TypeScript codebases for readability, type safety, and AI-friendliness. |
+| [`wizard`](./skills/engineering/wizard/) | Generate an interactive bash wizard that walks a human through a manual procedure — third-party setup, a one-off migration, an A→B state transition — opening URLs, capturing values, confirming each step, and writing .env files and GitHub Actions secrets. |
 
 ### Productivity
 
@@ -93,9 +104,19 @@ Non-code workflow tools.
 | Skill | Description |
 | --- | --- |
 | [`distill-to-skill`](./skills/productivity/distill-to-skill/) | Distill knowledge from any source — blog posts, articles, documentation, GitHub repos, video transcripts, books, papers — into a well-structured agent skill. |
+| [`grill-me`](./skills/productivity/grill-me/) | A relentless interview to sharpen a plan or design. |
+| [`grill-with-docs`](./skills/productivity/grill-with-docs/) | A relentless interview to sharpen a plan or design that also writes the docs — ADRs and a glossary — as it goes. |
+| [`grilling`](./skills/productivity/grilling/) | Grill the user relentlessly about a plan or design until you reach shared understanding — one question at a time, each with a recommended answer. |
+| [`handoff`](./skills/productivity/handoff/) | Compact the current conversation into a handoff a fresh agent can pick up — written as a repo-versioned doc, or optionally seeded straight into a background agent. |
+| [`loop-me`](./skills/productivity/loop-me/) | Grill me about the specs for the workflows I want to build, within a stateful workspace — the loop/workflow/trigger/checkpoint/push-right/brief vocabulary. |
 | [`pm-tools`](./skills/productivity/pm-tools/) | GitHub Projects management via gh CLI — creating projects, managing items/fields, plus opinionated PM recipes — board bootstrap, Epic→Feature→Task issue hierarchy with sub-issue linking, label policy, running a plan against the board, picking next work, and status reporting. |
+| [`research`](./skills/productivity/research/) | Investigate a question against primary sources in a background agent and capture the findings as a cited Markdown note under docs/. |
 | [`skill-builder`](./skills/productivity/skill-builder/) | The mechanics of creating agent skills — structure, frontmatter, validation gates, reference layout, and trigger testing. |
+| [`teach`](./skills/productivity/teach/) | Teach the user a new skill or concept over multiple sessions, within a stateful teaching workspace — grounding every lesson in a mission, building reference docs, and tracking learning records to stay in the zone of proximal development. |
 | [`tech-writing`](./skills/productivity/tech-writing/) | Draft clear tutorials, how-to guides, reference docs, explanations, commit messages, issues, PRDs, specs, PR descriptions, and comments. |
+| [`writing-drafting`](./skills/productivity/writing-drafting/) | Writing, exploit — shape a fixed pile of raw material into an article, grounding each concept before a later move leans on it. |
+| [`writing-fragments`](./skills/productivity/writing-fragments/) | Writing, explore — mine raw fragments into one file, no structure yet. |
+| [`writing-great-skills`](./skills/productivity/writing-great-skills/) | Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable. |
 
 ### Personal
 

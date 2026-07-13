@@ -14,33 +14,39 @@ npx skills update spec
 
 ## What it does
 
-`spec` writes a short implementation spec at `docs/<feature-slug>/spec.md` —
-requirements, design, interfaces and data, error behavior, and a test plan —
-then pauses for human review. The spec resolves every decision that would change
-behavior, interfaces, data, or tests *before* any code exists, and the skill
-refuses to continue into planning or implementation on its own.
+`spec` synthesizes the current conversation into a short implementation spec —
+summary, requirements, an exhaustive list of user stories, design, interfaces
+and data, error behavior, and a test plan — and publishes it to GitHub as a
+`ready-for-agent` issue with `gh issue create`. It does not interview: it works
+from what has already been discussed and auto-publishes, so the spec is
+agent-ready by construction with no pause for review or separate triage.
 
 ## When to reach for it
 
 Type `/spec`, or the agent reaches for it automatically when a task fits.
 
 Reach for it when a feature's observable behavior, function signatures, data
-shapes, or failure handling still need decisions someone should review. If the
+shapes, or failure handling have been discussed enough to capture. If the
 architecture itself is still open, start one stage earlier with
-[design-doc](../core/design-doc.md). If everything is already decided and the
-work just needs splitting into tickets, go straight to [plan](../core/plan.md).
+[design-doc](../core/design-doc.md). To stress-test the idea *before* writing the
+spec, use [grilling](../productivity/grilling.md). If everything is already
+decided and the work just needs splitting into tickets, go straight to
+[plan](../core/plan.md).
 
-## One question at a time, with a recommendation
+## Synthesize, don't interview
 
-The skill interviews rather than assumes: each unresolved decision becomes one
-question, asked with a recommended answer attached, so review is a series of
-small confirmations instead of a wall of open issues. Requirements are written
-as observable, testable behavior, and sections that do not apply are omitted —
-the spec stays short enough to actually be read.
+The default is synthesis: the skill reads the conversation and codebase, sketches
+the test seams and records them in the test plan, then writes and publishes. A
+one-question-at-a-time interview to resolve open decisions is available on
+request, but it is no longer the default — and there is no pause-for-human-review
+gate. Requirements
+are observable and testable, user stories cover every aspect of the feature, and
+sections that do not apply are omitted so the spec stays short enough to read.
 
 ## Where it fits
 
 The middle stage of the Decide flow: [design-doc](../core/design-doc.md) →
-`spec` → [plan](../core/plan.md). Its output is the source of truth that
+`spec` → [plan](../core/plan.md). Its output is a GitHub issue that
 [implement](../core/implement.md), [tdd](../core/tdd.md), and
-[task-to-pr](../core/task-to-pr.md) trace their acceptance checks back to.
+[task-to-pr](../core/task-to-pr.md) trace their acceptance checks back to, and
+that [plan](../core/plan.md) can break into tickets.
