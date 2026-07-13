@@ -190,6 +190,28 @@ by `await`.
 
 ---
 
+## 8. Tautological Assertions
+
+The expected value is recomputed the way the code computes it, so the test passes by construction and can never disagree with the code.
+
+```typescript
+// ❌ Expected value recomputed the same way the code does
+test('calculateTotal sums line items', () => {
+  const items = [{ price: 10 }, { price: 5 }];
+  const expected = items.reduce((sum, i) => sum + i.price, 0);
+  expect(calculateTotal(items)).toBe(expected);
+});
+
+// ✅ Expected value is an independent, known literal
+test('calculateTotal sums line items', () => {
+  expect(calculateTotal([{ price: 10 }, { price: 5 }])).toBe(15);
+});
+```
+
+**Gate:** For every expected value — ask: "Did this come from an independent source of truth (a known-good literal, a worked example, the spec), or did I derive it the way the code does?" A hand-derived snapshot or a constant asserted equal to itself is the same trap.
+
+---
+
 ## Summary
 
 | Anti-Pattern | One-line fix |
@@ -201,3 +223,4 @@ by `await`.
 | Over-mocking | Use integration tests instead |
 | Asserting on implementation | Assert on what the user sees |
 | Un-awaited async assertions | `await` every `.resolves` / `.rejects` |
+| Tautological assertions | Expected value from an independent source, not recomputed |

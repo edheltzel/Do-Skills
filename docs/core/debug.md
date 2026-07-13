@@ -30,15 +30,20 @@ for bugs a change set *might* have introduced — `debug` chases a failure that
 already happened. When the fix is known and just needs building, hand off to
 [implement](../core/implement.md) or [tdd](../core/tdd.md).
 
-## Reproduce, explain, then pin it down
+## Build the feedback loop first
 
-The loop is reproduce → trace to root cause → regression test → smallest fix.
-No fix lands before the failure is reproduced and *explained* — if it can't be
-reproduced, the skill keeps gathering information and reports observations
-instead of guessing. The regression test is written failing first when
-practical, so the bug's absence is proven the same way its presence was. One bug
-at a time; unrelated failures and flaky infrastructure stay out of the task, and
-the skill stops when the fix needs a product or code-owner decision.
+The method is six phases, and the first one *is* the skill: build a tight,
+red-capable feedback loop — a single command, already run, that drives the real
+bug path and asserts the user's exact symptom. Everything downstream just
+consumes it: reproduce and minimise to the smallest scenario that still goes red,
+generate 3–5 ranked falsifiable hypotheses before testing any, instrument one
+variable at a time (debugger over logs, tagged `[DEBUG-…]` logs, measure-first
+for performance), fix at a correct seam with the regression test written failing
+first, then a post-mortem asking *what would have prevented this*. No fix lands
+before the failure is reproduced and *explained*; if a loop genuinely can't be
+built, the skill stops and asks for access or an artifact instead of guessing.
+One bug at a time, and it stops when the fix needs a product or code-owner
+decision.
 
 ## It's working if
 
@@ -51,4 +56,6 @@ the skill stops when the fix needs a product or code-owner decision.
 The recovery loop of the Deliver flow — reached for from any stage when
 something breaks. Its regression-test-first move comes from
 [tdd](../core/tdd.md), and fixes it produces flow back through the same review
-gate as [implement](../core/implement.md).
+gate as [implement](../core/implement.md). When the post-mortem points at an
+architectural cause — no good test seam, tangled callers — it hands off to
+[review-structure](../core/review-structure.md).

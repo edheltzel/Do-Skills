@@ -18,6 +18,9 @@ Stack-specific code craft — reached for once the language, framework, or platf
 | [`no-use-effect`](./no-use-effect/) | Prevent unnecessary React `useEffect` usage by steering code toward derived state, event handlers, memoization, `key`-based resets, `useSyncExternalStore`, and framework or query-library data APIs. |
 | [`parse-dont-validate`](./parse-dont-validate/) | Type-driven design principle: transform unstructured data into structured types at system boundaries, making illegal states unrepresentable. |
 | [`react-native-expo`](./react-native-expo/) | Build and review React Native or Expo apps for iOS, Android, or native mobile. |
+| [`setup-pre-commit`](./setup-pre-commit/) | Set up Husky pre-commit hooks with lint-staged (Prettier), type checking, and tests in a JS/TS repo, detecting the package manager. |
+| [`setup-ts-deep-modules`](./setup-ts-deep-modules/) | Wire dependency-cruiser into a TypeScript repo so each package is a deep module — implementation hidden in subfolders, reachable only through its entry-point files — and prove the rules bite. |
 | [`tailwind-v4`](./tailwind-v4/) | Tailwind CSS v4 with CSS-first configuration, @theme design tokens, OKLCH color, and dark-mode strategies. |
 | [`typescript`](./typescript/) | Write clean, pragmatically functional TypeScript — simple, composable, soundly typed |
 | [`typescript-refactoring`](./typescript-refactoring/) | Systematically refactor TypeScript codebases for readability, type safety, and AI-friendliness. |
+| [`wizard`](./wizard/) | Generate an interactive bash wizard that walks a human through a manual procedure — third-party setup, a one-off migration, an A→B state transition — opening URLs, capturing values, confirming each step, and writing .env files and GitHub Actions secrets. |

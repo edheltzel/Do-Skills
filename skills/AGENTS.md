@@ -22,9 +22,11 @@ sentence of the skill's description), and this doc is the contract for all four.
 - Layout: `skills/<bucket>/<skill-dir>/SKILL.md`, plus optional `references/*.md`
   for depth that would bloat SKILL.md (progressive disclosure; keep SKILL.md
   under ~300 lines where practical)
-- Frontmatter: `name` and `description` only (plus `alwaysAllow` where a skill
-  genuinely needs it). No `user-invocable`, `disable-model-invocation`, or other
-  foreign keys
+- Frontmatter: `name` and `description` always; additionally allowed where
+  earned: `user-invocable` + `argument-hint` (slash-command process skills),
+  `globs` (file-type-scoped engineering skills), `alwaysAllow`, `license`.
+  No `disable-model-invocation` or other foreign keys — user-invoked intent is
+  carried by the description
 - `name` may use a namespace prefix (`git:worktree`) while the directory stays
   kebab-case (`git-worktree`)
 - Description style: what the skill enables, "USE WHEN …" trigger phrases, and

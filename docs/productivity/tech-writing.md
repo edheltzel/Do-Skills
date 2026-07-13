@@ -67,3 +67,5 @@ Create and link a separate page when the material has its own audience or search
 ## Where it fits
 
 This skill owns writing posture, document-type selection, and general engineering-writing formats. Artifact-specific skills still own their narrower contracts. The split prevents a shared style guide from replacing specialized rules while keeping the voice consistent across the repository.
+
+For drafting long-form prose from raw notes, it sits downstream of a two-skill pipeline: explore with [writing-fragments](./writing-fragments.md), shape the pile with [writing-drafting](./writing-drafting.md), then return here for document type, format, and AI-tell removal.

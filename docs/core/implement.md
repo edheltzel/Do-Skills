@@ -32,7 +32,9 @@ ticket-to-pull-request loop with its own branch and worktree, use
 ## Smallest complete change
 
 The defining discipline is scope: one task at a time, no public interface or
-data-shape changes unless the task requires them, checks run focused-first and
+data-shape changes unless the task requires them. Tests for changed behavior lean
+on [tdd](../core/tdd.md) at the pre-agreed seams; checks run focused-first —
+typecheck and single test files regularly, the full suite once at the end — and
 widen only when shared or user-facing behavior changed. Unchecked work is never
 hidden, and when the task, spec, or plan itself turns out to be wrong, the skill
 stops and fixes the source of truth instead of pushing through. It
