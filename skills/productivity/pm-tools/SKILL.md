@@ -182,6 +182,47 @@ gh issue list --repo owner/repo --state open --json url -q '.[].url' | \
   xargs -I {} gh project item-add 1 --owner "@me" --url {}
 ```
 
+### Close Issues From a PR
+
+Every PR must close the issues it resolves. Review open issues before opening the
+PR, then put closing keywords in the **PR body** so the merge closes them and the
+board moves without manual cleanup.
+
+```bash
+# 1. See what is open before writing the PR body
+gh issue list --repo owner/repo --state open
+
+# 2. Include closing keywords in the PR body (one keyword per issue)
+gh pr create --title "fix: correct token refresh" --body "$(cat <<'EOF'
+Refreshes the token before expiry instead of after the first 401.
+
+Fixes #12
+Fixes #13
+Related to #20
+EOF
+)"
+
+# 3. Verify the links registered before merging
+gh pr view 42 --json closingIssuesReferences
+```
+
+Keywords: `close`/`closes`/`closed`, `fix`/`fixes`/`fixed`, `resolve`/`resolves`/`resolved`.
+Cross-repository: `fixes owner/repo#123`.
+
+Rules that decide whether this actually works:
+
+- **One keyword per issue.** `Fixes #12, fixes #13` closes both; `Fixes #12, #13`
+  silently closes only #12.
+- **The keyword must be in the PR description or a commit message.** A keyword in
+  the branch name or the PR title alone does nothing.
+- **Auto-close only fires when the PR merges into the default branch.** Merging
+  elsewhere links the issue but leaves it open.
+- **Only link issues the PR genuinely resolves.** Reference related work without a
+  keyword (`Related to #20`) so it stays open.
+- If no open issue applies, say so in the PR description rather than inventing a link.
+
+Full keyword reference: [GitHub docs](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/using-keywords-in-issues-and-pull-requests)
+
 ## JSON Output & jq Patterns
 
 ```bash
