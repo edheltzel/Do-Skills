@@ -16,12 +16,10 @@ npx skills update plan
 
 `plan` breaks a spec, brief, or request into agent-ready tickets, each
 delivering one working outcome with a goal, context, acceptance criteria, and a
-runnable Verify step. Every ticket is a **vertical slice** — a narrow but
-complete path through every layer, implementable, testable, and reviewable on
-its own — never a layer: separate database, API, UI, or testing tickets are
-explicitly rejected, and work is never split just to create more tickets. Each
-ticket declares its **blocking edges**, the tickets that must land before it can
-start.
+runnable Verify step. Every ticket must be a working slice — implementable,
+testable, and reviewable on its own — never a layer: separate database, API, UI,
+or testing tickets are explicitly rejected, and work is never split just to
+create more tickets.
 
 ## When to reach for it
 
@@ -31,8 +29,7 @@ Reach for it when decided work needs splitting so agents (or you) can execute it
 in parallel or in order. If decisions are still open, the skill stops and lists
 them — resolve those first with [spec](../core/spec.md) or
 [design-doc](../core/design-doc.md). Drafts land in chat by default; tickets are
-published to GitHub Issues (via `gh`), Linear, or Jira only when asked, and only
-after the skill quizzes you on the breakdown's granularity and blocking edges.
+published to GitHub Issues, Linear, or Jira only when asked.
 
 ## Tickets a stranger can finish
 
@@ -42,18 +39,6 @@ observable results, a Verify section with the exact commands or manual checks
 that prove completion, plus what must be preserved and what is out of scope.
 That standard is what lets a ticket flow into
 [task-to-pr](../core/task-to-pr.md) unattended.
-
-## Slices, wide refactors, and the frontier
-
-Before slicing, the skill looks for prefactoring — "make the change easy, then
-make the easy change" — and sequences it first. Vertical slices are the default,
-but a **wide refactor** whose blast radius breaks thousands of call sites at once
-can't land green as one slice; it is sequenced **expand–contract** instead: add
-the new form beside the old, migrate call sites in batches sized by blast radius,
-then delete the old form once no caller remains, with an integration branch when
-even the batches can't stay green alone. Tickets are then worked on the
-**frontier** — one at a time with [implement](../core/implement.md), context
-cleared between them.
 
 ## Where it fits
 

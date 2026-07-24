@@ -148,11 +148,6 @@ function sendEmail(to: EmailAddress, body: string): void { /* ... */ }
 The type system won't let you pass a raw `string` where `EmailAddress` is expected.
 You must go through `parseEmail` first.
 
-Name these branded/domain types from the project's ubiquitous language: pull the term from
-`CONTEXT.md` (and feed newly-coined ones back into it) via the domain-modeling skill, so a
-type like `EmailAddress` or `ValidAge` matches the domain glossary instead of inventing a
-parallel name.
-
 ### 5. Let types inform code, not vice versa
 
 Don't stick a `boolean` in a record because your current function needs it. Design the

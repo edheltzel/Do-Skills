@@ -65,7 +65,6 @@ An empty case set, a `0/0` run, a setup-only run, an unexecuted required case, o
 ## Detailed References
 
 - [Anti-patterns](references/anti-patterns.md)
-- [Designing for mockability](references/mockability.md)
 - [Test templates](references/test-templates.md)
 - [Branch coverage](references/branch-coverage.md)
 - [Executable E2E plans](references/e2e-test-plan.md)

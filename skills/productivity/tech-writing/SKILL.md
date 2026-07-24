@@ -7,8 +7,6 @@ description: "Draft clear tutorials, how-to guides, reference docs, explanations
 
 Write for humans and machines. Every sentence earns its place or gets cut.
 
-Drafting long-form from raw notes? Explore with `writing-fragments`, then shape the pile with `writing-drafting` — return here for documentation type, format, and AI-tell removal.
-
 ## Core Principles
 
 **Lead with the point.** Put the takeaway first. Add context only when it changes the reader's understanding or action.
@@ -246,5 +244,3 @@ Before publishing, cut:
 3. Throat-clearing openers.
 4. Sections with no useful content.
 5. Facts the intended reader can already infer.
-
-Then check ordering: each concept should be grounded — introduced or assumed known — before a later section leans on it.

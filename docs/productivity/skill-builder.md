@@ -42,8 +42,6 @@ practice: valid YAML, ≤500 lines, and no dangling relative links.
 
 The mechanics companion to [distill-to-skill](./distill-to-skill.md): distill-to-skill
 decides *what* knowledge becomes a skill and how to compress it; skill-builder builds
-and validates the artifact. For the *why* behind the structure and validation choices —
-information hierarchy, the two loads, and the failure modes its Validation step screens
-for — see [writing-great-skills](./writing-great-skills.md). In this repository, run
-`update-readme` afterward to keep the repo index current. Imported and adapted from the beagle skills marketplace
+and validates the artifact. In this repository, run `update-readme` afterward to keep
+the repo index current. Imported and adapted from the beagle skills marketplace
 (existential-birds/beagle).

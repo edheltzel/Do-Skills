@@ -24,8 +24,6 @@ figuring out *where* to change it. ARCHITECTURE.md bridges that gap.
 6. **Mark boundaries** -- API boundaries between layers constrain all possible implementations behind them. Finding a boundary by randomly reading code is hard.
 7. **Cross-cutting concerns last** -- After the codemap, address things that are everywhere and nowhere (error handling, testing, config).
 
-When a codemap entry names a seam or describes a module's depth, use the codebase-design skill's vocabulary (module, interface, depth, seam) so the architecture doc and the design language stay in agreement.
-
 ## Workflow
 
 ### Step 1: Explore the Codebase

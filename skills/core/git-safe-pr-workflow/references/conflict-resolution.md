@@ -29,10 +29,9 @@ Resolve to the desired final code, even if that means taking parts of both sides
 1. Identify the conflicting files.
 2. Read the full surrounding code before editing.
 3. Understand what changed on `main` and what changed on the feature branch.
-4. **Recover each side's intent before resolving hunks.** Don't reconcile the two versions on shape alone — recover *why* each side is the way it is. Read the commit messages that touched the conflicting lines (`git log -p <fixed-point>..HEAD -- <file>` and the same on the `main` side), and any linked PR or issue, so you know what each change was trying to achieve. A hunk that looks like a stray edit is often a deliberate fix; resolving without its intent is how fixes get silently dropped.
-5. Remove conflict markers only after deciding the intended final behavior.
-6. Re-check imports, function calls, types, and tests in the affected area.
-7. Run focused verification before concluding the merge is done.
+4. Remove conflict markers only after deciding the intended final behavior.
+5. Re-check imports, function calls, types, and tests in the affected area.
+6. Run focused verification before concluding the merge is done.
 
 ## Common Failure Modes
 
@@ -46,11 +45,11 @@ Resolve to the desired final code, even if that means taking parts of both sides
 
 Always inspect the diff for the conflicted files after resolution.
 
-Then run the repo's checks in this order — **typecheck → tests → format** — so the cheapest, most localizing signal fires first: a type error pins the exact broken call a resolution introduced, tests then confirm behavior, and formatting runs last so it never reshuffles lines you still have to debug. Run at least one of:
+Then run at least one of:
 
-- build/typecheck if the repo has it (first)
-- targeted tests near the conflict, or the full suite if the change is broad
-- format/lint last, once the code is correct
+- targeted tests near the conflict
+- full test suite if the change is broad
+- build/typecheck if the repo has it
 - focused manual review of the affected behavior
 
 Summarize the resolution to the user in plain language:

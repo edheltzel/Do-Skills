@@ -100,11 +100,7 @@ Default section order:
 
 - Keep skill imports surgical: atlas skills stay the base doctrine; graft external
   payloads into existing skills rather than adopting foreign pipelines wholesale
-- On overlap, merge as a complementary union — lose neither side's feature set
 - Attribute imported/adapted skills to their source in docs pages and commit messages
-- Process skills keep confirm-first human gates (seams before tests, quiz before
-  ticket publish, triage/wayfinder confirms); the TDD loop is strictly red→green
-  with refactoring at review; `spec` synthesizes and publishes without pausing
 
 ## Child DOX Index
 

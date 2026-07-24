@@ -171,10 +171,8 @@ The YAML `description` field is the **only thing** that determines whether the s
 triggers. It's loaded into context permanently. Write it carefully:
 
 - Start with what the skill enables (not what it is)
-- **Front-load the skill's leading word** — the strongest, most recognisable term early, so it recruits the priors the model already holds and does its invocation work first.
 - List specific scenarios and file types
 - Include concrete trigger phrases the user might say
-- **One trigger per branch — don't restate triggers.** Synonyms that rename a single branch are duplication ("build features using TDD … asks for test-first development" is one branch written twice). Collapse them; keep only genuinely distinct branches.
 - Keep it to 3-5 lines of YAML
 
 Bad: `"Patterns from a blog post about types."`
