@@ -96,6 +96,7 @@ Non-code workflow tools.
 | [`pm-tools`](./skills/productivity/pm-tools/) | GitHub Projects management via gh CLI — creating projects, managing items/fields, plus opinionated PM recipes — board bootstrap, Epic→Feature→Task issue hierarchy with sub-issue linking, label policy, running a plan against the board, picking next work, and status reporting. |
 | [`skill-builder`](./skills/productivity/skill-builder/) | The mechanics of creating agent skills — structure, frontmatter, validation gates, reference layout, and trigger testing. |
 | [`tech-writing`](./skills/productivity/tech-writing/) | Draft clear tutorials, how-to guides, reference docs, explanations, commit messages, issues, PRDs, specs, PR descriptions, and comments. |
+| [`writing-great-skills`](./skills/productivity/writing-great-skills/) | Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable. |
 
 ### Personal
 
