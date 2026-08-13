@@ -1,6 +1,6 @@
 ---
 name: do-browser
-description: "Browser automation through the installed chrome-devtools-axi CLI. Opens pages, reads accessibility snapshots, clicks and fills by generation-scoped refs, captures screenshots, evaluates JavaScript, and inspects console or network activity. Workflows: ReviewStories, Automate, and Update. USE WHEN browser automation, screenshot, dev server test, form fill, extract rendered data, review stories, automate recipe, console debugging, or network inspection. NOT FOR simple static URL fetching (use fetch_content), residential-proxy crawling (use BrightData), or social actor scraping (use Apify)."
+description: "Browser automation through the installed chrome-devtools-axi CLI. Opens pages, reads accessibility snapshots, clicks and fills by generation-scoped refs, captures screenshots, evaluates JavaScript, and inspects console or network activity. Workflows: ReviewStories, Automate, and Update. USE WHEN browser automation, screenshot, dev server test, form fill, extract rendered data, review stories, automate recipe, console debugging, or network inspection. NOT FOR simple static URL fetching, residential-proxy crawling, or social actor scraping."
 version: 10.1.0
 effort: medium
 ---

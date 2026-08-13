@@ -1,7 +1,7 @@
 ---
 name: do-bitter-pill
 version: 1.1.0
-description: "Audits AI instruction sets for over-prompting. Applies six tests to each rule, then classifies it as CUT, RESOLVE, MERGE, EVALUATE, SHARPEN, MOVE, or KEEP. USE WHEN BPE, bitter pill, audit setup, trim instructions, simplify setup, or clean up CLAUDE.md. NOT FOR attacking an idea's logic (use RedTeam)."
+description: "Audits AI instruction sets for over-prompting. Applies six tests to each rule, then classifies it as CUT, RESOLVE, MERGE, EVALUATE, SHARPEN, MOVE, or KEEP. USE WHEN BPE, bitter pill, audit setup, trim instructions, simplify setup, or clean up CLAUDE.md. NOT FOR attacking an idea's logic (use do-red-team)."
 effort: medium
 ---
 

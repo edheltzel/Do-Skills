@@ -1,31 +1,10 @@
 ---
 name: do-evals
 version: 1.2.17
-description: "AI agent evaluation framework with three grader types (code-based, model-based, human) and pass@k/pass^k scoring over agent transcripts, tool-call sequences, and multi-turn conversations; covers capability and regression evals. USE WHEN eval, evaluate, benchmark, regression test, compare models, create judge, test agent, pass@k, scenario simulation. NOT FOR scientific method framing (use Science)."
+description: "AI agent evaluation framework with three grader types (code-based, model-based, human) and pass@k/pass^k scoring over agent transcripts, tool-call sequences, and multi-turn conversations; covers capability and regression evals. USE WHEN eval, evaluate, benchmark, regression test, compare models, create judge, test agent, pass@k, scenario simulation."
 effort: high
 context: fork
 ---
-
-## 🚨 MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the Evals skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-
-   ```
-   Running the **WorkflowName** workflow in the **Evals** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
 
 # Evals - AI Agent Evaluation Framework
 
@@ -110,20 +89,20 @@ Agent evaluation system based on Anthropic's "Demystifying Evals for AI Agents" 
 
 ```bash
 # Run an eval suite
-bun run ~/.claude/skills/Evals/Tools/AlgorithmBridge.ts \
+bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts \
   --suite <suite> --output-file <task-output-map.json>
 
 # Log a failure for later conversion
-bun run ~/.claude/skills/Evals/Tools/FailureToTask.ts log "description" -c category -s severity
+bun run ~/.claude/skills/do-evals/Tools/FailureToTask.ts log "description" -c category -s severity
 
 # Convert failures to test tasks
-bun run ~/.claude/skills/Evals/Tools/FailureToTask.ts convert-all
+bun run ~/.claude/skills/do-evals/Tools/FailureToTask.ts convert-all
 
 # Manage suites
-bun run ~/.claude/skills/Evals/Tools/SuiteManager.ts create <name> -t capability -d "description"
-bun run ~/.claude/skills/Evals/Tools/SuiteManager.ts list
-bun run ~/.claude/skills/Evals/Tools/SuiteManager.ts check-saturation <name>
-bun run ~/.claude/skills/Evals/Tools/SuiteManager.ts graduate <name>
+bun run ~/.claude/skills/do-evals/Tools/SuiteManager.ts create <name> -t capability -d "description"
+bun run ~/.claude/skills/do-evals/Tools/SuiteManager.ts list
+bun run ~/.claude/skills/do-evals/Tools/SuiteManager.ts check-saturation <name>
+bun run ~/.claude/skills/do-evals/Tools/SuiteManager.ts graduate <name>
 ```
 
 ### ALGORITHM Integration
@@ -132,7 +111,7 @@ Evals is a verification method for THE ALGORITHM ISC rows:
 
 ```bash
 # Evaluate supplied outputs and carry an optional row identifier in the result
-bun run ~/.claude/skills/Evals/Tools/AlgorithmBridge.ts \
+bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts \
   --suite regression-core --output-file task-output-map.json --isc-row 3
 ```
 
@@ -282,5 +261,3 @@ User: "run evals on the Research skill after the update"
 → Before/after comparison
 → Reports any quality regressions
 ```
-
-Replace `WORKFLOW_USED` with the workflow executed, `8_WORD_SUMMARY` with a brief input description, and `SECONDS` with approximate wall-clock time. Log `status: "error"` if the workflow failed.

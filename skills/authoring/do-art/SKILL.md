@@ -1,7 +1,7 @@
 ---
 name: do-art
 version: 1.5.8
-description: "Static visual content across 20+ formats - diagrams, mermaid, infographics, D3 dashboards, comics, icons, wallpaper - via Flux, Nano Banana Pro, and GPT-Image-2. USE WHEN art, illustration, diagram, flowchart, infographic, header image, blog social thumbnail, visualize, generate image, mermaid, architecture diagram, comic, icon, blog art, framework diagram, D3 chart, remove background, wallpaper. NOT FOR locked house-style YouTube/channel/video thumbnails (use _THUMBNAIL - it orchestrates Art's Generate/PickExpression/ThumbnailText tools), video or animation (use Remotion), or web UI design and integrated frontend layout (use Webdesign)."
+description: "Static visual content across 20+ formats - diagrams, mermaid, infographics, D3 dashboards, comics, icons, wallpaper - via Flux, Nano Banana Pro, and GPT-Image-2. USE WHEN art, illustration, diagram, flowchart, infographic, header image, blog social thumbnail, visualize, generate image, mermaid, architecture diagram, comic, icon, blog art, framework diagram, D3 chart, remove background, wallpaper. NOT FOR locked house-style YouTube/channel/video thumbnails, video or animation, or web UI design and integrated frontend layout."
 effort: medium
 ---
 
