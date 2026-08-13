@@ -5,25 +5,6 @@ description: "Generates production-ready TypeScript CLIs via a 3-tier template s
 effort: medium
 ---
 
-## 🚨 MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the CreateCLI skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-   ```
-   Running the **WorkflowName** workflow in the **CreateCLI** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
-
 # CreateCLI
 
 ## What It Does
@@ -359,5 +340,3 @@ The `llcli` CLI (Limitless.ai API) proves this pattern works:
 - **Always use bun, never npm/npx.** Zero exceptions per system prompt.
 - **TypeScript only.** Never generate Python CLIs unless the user explicitly approves.
 - **3-tier system:** Start with the simplest tier that fits. Don't over-engineer a Tier 3 CLI when Tier 1 suffices.
-
-Replace `WORKFLOW_USED` with the workflow executed, `8_WORD_SUMMARY` with a brief input description, and `SECONDS` with approximate wall-clock time. Log `status: "error"` if the workflow failed.

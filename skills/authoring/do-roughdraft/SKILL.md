@@ -1,6 +1,6 @@
 ---
 name: do-roughdraft
-description: Install and drive the published `roughdraft` CLI — a local-first markdown editor/viewer for reviewing markdown with an AI agent (comments + CriticMarkup suggestions). USE WHEN open markdown in roughdraft, review a draft, roughdraft open/start/status/stop, install roughdraft CLI, hand a markdown file to a human for review, roughdraft mcp. NOT FOR generic markdown linting (use a linter), building roughdraft from source (this is the published CLI, not the repo), or scaffolding new skills (use CreateSkill).
+description: Install and drive the published `roughdraft` CLI — a local-first markdown editor/viewer for reviewing markdown with an AI agent (comments + CriticMarkup suggestions). USE WHEN open markdown in roughdraft, review a draft, roughdraft open/start/status/stop, install roughdraft CLI, hand a markdown file to a human for review, roughdraft mcp. NOT FOR generic markdown linting (use a linter), building roughdraft from source (this is the published CLI, not the repo), or scaffolding new skills.
 alwaysAllow: ["Bash"]
 ---
 

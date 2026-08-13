@@ -1,26 +1,9 @@
 ---
 name: do-browser
-description: "Browser automation through the installed chrome-devtools-axi CLI. Opens pages, reads accessibility snapshots, clicks and fills by generation-scoped refs, captures screenshots, evaluates JavaScript, and inspects console or network activity. Workflows: ReviewStories, Automate, and Update. USE WHEN browser automation, screenshot, dev server test, form fill, extract rendered data, review stories, automate recipe, console debugging, or network inspection. NOT FOR simple static URL fetching, residential-proxy crawling, or social actor scraping."
+description: "Browser automation through the installed chrome-devtools-axi CLI. Opens pages, reads accessibility snapshots, clicks and fills by generation-scoped refs, captures screenshots, evaluates JavaScript, and inspects console or network activity. Workflows: ReviewStories, Automate, and Update. USE WHEN browser automation, screenshot, dev server test, form fill, extract rendered data, review stories, automate recipe, console debugging, or network inspection. NOT FOR simple static URL fetching (use WebFetch), or authenticated, CAPTCHA, or bot-detection work (use do-interceptor)."
 version: 10.1.0
 effort: medium
 ---
-
-## MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-Send the notification before running a workflow:
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the WORKFLOWNAME workflow in the Browser skill to ACTION"}' \
-  > /dev/null 2>&1 &
-```
-
-Then output:
-
-```
-Running the **WorkflowName** workflow in the **Browser** skill to ACTION...
-```
 
 # Browser
 
@@ -91,5 +74,5 @@ Recipes live in `Recipes/` and use either `chrome-devtools-axi` for deterministi
 - A successful click command does not prove the page changed. Verify with a fresh snapshot.
 - Relative screenshot and trace paths resolve from the command's working directory.
 - Large network bodies should be saved with `network-get --response-file` rather than printed into the transcript.
-- Use `fetch_content` instead of launching Chrome when the page is public and static.
-- If the installed Chrome path cannot access a target because of CAPTCHA or residential-IP controls, route to BrightData's optional credentialed escalation rather than an absent fallback executable.
+- Use `WebFetch` instead of launching Chrome when the page is public and static.
+- If the installed Chrome path cannot access a target because of CAPTCHA, bot detection, or authentication, escalate to the `do-interceptor` skill (real Chrome/Brave + macOS Computer Use) rather than an absent fallback executable.

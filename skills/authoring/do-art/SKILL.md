@@ -1,32 +1,11 @@
 ---
 name: do-art
 version: 1.5.8
-description: "Static visual content across 20+ formats - diagrams, mermaid, infographics, D3 dashboards, comics, icons, wallpaper - via Flux, Nano Banana Pro, and GPT-Image-2. USE WHEN art, illustration, diagram, flowchart, infographic, header image, blog social thumbnail, visualize, generate image, mermaid, architecture diagram, comic, icon, blog art, framework diagram, D3 chart, remove background, wallpaper. NOT FOR locked house-style YouTube/channel/video thumbnails, video or animation, or web UI design and integrated frontend layout."
+description: "Static visual content across 20+ formats - diagrams, mermaid, infographics, D3 dashboards, comics, icons, wallpaper - via Flux, Nano Banana Pro, and GPT-Image-2. USE WHEN art, illustration, diagram, flowchart, infographic, header image, blog social thumbnail, visualize, generate image, mermaid, architecture diagram, comic, icon, blog art, framework diagram, D3 chart, remove background, wallpaper. NOT FOR locked house-style YouTube/channel/video thumbnails, video or animation (use Hyperframes or Remotion), or web UI design and integrated frontend layout."
 effort: medium
 ---
 
 # Art Skill
-
-## 🚨 MANDATORY: Voice Notification (REQUIRED BEFORE ANY ACTION)
-
-**You MUST send this notification BEFORE doing anything else when this skill is invoked.**
-
-1. **Send voice notification**:
-
-   ```bash
-   curl -s -X POST http://localhost:8888/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running the WORKFLOWNAME workflow in the Art skill to ACTION"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-
-   ```
-   Running the **WorkflowName** workflow in the **Art** skill to ACTION...
-   ```
-
-**This is not optional. Execute this curl command immediately upon skill invocation.**
 
 ## What It Does
 
@@ -333,5 +312,3 @@ User: "visualize humans vs AI decision-making"
 - **Interior-white ban (2026-07-09, "giant white space" incident):** prompt large flat surfaces (desks, panels, windows, paper) as "warm cream paper tone", never bright white or unstated - baked-white interiors survive rembg intact and render as giant white rectangles on the cream page. Inside-the-subject sibling of the 2026-06-20 white-box bug. Also trim white padding off any external screenshot before embedding (`magick -fuzz 4% -trim` + sepia border).
 - **Reference-image edits: negative text loses to the reference (2026-07-09 studio-background session).** When nano-banana-pro keeps reproducing an unwanted object that exists in the reference photo (e.g. a second floor lamp), "do NOT add/duplicate" prompt language fails ~7/8 rolls - the model preserves what it sees over what you forbid. Fix: roll until ONE output has the corrected composition, then use THAT output as the new `--reference-image` for the remaining variations; compliance jumped to 7/7. Editing the reference beats describing the edit.
 - **Essay/blog headers MUST be signed "{{DA_NAME}}" (2026-06-20 + 2026-07-09 principal directives) - cursive signature hand, small, integrated.** Programmatic stamp in Generate.ts/Essay.md Step 7.1 (`SignPainter-HouseScript`, ~3% of image width, semi-transparent charcoal, slight rotation, tucked into the composition's bottom-right); never prompt the signature into the model (it garbles). Formal calligraphy faces (Snell-Roundhand / Apple-Chancery / Savoye) remain rejected; oversized print-letter Bradley Hand was replaced 2026-07-09 ("more cursive looking and smaller, more part of the image").
-
-Replace `WORKFLOW_USED` with the workflow executed, `8_WORD_SUMMARY` with a brief input description, and `SECONDS` with approximate wall-clock time. Log `status: "error"` if the workflow failed.
