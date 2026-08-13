@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=no-use-effect
+npx skills add edheltzel/skills --skill=do-no-use-effect
 ```
 
 ```bash
-npx skills update no-use-effect
+npx skills update do-no-use-effect
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/no-use-effect)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-no-use-effect)
 
 ## What it does
 

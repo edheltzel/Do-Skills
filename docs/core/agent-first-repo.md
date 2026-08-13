@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=agent-first-repo
+npx skills add edheltzel/skills --skill=do-agent-first-repo
 ```
 
 ```bash
-npx skills update agent-first-repo
+npx skills update do-agent-first-repo
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/core/agent-first-repo)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/core/do-agent-first-repo)
 
 ## What it does
 
@@ -30,8 +30,8 @@ be more agent-friendly.
 
 Reach for it when you want the whole-repo view — the documentation architecture and
 the enforcement strategy that hold it together. For the two files at the top of that
-hierarchy, drop to the focused skills: [agents-md](./agents-md.md) for the entry-point
-file, [architecture-md](./architecture-md.md) for the codemap. For typing the
+hierarchy, drop to the focused skills: [agents-md](../authoring/agents-md.md) for the entry-point
+file, [architecture-md](../authoring/architecture-md.md) for the codemap. For typing the
 boundaries this skill insists on, see [parse-dont-validate](../engineering/parse-dont-validate.md).
 
 ## The three pillars
@@ -59,5 +59,5 @@ scoring — pay the debt down in small increments instead of manual cleanup Frid
 
 A run-once setup skill with a periodic-maintenance tail — you stand the structure up
 early, then lean on the entropy discipline to keep it honest. It's the umbrella over
-[agents-md](./agents-md.md) and [architecture-md](./architecture-md.md), which each
+[agents-md](../authoring/agents-md.md) and [architecture-md](../authoring/architecture-md.md), which each
 own one layer of the hierarchy it describes.

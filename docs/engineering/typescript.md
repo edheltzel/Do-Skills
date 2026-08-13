@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=typescript
+npx skills add edheltzel/skills --skill=do-typescript
 ```
 
 ```bash
-npx skills update typescript
+npx skills update do-typescript
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/typescript)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-typescript)
 
 ## What it does
 

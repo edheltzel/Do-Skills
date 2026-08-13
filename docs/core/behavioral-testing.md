@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=behavioral-testing
+npx skills add edheltzel/skills --skill=do-behavioral-testing
 ```
 
 ```bash
-npx skills update behavioral-testing
+npx skills update do-behavioral-testing
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/core/behavioral-testing)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/core/do-behavioral-testing)
 
 ## What it does
 

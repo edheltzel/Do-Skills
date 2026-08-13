@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=git-safe-pr-workflow
+npx skills add edheltzel/skills --skill=do-git-safe-pr-workflow
 ```
 
 ```bash
-npx skills update git-safe-pr-workflow
+npx skills update do-git-safe-pr-workflow
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/core/git-safe-pr-workflow)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/core/do-git-safe-pr-workflow)
 
 ## What it does
 
@@ -59,6 +59,6 @@ Deeper playbooks live in the skill's `references/` — `conflict-resolution.md`,
 ## Where it fits
 
 A reach-for-it-anytime standalone for the branch-to-merge lifecycle. It follows
-[git-worktree](../core/git-worktree.md), which sets up where a branch lives, and
-feeds [git-pr-review-triage](../core/git-pr-review-triage.md), which sorts the
+[git-worktree](../workflow/git-worktree.md), which sets up where a branch lives, and
+feeds [git-pr-review-triage](../workflow/git-pr-review-triage.md), which sorts the
 review comments once the PR is open.

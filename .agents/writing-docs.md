@@ -1,9 +1,11 @@
 # Writing docs pages
 
-Every skill in a **promoted** bucket — `core/`, `engineering/`, `productivity/`
-— has a human-facing **docs page** at `docs/<bucket>/<skill-dir>.md`. The docs
-tree mirrors those three bucket folders under `skills/`. `personal/` is **not**
-promoted and ships no docs page.
+Every skill in a **promoted** bucket - `core/`, `engineering/`, `authoring/`,
+`workflow/` - has a human-facing **docs page** at
+`docs/<bucket>/<base-slug>.md`, where `<base-slug>` is the skill's directory
+name **without** its `do-` prefix. The docs tree mirrors those four bucket
+folders under `skills/`. `operations/` and `private/` are **not** promoted and
+ship no docs page.
 
 The page is not the skill and not a copy of `SKILL.md`. Its job is to orient one
 reader around one skill: what it does, when to reach for it, and where it sits
@@ -13,8 +15,8 @@ Act whenever a promoted skill is added, renamed, moved between buckets, or has
 its behaviour changed: create or re-sync its docs page. A rename moves the file
 (`docs/<bucket>/<old>.md` → `docs/<bucket>/<new>.md`); a skill moving between
 promoted buckets moves its docs file to the matching folder. A skill moving into
-`personal/` loses its page; one moving out of `personal/` into a promoted bucket
-gains one.
+a non-promoted bucket (`operations/`, `private/`) loses its page; one moving into
+a promoted bucket gains one.
 
 ## Repo conventions
 
@@ -27,9 +29,10 @@ This repo is **not** published to a website — pages are read on GitHub. So:
 - The **docs path is organisation only** — it mirrors the bucket, but the page
   is about the skill, not the bucket.
 
-Use the skill's **directory name** for the filename and the `--skill=` value,
-even when the frontmatter `name:` is namespaced (e.g. dir `git-worktree`,
-name `git:worktree` → file `git-worktree.md`, `--skill=git-worktree`).
+The `--skill=` value and the `[Source]` URL use the skill's full **directory
+name**, `do-` prefix included; the docs **filename** drops that prefix (e.g. dir
+`do-git-worktree` → file `git-worktree.md`, `--skill=do-git-worktree`, Source
+`.../skills/workflow/do-git-worktree`).
 
 ## Page template
 

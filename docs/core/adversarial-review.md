@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=adversarial-review
+npx skills add edheltzel/skills --skill=do-adversarial-review
 ```
 
 ```bash
-npx skills update adversarial-review
+npx skills update do-adversarial-review
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/core/adversarial-review)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/core/do-adversarial-review)
 
 ## What it does
 
@@ -29,7 +29,7 @@ Reach for it when the risk is incorrect behavior: missing guards, boundary
 errors, stale callers, async ordering, swallowed failures, resource leaks, or a
 half-finished refactor. For readability and unnecessary complexity, use
 [simplify](./simplify.md). For feedback already left on a pull request, use
-[git-pr-review-triage](./git-pr-review-triage.md).
+[git-pr-review-triage](../workflow/git-pr-review-triage.md).
 
 ## The concrete-trigger gate
 
@@ -54,7 +54,7 @@ shapes; and one branch updated without its twin.
 ## Where it fits
 
 A read-only correctness lens for the end of a change. It complements
-[simplify](./simplify.md), [code-comments](./code-comments.md), and
+[simplify](./simplify.md), [code-comments](../authoring/code-comments.md), and
 [parse-dont-validate](../engineering/parse-dont-validate.md), each of which owns
 a different concern. It also runs as the correctness lens inside
 [cleanup-web](../engineering/cleanup-web.md) and

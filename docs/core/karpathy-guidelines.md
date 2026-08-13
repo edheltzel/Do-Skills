@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=karpathy-guidelines
+npx skills add edheltzel/skills --skill=do-karpathy-guidelines
 ```
 
 ```bash
-npx skills update karpathy-guidelines
+npx skills update do-karpathy-guidelines
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/core/karpathy-guidelines)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/core/do-karpathy-guidelines)
 
 ## What it does
 

@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=cleanup-swift
+npx skills add edheltzel/skills --skill=do-cleanup-swift
 ```
 
 ```bash
-npx skills update cleanup-swift
+npx skills update do-cleanup-swift
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/cleanup-swift)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-cleanup-swift)
 
 ## What it does
 
@@ -44,11 +44,11 @@ its own skill first and reviewing only through that lens:
   abstractions, and helpers whose names do not improve the call site.
 - **Type-driven design** ([parse-dont-validate](./parse-dont-validate.md)) — push
   checks into types; make invalid states unrepresentable.
-- **Design patterns** ([design-patterns-gof](../core/design-patterns-gof.md)) —
+- **Design patterns** ([design-patterns-gof](./design-patterns-gof.md)) —
   patterns only where they earn their weight.
 - **Platform conventions** ([macos-swift-desktop](./macos-swift-desktop.md)) —
   naming, ARC, AppKit/SwiftUI boundaries, threading, main-actor isolation.
-- **Comment hygiene** ([code-comments](../core/code-comments.md)) — strip "what"
+- **Comment hygiene** ([code-comments](../authoring/code-comments.md)) — strip "what"
   comments and AI narration; keep "why" only.
 - **Correctness** ([adversarial-review](../core/adversarial-review.md)) —
   dropped guards, edge cases, concurrency hazards, swallowed errors, stale

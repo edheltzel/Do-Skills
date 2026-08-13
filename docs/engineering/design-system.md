@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=design-system
+npx skills add edheltzel/skills --skill=do-design-system
 ```
 
 ```bash
-npx skills update design-system
+npx skills update do-design-system
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/design-system)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-design-system)
 
 ## What it does
 

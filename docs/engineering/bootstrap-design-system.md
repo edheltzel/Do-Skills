@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=bootstrap-design-system
+npx skills add edheltzel/skills --skill=do-bootstrap-design-system
 ```
 
 ```bash
-npx skills update bootstrap-design-system
+npx skills update do-bootstrap-design-system
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/bootstrap-design-system)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-bootstrap-design-system)
 
 ## What it does
 

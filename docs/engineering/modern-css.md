@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=modern-css
+npx skills add edheltzel/skills --skill=do-modern-css
 ```
 
 ```bash
-npx skills update modern-css
+npx skills update do-modern-css
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/modern-css)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-modern-css)
 
 ## What it does
 

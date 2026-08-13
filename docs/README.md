@@ -7,10 +7,11 @@ a copy of the skill's `SKILL.md`.
 
 Only **promoted** buckets have docs pages:
 
-- [`core/`](./core/) — always-on standards, process, and operational skills
-- [`engineering/`](./engineering/) — stack-specific code craft
-- [`productivity/`](./productivity/) — non-code workflow tools
+- [`core/`](./core/) - essential safeguards and adversarial-thinking tools
+- [`engineering/`](./engineering/) - general and stack-specific code craft
+- [`authoring/`](./authoring/) - technical prose, documentation, skills, and visual media
+- [`workflow/`](./workflow/) - source-control, pull-request, and project-tracking tooling
 
-`personal/` is not promoted and has no docs pages.
+`operations/` and `private/` are not promoted and have no docs pages.
 
 To add or update a page, follow [`.agents/writing-docs.md`](../.agents/writing-docs.md).

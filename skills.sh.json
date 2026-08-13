@@ -4,54 +4,71 @@
   "groupings": [
     {
       "title": "Core",
-      "description": "Stack-agnostic standards, processes, and operational skills for any project.",
+      "description": "Essential, stack-agnostic safeguards and adversarial-thinking tools reached for by default across setup, implementation, testing, review, and shipping.",
       "skills": [
-        "agent-first-repo",
-        "adversarial-review",
-        "agents-md",
-        "architecture-md",
-        "behavioral-testing",
-        "code-comments",
-        "design-patterns-gof",
-        "git-pr-review-triage",
-        "git-safe-pr-workflow",
-        "git-worktree",
-        "karpathy-guidelines",
-        "roughdraft",
-        "simplify"
+        "do-adversarial-review",
+        "do-agent-context-layer",
+        "do-agent-first-repo",
+        "do-behavioral-testing",
+        "do-git-safe-pr-workflow",
+        "do-karpathy-guidelines",
+        "do-red-team",
+        "do-simplify"
       ]
     },
     {
       "title": "Engineering",
-      "description": "Language, framework, platform, and interface engineering practices.",
+      "description": "Code design and implementation practices, from general principles to language-, framework-, and platform-specific craft.",
       "skills": [
-        "bootstrap-design-system",
-        "cleanup-swift",
-        "cleanup-web",
-        "design-system",
-        "lean-ts-patterns",
-        "macos-swift-desktop",
-        "modern-css",
-        "no-use-effect",
-        "parse-dont-validate",
-        "typescript",
-        "typescript-refactoring"
+        "do-bootstrap-design-system",
+        "do-cleanup-swift",
+        "do-cleanup-web",
+        "do-create-cli",
+        "do-design-patterns-gof",
+        "do-design-system",
+        "do-lean-ts-patterns",
+        "do-macos-swift-desktop",
+        "do-modern-css",
+        "do-no-use-effect",
+        "do-parse-dont-validate",
+        "do-typescript",
+        "do-typescript-refactoring"
       ]
     },
     {
-      "title": "Productivity",
-      "description": "Reusable tools for planning, writing, and distilling knowledge.",
+      "title": "Authoring",
+      "description": "Producing and refining artifacts - technical prose, documentation, skills, and visual media.",
       "skills": [
-        "distill-to-skill",
-        "pm-tools",
-        "tech-writing"
+        "do-agents-md",
+        "do-architecture-md",
+        "do-art",
+        "do-code-comments",
+        "do-distill-to-skill",
+        "do-roughdraft",
+        "do-tech-writing",
+        "do-update-readme"
       ]
     },
     {
-      "title": "Personal",
-      "description": "Repository-specific maintenance skills that are not broadly portable.",
+      "title": "Workflow",
+      "description": "Source-control, pull-request, and project-tracking tooling for day-to-day delivery.",
       "skills": [
-        "update-readme"
+        "do-gh-stack",
+        "do-git-pr-review-triage",
+        "do-git-worktree",
+        "do-pm"
+      ]
+    },
+    {
+      "title": "Operations",
+      "description": "Operating AI agents and driving machines - delegation, evaluation, prompt audits, memory recall, and browser or computer automation.",
+      "skills": [
+        "do-bitter-pill",
+        "do-browser",
+        "do-context-search",
+        "do-delegation",
+        "do-evals",
+        "do-interceptor"
       ]
     }
   ]

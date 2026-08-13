@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=cleanup-web
+npx skills add edheltzel/skills --skill=do-cleanup-web
 ```
 
 ```bash
-npx skills update cleanup-web
+npx skills update do-cleanup-web
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/cleanup-web)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-cleanup-web)
 
 ## What it does
 
@@ -59,7 +59,7 @@ before reviewing and reporting only through that lens:
   fetching, memoization.
 - **CSS** ([modern-css](./modern-css.md)) — native CSS over JS, logical
   properties, container queries, no legacy hacks.
-- **Comment hygiene** ([code-comments](../core/code-comments.md)) — strip "what"
+- **Comment hygiene** ([code-comments](../authoring/code-comments.md)) — strip "what"
   comments and AI narration; keep "why".
 - **Correctness** ([adversarial-review](../core/adversarial-review.md)) —
   dropped guards, edge cases, async timing, stale callers, and other regressions
@@ -77,4 +77,4 @@ across [simplify](../core/simplify.md),
 [adversarial-review](../core/adversarial-review.md),
 [typescript](./typescript.md), [parse-dont-validate](./parse-dont-validate.md),
 [no-use-effect](./no-use-effect.md), [modern-css](./modern-css.md), and
-[code-comments](../core/code-comments.md) so you don't have to run each by hand.
+[code-comments](../authoring/code-comments.md) so you don't have to run each by hand.

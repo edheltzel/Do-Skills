@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=lean-ts-patterns
+npx skills add edheltzel/skills --skill=do-lean-ts-patterns
 ```
 
 ```bash
-npx skills update lean-ts-patterns
+npx skills update do-lean-ts-patterns
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/lean-ts-patterns)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-lean-ts-patterns)
 
 ## What it does
 

@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=macos-swift-desktop
+npx skills add edheltzel/skills --skill=do-macos-swift-desktop
 ```
 
 ```bash
-npx skills update macos-swift-desktop
+npx skills update do-macos-swift-desktop
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/macos-swift-desktop)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-macos-swift-desktop)
 
 ## What it does
 

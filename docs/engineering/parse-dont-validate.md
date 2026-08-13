@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=parse-dont-validate
+npx skills add edheltzel/skills --skill=do-parse-dont-validate
 ```
 
 ```bash
-npx skills update parse-dont-validate
+npx skills update do-parse-dont-validate
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/parse-dont-validate)
+[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-parse-dont-validate)
 
 ## What it does
 
