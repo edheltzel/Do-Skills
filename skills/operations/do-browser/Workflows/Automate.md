@@ -3,7 +3,7 @@ Load a parameterized recipe, resolve its inputs, and execute it through the curr
 
 ## Steps
 
-1. Discover recipe files under `skills/Browser/Recipes/*.md`, excluding `README.md`.
+1. Discover recipe files under `Recipes/*.md`, excluding `README.md`.
 2. Match the requested recipe name. If ambiguous, list matches and ask which one.
 3. Parse `name`, `description`, `tool`, and `defaults` from frontmatter.
 4. Resolve explicit user overrides, defaults, `{PROMPT}`, and `{URL}` in that order.

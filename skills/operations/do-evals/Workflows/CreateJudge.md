@@ -51,13 +51,7 @@ output:
 
 ### Step 3: Render Judge Prompt
 
-```bash
-bun run ~/.claude/skills/Prompting/Templates/Tools/RenderTemplate.ts \
-  -t Evals/Judge.hbs \
-  -d ~/.claude/skills/do-evals/UseCases/<name>/judge-config.yaml \
-  -o ~/.claude/skills/do-evals/UseCases/<name>/judge-prompt.md \
-  --preview
-```
+Author the prompt file directly from the config - do-evals does not depend on an external templating skill.
 
 ### Step 4: Review Generated Prompt
 
@@ -88,7 +82,7 @@ Run the suite (which contains the use case + judge) via `AlgorithmBridge.ts` and
 
 ```bash
 bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts -s <suite>
-cat ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/<run-id>/results.json | jq '.trials[0].graders'
+cat ~/.claude/skills/do-evals/Results/<use-case>/<run-id>/results.json | jq '.trials[0].graders'
 ```
 
 To exercise only a single test case while iterating on the judge, scope the suite config to one task in `UseCases/<name>/test-cases/` and re-run.

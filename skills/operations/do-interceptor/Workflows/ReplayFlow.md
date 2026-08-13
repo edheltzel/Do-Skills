@@ -20,7 +20,7 @@ Non-zero exit → STOP and surface the message verbatim. Do not fall back to the
 
 ### 1. Locate the Flow Plan
 
-Recorded flows live in `skills/Interceptor/Flows/`. List available flows:
+Recorded flows live in `Flows/`. List available flows:
 
 ```bash
 ls ~/.claude/skills/do-interceptor/Flows/

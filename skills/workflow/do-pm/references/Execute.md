@@ -1,6 +1,6 @@
 # Execute — run an existing plan against the board
 
-Lifecycle for implementing an **already-written** plan (a `.agents/atlas/plans/*.md` file or a project ISA) while keeping the board in sync. Adapted from `execute.md`. **Runner-agnostic** — a Themis-dispatched worker or the operator directly can follow it. **ISA-aware:** it *consumes* an existing plan/ISA; it never derives one. (Deriving the plan is the Algorithm's job, not this recipe's.)
+Lifecycle for implementing an **already-written** plan (a `.agents/atlas/plans/*.md` file or a project plan) while keeping the board in sync. Adapted from `execute.md`. **Runner-agnostic** — a dispatched worker or the operator directly can follow it. **Plan-aware:** it *consumes* an existing plan; it never derives one. (Deriving the plan is the planning phase, not this recipe's.)
 
 ## 0. Link to the issue + move to In Progress
 
@@ -59,4 +59,4 @@ Confirm: all plan tasks done, all validations pass, issue updated. The actual co
 
 ## Anti-scope
 
-This recipe runs a plan; it does **not** write one. If there is no plan/ISA yet, stop — go derive it first (Algorithm / Plan agent). Keep this a thin executor, not a second planning engine.
+This recipe runs a plan; it does **not** write one. If there is no plan yet, stop — go derive it first (a planning agent). Keep this a thin executor, not a second planning engine.

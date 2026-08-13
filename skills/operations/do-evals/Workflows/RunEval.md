@@ -24,9 +24,6 @@ If missing, redirect to `CreateUseCase.md` workflow.
 # Run an eval suite via AlgorithmBridge (the canonical entry point)
 bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts -s <use-case>
 
-# With ISC row binding (auto-updates the Algorithm ISC row with result):
-bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts -s <use-case> -r <isc-row> -u
-
 # To see saturation status alongside the run:
 bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts -s <use-case> --show-saturation
 ```
@@ -34,7 +31,7 @@ bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts -s <use-case> --show-
 ### Step 3: Collect Results
 
 Results are stored in:
-- `LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/<run-id>/results.json` (per-run output)
+- `~/.claude/skills/do-evals/Results/<use-case>/<run-id>/results.json` (per-run output)
 - Use case directory: `UseCases/<use-case>/` (source of truth)
 
 ### Step 5: Report Summary

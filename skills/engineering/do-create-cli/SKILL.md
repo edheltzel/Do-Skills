@@ -132,11 +132,11 @@ Activate when you see these patterns:
 
 ---
 
-## 🏗️ INTEGRATION WITH LifeOS
+## 🏗️ Conventions
 
 ### Technology Stack Alignment
 
-Generated CLIs follow LifeOS standards:
+Generated CLIs follow these standards:
 - ✅ **Runtime:** Bun (NOT Node.js)
 - ✅ **Language:** TypeScript (NOT JavaScript or Python)
 - ✅ **Package Manager:** Bun (NOT npm/yarn/pnpm)
@@ -149,7 +149,6 @@ Generated CLIs follow LifeOS standards:
 Generated CLIs go to:
 - `~/.claude/tools/[cli-name]/` - Personal CLIs (like llcli)
 - `~/Developer/[project-name]/` - Project-specific CLIs
-- `${PROJECTS_DIR}/LIFEOS/Examples/clis/` - Example CLIs (PUBLIC repo)
 
 **SAFETY:** Always verify repository location before git operations
 
@@ -282,7 +281,7 @@ Every generated CLI must pass these gates:
 - ✅ Configuration externalized
 
 ### 5. Integration
-- ✅ Follows LifeOS tech stack (Bun, TypeScript)
+- ✅ Follows the Bun / TypeScript tech stack
 - ✅ CLI-First Architecture principles
 - ✅ Deterministic output (JSON)
 - ✅ Composable with other tools
@@ -328,7 +327,7 @@ The `llcli` CLI (Limitless.ai API) proves this pattern works:
 ## 🔗 RELATED SKILLS
 
 - **development** - For complex feature development (not CLI-specific)
-- **mcp** - For web scraping CLIs (Bright Data, Apify wrappers)
+- **mcp** - For web scraping CLIs (proxy or scraper-API wrappers)
 - **lifelog** - Example of skill using llcli
 
 ---

@@ -6,7 +6,7 @@ Verify a deployment by opening the target URL in real Chrome and capturing a **f
 ## When to Use
 
 - After deploying any web project
-- When the Algorithm's Verification Doctrine Rule 1 requires live-probe evidence
+- When live-probe evidence is required
 - After CSS/layout/content changes that need visual confirmation
 - When agent-browser can't reach the page (auth wall, bot detection)
 
@@ -90,7 +90,7 @@ bash ~/.claude/skills/do-interceptor/Tools/Capture.sh "<DEPLOY_URL>" --full
 
 ### 6. Report — the evidence bundle
 
-Full verification = ALL FOUR probes captured and clean (with the noise rules above). Mark the ISC `[x]` citing the bundle: DOM content confirmed + console clean (or noise-only) + network clean (or noise-only) + screenshot path.
+Full verification = ALL FOUR probes captured and clean (with the noise rules above). Mark the check `[x]` citing the bundle: DOM content confirmed + console clean (or noise-only) + network clean (or noise-only) + screenshot path.
 
 - Screenshot wedged after one auto-heal retry? The other three probes still run — report them, mark the visual portion `[DEFERRED-VERIFY]`, and surface the wedge. Do NOT skip A–C because D failed.
 - Any probe shows a real failure: report the specific evidence (console, network, visual) before attempting fixes. Do NOT theorize from code — the browser evidence is primary.
@@ -98,6 +98,6 @@ Full verification = ALL FOUR probes captured and clean (with the noise rules abo
 ## Notes
 
 - For authenticated pages, Interceptor uses your real Chrome login sessions. No profile setup needed.
-- For public pages where speed matters and auth isn't needed, WebFetch (or the BrightData ladder) is fine.
+- For public pages where speed matters and auth isn't needed, WebFetch is fine.
 - Always use `http://localhost:PORT` instead of `localhost:PORT` for local dev URLs.
 - If Chrome is not running, start it first. Interceptor requires an active Chrome instance with the extension loaded.

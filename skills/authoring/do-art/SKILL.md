@@ -21,7 +21,7 @@ A complete visual content system for illustrations, diagrams, and other static v
 
 ## 🛑 STRUCTURAL ENFORCEMENT - `--workflow=<name>` IS REQUIRED
 
-**This rule used to be markdown-only and was silently ignored, producing 12 rejected diagrams in one session (incident 2026-04-30, see ISA `MEMORY/WORK/20260430-180000_art-skill-freeform-enforcement`). It now lives in code.**
+**This rule used to be markdown-only and was silently ignored, producing 12 rejected diagrams in one session (incident 2026-04-30). It now lives in code.**
 
 **`Generate.ts` itself** refuses to run unless you pass `--workflow=<name>` (or the explicit `--freeform-confirmed` opt-out). It exits non-zero with the workflow lookup table.
 
@@ -62,8 +62,7 @@ bun ~/.claude/skills/do-art/Tools/Generate.ts \
 | Stat card | `Workflows/Stats.md` |
 | Aphorism / quote card | `Workflows/Aphorisms.md` |
 | Comic panel | `Workflows/Comics.md` |
-| Locked house-style YouTube / channel thumbnail | **Use the `_THUMBNAIL` skill** - it owns the locked style and orchestrates the Art tools below. Don't drive these workflows directly for channel thumbnails. |
-| YouTube thumbnail (generic mechanism, orchestrated by _THUMBNAIL) | **`Workflows/StyleMatchedThumbnail.md`** - deterministic text + real-photo face |
+| YouTube thumbnail | **`Workflows/StyleMatchedThumbnail.md`** - deterministic text + real-photo face |
 | YouTube thumbnail (legacy / validation) | `Workflows/AdHocYouTubeThumbnail.md` or `Workflows/YouTubeThumbnailChecklist.md` |
 | brand-logo wallpaper | `Workflows/LogoWallpaper.md` |
 | Recipe card | `Workflows/RecipeCards.md` |
@@ -75,7 +74,7 @@ bun ~/.claude/skills/do-art/Tools/Generate.ts \
 
 **The ONLY exception:** the user explicitly says "freeform" / "skip the workflow" / "just run Generate.ts directly with this prompt: ...". In that case, pass `--freeform-confirmed` to `Generate.ts` (which logs the explicit opt-out to stderr for audit). Without that explicit instruction from the user, ALWAYS pick the matching workflow and pass `--workflow=<name>` - `Generate.ts` will refuse the call otherwise.
 
-If no workflow matches the request, **stop and surface to the user** before generating - propose either (a) the closest existing workflow, (b) using `Visualize.md` as the generic catch-all, or (c) creating a new workflow first via the `CreateSkill` skill. Do not improvise.
+If no workflow matches the request, **stop and surface to the user** before generating - propose either (a) the closest existing workflow, (b) using `Visualize.md` as the generic catch-all, or (c) creating a new workflow file first. Do not improvise.
 
 ---
 
@@ -122,7 +121,7 @@ The blog page background is sepia #EAE9DF. Inline images MUST be transparent PNG
 
 Never reuse the opaque thumbnail for the inline slot. Never reuse the transparent file for the social thumbnail. These are two distinct outputs from one `--thumbnail` run.
 
-**Sanctioned exception (this section is the canonical home; _BLOGGING defers here):** transparent inline is the DEFAULT for every blog header. The one exception is thin-linework/charcoal pieces where rembg strips the artwork itself (see Gotchas) - those may ship an opaque sepia `#EAE9DF` inline image, which composites seamlessly on the matching page background. Opaque inline is a documented fallback for that failure mode, never a second default.
+**Sanctioned exception (this section is the canonical home):** transparent inline is the DEFAULT for every blog header. The one exception is thin-linework/charcoal pieces where rembg strips the artwork itself (see Gotchas) - those may ship an opaque sepia `#EAE9DF` inline image, which composites seamlessly on the matching page background. Opaque inline is a documented fallback for that failure mode, never a second default.
 
 ## Workflow Routing
 
@@ -311,4 +310,4 @@ User: "visualize humans vs AI decision-making"
 - **Essay headers: run the Step 5A Best-Image Deliberation before prompting (2026-07-09 principal directive).** Subject-list prompts produce rejected flat tableaus; a composition reasoned deeply from the essay's specific argument - scene concepts compared, every element given a narrative role, connected structure - produces accepted images. The deliberation is the mandatory step; devices like cutaways are possible outcomes, not rules. See Essay.md Step 5A.
 - **Interior-white ban (2026-07-09, "giant white space" incident):** prompt large flat surfaces (desks, panels, windows, paper) as "warm cream paper tone", never bright white or unstated - baked-white interiors survive rembg intact and render as giant white rectangles on the cream page. Inside-the-subject sibling of the 2026-06-20 white-box bug. Also trim white padding off any external screenshot before embedding (`magick -fuzz 4% -trim` + sepia border).
 - **Reference-image edits: negative text loses to the reference (2026-07-09 studio-background session).** When nano-banana-pro keeps reproducing an unwanted object that exists in the reference photo (e.g. a second floor lamp), "do NOT add/duplicate" prompt language fails ~7/8 rolls - the model preserves what it sees over what you forbid. Fix: roll until ONE output has the corrected composition, then use THAT output as the new `--reference-image` for the remaining variations; compliance jumped to 7/7. Editing the reference beats describing the edit.
-- **Essay/blog headers MUST be signed "{{DA_NAME}}" (2026-06-20 + 2026-07-09 principal directives) - cursive signature hand, small, integrated.** Programmatic stamp in Generate.ts/Essay.md Step 7.1 (`SignPainter-HouseScript`, ~3% of image width, semi-transparent charcoal, slight rotation, tucked into the composition's bottom-right); never prompt the signature into the model (it garbles). Formal calligraphy faces (Snell-Roundhand / Apple-Chancery / Savoye) remain rejected; oversized print-letter Bradley Hand was replaced 2026-07-09 ("more cursive looking and smaller, more part of the image").
+- **Essay/blog headers MUST be signed "${DA_NAME:-Atlas}" (2026-06-20 + 2026-07-09 principal directives) - cursive signature hand, small, integrated.** Programmatic stamp in Generate.ts/Essay.md Step 7.1 (`SignPainter-HouseScript`, ~3% of image width, semi-transparent charcoal, slight rotation, tucked into the composition's bottom-right); never prompt the signature into the model (it garbles). Formal calligraphy faces (Snell-Roundhand / Apple-Chancery / Savoye) remain rejected; oversized print-letter Bradley Hand was replaced 2026-07-09 ("more cursive looking and smaller, more part of the image").

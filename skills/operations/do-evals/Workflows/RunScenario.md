@@ -37,4 +37,3 @@ Treat stdout and the runner's explicitly reported result path as authoritative. 
 - Missing scenario, API key, billing opt-in, or explicit response adapter must fail clearly.
 - An empty adapter result is an error.
 - Do not substitute a model, invent a command, or claim a scenario ran when setup failed.
-- Do not mutate Algorithm ISC state.

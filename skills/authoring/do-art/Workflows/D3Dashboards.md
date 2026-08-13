@@ -41,7 +41,7 @@ Creates sophisticated, interactive data visualizations using D3.js for dashboard
 
 ---
 
-## Color Palette (LifeOS Standard)
+## Color Palette
 
 **Primary Colors:**
 ```

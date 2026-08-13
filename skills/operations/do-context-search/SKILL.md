@@ -8,7 +8,7 @@ effort: low
 
 # ContextSearch
 
-Use Recall for prior-work search. Do not scan retired LifeOS state, old ISA registries, or guessed Claude project slugs.
+Use Recall for prior-work search. Do not scan retired state or guessed project slugs.
 
 ## Current Search Contract
 

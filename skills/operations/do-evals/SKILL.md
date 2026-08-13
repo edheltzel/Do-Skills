@@ -10,7 +10,7 @@ context: fork
 
 ## What It Does
 
-Evaluates AI agents: their transcripts, tool-call sequences, and multi-turn conversations, not just single outputs. Three grader types cover it: code-based for deterministic checks, model-based for nuanced quality rubrics, and human for the gold standard. Scores with pass@k (capability) and pass^k (consistency). Splits evals into capability suites (~70% target) and regression suites (~99% target), and plugs into Algorithm ISC rows as a verification method.
+Evaluates AI agents: their transcripts, tool-call sequences, and multi-turn conversations, not just single outputs. Three grader types cover it: code-based for deterministic checks, model-based for nuanced quality rubrics, and human for the gold standard. Scores with pass@k (capability) and pass^k (consistency). Splits evals into capability suites (~70% target) and regression suites (~99% target).
 
 ## The Problem
 
@@ -28,7 +28,6 @@ Agent evaluation system based on Anthropic's "Demystifying Evals for AI Agents" 
 - "create scenario", "simulate conversation"
 - Compare agent behaviors across changes
 - Validate agent workflows before deployment
-- Verify ALGORITHM ISC rows
 - Create new evaluation tasks from failures
 
 ---
@@ -104,27 +103,6 @@ bun run ~/.claude/skills/do-evals/Tools/SuiteManager.ts list
 bun run ~/.claude/skills/do-evals/Tools/SuiteManager.ts check-saturation <name>
 bun run ~/.claude/skills/do-evals/Tools/SuiteManager.ts graduate <name>
 ```
-
-### ALGORITHM Integration
-
-Evals is a verification method for THE ALGORITHM ISC rows:
-
-```bash
-# Evaluate supplied outputs and carry an optional row identifier in the result
-bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts \
-  --suite regression-core --output-file task-output-map.json --isc-row 3
-```
-
-ISC rows can specify eval verification:
-
-```
-| # | What Ideal Looks Like | Verify |
-|---|----------------------|--------|
-| 1 | Auth bypass fixed | eval:auth-security |
-| 2 | Tests all pass | eval:regression |
-```
-
----
 
 ## Available Graders
 
@@ -205,7 +183,7 @@ task:
 | `Tools/TrialRunner.ts`          | Multi-trial execution with pass@k                              |
 | `Tools/SuiteManager.ts`         | Suite management and saturation                                |
 | `Tools/FailureToTask.ts`        | Convert failures to test tasks                                 |
-| `Tools/AlgorithmBridge.ts`      | ALGORITHM integration                                          |
+| `Tools/AlgorithmBridge.ts`      | Suite runner and results bridge                                          |
 | `Tools/ScenarioRunner.ts`       | Multi-turn scenario runner (langwatch/scenario)                |
 | `Tools/LifeosAgentAdapter.ts`   | Requires an explicit caller-supplied scenario response adapter |
 | `Tools/ScenarioToTranscript.ts` | Scenario result → Evals Transcript/Trial/GraderResult          |
@@ -229,9 +207,7 @@ task:
 
 ## Related
 
-- **ALGORITHM**: Evals is a verification method
-- **Science**: Evals implements scientific method
-- **Browser**: For visual verification graders
+- **do-browser**: For visual verification graders
 
 ## Gotchas
 

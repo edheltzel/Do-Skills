@@ -4,7 +4,7 @@
 
 Interceptor screenshots freeze one moment. A stuttering fade, a dropped transition, a menu that flickers on open, a skeleton state that never resolves — none of that shows up in a still. ScrubFlow captures the flow as a short video, then extracts frames the model can actually view, so motion bugs get caught before a claim of "works" ships.
 
-Required by Algorithm Verification Rule 1: a **motion/interaction ISC** (animation, transition, drag, hover-state, scroll behavior, loading/skeleton state, or a multi-step flow) closes ONLY on a ScrubFlow gallery or a VerifyDeploy flow-gallery — never a single screenshot.
+A **motion/interaction check** (animation, transition, drag, hover-state, scroll behavior, loading/skeleton state, or a multi-step flow) closes ONLY on a ScrubFlow gallery or a VerifyDeploy flow-gallery — never a single screenshot.
 
 ## The mechanism: `Tools/FrameScrub.ts`
 
@@ -21,7 +21,7 @@ bun Tools/FrameScrub.ts <recording> scrub --at 4.2 --window 1.5 --fps 8
 
 Output: PNG frames + a `manifest.json` (`{video, mode, frame_count, flagged_frame, min_ssim, extracted:[{frame, path, timestamp_s, ssim_to_prev}]}`). **Survey answers "does the flow broadly work"; scrub answers "does the animation at 4.2s render clean." The SSIM flag points the model at the frame with the most change so it looks at the motion, not twelve near-identical stills.**
 
-Verify a motion ISC by opening the flagged frame (and its neighbors) with Read, then cite the manifest path — `VerificationGate` (T2) accepts a `frames/…/manifest.json` as flow-exercised evidence.
+Verify a motion check by opening the flagged frame (and its neighbors) with Read, then cite the manifest path — `VerificationGate` (T2) accepts a `frames/…/manifest.json` as flow-exercised evidence.
 
 ## Getting the recording
 

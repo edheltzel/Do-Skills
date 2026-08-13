@@ -76,7 +76,7 @@ cp ~/Developer/interceptor/daemon/interceptor-daemon /opt/homebrew/bin/
 
 ### 4a. Pin the Extension into the skill
 
-`~/.claude/skills/do-interceptor/Extension/` is a **pinned copy** of the built `extension/dist/`, not a symlink. Two reasons: Chrome disables unpacked extensions on every manifest version bump (a stable copy survives that), and the public LifeOS release ships this skill — a symlink to a local build dir is useless to other users.
+`~/.claude/skills/do-interceptor/Extension/` is a **pinned copy** of the built `extension/dist/`, not a symlink. Two reasons: Chrome disables unpacked extensions on every manifest version bump (a stable copy survives that), and the public release ships this skill — a symlink to a local build dir is useless to other users.
 
 Re-pin after every build:
 

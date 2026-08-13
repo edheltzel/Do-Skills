@@ -24,10 +24,10 @@ Either:
 
 ```
 # Specific file
-Read the specified .yaml file from skills/Browser/Stories/
+Read the specified .yaml file from Stories/
 
 # All stories
-Glob: skills/Browser/Stories/*.yaml
+Glob: Stories/*.yaml
 ```
 
 ### 2. Parse YAML

@@ -233,7 +233,7 @@ export default class Hello extends Command {
 - ❌ Steep learning curve
 - ❌ Complex setup
 - ❌ Overkill for 99% of CLIs
-- ❌ Not aligned with LifeOS's minimal approach
+- ❌ Not aligned with our minimal approach
 
 ### When to Reference (RARE)
 - Enterprise plugin systems (Heroku CLI scale)
@@ -431,7 +431,7 @@ Check dist/ folder size. Tier 1 CLIs are <100 KB.
 
 ## 📚 Additional Research
 
-### Yargs (NOT Recommended for LifeOS)
+### Yargs (Not Recommended)
 
 **Why not recommended:**
 - Larger bundle size than Commander
@@ -459,7 +459,7 @@ Check dist/ folder size. Tier 1 CLIs are <100 KB.
 
 ## ✅ Final Recommendation
 
-**For LifeOS createcli skill:**
+**For this create-cli skill:**
 
 1. **Default:** Tier 1 (Manual Parsing / llcli pattern)
 2. **Escalation:** Tier 2 (Commander.js) when decision tree indicates

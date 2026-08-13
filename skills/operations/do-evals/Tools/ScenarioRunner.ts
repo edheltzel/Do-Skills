@@ -9,7 +9,7 @@
  *
  * Loads a scenario module (default export or named `scenario`), runs
  * scenario.run() for N trials, converts results through ScenarioToTranscript,
- * and writes an EvalRun JSON to LIFEOS/MEMORY/STATE/Evals-Results/<scenario-id>/<run-id>/.
+ * and writes an EvalRun JSON to ~/.claude/skills/do-evals/Results/<scenario-id>/<run-id>/.
  */
 
 import { existsSync, mkdirSync, writeFileSync } from 'fs';

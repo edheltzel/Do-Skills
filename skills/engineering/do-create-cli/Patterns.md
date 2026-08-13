@@ -240,7 +240,7 @@ CONFIGURATION:
   Base URL: ${DEFAULTS.baseUrl}
 
 PHILOSOPHY:
-  ${CLI_NAME} follows LifeOS's CLI-First Architecture:
+  ${CLI_NAME} follows the CLI-First Architecture:
   - Deterministic: Same input → Same output
   - Clean: Single responsibility
   - Composable: Pipes to jq, grep, etc.

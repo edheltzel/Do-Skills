@@ -6,7 +6,7 @@ Reproduce a reported bug by opening the affected page in real Chrome BEFORE read
 - Any time a UI or page bug is reported ("blank screen", "broken layout", "page won't load")
 - Before writing any fix for a web-facing issue
 - When someone reports something looks wrong on a deployed site
-- As the mandatory first step in the Algorithm's Diagnostic preflight gate
+- As a mandatory first step in a diagnostic preflight gate
 
 ## Steps
 

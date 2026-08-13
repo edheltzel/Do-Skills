@@ -6,10 +6,10 @@ Inspect evaluation results from completed runs.
 Per-run output (source of truth):
 
 ```
-~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/<run-id>/results.json
+~/.claude/skills/do-evals/Results/<use-case>/<run-id>/results.json
 ```
 
-Each `results.json` contains the run summary, per-trial scores, grader outputs, and failure details. The `LIFEOS/MEMORY/STATE/Evals-Results/` directory is the canonical store — query it with standard tools (`jq`, `rg`, `cat`).
+Each `results.json` contains the run summary, per-trial scores, grader outputs, and failure details. The `~/.claude/skills/do-evals/Results/` directory is the canonical store — query it with standard tools (`jq`, `rg`, `cat`).
 
 ---
 
@@ -19,7 +19,7 @@ Each `results.json` contains the run summary, per-trial scores, grader outputs, 
 
 ```bash
 # Show all runs for a use case (newest first)
-ls -1t ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/
+ls -1t ~/.claude/skills/do-evals/Results/<use-case>/
 
 # Or via SuiteManager
 bun run ~/.claude/skills/do-evals/Tools/SuiteManager.ts list
@@ -29,11 +29,11 @@ bun run ~/.claude/skills/do-evals/Tools/SuiteManager.ts list
 
 ```bash
 # Latest run results.json
-LATEST=$(ls -1t ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/ | head -1)
-cat ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/$LATEST/results.json | jq '.summary'
+LATEST=$(ls -1t ~/.claude/skills/do-evals/Results/<use-case>/ | head -1)
+cat ~/.claude/skills/do-evals/Results/<use-case>/$LATEST/results.json | jq '.summary'
 
 # Or for a specific run
-cat ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/<run-id>/results.json | jq '.summary'
+cat ~/.claude/skills/do-evals/Results/<use-case>/<run-id>/results.json | jq '.summary'
 ```
 
 ### Step 3: Check saturation (when a suite is graduating capability → regression)
@@ -88,4 +88,4 @@ There is no built-in CLI for trend analysis, regression detection, or cross-run 
 
 ## Done
 
-Results inspected from `LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/<run-id>/results.json` and (optionally) suite saturation surfaced via `SuiteManager.ts`.
+Results inspected from `~/.claude/skills/do-evals/Results/<use-case>/<run-id>/results.json` and (optionally) suite saturation surfaced via `SuiteManager.ts`.

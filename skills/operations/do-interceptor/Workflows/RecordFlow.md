@@ -84,7 +84,7 @@ interceptor monitor export <SESSION_ID> --plan --with-bodies --context "$INTERCE
 
 ### 6. Save the Plan
 
-Save the exported plan to `skills/Interceptor/Flows/<flow-name>.sh` for future replay via the ReplayFlow workflow. (The `Flows/` directory currently holds only a README — recorded plans are the first artifacts you add there.)
+Save the exported plan to `Flows/<flow-name>.sh` for future replay via the ReplayFlow workflow. (The `Flows/` directory currently holds only a README — recorded plans are the first artifacts you add there.)
 
 ### 7. Review the Plan
 

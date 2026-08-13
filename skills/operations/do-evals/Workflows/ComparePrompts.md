@@ -2,8 +2,7 @@
 
 A/B test two prompt versions to determine which performs better.
 
-**This workflow implements the Science Protocol for prompt experimentation.**
-## Science Protocol Alignment
+## Experimental Rigor
 
 Before running any comparison, ensure you're following scientific rigor:
 
@@ -44,7 +43,7 @@ A/B tests are good. A/B/C tests are often better.
 
 ## Execution
 
-### Step 1: Identify Comparison (Science: Goal + Hypothesize)
+### Step 1: Identify Comparison
 
 Ask the user:
 
@@ -134,7 +133,7 @@ This addresses the known bias where LLMs favor the first option presented.
 
 Results stored in:
 
-- `LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/comparisons/<comparison-name>/<run-id>.json`
+- `~/.claude/skills/do-evals/Results/<use-case>/comparisons/<comparison-name>/<run-id>.json`
 
 Results structure:
 
@@ -289,13 +288,7 @@ focus: "depth"
 
 For detailed comparison setup, use the Comparison template:
 
-```bash
-bun run ~/.claude/skills/Prompting/Templates/Tools/RenderTemplate.ts \
-  -t Evals/Comparison.hbs \
-  -d ~/.claude/skills/do-evals/UseCases/<name>/comparisons/<name>.yaml \
-  -o ~/.claude/skills/do-evals/UseCases/<name>/comparisons/<name>-setup.md \
-  --preview
-```
+Author the prompt file directly from the config - do-evals does not depend on an external templating skill.
 
 ## Paradigm Check (When Iterations Stall)
 
@@ -316,7 +309,6 @@ If you've run 3+ comparisons without meaningful improvement, STOP and ask:
 - The test cases might be too easy or too homogeneous
 - The entire approach might need rethinking (different architecture)
 
-When stuck, invoke explicit Science workflow: `Science/Workflows/StructuredInvestigation.md`
 
 This forces stepping back from the eval loop to question the frame itself.
 

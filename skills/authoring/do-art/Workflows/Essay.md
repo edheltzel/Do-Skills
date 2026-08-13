@@ -46,13 +46,13 @@ INPUT CONTENT
 - **DEEP PURPLE (#4A148C)** — technology, AI, capital, cold power (MANDATORY)
 - --thumbnail flag for blog headers
 
-**🚨 NO TEXT IN IMAGES — EXACTLY ONE EXCEPTION: the "{{DA_NAME}}" signature.**
-- ✅ **The "{{DA_NAME}}" signature IS REQUIRED** — every blog-header image MUST be signed "{{DA_NAME}}", bottom-right corner, added PROGRAMMATICALLY in Step 7 (never prompted into the model — models hallucinate garbled text). This is the SOLE permitted mark. (Principal directive 2026-06-20: re-required after the 2026-05-02 removal; it must always be there.)
+**🚨 NO TEXT IN IMAGES — EXACTLY ONE EXCEPTION: the "${DA_NAME:-Atlas}" signature.**
+- ✅ **The "${DA_NAME:-Atlas}" signature IS REQUIRED** — every blog-header image MUST be signed "${DA_NAME:-Atlas}", bottom-right corner, added PROGRAMMATICALLY in Step 7 (never prompted into the model — models hallucinate garbled text). This is the SOLE permitted mark. (Principal directive 2026-06-20: re-required after the 2026-05-02 removal; it must always be there.)
 - 🚨 The signature is a **human handwriting** style, NOT formal calligraphy. Use `SignPainter-HouseScript` — cursive human-signature hand, small (~3% of width), semi-transparent charcoal, tucked into the composition (2026-07-09 directive: more cursive, smaller, part of the image). Formal calligraphy faces Snell-Roundhand / Apple-Chancery / Savoye remain WRONG (2026-06-20: "It's a human like signature not fucking caligraphy").
 - ❌ No OTHER text: no watermarks, no labels, no annotations, no captions, no logos, no titles, no subtitles
-- ❌ No readable text of any kind beyond the "{{DA_NAME}}" signature — even the model hallucinating partial words counts as failure
-- The image carries the meaning visually. All text other than the {{DA_NAME}} signature belongs in the post body, not on the canvas.
-- The model MUST NOT bake any text in. The ONLY text on the final image is the Step-7 programmatic "{{DA_NAME}}" signature.
+- ❌ No readable text of any kind beyond the "${DA_NAME:-Atlas}" signature — even the model hallucinating partial words counts as failure
+- The image carries the meaning visually. All text other than the ${DA_NAME:-Atlas} signature belongs in the post body, not on the canvas.
+- The model MUST NOT bake any text in. The ONLY text on the final image is the Step-7 programmatic "${DA_NAME:-Atlas}" signature.
 
 **🚨 BOTH SIENNA AND PURPLE MUST BE PRESENT IN EVERY IMAGE.**
 - Sienna on human/warm elements
@@ -792,9 +792,9 @@ Generated images at 2K resolution (2048x2048) are 6-8MB each - far too large for
 
 ### Optimization Process
 
-**For ALL blog header images, automatically execute these commands. The ONLY text stamped is the required "{{DA_NAME}}" signature (Step 7.1) — no watermark, no other annotation.**
+**For ALL blog header images, automatically execute these commands. The ONLY text stamped is the required "${DA_NAME:-Atlas}" signature (Step 7.1) — no watermark, no other annotation.**
 
-🚨 **FIX 2 — TRUE ALPHA BEFORE INLINE (white-box bug, 2026-06-20).** The inline blog image MUST have a real alpha channel so the cream page (`#EAE9DF`) shows through. nano-banana-pro returns an OPAQUE JPEG. Flattening that opaque JPEG on `#EAE9DF` is a **NO-OP** (there's no alpha to fill), so the model's baked near-white ground survives and renders as a **white rectangle on the cream page** — exactly the bug {{PRINCIPAL_NAME}} hit ("it has a fucking white background"). The fix: cut to true alpha FIRST with rembg, THEN derive the WebP. Substantial sienna/purple/solid-figure charcoal survives rembg fine — the "rembg eats thin linework" gotcha applies to thin-line *diagrams*, not solid-figure essay headers.
+🚨 **FIX 2 — TRUE ALPHA BEFORE INLINE (white-box bug, 2026-06-20).** The inline blog image MUST have a real alpha channel so the cream page (`#EAE9DF`) shows through. nano-banana-pro returns an OPAQUE JPEG. Flattening that opaque JPEG on `#EAE9DF` is a **NO-OP** (there's no alpha to fill), so the model's baked near-white ground survives and renders as a **white rectangle on the cream page** — exactly the bug ${PRINCIPAL_NAME} hit ("it has a fucking white background"). The fix: cut to true alpha FIRST with rembg, THEN derive the WebP. Substantial sienna/purple/solid-figure charcoal survives rembg fine — the "rembg eats thin linework" gotcha applies to thin-line *diagrams*, not solid-figure essay headers.
 
 ```bash
 # Step 7.0 (above) has already trimmed the image to its bbox.
@@ -803,9 +803,9 @@ Generated images at 2K resolution (2048x2048) are 6-8MB each - far too large for
 bun ~/.claude/skills/do-art/Tools/RemoveBg.ts "~/Downloads/[name].jpg"   # → ~/Downloads/[name].png with real alpha
 magick "~/Downloads/[name].png" -trim +repage -resize 1024x "~/Downloads/[name].png"
 
-# 7.1 — "{{DA_NAME}}" SIGNATURE (human handwriting, NOT calligraphy)
+# 7.1 — "${DA_NAME:-Atlas}" SIGNATURE (human handwriting, NOT calligraphy)
 #   🟢 AUTO-STAMPED BY Generate.ts (2026-06-26): any `--workflow=Essay` or `--thumbnail`
-#   run now stamps "{{DA_NAME}}" itself (bottom-right, SignPainter-HouseScript cursive, ~3% width,
+#   run now stamps "${DA_NAME:-Atlas}" itself (bottom-right, SignPainter-HouseScript cursive, ~3% width,
 #   slight rotation — small, integrated; 2026-07-09 directive), before the thumbnail
 #   is derived, so it lands on BOTH the transparent PNG and the sepia thumb. You do NOT
 #   run this command after a normal Generate.ts run — doing so DOUBLE-stamps.
@@ -814,7 +814,7 @@ magick "~/Downloads/[name].png" -trim +repage -resize 1024x "~/Downloads/[name].
 #   with `--no-signature`. Snell-Roundhand/Apple-Chancery/Savoye are calligraphy → REJECTED (2026-06-20).
 magick "~/Downloads/[name].png" -gravity SouthEast \
   -font "SignPainter-HouseScript" -pointsize 31 -fill "rgba(55,45,38,0.55)" \
-  -annotate 352x352+44+30 "{{DA_NAME}}" "~/Downloads/[name].png"
+  -annotate 352x352+44+30 "${DA_NAME:-Atlas}" "~/Downloads/[name].png"
 
 # 1. Convert the signed transparent PNG to WebP for inline blog display
 cwebp -q 86 -alpha_q 100 "~/Downloads/[name].png" -o "~/Downloads/[name].webp"
@@ -832,7 +832,7 @@ magick "~/Downloads/[name].png" -background "#EAE9DF" -flatten -resize 512x -qua
 ls -lh ~/Downloads/[name].webp ~/Downloads/[name]-thumb-optimized.png
 ```
 
-**🚨 The Step 7.1 `-annotate` "{{DA_NAME}}" signature is REQUIRED and is the ONLY sanctioned `-annotate` use. History: the signature was removed 2026-05-02, then explicitly RE-REQUIRED by {{PRINCIPAL_NAME}} on 2026-06-20 ("essay images need to always be signed by {{DA_NAME}}"). It must be the cursive signature hand (`SignPainter-HouseScript`, small, integrated — 2026-07-09), never formal calligraphy (Snell/Chancery/Savoye were rejected). Do NOT `-annotate` anything else onto the canvas — no watermark, no titles, no labels (the rare per-request figure labels are a separate, explicitly-asked-for case, color-coded to the figures).**
+**🚨 The Step 7.1 `-annotate` "${DA_NAME:-Atlas}" signature is REQUIRED and is the ONLY sanctioned `-annotate` use. History: the signature was removed 2026-05-02, then explicitly RE-REQUIRED by ${PRINCIPAL_NAME} on 2026-06-20 ("essay images need to always be signed by ${DA_NAME:-Atlas}"). It must be the cursive signature hand (`SignPainter-HouseScript`, small, integrated — 2026-07-09), never formal calligraphy (Snell/Chancery/Savoye were rejected). Do NOT `-annotate` anything else onto the canvas — no watermark, no titles, no labels (the rare per-request figure labels are a separate, explicitly-asked-for case, color-coded to the figures).**
 
 **Expected Results:**
 - Main WebP image: ~150-500KB (from ~7.5MB PNG)
@@ -979,7 +979,7 @@ The cap exists because compute spent on 16+ failed generations is compute that s
 **STOP. Look at the image. Answer these questions honestly:**
 
 **0. SIGNATURE CHECK (REQUIRED — not optional):**
-- Is the "{{DA_NAME}}" signature present in the BOTTOM RIGHT CORNER? It MUST be (Step 7.1, every blog header).
+- Is the "${DA_NAME:-Atlas}" signature present in the BOTTOM RIGHT CORNER? It MUST be (Step 7.1, every blog header).
 - Is it the cursive signature hand (SignPainter-HouseScript), small and integrated, NOT formal calligraphy? Snell/Chancery/Savoye script faces are WRONG (rejected 2026-06-20).
 - Not bottom center. Not near the subject. BOTTOM RIGHT CORNER.
 - If missing, calligraphic, wrong location, or garbled → re-run Step 7.1 (it's a programmatic stamp, so just re-stamp; no regen needed).
@@ -1026,8 +1026,8 @@ The cap exists because compute spent on 16+ failed generations is compute that s
 ### Validation Checklist
 
 **🚨 MANDATORY ELEMENTS (if ANY are missing, REGENERATE):**
-- [ ] **"{{DA_NAME}}" SIGNATURE PRESENT** — cursive signature hand (SignPainter-HouseScript), small, bottom-right, added programmatically in Step 7.1. Its absence is a FAIL (required since 2026-06-20).
-- [ ] **NO OTHER TEXT** — beyond the "{{DA_NAME}}" signature (and any per-request figure labels {{PRINCIPAL_NAME}} explicitly asked for): zero watermarks, zero stray labels, zero hallucinated letters. Model-baked text → REGENERATE.
+- [ ] **"${DA_NAME:-Atlas}" SIGNATURE PRESENT** — cursive signature hand (SignPainter-HouseScript), small, bottom-right, added programmatically in Step 7.1. Its absence is a FAIL (required since 2026-06-20).
+- [ ] **NO OTHER TEXT** — beyond the "${DA_NAME:-Atlas}" signature (and any per-request figure labels ${PRINCIPAL_NAME} explicitly asked for): zero watermarks, zero stray labels, zero hallucinated letters. Model-baked text → REGENERATE.
 - [ ] **INLINE IS TRANSPARENT (srgba)** — `identify -format "%[channels]" [name].webp` prints `srgba`. `srgb` = opaque = the white-box-on-cream bug → re-cut with RemoveBg.
 - [ ] **PROBLEM TYPE VISIBLE** — the problem type (sorting, double standard, etc.) is immediately obvious
 - [ ] **Subject matches CONTENT** — drew what the piece is ABOUT, not defaulted to architecture

@@ -111,12 +111,7 @@ The runner writes JSON to stdout and performs no hidden model call or global res
 
 Create a report data file from the collected JSON, then use the included renderer:
 
-```bash
-bun run ~/.claude/skills/Prompting/Templates/Tools/RenderTemplate.ts \
-  -t Evals/Report.hbs \
-  -d "$RESULTS_DIR/summary.yaml" \
-  -o "$RESULTS_DIR/report.md"
-```
+Author the prompt file directly from the config - do-evals does not depend on an external templating skill.
 
 ### Step 7: Analyze Results
 

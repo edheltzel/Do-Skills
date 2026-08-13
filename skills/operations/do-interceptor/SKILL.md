@@ -332,7 +332,7 @@ Agent(subagent_type="general-purpose", prompt="
 ## Examples
 
 - "Verify the blog deploy" → VerifyDeploy: preflight isolation gate, `interceptor open <url> --context "$INTERCEPTOR_TEST_CONTEXT_ID"`, `read --markdown`, capture via `Tools/Capture.sh`, report with evidence.
-- "The menu animation looks off / does the checkout flow render clean" → ScrubFlow: record the flow to video, `bun Tools/FrameScrub.ts <recording> scrub --at <sec>`, Read the auto-flagged frame, cite the manifest. Motion/interaction ISCs require this or a flow-gallery, not a single still (Algorithm Rule 1).
+- "The menu animation looks off / does the checkout flow render clean" → ScrubFlow: record the flow to video, `bun Tools/FrameScrub.ts <recording> scrub --at <sec>`, Read the auto-flagged frame, cite the manifest. Motion/interaction checks require a scrub or flow-gallery, not a single still.
 - "Why is this page blank after deploy?" → Reproduce: open the page FIRST, `eval --main` console-error capture, `net log` for failed requests, then code analysis.
 - "Record me approving this flow, then replay it nightly" → RecordFlow + ReplayFlow: `monitor start`, operator acts, `monitor export <sid> --plan`, replay the plan script later.
 

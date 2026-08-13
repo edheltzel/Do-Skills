@@ -220,7 +220,7 @@ bun run ~/.claude/skills/do-evals/Tools/SuiteManager.ts show <name>
 ```bash
 # Run first evaluation to verify setup
 bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts -s <name>
-cat ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<name>/$(ls -1t ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<name>/ | head -1)/results.json | jq '.summary'
+cat ~/.claude/skills/do-evals/Results/<name>/$(ls -1t ~/.claude/skills/do-evals/Results/<name>/ | head -1)/results.json | jq '.summary'
 ```
 
 Review:
