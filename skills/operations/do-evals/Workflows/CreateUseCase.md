@@ -1,20 +1,6 @@
 # CreateUseCase Workflow
 
 Create a new evaluation use case with test cases and scoring criteria.
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the CreateUseCase workflow in the Evals skill to create eval use case"}' \
-  > /dev/null 2>&1 &
-```
-
-Running the **CreateUseCase** workflow in the **Evals** skill to create eval use case...
-
----
-
 ## Prerequisites
 
 - Clear understanding of what you're evaluating
@@ -35,12 +21,12 @@ Ask the user:
 ### Step 2: Create Use Case Directory
 
 ```bash
-mkdir -p ~/.claude/skills/Evals/UseCases/<name>/{test-cases,golden-outputs,prompts}
+mkdir -p ~/.claude/skills/do-evals/UseCases/<name>/{test-cases,golden-outputs,prompts}
 ```
 
 ### Step 3: Create Config File
 
-Create `~/.claude/skills/Evals/UseCases/<name>/config.yaml`:
+Create `~/.claude/skills/do-evals/UseCases/<name>/config.yaml`:
 
 ```yaml
 name: do-<use_case_name>
@@ -98,7 +84,7 @@ models:
 
 ### Step 4: Create Initial Prompt Version
 
-Create `~/.claude/skills/Evals/UseCases/<name>/prompts/v1.0.0.md`:
+Create `~/.claude/skills/do-evals/UseCases/<name>/prompts/v1.0.0.md`:
 
 ```markdown
 # <Task Name> Prompt v1.0.0
@@ -122,7 +108,7 @@ Create `~/.claude/skills/Evals/UseCases/<name>/prompts/v1.0.0.md`:
 
 ### Step 5: Create Test Cases
 
-Create test cases in `~/.claude/skills/Evals/UseCases/<name>/test-cases/`:
+Create test cases in `~/.claude/skills/do-evals/UseCases/<name>/test-cases/`:
 
 Each test case is a YAML file:
 
@@ -176,7 +162,7 @@ Golden outputs serve as:
 
 ### Step 7: Create README
 
-Create `~/.claude/skills/Evals/UseCases/<name>/README.md`:
+Create `~/.claude/skills/do-evals/UseCases/<name>/README.md`:
 
 ```markdown
 # <Use Case Name>
@@ -211,7 +197,7 @@ Create `~/.claude/skills/Evals/UseCases/<name>/README.md`:
 ## Running Evaluations
 
 \`\`\`bash
-bun run ~/.claude/skills/Evals/Tools/AlgorithmBridge.ts -s <name>
+bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts -s <name>
 \`\`\`
 
 ## Version History
@@ -223,17 +209,17 @@ bun run ~/.claude/skills/Evals/Tools/AlgorithmBridge.ts -s <name>
 
 ```bash
 # Check structure
-ls -la ~/.claude/skills/Evals/UseCases/<name>/
+ls -la ~/.claude/skills/do-evals/UseCases/<name>/
 
 # Validate suite via SuiteManager
-bun run ~/.claude/skills/Evals/Tools/SuiteManager.ts show <name>
+bun run ~/.claude/skills/do-evals/Tools/SuiteManager.ts show <name>
 ```
 
 ### Step 9: Run Initial Eval
 
 ```bash
 # Run first evaluation to verify setup
-bun run ~/.claude/skills/Evals/Tools/AlgorithmBridge.ts -s <name>
+bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts -s <name>
 cat ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<name>/$(ls -1t ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<name>/ | head -1)/results.json | jq '.summary'
 ```
 

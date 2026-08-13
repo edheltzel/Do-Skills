@@ -1,24 +1,10 @@
 # RecordFlow Workflow
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the RecordFlow workflow in the Interceptor skill to record a user flow"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **RecordFlow** in **Interceptor**...
-
----
-
 Record a user workflow by capturing browser actions into a replayable script. Uses Interceptor's monitor system to observe clicks, typing, navigation, and network requests, then exports a replay plan using semantic selectors.
 
 ## Preflight Isolation Gate (MANDATORY first step)
 
 ```bash
-bash ~/.claude/skills/Interceptor/Tools/PreflightIsolation.sh
+bash ~/.claude/skills/do-interceptor/Tools/PreflightIsolation.sh
 ```
 
 Non-zero exit → STOP and surface the message verbatim. Do not fall back to the Default profile. Recording in the operator's main profile would capture their real session events and credentials — record only in the pinned isolated context. Every `interceptor` verb below passes `--context "$INTERCEPTOR_TEST_CONTEXT_ID"` (from `preferences.env`).

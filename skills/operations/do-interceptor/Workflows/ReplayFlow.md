@@ -1,24 +1,10 @@
 # ReplayFlow Workflow
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the ReplayFlow workflow in the Interceptor skill to replay a recorded flow"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **ReplayFlow** in **Interceptor**...
-
----
-
 Replay a previously recorded user flow to verify it still works after a deploy or code change. Executes the plan script step-by-step, captures the result at each stage, and reports any regressions.
 
 ## Preflight Isolation Gate (MANDATORY first step)
 
 ```bash
-bash ~/.claude/skills/Interceptor/Tools/PreflightIsolation.sh
+bash ~/.claude/skills/do-interceptor/Tools/PreflightIsolation.sh
 ```
 
 Non-zero exit → STOP and surface the message verbatim. Do not fall back to the Default profile. Every `interceptor` verb below — including the `batch` example — passes `--context "$INTERCEPTOR_TEST_CONTEXT_ID"` (from `preferences.env`). Screenshots go through `Tools/Capture.sh`, never raw `interceptor screenshot`.
@@ -37,7 +23,7 @@ Non-zero exit → STOP and surface the message verbatim. Do not fall back to the
 Recorded flows live in `skills/Interceptor/Flows/`. List available flows:
 
 ```bash
-ls ~/.claude/skills/Interceptor/Flows/
+ls ~/.claude/skills/do-interceptor/Flows/
 ```
 
 Or regenerate from a monitor session:
@@ -93,7 +79,7 @@ Compare against the baseline network log from the original recording. Look for:
 ### 5. Capture Final State
 
 ```bash
-bash ~/.claude/skills/Interceptor/Tools/Capture.sh --current
+bash ~/.claude/skills/do-interceptor/Tools/Capture.sh --current
 ```
 
 Read the printed image path and compare the final screenshot against the expected end state of the flow.

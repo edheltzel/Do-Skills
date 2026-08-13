@@ -3,20 +3,6 @@
 A/B test two prompt versions to determine which performs better.
 
 **This workflow implements the Science Protocol for prompt experimentation.**
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the ComparePrompts workflow in the Evals skill to A/B test prompts"}' \
-  > /dev/null 2>&1 &
-```
-
-Running the **ComparePrompts** workflow in the **Evals** skill to A/B test prompts...
-
----
-
 ## Science Protocol Alignment
 
 Before running any comparison, ensure you're following scientific rigor:
@@ -73,7 +59,7 @@ Ask the user:
 
 ```bash
 # Check prompts exist
-ls ~/.claude/skills/Evals/UseCases/<name>/prompts/
+ls ~/.claude/skills/do-evals/UseCases/<name>/prompts/
 
 # Should see both versions:
 # v1.0.0.md
@@ -82,7 +68,7 @@ ls ~/.claude/skills/Evals/UseCases/<name>/prompts/
 
 ### Step 3: Create Comparison Config
 
-Create `~/.claude/skills/Evals/UseCases/<name>/comparisons/<comparison-name>.yaml`:
+Create `~/.claude/skills/do-evals/UseCases/<name>/comparisons/<comparison-name>.yaml`:
 
 ```yaml
 comparison:
@@ -126,8 +112,8 @@ Run the suite once per prompt version via `AlgorithmBridge.ts`. The use-case con
 
 ```bash
 # Run v1.0.0 first, then v1.1.0
-bun run ~/.claude/skills/Evals/Tools/AlgorithmBridge.ts -s <use-case>-v1.0.0
-bun run ~/.claude/skills/Evals/Tools/AlgorithmBridge.ts -s <use-case>-v1.1.0
+bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts -s <use-case>-v1.0.0
+bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts -s <use-case>-v1.1.0
 ```
 
 Position-swap protection (for pairwise judges that may favor the first/second option presented) is implemented inside the judge config; see the `position_swap: true` flag on `pairwise_comparison` graders in the use-case `config.yaml`. The grader handles randomization; the runner doesn't need a separate flag.
@@ -306,8 +292,8 @@ For detailed comparison setup, use the Comparison template:
 ```bash
 bun run ~/.claude/skills/Prompting/Templates/Tools/RenderTemplate.ts \
   -t Evals/Comparison.hbs \
-  -d ~/.claude/skills/Evals/UseCases/<name>/comparisons/<name>.yaml \
-  -o ~/.claude/skills/Evals/UseCases/<name>/comparisons/<name>-setup.md \
+  -d ~/.claude/skills/do-evals/UseCases/<name>/comparisons/<name>.yaml \
+  -o ~/.claude/skills/do-evals/UseCases/<name>/comparisons/<name>-setup.md \
   --preview
 ```
 

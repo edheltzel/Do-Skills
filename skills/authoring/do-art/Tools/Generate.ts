@@ -34,7 +34,7 @@ import { extname, resolve } from "node:path";
 // ============================================================================
 
 /**
- * Load environment variables from ${LIFEOS_DIR}/.env
+ * Load environment variables from ~/.env
  * This ensures API keys are available regardless of how the CLI is invoked
  */
 async function loadEnv(): Promise<void> {
@@ -325,8 +325,8 @@ ERROR CODES:
   1  General error (invalid arguments, API error, file write error)
 
 MORE INFO:
-  Documentation: ${LIFEOS_DIR}/skills/Art/README.md
-  Source: ${LIFEOS_DIR}/skills/Art/Tools/Generate.ts
+  Documentation: ~/.claude/skills/do-art/README.md
+  Source: ~/.claude/skills/do-art/Tools/Generate.ts
 `);
   process.exit(0);
 }
@@ -1037,7 +1037,7 @@ async function generateWithNanoBananaPro(
 
 async function main(): Promise<void> {
   try {
-    // Load API keys from ${LIFEOS_DIR}/.env
+    // Load API keys from ~/.env
     await loadEnv();
 
     const args = parseArgs(process.argv);

@@ -1,20 +1,6 @@
 # CreateJudge Workflow
 
 Create a custom LLM-as-Judge using templates.
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the CreateJudge workflow in the Evals skill to create LLM judge"}' \
-  > /dev/null 2>&1 &
-```
-
-Running the **CreateJudge** workflow in the **Evals** skill to create LLM judge...
-
----
-
 ## Prerequisites
 
 - Use case exists or being created
@@ -34,7 +20,7 @@ Ask the user:
 
 ### Step 2: Create Judge Config
 
-Create `~/.claude/skills/Evals/UseCases/<name>/judge-config.yaml`:
+Create `~/.claude/skills/do-evals/UseCases/<name>/judge-config.yaml`:
 
 ```yaml
 judge:
@@ -68,8 +54,8 @@ output:
 ```bash
 bun run ~/.claude/skills/Prompting/Templates/Tools/RenderTemplate.ts \
   -t Evals/Judge.hbs \
-  -d ~/.claude/skills/Evals/UseCases/<name>/judge-config.yaml \
-  -o ~/.claude/skills/Evals/UseCases/<name>/judge-prompt.md \
+  -d ~/.claude/skills/do-evals/UseCases/<name>/judge-config.yaml \
+  -o ~/.claude/skills/do-evals/UseCases/<name>/judge-prompt.md \
   --preview
 ```
 
@@ -101,7 +87,7 @@ criteria:
 Run the suite (which contains the use case + judge) via `AlgorithmBridge.ts` and inspect the output:
 
 ```bash
-bun run ~/.claude/skills/Evals/Tools/AlgorithmBridge.ts -s <suite>
+bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts -s <suite>
 cat ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/<run-id>/results.json | jq '.trials[0].graders'
 ```
 

@@ -6,20 +6,6 @@ purpose: Add new command to existing CLI
 # Add Command Workflow
 
 **Extend existing CLI with new commands while maintaining code quality and consistency.**
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the AddCommand workflow in the CreateCLI skill to add CLI command"}' \
-  > /dev/null 2>&1 &
-```
-
-Running the **AddCommand** workflow in the **CreateCLI** skill to add CLI command...
-
----
-
 ## 🎯 PURPOSE
 
 Add one or more commands to an existing CLI without breaking existing functionality.
@@ -42,7 +28,7 @@ Add one or more commands to an existing CLI without breaking existing functional
 # Find CLI location
 ls -la ~/.claude/tools/[cli-name]/
 # or
-ls -la ~/Projects/[project]/
+ls -la ~/Developer/[project]/
 ```
 
 ### 2. Read Current Structure

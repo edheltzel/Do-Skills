@@ -1,16 +1,4 @@
 # Red Team Parallel Analysis Workflow
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the ParallelAnalysis workflow in the RedTeam skill to red team arguments"}' \
-  > /dev/null 2>&1 &
-```
-
-Running the **ParallelAnalysis** workflow in the **RedTeam** skill to red team arguments...
-
 ## The Deliverable
 
 Attack an argument from many diverse perspectives at once, then produce the two things that matter:
@@ -23,13 +11,13 @@ Attack an argument from many diverse perspectives at once, then produce the two 
 
 ## Approach
 
-**Decompose first.** Invoke `FirstPrinciples/Deconstruct` on the argument to separate fundamental truths from assumed ones and surface the gap between stated and actual components. Then break the argument into atomic, independently-attackable claims — each self-contained, specific, and challengeable by a competent critic.
+**Decompose first.** Invoke `do-first-principles/Deconstruct` on the argument to separate fundamental truths from assumed ones and surface the gap between stated and actual components. Then break the argument into atomic, independently-attackable claims — each self-contained, specific, and challengeable by a competent critic.
 
 **Dispatch parallel adversarial agents in a single message.** Deploy many diverse personas (engineers, architects, pentesters, fresh-eyes interns) as parallel Task calls — one message, multiple calls. Draw from the persona library below for concrete attack angles. Each agent receives the full argument, the claim decomposition, and its persona, and returns a balanced analysis: the real strengths AND the real weaknesses from its angle.
 
 **Synthesize by convergence and severity.** Weaknesses that many agents independently land on are your critical findings; a lone sharp insight still counts. Rank by severity, discard noise, and decide the verdict: fundamentally sound with fixable execution, or fundamentally flawed despite good intentions.
 
-**Before the counter-argument,** invoke `FirstPrinciples/Challenge` to classify every constraint as HARD (physics/reality — cannot attack), SOFT (policy/choice — can be challenged), or ASSUMPTION (unvalidated — prime target). The most devastating critiques target "constraints" treated as HARD that are actually SOFT.
+**Before the counter-argument,** invoke `do-first-principles/Challenge` to classify every constraint as HARD (physics/reality — cannot attack), SOFT (policy/choice — can be challenged), or ASSUMPTION (unvalidated — prime target). The most devastating critiques target "constraints" treated as HARD that are actually SOFT.
 
 ---
 
@@ -232,11 +220,11 @@ Each point is self-contained, uses plain language, attacks a real weakness, and 
 **This workflow requires:**
 - Task tool for launching parallel adversarial agents in a single message
 - Synthesis capability to process many agent outputs
-- **FirstPrinciples skill** for Deconstruct (decomposition) and Challenge (constraint classification)
+- **do-first-principles skill** for Deconstruct (decomposition) and Challenge (constraint classification)
 
 **Pairs well with:**
-- `FirstPrinciples/Deconstruct` - breaks argument into fundamental parts
-- `FirstPrinciples/Challenge` - classifies constraints as HARD/SOFT/ASSUMPTION
+- `do-first-principles/Deconstruct` - breaks argument into fundamental parts
+- `do-first-principles/Challenge` - classifies constraints as HARD/SOFT/ASSUMPTION
 - `storyexplanation` skill for initial decomposition
 - `extractalpha` for finding highest-signal critiques
 - `research` skill for finding counterexamples and precedents

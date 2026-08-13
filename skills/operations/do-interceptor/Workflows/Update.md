@@ -1,18 +1,4 @@
 # Update Workflow
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the Update workflow in the Interceptor skill to rebuild interceptor"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **Update** in **Interceptor**...
-
----
-
 Rebuild interceptor from latest source and verify the full pipeline. Defaults to **full Computer Use** install (CLI + daemon + Chrome extension + macOS bridge); pass `--browser-only` mode where noted to skip the bridge.
 
 ## When to Use
@@ -40,13 +26,13 @@ Mode is recorded in `~/.config/interceptor/config.toml`. `interceptor status` ec
 ### 1. Pull Latest
 
 ```bash
-cd ~/Projects/interceptor && git fetch origin && git status -uno
+cd ~/Developer/interceptor && git fetch origin && git status -uno
 ```
 
 If you have local diffs, stash before pulling:
 
 ```bash
-cd ~/Projects/interceptor && \
+cd ~/Developer/interceptor && \
   git stash push -m "kai-local patches" -- '<paths>' && \
   git pull --ff-only origin main && \
   git stash pop
@@ -57,13 +43,13 @@ cd ~/Projects/interceptor && \
 If upstream force-pushed (rarer now post-v0.10), inspect what would be lost, then:
 
 ```bash
-cd ~/Projects/interceptor && git reset --hard origin/main
+cd ~/Developer/interceptor && git reset --hard origin/main
 ```
 
 ### 2. Install Dependencies
 
 ```bash
-cd ~/Projects/interceptor && bun install
+cd ~/Developer/interceptor && bun install
 ```
 
 Always run before build — upstream may add deps. Build fails with "Could not resolve" otherwise.
@@ -71,7 +57,7 @@ Always run before build — upstream may add deps. Build fails with "Could not r
 ### 3. Build
 
 ```bash
-cd ~/Projects/interceptor && bun run build       # or: bash scripts/build.sh
+cd ~/Developer/interceptor && bun run build       # or: bash scripts/build.sh
 ```
 
 Produces:
@@ -84,18 +70,18 @@ Produces:
 ### 4. Install Binaries
 
 ```bash
-cp ~/Projects/interceptor/dist/interceptor /opt/homebrew/bin/
-cp ~/Projects/interceptor/daemon/interceptor-daemon /opt/homebrew/bin/
+cp ~/Developer/interceptor/dist/interceptor /opt/homebrew/bin/
+cp ~/Developer/interceptor/daemon/interceptor-daemon /opt/homebrew/bin/
 ```
 
 ### 4a. Pin the Extension into the skill
 
-`~/.claude/skills/Interceptor/Extension/` is a **pinned copy** of the built `extension/dist/`, not a symlink. Two reasons: Chrome disables unpacked extensions on every manifest version bump (a stable copy survives that), and the public LifeOS release ships this skill — a symlink to a local build dir is useless to other users.
+`~/.claude/skills/do-interceptor/Extension/` is a **pinned copy** of the built `extension/dist/`, not a symlink. Two reasons: Chrome disables unpacked extensions on every manifest version bump (a stable copy survives that), and the public LifeOS release ships this skill — a symlink to a local build dir is useless to other users.
 
 Re-pin after every build:
 
 ```bash
-bash ~/.claude/skills/Interceptor/Tools/Pin.sh
+bash ~/.claude/skills/do-interceptor/Tools/Pin.sh
 ```
 
 `Pin.sh` rsyncs `dist/` → `Extension/`, **scrubs absolute home paths** that esbuild bakes into bundled JS (the `__dirname` literal in CommonJS wrappers → `"."`), regenerates `PINNED_FROM.txt` with a relative source path, and exits non-zero if any absolute home path survives. Set `INTERCEPTOR_SRC` to override the source repo location.
@@ -103,7 +89,7 @@ bash ~/.claude/skills/Interceptor/Tools/Pin.sh
 ### 5. Re-register Native Messaging
 
 ```bash
-cd ~/Projects/interceptor && bash scripts/install.sh --chrome --skip-extension
+cd ~/Developer/interceptor && bash scripts/install.sh --chrome --skip-extension
 ```
 
 `--skip-extension` is the right path for Chrome — branded Chrome ignores `--load-extension` and the extension reload is a manual step (see "Extension Reload" below). The script regenerates `~/Library/Application Support/Google/Chrome/NativeMessagingHosts/com.interceptor.host.json` with the current allowed extension IDs.
@@ -126,7 +112,7 @@ The signed-`.pkg` install path lands the `.app` bundle there (Sparkle.framework 
 # 1. Stage the .app bundle (no sudo — lives under $HOME)
 mkdir -p ~/.local/share/interceptor
 rm -rf ~/.local/share/interceptor/interceptor-bridge.app
-cp -R ~/Projects/interceptor/dist/interceptor-bridge.app \
+cp -R ~/Developer/interceptor/dist/interceptor-bridge.app \
       ~/.local/share/interceptor/interceptor-bridge.app
 
 # 2. Write LaunchAgent plist into $HOME (no sudo) — points at the .app MacOS binary
@@ -189,7 +175,7 @@ interceptor macos trust --walkthrough  # Deep-links to System Settings for missi
 - **No authentication on the socket.** Any local process running as your user can connect and execute every bridge action. macOS TCC permissions (Accessibility, Screen Recording, Microphone) are granted to the bridge once and inherited by every socket client. (The `trust` probe exposes exactly three keys — `accessibility`, `screenRecording`, `microphone` — there is no `inputMonitoring` field.)
 - **Marginal risk is supply-chain:** a malicious local package gains a one-step path to OS-level input/screen/clipboard without needing its own permission grants.
 - Single-user Mac threat model: acceptable. Multi-user Macs need socket hardening (chmod 700 of the socket as a post-start plist hook).
-- **Binary provenance:** built locally from `~/Projects/interceptor/interceptor-bridge/Sources/`, ad-hoc signed for dev. v0.9.0+ ships a Developer-ID-signed `.pkg` for distribution — we build from source for fast iteration.
+- **Binary provenance:** built locally from `~/Developer/interceptor/interceptor-bridge/Sources/`, ad-hoc signed for dev. v0.9.0+ ships a Developer-ID-signed `.pkg` for distribution — we build from source for fast iteration.
 
 #### 6e. Troubleshoot
 
@@ -223,7 +209,7 @@ If `Extension/manifest.json` changed (especially `version` or `key`):
 
 1. Open `chrome://extensions`, enable Developer Mode.
 2. **Delete** the existing Interceptor card (don't just hit reload — if the manifest `key` changed, the extension ID changed and the old card is dead).
-3. **Load unpacked** → `~/.claude/skills/Interceptor/Extension` (a pinned copy of the built `extension/dist`, captured by `Tools/Pin.sh` — NOT a symlink; it does not auto-follow upstream, so it must be re-pinned after every build).
+3. **Load unpacked** → `~/.claude/skills/do-interceptor/Extension` (a pinned copy of the built `extension/dist`, captured by `Tools/Pin.sh` — NOT a symlink; it does not auto-follow upstream, so it must be re-pinned after every build).
 4. Quit Chrome fully (⌘Q, not just close window) and relaunch — service worker needs a clean restart, especially with `userScripts` permission added.
 5. Accept any new permission prompts (`userScripts`, etc.).
 

@@ -678,7 +678,7 @@ class CLIError extends Error {
 }
 
 function loadConfig(): Config {
-  // ... load from ${LIFEOS_DIR}/.env
+  // ... load from ~/.env
   throw new CLIError('API_KEY not found', 'ERR_NO_API_KEY');
 }
 

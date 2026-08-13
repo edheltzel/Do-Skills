@@ -1,20 +1,6 @@
 # D3.js Interactive Dashboards Workflow
 
 **Interactive data visualizations and dashboards using D3.js.**
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the D3Dashboards workflow in the Art skill to create visualizations"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **D3Dashboards** in **Art**...
-
----
-
 ## Purpose
 
 Creates sophisticated, interactive data visualizations using D3.js for dashboards, reports, and data analysis.

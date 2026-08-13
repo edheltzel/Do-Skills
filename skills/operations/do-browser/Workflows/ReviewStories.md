@@ -1,18 +1,4 @@
 # ReviewStories Workflow - Parallel User Story Validation
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the ReviewStories workflow in the Browser skill to validate user stories"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **ReviewStories** in **Browser**...
-
----
-
 Fan out YAML user stories to parallel general-purpose reviewer agents and aggregate results.
 
 ## When to Use

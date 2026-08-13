@@ -1,20 +1,6 @@
 # Technical Diagram Workflow
 
 **Clean Excalidraw-style technical diagrams with custom typography aesthetic.**
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the TechnicalDiagrams workflow in the Art skill to create diagrams"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **TechnicalDiagrams** in **Art**...
-
----
-
 ## Purpose
 
 Technical diagrams for system architectures, process flows, and board presentations.
@@ -65,7 +51,7 @@ The workflow template below includes a title + subtitle block. **Override this w
 
 # Example image
 # Ignore for now
-# ~/.claude/skills/Art/WorkflowExamples/TechnicalDiagrams/example.png
+# ~/.claude/skills/do-art/WorkflowExamples/TechnicalDiagrams/example.png
 
 ---
 
@@ -231,7 +217,7 @@ All the art components, labels, and such should mostly look hand-drawn, similar 
 ### Generate Command
 
 ```bash
-bun run ~/.claude/skills/Art/Tools/Generate.ts \
+bun run ~/.claude/skills/do-art/Tools/Generate.ts \
   --workflow=TechnicalDiagrams \
   --model [SELECTED_MODEL] \
   --prompt "[PROMPT]" \

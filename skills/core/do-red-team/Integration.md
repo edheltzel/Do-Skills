@@ -13,14 +13,14 @@
 - `extractalpha` - Highest-signal critiques
 - `xpost` - Share findings
 
-## FirstPrinciples Integration
+## do-first-principles Integration
 
-RedTeam deeply integrates with FirstPrinciples skill:
+RedTeam deeply integrates with do-first-principles skill:
 
-- **Phase 1 Enhancement:** Use `FirstPrinciples/Deconstruct` to break arguments into fundamental parts
-- **Phase 5 Enhancement:** Use `FirstPrinciples/Challenge` to classify constraints as hard/soft/assumption
+- **Phase 1 Enhancement:** Use `do-first-principles/Deconstruct` to break arguments into fundamental parts
+- **Phase 5 Enhancement:** Use `do-first-principles/Challenge` to classify constraints as hard/soft/assumption
 - **Core Insight:** The most devastating critiques come from challenging hidden assumptions
-- **Invocation:** "Use FirstPrinciples/Challenge on the stated constraints before parallel analysis"
+- **Invocation:** "Use do-first-principles/Challenge on the stated constraints before parallel analysis"
 
 ## Output Format
 

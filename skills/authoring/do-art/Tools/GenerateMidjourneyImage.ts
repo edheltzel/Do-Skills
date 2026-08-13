@@ -36,7 +36,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
 // ============================================================================
 
 /**
- * Load environment variables from ${LIFEOS_DIR}/.env
+ * Load environment variables from ~/.env
  * This ensures API keys are available regardless of how the CLI is invoked
  */
 async function loadEnv(): Promise<void> {
@@ -283,7 +283,7 @@ function parseArgs(args: string[]): CLIArgs {
 
 async function main() {
   try {
-    // Load API keys from ${LIFEOS_DIR}/.env
+    // Load API keys from ~/.env
     await loadEnv();
 
     // Parse arguments
@@ -295,13 +295,13 @@ async function main() {
 
     if (!botToken) {
       throw new CLIError(
-        'Missing DISCORD_BOT_TOKEN environment variable. Add it to ${LIFEOS_DIR}/.env'
+        'Missing DISCORD_BOT_TOKEN environment variable. Add it to ~/.env'
       );
     }
 
     if (!channelId) {
       throw new CLIError(
-        'Missing MIDJOURNEY_CHANNEL_ID environment variable. Add it to ${LIFEOS_DIR}/.env'
+        'Missing MIDJOURNEY_CHANNEL_ID environment variable. Add it to ~/.env'
       );
     }
 

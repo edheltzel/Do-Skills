@@ -1,20 +1,6 @@
 # CompareModels Workflow
 
 Compare multiple models on the same prompt to determine the best performer.
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the CompareModels workflow in the Evals skill to compare model performance"}' \
-  > /dev/null 2>&1 &
-```
-
-Running the **CompareModels** workflow in the **Evals** skill to compare model performance...
-
----
-
 ## Prerequisites
 
 - Existing use case with test cases and prompt
@@ -47,7 +33,7 @@ models:
 
 ### Step 3: Create Model Comparison Config
 
-Create `~/.claude/skills/Evals/UseCases/<name>/model-comparisons/<comparison-name>.yaml`:
+Create `~/.claude/skills/do-evals/UseCases/<name>/model-comparisons/<comparison-name>.yaml`:
 
 ```yaml
 model_comparison:
@@ -111,11 +97,11 @@ Choose an explicit project results directory, then run the same suite against ea
 RESULTS_DIR="<project-results-directory>"
 mkdir -p "$RESULTS_DIR"
 
-bun run ~/.claude/skills/Evals/Tools/AlgorithmBridge.ts \
+bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts \
   --suite <suite-name> --output-file claude-outputs.json > "$RESULTS_DIR/claude.json"
-bun run ~/.claude/skills/Evals/Tools/AlgorithmBridge.ts \
+bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts \
   --suite <suite-name> --output-file gpt-outputs.json > "$RESULTS_DIR/gpt.json"
-bun run ~/.claude/skills/Evals/Tools/AlgorithmBridge.ts \
+bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts \
   --suite <suite-name> --output-file gemini-outputs.json > "$RESULTS_DIR/gemini.json"
 ```
 

@@ -5,7 +5,7 @@ You are driving a rich editor: Canva, Google Docs, Google Slides, Sheets, Figma,
 ## Preflight Isolation Gate (MANDATORY first step)
 
 ```bash
-bash ~/.claude/skills/Interceptor/Tools/PreflightIsolation.sh
+bash ~/.claude/skills/do-interceptor/Tools/PreflightIsolation.sh
 ```
 
 This is the heaviest trusted-input workflow — dispatched events mutate live editor content, so a wrong-profile run can corrupt the operator's real documents. Non-zero exit → STOP and surface the message verbatim. Do not fall back to the Default profile. Every `interceptor` verb below passes `--context "$INTERCEPTOR_TEST_CONTEXT_ID"` (the pinned isolated context from `preferences.env`); the examples show it on the runnable blocks. Screenshots/thumbnails go through `Tools/Capture.sh` where a pixel capture is needed.

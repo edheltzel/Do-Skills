@@ -1,20 +1,6 @@
 # Create <brand> wallpaper
 
 **Generate branded wallpapers with embedded logo concepts for Kitty terminal and macOS desktop.**
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the LogoWallpaper workflow in the Art skill to create wallpapers"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **LogoWallpaper** in **Art**...
-
----
-
 Creates **4K 16:9 wallpapers** that integrate <brand> logos as organic design elements — emblazoned, embossed, or woven into the composition.
 
 ---
@@ -31,13 +17,13 @@ Generate cohesive wallpapers that:
 
 ## Prerequisites
 
-**Logos Directory:** `~/Projects/Logos/`
+**Logos Directory:** `~/Developer/Logos/`
 Place logo files (PNG, SVG) here. The workflow will use these as reference for shape/concept integration.
 
-**Wallpaper Output:** `~/Projects/Wallpaper/`
+**Wallpaper Output:** `~/Developer/Wallpaper/`
 Generated wallpapers are saved here and immediately available via `k -w <name>`.
 
-**Reference Wallpapers:** `~/Projects/Wallpaper/`
+**Reference Wallpapers:** `~/Developer/Wallpaper/`
 Existing wallpapers to match aesthetic:
 - `blue-lines.png` - Abstract flowing lines
 - `blue-purple-circuits.png` - Circuit board pattern
@@ -51,7 +37,7 @@ Existing wallpapers to match aesthetic:
 ### Step 1: Gather Input
 
 **Required from user:**
-1. **Logo selection** — Which logo from `~/Projects/Logos/` to embed
+1. **Logo selection** — Which logo from `~/Developer/Logos/` to embed
 2. **Style direction** — Circuit, geometric, abstract, flowing, etc.
 3. **Integration style** — How logo appears:
    - **Emblazoned** — Logo shape as glowing focal point
@@ -74,10 +60,10 @@ Read the selected logo file to understand:
 
 ```bash
 # List available logos
-ls ~/Projects/Logos/
+ls ~/Developer/Logos/
 
 # View selected logo
-open ~/Projects/Logos/<logo-name>.png
+open ~/Developer/Logos/<logo-name>.png
 ```
 
 ### Step 3: Load Reference Wallpaper
@@ -85,7 +71,7 @@ open ~/Projects/Logos/<logo-name>.png
 View an existing wallpaper to match the aesthetic:
 
 ```bash
-open ~/Projects/Wallpaper/blue-purple-circuits.png
+open ~/Developer/Wallpaper/blue-purple-circuits.png
 ```
 
 **Key aesthetic elements to maintain:**
@@ -136,14 +122,14 @@ CRITICAL:
 ### Step 5: Generate Wallpaper
 
 ```bash
-bun run ~/.claude/skills/Art/Tools/Generate.ts \
+bun run ~/.claude/skills/do-art/Tools/Generate.ts \
   --workflow=LogoWallpaper \
   --model nano-banana-pro \
   --prompt "[CONSTRUCTED_PROMPT]" \
   --size 4K \
   --aspect-ratio 16:9 \
-  --reference-image ~/Projects/Logos/<selected-logo>.png \
-  --output ~/Projects/Wallpaper/<output-name>.png
+  --reference-image ~/Developer/Logos/<selected-logo>.png \
+  --output ~/Developer/Wallpaper/<output-name>.png
 ```
 
 **Parameters:**
@@ -155,7 +141,7 @@ bun run ~/.claude/skills/Art/Tools/Generate.ts \
 
 **Open the generated wallpaper:**
 ```bash
-open ~/Projects/Wallpaper/<output-name>.png
+open ~/Developer/Wallpaper/<output-name>.png
 ```
 
 **Validation checklist:**
@@ -323,8 +309,8 @@ CRITICAL: Logo as design origin point, not pasted overlay. High contrast for tin
 | Model | nano-banana-pro |
 | Size | 4K |
 | Aspect Ratio | 16:9 |
-| Output Directory | ~/Projects/Wallpaper/ |
-| Logo Source | ~/Projects/Logos/ |
+| Output Directory | ~/Developer/Wallpaper/ |
+| Logo Source | ~/Developer/Logos/ |
 | Apply Command | `k -w <name>` |
 
 **Color Palette:**

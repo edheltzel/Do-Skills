@@ -3,20 +3,6 @@
 **Charcoal Architectural Sketch TECHNIQUE — Applied to CONTENT-RELEVANT subjects.**
 
 **Should feel like:** the image he would have art-directed himself on a good day.
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the Essay workflow in the Art skill to create header images"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **Essay** in **Art**...
-
----
-
 Uses architectural sketching STYLE (gestural lines, hatching, charcoal) to depict whatever the content is actually ABOUT — NOT defaulting to buildings.
 
 ---
@@ -152,7 +138,7 @@ Or use the slash command:
 **Read the aesthetic file and select the appropriate emotional vocabulary.**
 
 ```bash
-Read ~/.claude/skills/Art/SKILL.md
+Read ~/.claude/skills/do-art/SKILL.md
 ```
 
 **Match the contVent to one of these emotional registers:**
@@ -617,7 +603,7 @@ The strict pipeline:
 
 ```bash
 # 1. GENERATE → ALWAYS to ~/Downloads/
-bun run ~/.claude/skills/Art/Tools/Generate.ts \
+bun run ~/.claude/skills/do-art/Tools/Generate.ts \
   --workflow=Essay \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \
@@ -650,7 +636,7 @@ cd ~/your-site && git add public/images/[name].*
 Based on user's request and the mapping tables above, construct the CLI command:
 
 ```bash
-bun run ~/.claude/skills/Art/Tools/Generate.ts \
+bun run ~/.claude/skills/do-art/Tools/Generate.ts \
   --workflow=Essay \
   --model [SELECTED_MODEL from table] \
   --prompt "[PROMPT from Step 5]" \
@@ -673,7 +659,7 @@ The `--thumbnail` flag generates TWO versions:
 ```bash
 # Example: Generates both my-header.png AND my-header-thumb.png in ~/Downloads/
 # 🚨 --output MUST point to ~/Downloads/ — NEVER directly into cms/public/images/
-bun run ~/.claude/skills/Art/Tools/Generate.ts \
+bun run ~/.claude/skills/do-art/Tools/Generate.ts \
   --workflow=Essay \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \
@@ -720,10 +706,10 @@ For non-blog images that only need transparency, or to remove backgrounds after 
 
 ```bash
 # Use the Images Skill for background removal
-bun ~/.claude/skills/Art/Tools/RemoveBg.ts /path/to/output.png
+bun ~/.claude/skills/do-art/Tools/RemoveBg.ts /path/to/output.png
 
 # Or batch process multiple images
-bun ~/.claude/skills/Art/Tools/RemoveBg.ts image1.png image2.png image3.png
+bun ~/.claude/skills/do-art/Tools/RemoveBg.ts image1.png image2.png image3.png
 ```
 
 
@@ -782,7 +768,7 @@ magick ~/Downloads/[name]-trimmed.png -resize 1024x ~/Downloads/[name]-resized.p
 
 # Stage C — verify margins are now ≤ 2% on every edge (sanity check; any model whitespace inside
 # the bbox stays, but cropping has eliminated background bleed).
-bun ~/.claude/skills/Art/Tools/FillFrame.ts \
+bun ~/.claude/skills/do-art/Tools/FillFrame.ts \
   ~/Downloads/[name]-resized.png \
   ~/Downloads/[name]-resized.png \
   --report-only \
@@ -814,7 +800,7 @@ Generated images at 2K resolution (2048x2048) are 6-8MB each - far too large for
 # Step 7.0 (above) has already trimmed the image to its bbox.
 
 # 7.0.5 — CUT TO TRUE ALPHA (mandatory; the model output is an opaque JPEG)
-bun ~/.claude/skills/Art/Tools/RemoveBg.ts "~/Downloads/[name].jpg"   # → ~/Downloads/[name].png with real alpha
+bun ~/.claude/skills/do-art/Tools/RemoveBg.ts "~/Downloads/[name].jpg"   # → ~/Downloads/[name].png with real alpha
 magick "~/Downloads/[name].png" -trim +repage -resize 1024x "~/Downloads/[name].png"
 
 # 7.1 — "{{DA_NAME}}" SIGNATURE (human handwriting, NOT calligraphy)

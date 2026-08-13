@@ -1,20 +1,6 @@
 # Remove Background Workflow
 
 **Remove backgrounds from existing images using local rembg (no external API).**
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the RemoveBackground workflow in the Art skill to remove image backgrounds"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **RemoveBackground** in **Art**...
-
----
-
 ## Purpose
 
 Remove backgrounds from existing images to create transparent PNGs. Useful for:
@@ -58,13 +44,13 @@ Use the native Art `RemoveBg.ts` wrapper, which checks availability, calls local
 
 ```bash
 # Single file (overwrites; renames .jpg→.png)
-bun ~/.claude/skills/Art/Tools/RemoveBg.ts input-image.png
+bun ~/.claude/skills/do-art/Tools/RemoveBg.ts input-image.png
 
 # Single file with explicit output path
-bun ~/.claude/skills/Art/Tools/RemoveBg.ts input-image.jpg output-image.png
+bun ~/.claude/skills/do-art/Tools/RemoveBg.ts input-image.jpg output-image.png
 
 # Batch (overwrites each in place)
-bun ~/.claude/skills/Art/Tools/RemoveBg.ts img1.png img2.png img3.png
+bun ~/.claude/skills/do-art/Tools/RemoveBg.ts img1.png img2.png img3.png
 ```
 
 If you need to call `rembg` directly, first verify the maintained command is available:
@@ -107,13 +93,13 @@ cp output-image.png /destination/path/transparent-image.png
 ### Example 1: Remove background from a diagram
 
 ```bash
-bun ~/.claude/skills/Art/Tools/RemoveBg.ts ~/Downloads/TheAlgorithm.png
+bun ~/.claude/skills/do-art/Tools/RemoveBg.ts ~/Downloads/TheAlgorithm.png
 ```
 
 ### Example 2: Remove background and save with new name
 
 ```bash
-bun ~/.claude/skills/Art/Tools/RemoveBg.ts \
+bun ~/.claude/skills/do-art/Tools/RemoveBg.ts \
   ~/your-site/public/images/logo-with-bg.png \
   ~/your-site/public/images/logo-transparent.png
 ```
@@ -122,7 +108,7 @@ bun ~/.claude/skills/Art/Tools/RemoveBg.ts \
 
 ```bash
 cd ~/Downloads
-bun ~/.claude/skills/Art/Tools/RemoveBg.ts diagram-*.png
+bun ~/.claude/skills/do-art/Tools/RemoveBg.ts diagram-*.png
 ```
 
 ---

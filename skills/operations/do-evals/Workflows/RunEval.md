@@ -1,20 +1,6 @@
 # RunEval Workflow
 
 Run evaluations for a specific use case.
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the RunEval workflow in the Evals skill to execute evaluation"}' \
-  > /dev/null 2>&1 &
-```
-
-Running the **RunEval** workflow in the **Evals** skill to execute evaluation...
-
----
-
 ## Prerequisites
 
 - Use case must exist in `UseCases/<name>/`
@@ -27,7 +13,7 @@ Running the **RunEval** workflow in the **Evals** skill to execute evaluation...
 
 ```bash
 # Check use case exists
-ls ~/.claude/skills/Evals/UseCases/<use-case>/config.yaml
+ls ~/.claude/skills/do-evals/UseCases/<use-case>/config.yaml
 ```
 
 If missing, redirect to `CreateUseCase.md` workflow.
@@ -36,13 +22,13 @@ If missing, redirect to `CreateUseCase.md` workflow.
 
 ```bash
 # Run an eval suite via AlgorithmBridge (the canonical entry point)
-bun run ~/.claude/skills/Evals/Tools/AlgorithmBridge.ts -s <use-case>
+bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts -s <use-case>
 
 # With ISC row binding (auto-updates the Algorithm ISC row with result):
-bun run ~/.claude/skills/Evals/Tools/AlgorithmBridge.ts -s <use-case> -r <isc-row> -u
+bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts -s <use-case> -r <isc-row> -u
 
 # To see saturation status alongside the run:
-bun run ~/.claude/skills/Evals/Tools/AlgorithmBridge.ts -s <use-case> --show-saturation
+bun run ~/.claude/skills/do-evals/Tools/AlgorithmBridge.ts -s <use-case> --show-saturation
 ```
 
 ### Step 3: Collect Results

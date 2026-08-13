@@ -1,16 +1,4 @@
 # Automate Workflow
-
-## Voice notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the Automate workflow in the Browser skill to execute a recipe template"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **Automate** in **Browser**...
-
 Load a parameterized recipe, resolve its inputs, and execute it through the current browser contract.
 
 ## Steps

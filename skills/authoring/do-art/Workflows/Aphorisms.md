@@ -1,20 +1,6 @@
 # Visual Aphorisms & Quote Cards Workflow
 
 **Aphorisms as shareable visual quote cards using editorial aesthetic.**
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the Aphorisms workflow in the Art skill to create quote cards"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **Aphorisms** in **Art**...
-
----
-
 Creates **VISUAL APHORISM CARDS** — insights and quotes as shareable square images with massive typography and minimal hand-drawn accents.
 
 ---

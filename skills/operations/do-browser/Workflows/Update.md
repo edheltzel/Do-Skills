@@ -1,16 +1,4 @@
 # Update Workflow
-
-## Voice notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the Update workflow in the Browser skill to verify browser capabilities"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **Update** in **Browser**...
-
 Verify the installed browser CLI without making network calls unless the user explicitly supplies and approves a target URL.
 
 ## Steps

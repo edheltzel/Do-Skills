@@ -50,7 +50,7 @@ Running the **WorkflowName** workflow in the **RedTeam** skill to ACTION...
 ## Context Files
 
 - `Philosophy.md` - Core philosophy, success criteria, agent types
-- `Integration.md` - Skill integration, FirstPrinciples usage, output format
+- `Integration.md` - Skill integration, do-first-principles usage, output format
 
 ---
 

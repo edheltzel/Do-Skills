@@ -50,8 +50,8 @@ The example throws deliberately. Replace `respond` with an explicit current adap
 ## Smoke Test
 
 ```bash
-bun run ~/.claude/skills/Evals/Tools/ScenarioRunner.ts \
-  --scenario ~/.claude/skills/Evals/Scenarios/<name>.scenario.ts
+bun run ~/.claude/skills/do-evals/Tools/ScenarioRunner.ts \
+  --scenario ~/.claude/skills/do-evals/Scenarios/<name>.scenario.ts
 ```
 
 Set `EVALS_ALLOW_API_BILLING=1` only after confirming that the selected simulator and judge providers bill the intended account.

@@ -41,6 +41,7 @@ Essential, stack-agnostic safeguards and adversarial-thinking tools reached for 
 | [`do-agent-context-layer`](./skills/core/do-agent-context-layer/) | Structure a code repository's documentation and context layer so an AI agent grasps the project fast, using the Interpretable Context Methodology (ICM) by Jake Van Clief. |
 | [`do-agent-first-repo`](./skills/core/do-agent-first-repo/) | Structure a repository and its documentation so AI coding agents can work effectively. |
 | [`do-behavioral-testing`](./skills/core/do-behavioral-testing/) | Behavioral testing methodology — test what users experience, not how code is structured. |
+| [`do-first-principles`](./skills/core/do-first-principles/) | Physics-based reasoning framework (Musk methodology) that deconstructs a problem to irreducible fundamental truths, classifies every element as hard constraint, soft constraint, or assumption, then reconstructs the optimal solution from fundamentals alone. |
 | [`do-git-safe-pr-workflow`](./skills/core/do-git-safe-pr-workflow/) | Safe GitHub pull request workflow for low-experience Git users. |
 | [`do-karpathy-guidelines`](./skills/core/do-karpathy-guidelines/) | Behavioral guidelines to reduce common LLM coding mistakes. |
 | [`do-red-team`](./skills/core/do-red-team/) | Adversarial analysis deploying parallel expert agents to stress-test ideas, strategies, and plans — decomposes into atomic claims, attacks them, then steelmans and counter-argues, producing severity-ranked findings with remediation. |

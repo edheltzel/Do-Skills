@@ -15,16 +15,16 @@ Run a multi-turn scenario against an explicit agent-under-test adapter. The scen
 Start with one trial:
 
 ```bash
-bun run ~/.claude/skills/Evals/Tools/ScenarioRunner.ts \
-  --scenario ~/.claude/skills/Evals/Scenarios/<name>.scenario.ts \
+bun run ~/.claude/skills/do-evals/Tools/ScenarioRunner.ts \
+  --scenario ~/.claude/skills/do-evals/Scenarios/<name>.scenario.ts \
   --trials 1
 ```
 
 After validating the adapter, criteria, and billing boundary, run multiple trials:
 
 ```bash
-bun run ~/.claude/skills/Evals/Tools/ScenarioRunner.ts \
-  --scenario ~/.claude/skills/Evals/Scenarios/<name>.scenario.ts \
+bun run ~/.claude/skills/do-evals/Tools/ScenarioRunner.ts \
+  --scenario ~/.claude/skills/do-evals/Scenarios/<name>.scenario.ts \
   --trials 3
 ```
 

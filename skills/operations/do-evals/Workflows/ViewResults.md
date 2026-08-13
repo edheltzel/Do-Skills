@@ -1,20 +1,6 @@
 # ViewResults Workflow
 
 Inspect evaluation results from completed runs.
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the ViewResults workflow in the Evals skill to display eval results"}' \
-  > /dev/null 2>&1 &
-```
-
-Running the **ViewResults** workflow in the **Evals** skill to display eval results...
-
----
-
 ## Where Results Live
 
 Per-run output (source of truth):
@@ -36,7 +22,7 @@ Each `results.json` contains the run summary, per-trial scores, grader outputs, 
 ls -1t ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/
 
 # Or via SuiteManager
-bun run ~/.claude/skills/Evals/Tools/SuiteManager.ts list
+bun run ~/.claude/skills/do-evals/Tools/SuiteManager.ts list
 ```
 
 ### Step 2: View latest run summary
@@ -53,7 +39,7 @@ cat ~/.claude/LIFEOS/MEMORY/STATE/Evals-Results/<use-case>/<run-id>/results.json
 ### Step 3: Check saturation (when a suite is graduating capability → regression)
 
 ```bash
-bun run ~/.claude/skills/Evals/Tools/SuiteManager.ts check-saturation <suite-name>
+bun run ~/.claude/skills/do-evals/Tools/SuiteManager.ts check-saturation <suite-name>
 ```
 
 ### Step 4: View per-trial scores or failure detail

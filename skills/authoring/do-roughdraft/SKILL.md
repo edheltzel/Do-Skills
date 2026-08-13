@@ -10,25 +10,6 @@ alwaysAllow: ["Bash"]
 
 This skill is about **using that CLI**, not building the project from source.
 
-## Voice Notification
-
-**When executing a workflow, do BOTH:**
-
-1. **Send voice notification**:
-   ```bash
-   curl -s -X POST http://localhost:31337/notify \
-     -H "Content-Type: application/json" \
-     -d '{"message": "Running WORKFLOWNAME in Roughdraft"}' \
-     > /dev/null 2>&1 &
-   ```
-
-2. **Output text notification**:
-   ```
-   Running **WorkflowName** in **Roughdraft**...
-   ```
-
-**Full documentation:** `~/.claude/PAI/DOCUMENTATION/Notifications/NotificationSystem.md`
-
 ## Workflow Routing
 
 | Workflow | Trigger | File |

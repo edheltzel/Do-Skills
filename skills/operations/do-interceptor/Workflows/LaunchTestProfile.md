@@ -43,7 +43,7 @@ In the new profile window:
 1. Open `chrome://extensions`.
 2. Toggle **Developer mode** on (top-right).
 3. Click **Load unpacked**.
-4. Select `~/.claude/skills/Interceptor/Extension` — a **pinned copy** (not a symlink) of upstream `extension/dist`, captured by `Tools/Pin.sh`; provenance in `Extension/PINNED_FROM.txt`. Chrome disables unpacked extensions on every manifest bump, so re-pin and reload after any binary upgrade — the copy does NOT auto-follow upstream.
+4. Select `~/.claude/skills/do-interceptor/Extension` — a **pinned copy** (not a symlink) of upstream `extension/dist`, captured by `Tools/Pin.sh`; provenance in `Extension/PINNED_FROM.txt`. Chrome disables unpacked extensions on every manifest bump, so re-pin and reload after any binary upgrade — the copy does NOT auto-follow upstream.
 5. Confirm the Interceptor card appears in this profile.
 
 The extension's deterministic `key` field means the extension ID matches the one already in the Default profile — that's fine; the daemon allowlist already includes it.
@@ -69,7 +69,7 @@ Set the directory name in `preferences.env` — the single canonical home for it
 Or set it inline for a one-off launch (still keep `preferences.env` authoritative for daily use):
 
 ```bash
-INTERCEPTOR_TEST_CHROME_PROFILE="Profile 4" bash ~/.claude/skills/Interceptor/Tools/LaunchTestProfile.sh
+INTERCEPTOR_TEST_CHROME_PROFILE="Profile 4" bash ~/.claude/skills/do-interceptor/Tools/LaunchTestProfile.sh
 ```
 
 ### 6. Verify (via the canonical preflight)
@@ -77,10 +77,10 @@ INTERCEPTOR_TEST_CHROME_PROFILE="Profile 4" bash ~/.claude/skills/Interceptor/To
 The single verification step is the **Preflight Isolation Gate**. It checks binary version, daemon connection, and context registration in one shot — anything that would let a browser command leak into the Default profile.
 
 ```bash
-bash ~/.claude/skills/Interceptor/Tools/LaunchTestProfile.sh "https://example.com"
+bash ~/.claude/skills/do-interceptor/Tools/LaunchTestProfile.sh "https://example.com"
 # A new Chrome window opens for the test profile, navigates to example.com.
 
-bash ~/.claude/skills/Interceptor/Tools/PreflightIsolation.sh
+bash ~/.claude/skills/do-interceptor/Tools/PreflightIsolation.sh
 # Expect:
 #   [PreflightIsolation] OK — interceptor 0.16.9, context "<pinned-id>" connected.
 ```
@@ -99,10 +99,10 @@ After the one-time setup, every session starts with the preflight gate. It runs 
 
 ```bash
 # Operator launches the test window once per session (or leaves it running)
-bash ~/.claude/skills/Interceptor/Tools/LaunchTestProfile.sh
+bash ~/.claude/skills/do-interceptor/Tools/LaunchTestProfile.sh
 
 # Agent's first action before any browser command:
-bash ~/.claude/skills/Interceptor/Tools/PreflightIsolation.sh \
+bash ~/.claude/skills/do-interceptor/Tools/PreflightIsolation.sh \
   || { echo "Preflight failed — STOP and surface to operator. Do not fall back."; exit 1; }
 
 # Only after the preflight returns exit 0 (preferences.env sourced for $INTERCEPTOR_TEST_CONTEXT_ID):
@@ -126,7 +126,7 @@ Once the test profile is set up and pinned:
 ## Pitfalls
 
 - **Don't use `--user-data-dir` here.** That gives you a fully-sandboxed Chrome with no auth, which is useless for testing the operator's authenticated tooling. The right boundary is profile, not user-data-dir.
-- **Extension reload after a bump.** The `~/.claude/skills/Interceptor/Extension/` copy is pinned, not a symlink — after any binary upgrade, re-pin via `Tools/Pin.sh` (per the Update workflow), then Load Unpacked again in **both** profiles (Default + test). Chrome disables unpacked extensions on every manifest version bump and never auto-refreshes them.
+- **Extension reload after a bump.** The `~/.claude/skills/do-interceptor/Extension/` copy is pinned, not a symlink — after any binary upgrade, re-pin via `Tools/Pin.sh` (per the Update workflow), then Load Unpacked again in **both** profiles (Default + test). Chrome disables unpacked extensions on every manifest version bump and never auto-refreshes them.
 - **Context ID must be unique.** Two contexts named `interceptor-test` makes `--context` routing ambiguous. One test profile per context name.
 - **Profile dir name confusion.** Chrome names the on-disk directories `Profile 1`, `Profile 2`, … even though you give the profile a friendly name like "{{DA_NAME}}". The launcher needs the on-disk name (default `Profile 1`); override via `INTERCEPTOR_TEST_CHROME_PROFILE` if needed.
 - **Lock conflict if you force `-n`.** Don't add `-n` (new instance) to the `open` command — two Chrome processes can't share the same user-data-dir. The launcher relies on the existing Chrome handling `--profile-directory` natively.

@@ -1,18 +1,6 @@
 # Install Workflow
 
 Install the published `roughdraft` CLI so the `roughdraft` command is available globally.
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:31337/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running Install in Roughdraft"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **Install** in **Roughdraft**...
-
 ## Install
 
 `roughdraft` is a published npm package with a `roughdraft` bin. Pick the runner that matches the environment:

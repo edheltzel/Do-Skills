@@ -6,20 +6,6 @@ purpose: Migrate CLI from Tier 1 (manual) to Tier 2 (Commander.js)
 # Upgrade Tier Workflow
 
 **Migrate from manual parsing to Commander.js when CLI grows complex.**
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the UpgradeTier workflow in the CreateCLI skill to upgrade CLI tier"}' \
-  > /dev/null 2>&1 &
-```
-
-Running the **UpgradeTier** workflow in the **CreateCLI** skill to upgrade CLI tier...
-
----
-
 ## 🎯 PURPOSE
 
 Convert Tier 1 CLI (llcli-style) to Tier 2 (Commander.js) when complexity demands it.

@@ -1,18 +1,6 @@
 # Review Workflow
 
 Drive the `roughdraft` CLI to open a markdown file for review and (optionally) wait for the human's feedback.
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:31337/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running Review in Roughdraft"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **Review** in **Roughdraft**...
-
 ## Open a file
 
 ```bash

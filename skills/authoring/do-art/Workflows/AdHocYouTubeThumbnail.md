@@ -1,20 +1,6 @@
 # Ad-hoc YouTube Thumbnail Workflow
 
 Generate complete YouTube thumbnails from content input with dramatic tech backgrounds and AI-generated headshots.
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the AdHocYouTubeThumbnail workflow in the Art skill to create thumbnails"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **AdHocYouTubeThumbnail** in **Art**...
-
----
-
 ## Explicit Criteria
 
 ### 1. Dynamic Headshot - FACE ONLY
@@ -128,7 +114,7 @@ Topic context: [EXTRACTED TOPIC]
 ### Generate Command
 
 ```bash
-bun run ~/.claude/skills/Art/Tools/Generate.ts \
+bun run ~/.claude/skills/do-art/Tools/Generate.ts \
   --workflow=AdHocYouTubeThumbnail \
   --model nano-banana-pro \
   --prompt "[BACKGROUND PROMPT]" \
@@ -227,7 +213,7 @@ bun ~/.claude/skills/<your-headshot-skill>/Tools/Headshot.ts \
 ### Remove Background
 
 ```bash
-bun ~/.claude/skills/Art/Tools/RemoveBg.ts ~/Downloads/yt-headshot-${TIMESTAMP}.png
+bun ~/.claude/skills/do-art/Tools/RemoveBg.ts ~/Downloads/yt-headshot-${TIMESTAMP}.png
 ```
 
 ---
@@ -239,7 +225,7 @@ bun ~/.claude/skills/Art/Tools/RemoveBg.ts ~/Downloads/yt-headshot-${TIMESTAMP}.
 ### Compose Command
 
 ```bash
-bun ~/.claude/skills/Art/Tools/ComposeThumbnail.ts \
+bun ~/.claude/skills/do-art/Tools/ComposeThumbnail.ts \
   --background ~/Downloads/yt-bg-${TIMESTAMP}.png \
   --headshot ~/Downloads/yt-headshot-${TIMESTAMP}.png \
   --title "[TITLE]" \

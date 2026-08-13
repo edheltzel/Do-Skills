@@ -1,20 +1,6 @@
 # Embossed Logo Wallpaper
 
 **Generate sophisticated wallpapers with logo physically embossed into the design.**
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the EmbossedLogoWallpaper workflow in the Art skill to create wallpapers"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **EmbossedLogoWallpaper** in **Art**...
-
----
-
 Creates wallpapers where the <brand> logo is integrated as an embossed texture within the visual content — not overlaid, not floating in empty space.
 
 ---
@@ -31,9 +17,9 @@ Generate wallpapers that:
 
 ## Prerequisites
 
-**Logo Source:** `~/Projects/Logos/ul-blue.png`
-**Style References:** `~/Projects/Wallpaper/` (blue-purple-circuits.png, circuit-board.png)
-**Output Directory:** `~/Projects/Wallpaper/`
+**Logo Source:** `~/Developer/Logos/ul-blue.png`
+**Style References:** `~/Developer/Wallpaper/` (blue-purple-circuits.png, circuit-board.png)
+**Output Directory:** `~/Developer/Wallpaper/`
 
 ---
 
@@ -88,11 +74,11 @@ Ask about:
 
 ```bash
 # Verify logo exists
-ls ~/Projects/Logos/ul-blue.png
+ls ~/Developer/Logos/ul-blue.png
 
 # View style reference wallpapers
-open ~/Projects/Wallpaper/circuit-board.png
-open ~/Projects/Wallpaper/blue-purple-circuits.png
+open ~/Developer/Wallpaper/circuit-board.png
+open ~/Developer/Wallpaper/blue-purple-circuits.png
 ```
 
 **Study reference wallpapers for:**
@@ -144,14 +130,14 @@ open ~/Projects/Wallpaper/blue-purple-circuits.png
 ### Step 4: Generate
 
 ```bash
-bun run ~/.claude/skills/Art/Tools/Generate.ts \
+bun run ~/.claude/skills/do-art/Tools/Generate.ts \
   --workflow=EmbossedLogoWallpaper \
   --model nano-banana-pro \
   --prompt "[CONSTRUCTED_PROMPT]" \
   --size 4K \
   --aspect-ratio 16:9 \
-  --reference-image ~/Projects/Logos/ul-blue.png \
-  --output ~/Projects/Wallpaper/<output-name>.png
+  --reference-image ~/Developer/Logos/ul-blue.png \
+  --output ~/Developer/Wallpaper/<output-name>.png
 ```
 
 ### Step 5: Validate (CRITICAL)
@@ -159,7 +145,7 @@ bun run ~/.claude/skills/Art/Tools/Generate.ts \
 Open the generated image and check EVERY item:
 
 ```bash
-open -a "Dia" ~/Projects/Wallpaper/<output-name>.png
+open -a "Dia" ~/Developer/Wallpaper/<output-name>.png
 ```
 
 **Validation Checklist:**
@@ -194,7 +180,7 @@ Common fixes:
 
 ```bash
 # Verify saved
-ls -la ~/Projects/Wallpaper/<output-name>.png
+ls -la ~/Developer/Wallpaper/<output-name>.png
 
 # Apply to Kitty + macOS
 k -w <output-name>
@@ -264,8 +250,8 @@ CRITICAL:
 | Model | nano-banana-pro |
 | Size | 4K |
 | Aspect Ratio | 16:9 |
-| Logo Reference | ~/Projects/Logos/ul-blue.png |
-| Output Directory | ~/Projects/Wallpaper/ |
+| Logo Reference | ~/Developer/Logos/ul-blue.png |
+| Output Directory | ~/Developer/Wallpaper/ |
 | Logo Size | 3-5% of image width |
 | Logo Position | Bottom left, WITHIN design |
 

@@ -1,20 +1,6 @@
 # YouTube Thumbnail Generation Checklists
 
 **Two-phase validation: Before generation and after generation**
-
-## Voice Notification
-
-```bash
-curl -s -X POST http://localhost:8888/notify \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Running the YouTubeThumbnailChecklist workflow in the Art skill to validate thumbnails"}' \
-  > /dev/null 2>&1 &
-```
-
-Running **YouTubeThumbnailChecklist** in **Art**...
-
----
-
 ## PRE-GENERATION CHECKLIST
 
 **Complete this BEFORE running any generation commands. If ANY item fails, STOP and fix it.**
