@@ -217,7 +217,7 @@ async function detectMimeType(filePath: string): Promise<string> {
 // Help Text
 // ============================================================================
 
-// LifeOS directory for documentation paths
+// Base directory for documentation paths
 const LIFEOS_DIR = process.env.LIFEOS_DIR || `${process.env.HOME}/.claude`;
 
 function showHelp(): void {
@@ -352,7 +352,7 @@ MORE INFO:
  *   --workflow=<bad-name>   → exit 1 listing valid workflow names.
  */
 function enforceWorkflowDiscipline(parsed: Partial<CLIArgs>): void {
-  const workflowsDir = `${process.env.HOME}/.claude/skills/Art/Workflows`;
+  const workflowsDir = `${process.env.HOME}/.claude/skills/do-art/Workflows`;
   let availableWorkflows: string[] = [];
   try {
     // readdirSync via Bun.readdirSync isn't a thing; use Node fs sync via dynamic
@@ -682,7 +682,7 @@ function enhancePromptForTransparency(prompt: string): string {
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
 
-// Normalize env path vars that Claude Code injects without shell expansion (LifeOS#1404)
+// Normalize env path vars that Claude Code injects without shell expansion (shadow-dir env injection)
 for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
