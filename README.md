@@ -25,6 +25,8 @@ npx skills add edheltzel/skills@do-<skill-name>
 
 Many hard from different Github repos and many are also custom to fit my needs. Use it as is, take what you like leave the rest.  
 
+<!-- skills-start -->
+
 ### Core
 
 Essential, stack-agnostic safeguards and adversarial-thinking tools reached for by default across setup, implementation, testing, review, and shipping.
@@ -97,7 +99,6 @@ Operating AI agents and driving machines - delegation, evaluation, prompt audits
 | [`do-browser`](./skills/operations/do-browser/) | Browser automation through the installed chrome-devtools-axi CLI. |
 | [`do-context-search`](./skills/operations/do-context-search/) | Find prior project work through the current Recall MCP tools. |
 | [`do-delegation`](./skills/operations/do-delegation/) | Routes independent work through current Agent dispatch, background execution, role briefs, worktree isolation, and coordinator-managed synthesis. |
-| [`do-evals`](./skills/operations/do-evals/) | AI agent evaluation framework with three grader types (code-based, model-based, human) and pass@k/pass^k scoring over agent transcripts, tool-call sequences, and multi-turn conversations; covers capability and regression evals. |
 | [`do-interceptor`](./skills/operations/do-interceptor/) | Real Chrome/Brave/Helium + macOS Computer Use from inside the browser - zero CDP fingerprint, real sessions; mandatory for visual deploy verification. |
 
 <!-- skills-end -->
