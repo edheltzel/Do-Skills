@@ -40,7 +40,7 @@ const NAVY = "#1A2744";
 const PERIWINKLE = "#6B8DD6";
 const WHITE = "#FFFFFF";
 const VARIANT_BORDER: Record<string, string> = { core: "#316AE9", sponsored: "#306F1D" };
-const BRAND_LOGO = join(homedir(), ".agents", "skills", "do-art", "assets", "brand", "ti-logo-white.png");
+const BRAND_LOGO = join(homedir(), ".agents", "Assets", "brand", "ti-logo-white.png");
 
 function arg(name: string, def?: string): string | undefined {
   const i = process.argv.indexOf(`--${name}`);
