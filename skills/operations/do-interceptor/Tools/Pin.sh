@@ -5,7 +5,7 @@
 # Why a pinned copy and not a symlink:
 #   - Chrome disables unpacked extensions on every manifest version bump, so a
 #     stable on-disk copy beats a live symlink that shifts under Chrome.
-#   - The public LifeOS release ships this skill, so Extension/ must contain the
+#   - The public release ships this skill, so Extension/ must contain the
 #     actual files — a symlink to a local build dir is useless to other users.
 #
 # Why the scrub:

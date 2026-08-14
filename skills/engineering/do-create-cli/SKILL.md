@@ -147,7 +147,7 @@ Generated CLIs follow these standards:
 ### Repository Placement
 
 Generated CLIs go to:
-- `~/.claude/tools/[cli-name]/` - Personal CLIs (like llcli)
+- `~/.agents/tools/[cli-name]/` - Personal CLIs (like llcli)
 - `~/Developer/[project-name]/` - Project-specific CLIs
 
 **SAFETY:** Always verify repository location before git operations
@@ -188,7 +188,7 @@ Every generated CLI follows:
 
 **Generated Structure:**
 ```
-~/.claude/tools/ghcli/
+~/.agents/tools/ghcli/
 ├── ghcli.ts              # 350 lines, complete implementation
 ├── package.json          # Bun + TypeScript
 ├── tsconfig.json         # Strict mode
@@ -214,7 +214,7 @@ ghcli --help
 
 **Generated Structure:**
 ```
-~/.claude/tools/md2html/
+~/.agents/tools/md2html/
 ├── md2html.ts
 ├── package.json
 ├── README.md
@@ -237,7 +237,7 @@ md2html extract-frontmatter post.md
 
 **Generated Structure:**
 ```
-~/.claude/tools/data-cli/
+~/.agents/tools/data-cli/
 ├── data-cli.ts           # Commander.js with subcommands
 ├── package.json
 ├── README.md

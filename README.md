@@ -1,16 +1,10 @@
 # Skills
 
-This is my personal collection of [Agent Skills](https://skills.sh/) for my [DA](https://danielmiessler.com/blog/we-are-all-building-single-digital-assistant), Atlas.
+This is my personal collection of [Agent Skills](https://skills.sh/).
 
 >[!NOTE]
-> This is a **WIP** and changes often. It is a collection of skills that I have found valuable for improving my workflow. Many, if not most, are from talented developers, engineers, creators, and researchers. I have unashamedly copied and improved or modified most of the skills to fit my use case.
+> This is a **WIP** and changes often. It is a collection of skills that I have created or found valuable for my workflow. Many, if not most, are from talented developers, engineers, creators, and researchers. I have unashamedly copied and/or improved/modified most of the skills to fit my use case. 
 
-## What are Skills and Why's this repo exist?
-
-Skills are reusable capabilities for AI agents. They provide procedural knowledge that helps agents accomplish specific tasks more effectively. Each skill is a folder containing a `SKILL.md` file with instructions, examples, and guidelines.
-
-This repo solely exist for my own use and isn't intended to be shared. It's just
-what I have found useful, so if you find value, great. If not, that's cool, I don't care :)
 
 ## Installation
 
@@ -29,7 +23,7 @@ npx skills add edheltzel/skills@do-<skill-name>
 
 ## Available Skills
 
-<!-- skills-start -->
+Many hard from different Github repos and many are also custom to fit my needs. Use it as is, take what you like leave the rest.  
 
 ### Core
 

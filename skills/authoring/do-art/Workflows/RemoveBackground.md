@@ -44,13 +44,13 @@ Use the native Art `RemoveBg.ts` wrapper, which checks availability, calls local
 
 ```bash
 # Single file (overwrites; renames .jpg→.png)
-bun ~/.claude/skills/do-art/Tools/RemoveBg.ts input-image.png
+bun ~/.agents/skills/do-art/Tools/RemoveBg.ts input-image.png
 
 # Single file with explicit output path
-bun ~/.claude/skills/do-art/Tools/RemoveBg.ts input-image.jpg output-image.png
+bun ~/.agents/skills/do-art/Tools/RemoveBg.ts input-image.jpg output-image.png
 
 # Batch (overwrites each in place)
-bun ~/.claude/skills/do-art/Tools/RemoveBg.ts img1.png img2.png img3.png
+bun ~/.agents/skills/do-art/Tools/RemoveBg.ts img1.png img2.png img3.png
 ```
 
 If you need to call `rembg` directly, first verify the maintained command is available:
@@ -93,13 +93,13 @@ cp output-image.png /destination/path/transparent-image.png
 ### Example 1: Remove background from a diagram
 
 ```bash
-bun ~/.claude/skills/do-art/Tools/RemoveBg.ts ~/Downloads/TheAlgorithm.png
+bun ~/.agents/skills/do-art/Tools/RemoveBg.ts ~/Downloads/TheAlgorithm.png
 ```
 
 ### Example 2: Remove background and save with new name
 
 ```bash
-bun ~/.claude/skills/do-art/Tools/RemoveBg.ts \
+bun ~/.agents/skills/do-art/Tools/RemoveBg.ts \
   ~/your-site/public/images/logo-with-bg.png \
   ~/your-site/public/images/logo-transparent.png
 ```
@@ -108,7 +108,7 @@ bun ~/.claude/skills/do-art/Tools/RemoveBg.ts \
 
 ```bash
 cd ~/Downloads
-bun ~/.claude/skills/do-art/Tools/RemoveBg.ts diagram-*.png
+bun ~/.agents/skills/do-art/Tools/RemoveBg.ts diagram-*.png
 ```
 
 ---

@@ -22,7 +22,7 @@ const query = args.filter((arg) => !arg.startsWith("--")).join(" ").trim();
 if (help) {
   console.log(`ContextSearch compatibility shim
 
-The retired LifeOS state index is no longer searched. From an agent session,
+The retired legacy state index is no longer searched. From an agent session,
 use Recall directly:
 
   recall_memory_memory_hybrid_search
@@ -47,7 +47,7 @@ const request = {
 if (json) {
   console.error(JSON.stringify(request));
 } else {
-  console.error("ContextSearch no longer reads retired LifeOS state.");
+  console.error("ContextSearch no longer reads retired legacy state.");
   console.error(`Use ${request.tool} with:`);
   console.error(JSON.stringify(request.arguments, null, 2));
   console.error("No search was executed by this compatibility shim.");

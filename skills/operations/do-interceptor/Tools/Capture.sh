@@ -213,7 +213,7 @@ MIN_STDDEV="${INTERCEPTOR_MIN_STDDEV:-0.017}"
 guard_skipped() {
     local reason="$1"
     echo "Capture.sh: ⚠️  BLANK-FRAME GUARD SKIPPED ($reason) — this capture is NOT checked for a black/blank frame; do not treat it as pixel-verified without looking. Install ImageMagick (brew install imagemagick) to enable." >&2
-    local log="${HOME}/.claude/LIFEOS/MEMORY/OBSERVABILITY/capture-guard.jsonl"
+    local log="${HOME}/.agents/skills/do-interceptor/capture-guard.jsonl"
     mkdir -p "$(dirname "$log")" 2>/dev/null || true
     printf '{"ts":"%s","event":"guard-skipped","reason":"%s","out":"%s"}\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$reason" "$OUT" >> "$log" 2>/dev/null || true
 }
@@ -323,7 +323,7 @@ Capture.sh: stale/unloaded extension — screenshot-runner.js failed to load.
 
 REMEDIATION (operator):
   In the test profile: chrome://extensions/ -> Interceptor -> Reload (or
-  Load Unpacked from ~/.claude/skills/do-interceptor/Extension/). If you just
+  Load Unpacked from ~/.agents/skills/do-interceptor/Extension/). If you just
   upgraded the binary, re-pin via the Update workflow first.
 EOF
     exit 10
@@ -351,7 +351,7 @@ if printf '%s' "$err" | grep -qiE 'timeout|timed out|native port disconnected|no
         cat >&2 <<EOF
 Capture.sh: stale/unloaded extension after daemon respawn.
 REMEDIATION: reload the Interceptor extension (Load Unpacked from
-  ~/.claude/skills/do-interceptor/Extension/), then retry.
+  ~/.agents/skills/do-interceptor/Extension/), then retry.
 EOF
         exit 10
     fi

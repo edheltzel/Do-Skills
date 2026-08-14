@@ -632,7 +632,7 @@ Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
 **Execute with optimal model for text-heavy diagrams:**
 
 ```bash
-bun run ~/.claude/skills/art/Tools/Generate.ts \
+bun run ~/.agents/skills/do-art/Tools/Generate.ts \
   --workflow=Mermaid \
   --model nano-banana-pro \
   --prompt "[YOUR COMPREHENSIVE PROMPT]" \
@@ -656,7 +656,7 @@ GOING INTO BLOG/WEBSITE: Remove background for transparency
 **For blog/website use** — use the **Images skill** for background removal:
 
 ```bash
-bun ~/.claude/skills/do-art/Tools/RemoveBg.ts /path/to/mermaid-diagram.png
+bun ~/.agents/skills/do-art/Tools/RemoveBg.ts /path/to/mermaid-diagram.png
 ```
 
 

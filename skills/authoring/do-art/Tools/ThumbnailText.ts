@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * ThumbnailText.ts — deterministic compositor for {{PRINCIPAL_FULL_NAME}}'s (@unsupervised-learning)
+ * ThumbnailText.ts — deterministic compositor for Ed's (@unsupervised-learning)
  * YouTube thumbnail house style. Built from the documented design system in
  * live pixel samples of the real Main / Sponsored thumbnails (the spec's border/bg values were
  * stale — pixels win).
@@ -23,7 +23,7 @@
  *              --art diagram.png --variant core --output ~/Downloads/thumb.png
  * Interview: bun ThumbnailText.ts --mode interview --kicker "A CONVERSATION WITH" \
  *              --title "GRANT LEE" --subtitle "ON BUILDING GAMMA" --face host.png --face2 guest.png \
- *              --name1 "{{PRINCIPAL_FULL_NAME}}" --name2 "Grant Lee" --variant sponsored --output out.png
+ *              --name1 "Ed" --name2 "Grant Lee" --variant sponsored --output out.png
  *
  * Emits JSON: { output, thumb320, dims, mode, titlePt, contrastRatio, overflowed }
  */
@@ -40,7 +40,7 @@ const NAVY = "#1A2744";
 const PERIWINKLE = "#6B8DD6";
 const WHITE = "#FFFFFF";
 const VARIANT_BORDER: Record<string, string> = { core: "#316AE9", sponsored: "#306F1D" };
-const BRAND_LOGO = join(homedir(), ".claude", "LIFEOS", "USER", "CUSTOMIZATIONS", "SKILLS", "Art", "brand", "ti-logo-white.png");
+const BRAND_LOGO = join(homedir(), ".agents", "skills", "do-art", "assets", "brand", "ti-logo-white.png");
 
 function arg(name: string, def?: string): string | undefined {
   const i = process.argv.indexOf(`--${name}`);

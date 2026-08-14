@@ -4,7 +4,7 @@ Replay a previously recorded user flow to verify it still works after a deploy o
 ## Preflight Isolation Gate (MANDATORY first step)
 
 ```bash
-bash ~/.claude/skills/do-interceptor/Tools/PreflightIsolation.sh
+bash ~/.agents/skills/do-interceptor/Tools/PreflightIsolation.sh
 ```
 
 Non-zero exit → STOP and surface the message verbatim. Do not fall back to the Default profile. Every `interceptor` verb below — including the `batch` example — passes `--context "$INTERCEPTOR_TEST_CONTEXT_ID"` (from `preferences.env`). Screenshots go through `Tools/Capture.sh`, never raw `interceptor screenshot`.
@@ -23,7 +23,7 @@ Non-zero exit → STOP and surface the message verbatim. Do not fall back to the
 Recorded flows live in `Flows/`. List available flows:
 
 ```bash
-ls ~/.claude/skills/do-interceptor/Flows/
+ls ~/.agents/skills/do-interceptor/Flows/
 ```
 
 Or regenerate from a monitor session:
@@ -79,7 +79,7 @@ Compare against the baseline network log from the original recording. Look for:
 ### 5. Capture Final State
 
 ```bash
-bash ~/.claude/skills/do-interceptor/Tools/Capture.sh --current
+bash ~/.agents/skills/do-interceptor/Tools/Capture.sh --current
 ```
 
 Read the printed image path and compare the final screenshot against the expected end state of the flow.

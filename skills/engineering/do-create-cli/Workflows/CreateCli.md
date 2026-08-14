@@ -199,7 +199,7 @@ const DEFAULTS = {
 function loadConfig(): Config {
   const envPath = process.env.CLAUDE_CONFIG_DIR
     ? join(process.env.CLAUDE_CONFIG_DIR, '.env')
-    : join(homedir(), '.claude', '.env');
+    : join(homedir(), '.agents', '.env');
   let fileValue: string | undefined;
 
   if (existsSync(envPath)) {
@@ -212,7 +212,7 @@ function loadConfig(): Config {
 
   const apiKey = process.env.{{ENV_VAR_NAME}} || fileValue;
   if (!apiKey) {
-    console.error('Error: {{ENV_VAR_NAME}} is not set in the environment or ~/.claude/.env');
+    console.error('Error: {{ENV_VAR_NAME}} is not set in the environment or ~/.agents/.env');
     process.exit(1);
   }
 
@@ -366,7 +366,7 @@ PHILOSOPHY:
   - Documented: Full help and examples
   - Testable: Predictable behavior
 
-For more information, see ~/.claude/tools/{{CLI_NAME}}/README.md
+For more information, see ~/.agents/tools/{{CLI_NAME}}/README.md
 
 Version: 1.0.0
 `);
@@ -533,7 +533,7 @@ main().catch((error) => {
 
 ## Full Documentation
 
-See: ~/.claude/tools/{{CLI_NAME}}/README.md
+See: ~/.agents/tools/{{CLI_NAME}}/README.md
 ```
 
 ---
@@ -604,7 +604,7 @@ See: ~/.claude/tools/{{CLI_NAME}}/README.md
 **Validation Commands:**
 
 ```bash
-cd ~/.claude/tools/{{CLI_NAME}}/
+cd ~/.agents/tools/{{CLI_NAME}}/
 chmod +x {{CLI_NAME}}.ts
 ./{{CLI_NAME}}.ts --help
 ./{{CLI_NAME}}.ts --version
@@ -613,7 +613,7 @@ chmod +x {{CLI_NAME}}.ts
 **Report to user:**
 
 ```
-✅ CLI Created: ~/.claude/tools/{{CLI_NAME}}/
+✅ CLI Created: ~/.agents/tools/{{CLI_NAME}}/
 
 Files generated:
 - {{CLI_NAME}}.ts ({{LINE_COUNT}} lines)
@@ -624,11 +624,11 @@ Files generated:
 - QUICKSTART.md
 
 Next steps:
-1. Configure: export {{ENV_VAR_NAME}} or add it to ~/.claude/.env
+1. Configure: export {{ENV_VAR_NAME}} or add it to ~/.agents/.env
 2. Test: ./{{CLI_NAME}}.ts --help
 3. Use: ./{{CLI_NAME}}.ts {{EXAMPLE_COMMAND}}
 
-Documentation: ~/.claude/tools/{{CLI_NAME}}/README.md
+Documentation: ~/.agents/tools/{{CLI_NAME}}/README.md
 ```
 
 ---
@@ -641,7 +641,7 @@ Documentation: ~/.claude/tools/{{CLI_NAME}}/README.md
 **Generated Output:**
 
 ```
-✅ CLI Created: ~/.claude/tools/notioncli/
+✅ CLI Created: ~/.agents/tools/notioncli/
 
 Files generated:
 - notioncli.ts (342 lines)
@@ -658,9 +658,9 @@ Commands available:
 - notioncli --help                       # Show full help
 
 Next steps:
-1. Export NOTION_API_KEY=your_key or add it to ~/.claude/.env
+1. Export NOTION_API_KEY=your_key or add it to ~/.agents/.env
 2. Test: notioncli databases
-3. Read: ~/.claude/tools/notioncli/README.md
+3. Read: ~/.agents/tools/notioncli/README.md
 
 The CLI follows llcli pattern with type safety, error handling,
 and comprehensive documentation.
@@ -767,7 +767,7 @@ Run `--help` and version command before reporting success.
 
 ### 8. **Follow llcli Pattern**
 
-Use proven structure from ~/.claude/tools/llcli/ as reference.
+Use proven structure from ~/.agents/tools/llcli/ as reference.
 
 ---
 

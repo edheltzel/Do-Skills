@@ -18,7 +18,7 @@
  *   5. Reports margin metrics before/after so the workflow knows what shifted
  *
  * Usage:
- *   bun ~/.claude/skills/do-art/Tools/FillFrame.ts <input.png> <output.png>
+ *   bun ~/.agents/skills/do-art/Tools/FillFrame.ts <input.png> <output.png>
  *     [--target-size 1024]
  *     [--bg-color "#000000"|auto]   # color to treat as background; "auto" samples corners
  *     [--fuzz 8]                    # tolerance percentage for bg detection

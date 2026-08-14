@@ -68,7 +68,6 @@
         "do-browser",
         "do-context-search",
         "do-delegation",
-        "do-evals",
         "do-interceptor"
       ]
     }

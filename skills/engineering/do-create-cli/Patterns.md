@@ -23,7 +23,7 @@ const DEFAULTS = {
 } as const;
 
 function loadConfig(): Config {
-  const envPath = join(homedir(), '.claude', '.env');
+  const envPath = join(homedir(), '.agents', '.env');
   let fileValue: string | undefined;
 
   if (existsSync(envPath)) {
@@ -36,7 +36,7 @@ function loadConfig(): Config {
 
   const apiKey = process.env.API_KEY || fileValue;
   if (!apiKey) {
-    console.error('Error: API_KEY is not set in the environment or ~/.claude/.env');
+    console.error('Error: API_KEY is not set in the environment or ~/.agents/.env');
     process.exit(1);
   }
 
@@ -49,7 +49,7 @@ function loadConfig(): Config {
 
 **Key principles:**
 
-- Prefer the process environment, with `~/.claude/.env` as the current user-level fallback
+- Prefer the process environment, with `~/.agents/.env` as the current user-level fallback
 - Clear error messages with resolution steps
 - Defaults for optional config
 - Type-safe Config interface
@@ -236,7 +236,7 @@ OUTPUT:
   Exit code: 0 = success, 1 = error
 
 CONFIGURATION:
-  API Key: environment or ~/.claude/.env (API_KEY=your_key)
+  API Key: environment or ~/.agents/.env (API_KEY=your_key)
   Base URL: ${DEFAULTS.baseUrl}
 
 PHILOSOPHY:
@@ -247,7 +247,7 @@ PHILOSOPHY:
   - Documented: This help + README
   - Testable: Predictable behavior
 
-For full documentation: ~/.claude/tools/${CLI_NAME}/README.md
+For full documentation: ~/.agents/tools/${CLI_NAME}/README.md
 Version: ${VERSION}
 `);
 }
@@ -469,7 +469,7 @@ describe('CLI', () => {
 
 When building a CLI, use these patterns:
 
-- [ ] Configuration loading (environment first, then ~/.claude/.env)
+- [ ] Configuration loading (environment first, then ~/.agents/.env)
 - [ ] API client with error handling
 - [ ] One function per command
 - [ ] Manual argument parsing (Tier 1) or Commander (Tier 2)

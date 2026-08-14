@@ -84,7 +84,7 @@ TRANSPARENT: Use Images skill to remove background for overlay use
 **For transparent background** — use the **Images skill** for background removal:
 
 ```bash
-bun ~/.claude/skills/do-art/Tools/RemoveBg.ts /path/to/visualization.png
+bun ~/.agents/skills/do-art/Tools/RemoveBg.ts /path/to/visualization.png
 ```
 
 
@@ -581,7 +581,7 @@ Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
 **Construct command based on intent:**
 
 ```bash
-bun run ~/.claude/skills/art/Tools/Generate.ts \
+bun run ~/.agents/skills/do-art/Tools/Generate.ts \
   --workflow=Visualize \
   --model [SELECTED_MODEL] \
   --prompt "[YOUR COMPREHENSIVE PROMPT]" \

@@ -51,7 +51,7 @@ The workflow template below includes a title + subtitle block. **Override this w
 
 # Example image
 # Ignore for now
-# ~/.claude/skills/do-art/WorkflowExamples/TechnicalDiagrams/example.png
+# ~/.agents/skills/do-art/WorkflowExamples/TechnicalDiagrams/example.png
 
 ---
 
@@ -217,7 +217,7 @@ All the art components, labels, and such should mostly look hand-drawn, similar 
 ### Generate Command
 
 ```bash
-bun run ~/.claude/skills/do-art/Tools/Generate.ts \
+bun run ~/.agents/skills/do-art/Tools/Generate.ts \
   --workflow=TechnicalDiagrams \
   --model [SELECTED_MODEL] \
   --prompt "[PROMPT]" \

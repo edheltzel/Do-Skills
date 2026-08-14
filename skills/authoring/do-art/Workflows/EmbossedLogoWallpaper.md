@@ -130,7 +130,7 @@ open ~/Developer/Wallpaper/blue-purple-circuits.png
 ### Step 4: Generate
 
 ```bash
-bun run ~/.claude/skills/do-art/Tools/Generate.ts \
+bun run ~/.agents/skills/do-art/Tools/Generate.ts \
   --workflow=EmbossedLogoWallpaper \
   --model nano-banana-pro \
   --prompt "[CONSTRUCTED_PROMPT]" \

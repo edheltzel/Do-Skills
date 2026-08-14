@@ -254,7 +254,7 @@ Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
 ### Step 5: Execute Generation
 
 ```bash
-bun run ~/.claude/skills/art/Tools/Generate.ts \
+bun run ~/.agents/skills/do-art/Tools/Generate.ts \
   --workflow=Taxonomies \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \

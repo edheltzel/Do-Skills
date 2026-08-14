@@ -27,7 +27,7 @@
 #
 # Every browser workflow's first step. Source from a workflow:
 #
-#   if ! bash ~/.claude/skills/do-interceptor/Tools/PreflightIsolation.sh; then
+#   if ! bash ~/.agents/skills/do-interceptor/Tools/PreflightIsolation.sh; then
 #     exit 1   # surface to operator; do NOT fall back
 #   fi
 #
@@ -135,7 +135,7 @@ REMEDIATION (operator action — no auto-launch):
   1. Open the dedicated Interceptor test profile window.
   2. In that profile, open chrome://extensions/. If the Interceptor card is
      missing or shows an error: Load Unpacked
-       -> ~/.claude/skills/do-interceptor/Extension/
+       -> ~/.agents/skills/do-interceptor/Extension/
      and accept any new permissions.
   3. Click the Interceptor toolbar icon, set Context ID to the friendly name
      "interceptor-test", Save. Friendly names survive extension reloads; raw
@@ -243,7 +243,7 @@ WHY THIS MATTERS:
 REMEDIATION:
   1. Re-pin via the Update workflow (runs Tools/Pin.sh).
   2. In the test profile: chrome://extensions/ -> Interceptor -> Load Unpacked
-       from ~/.claude/skills/do-interceptor/Extension/ (or reload if already loaded).
+       from ~/.agents/skills/do-interceptor/Extension/ (or reload if already loaded).
   3. Re-run this preflight.
 EOF
         exit 6

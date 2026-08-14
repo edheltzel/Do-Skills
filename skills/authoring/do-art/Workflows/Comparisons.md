@@ -35,7 +35,7 @@ Illustrated comparisons show two contrasting concepts, states, or approaches sid
 ### Character Requirements (When figures present)
 
 **If comparison includes human or robot figures, MUST apply Planeform aesthetic:**
-- Read: `~/.claude/`
+- Read: `~/.agents/`
 - Figures built from ANGULAR PLANES (no round forms)
 - Adult proportions (1:7), NOT cute/stubby
 - Faces are minimal geometric blocks
@@ -271,7 +271,7 @@ Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
 ### Step 5: Execute Generation
 
 ```bash
-bun run ~/.claude/skills/art/Tools/Generate.ts \
+bun run ~/.agents/skills/do-art/Tools/Generate.ts \
   --workflow=Comparisons \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \

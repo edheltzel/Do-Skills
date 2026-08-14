@@ -8,5 +8,4 @@ Operating AI agents and driving machines - delegation, evaluation, prompt audits
 | [`do-browser`](./do-browser/) | Browser automation through the installed chrome-devtools-axi CLI. |
 | [`do-context-search`](./do-context-search/) | Find prior project work through the current Recall MCP tools. |
 | [`do-delegation`](./do-delegation/) | Routes independent work through current Agent dispatch, background execution, role briefs, worktree isolation, and coordinator-managed synthesis. |
-| [`do-evals`](./do-evals/) | AI agent evaluation framework with three grader types (code-based, model-based, human) and pass@k/pass^k scoring over agent transcripts, tool-call sequences, and multi-turn conversations; covers capability and regression evals. |
 | [`do-interceptor`](./do-interceptor/) | Real Chrome/Brave/Helium + macOS Computer Use from inside the browser - zero CDP fingerprint, real sessions; mandatory for visual deploy verification. |

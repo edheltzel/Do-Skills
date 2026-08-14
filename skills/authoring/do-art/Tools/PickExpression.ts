@@ -4,8 +4,8 @@
  *
  * The expression-matching requirement ("a face shot with an expression matching the
  * content") is a SELECTION problem over real photos, not a face-generation problem.
- * {{PRINCIPAL_NAME}} already has 12 expression-labeled real headshots; using a real photo guarantees
- * photorealism and kills the "obviously-rendered {{PRINCIPAL_NAME}}" slop tell on a channel whose
+ * Ed already has 12 expression-labeled real headshots; using a real photo guarantees
+ * photorealism and kills the "obviously-rendered Ed" slop tell on a channel whose
  * audience knows his real face.
  *
  * Usage:
@@ -21,7 +21,7 @@ import { existsSync, readdirSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
-const DIR = join(homedir(), ".claude", "LIFEOS", "USER", "CUSTOMIZATIONS", "SKILLS", "Art", "HeadshotExamples");
+const DIR = join(homedir(), ".agents", "skills", "do-art", "assets", "headshots");
 
 // sentiment -> headshot filename (without .png), with topic keywords that route to it.
 const MAP: Array<{ sentiment: string; file: string; keywords: string[] }> = [

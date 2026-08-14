@@ -26,7 +26,7 @@ Add one or more commands to an existing CLI without breaking existing functional
 
 ```bash
 # Find CLI location
-ls -la ~/.claude/tools/[cli-name]/
+ls -la ~/.agents/tools/[cli-name]/
 # or
 ls -la ~/Developer/[project]/
 ```

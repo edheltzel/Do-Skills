@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 // Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
-// in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
-for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
+// in PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
+for (const __k of ["PROJECTS_DIR"]) {
   const __v = process.env[__k];
   if (__v && /^\$\{?HOME\}?(\/|$)/.test(__v)) process.env[__k] = __v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
 }
@@ -20,7 +20,7 @@ for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
  * Usage:
  *   generate --model nano-banana-pro --prompt "..." --size 16:9 --output /tmp/image.png
  *
- * @see ~/.claude/skills/art/README.md
+ * @see ~/.agents/skills/do-art/README.md
  */
 
 import Replicate from "replicate";
@@ -38,8 +38,7 @@ import { extname, resolve } from "node:path";
  * This ensures API keys are available regardless of how the CLI is invoked
  */
 async function loadEnv(): Promise<void> {
-  const paiDir = process.env.LIFEOS_DIR || resolve(process.env.HOME!, '.claude');
-  const envPath = resolve(paiDir, '.env');
+  const envPath = resolve(process.env.HOME!, '.env');
   try {
     const envContent = await readFile(envPath, 'utf-8');
     for (const line of envContent.split('\n')) {
@@ -103,7 +102,7 @@ interface CLIArgs {
   thumbnail?: boolean; // Generate additional thumbnail with #EAE9DF background for social previews
   workflow?: string; // Name of the Art workflow that constructed this call (REQUIRED unless freeformConfirmed)
   freeformConfirmed?: boolean; // Explicit opt-out of workflow discipline — logged to stderr
-  signature?: boolean; // Stamp the required "{{DA_NAME}}" signature (auto-on for Essay/blog-header; --no-signature opts out)
+  signature?: boolean; // Stamp the required "$DA_NAME" signature (auto-on for Essay/blog-header; --no-signature opts out)
 }
 
 // ============================================================================
@@ -217,8 +216,6 @@ async function detectMimeType(filePath: string): Promise<string> {
 // Help Text
 // ============================================================================
 
-// Base directory for documentation paths
-const LIFEOS_DIR = process.env.LIFEOS_DIR || `${process.env.HOME}/.claude`;
 
 function showHelp(): void {
   console.log(`
@@ -260,8 +257,8 @@ OPTIONS:
   --thumbnail                Generate BOTH transparent AND thumbnail versions for blog headers
                              Creates: output.png (transparent) + output-thumb.png (#EAE9DF background)
                              Automatically enables --remove-bg
-  --no-signature             Skip the "{{DA_NAME}}" signature stamp (auto-on for Essay/--thumbnail headers)
-  --signature                Force the "{{DA_NAME}}" signature stamp on (bottom-right, SignPainter-HouseScript cursive)
+  --no-signature             Skip the signature stamp (auto-on for Essay/--thumbnail headers)
+  --signature                Force the signature stamp on (bottom-right, SignPainter-HouseScript cursive)
   --creative-variations <n>  Generate N variations (appends -v1, -v2, etc. to output filename)
                              Use with the be-creative skill for true prompt diversity
                              CLI mode: generates N images with same prompt (tests model variability)
@@ -325,8 +322,8 @@ ERROR CODES:
   1  General error (invalid arguments, API error, file write error)
 
 MORE INFO:
-  Documentation: ~/.claude/skills/do-art/README.md
-  Source: ~/.claude/skills/do-art/Tools/Generate.ts
+  Documentation: ~/.agents/skills/do-art/README.md
+  Source: ~/.agents/skills/do-art/Tools/Generate.ts
 `);
   process.exit(0);
 }
@@ -352,7 +349,7 @@ MORE INFO:
  *   --workflow=<bad-name>   → exit 1 listing valid workflow names.
  */
 function enforceWorkflowDiscipline(parsed: Partial<CLIArgs>): void {
-  const workflowsDir = `${process.env.HOME}/.claude/skills/do-art/Workflows`;
+  const workflowsDir = `${process.env.HOME}/.agents/skills/do-art/Workflows`;
   let availableWorkflows: string[] = [];
   try {
     // readdirSync via Bun.readdirSync isn't a thing; use Node fs sync via dynamic
@@ -683,7 +680,7 @@ import { exec } from "node:child_process";
 import { promisify } from "node:util";
 
 // Normalize env path vars that Claude Code injects without shell expansion (shadow-dir env injection)
-for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
+for (const k of ["PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
 }
@@ -715,9 +712,9 @@ async function addBackgroundColor(inputPath: string, outputPath: string, hexColo
 }
 
 /**
- * Stamp the REQUIRED "{{DA_NAME}}" signature on a blog-header/essay image, in place.
+ * Stamp the REQUIRED "$DA_NAME" signature on a blog-header/essay image, in place.
  * Principal directives 2026-06-20 + 2026-07-09: every essay/blog-header image
- * MUST be signed "{{DA_NAME}}", bottom-right, in a cursive human-signature hand
+ * MUST be signed "$DA_NAME", bottom-right, in a cursive human-signature hand
  * (SignPainter-HouseScript) — small and integrated into the artwork, not a
  * caption floating in the corner. Formal calligraphy faces (Snell, Chancery,
  * Savoye) remain banned. Stamped here, on the main output, BEFORE the
@@ -738,20 +735,21 @@ async function stampKaiSignature(imagePath: string): Promise<void> {
     // Non-fatal — fall back to the 31pt default tuned for 1024px-wide headers.
   }
 
-  console.log('✍️  Stamping required "{{DA_NAME}}" signature (bottom-right, SignPainter-HouseScript, cursive)...');
+  const DA_NAME = process.env.DA_NAME || "Atlas";
+  console.log(`✍️  Stamping required "${DA_NAME}" signature (bottom-right, SignPainter-HouseScript, cursive)...`);
   // Slight CCW rotation + tucked offset makes it sit like a hand-signed mark
   // inside the composition's lower-right rather than a corner caption.
   const command =
     `magick "${imagePath}" -gravity SouthEast ` +
     `-font "SignPainter-HouseScript" -pointsize ${pointsize} -fill "rgba(55,45,38,0.55)" ` +
-    `-annotate 352x352+44+30 "{{DA_NAME}}" "${imagePath}"`;
+    `-annotate 352x352+44+30 "${DA_NAME}" "${imagePath}"`;
 
   try {
     await execAsync(command);
     console.log("✅ Signature stamped");
   } catch (error) {
     throw new CLIError(
-      `Failed to stamp {{DA_NAME}} signature: ${error instanceof Error ? error.message : String(error)}. ` +
+      `Failed to stamp ${DA_NAME} signature: ${error instanceof Error ? error.message : String(error)}. ` +
         `SignPainter-HouseScript must be installed (default on macOS). Override font via the workflow if needed.`
     );
   }
@@ -1187,7 +1185,7 @@ async function main(): Promise<void> {
       await rename(tempPath, actualOutput);
     }
 
-    // Stamp the REQUIRED "{{DA_NAME}}" signature on essay/blog-header images.
+    // Stamp the REQUIRED "$DA_NAME" signature on essay/blog-header images.
     // Auto-on for the Essay workflow and for any --thumbnail (blog-header) run;
     // --signature forces on, --no-signature opts out. Runs AFTER bg ops but
     // BEFORE the thumbnail is derived so the signature is on BOTH versions.

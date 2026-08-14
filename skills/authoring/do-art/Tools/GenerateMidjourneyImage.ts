@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 // Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
-// in LIFEOS_DIR/LIFEOS_CONFIG_DIR/PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
-for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
+// in PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
+for (const __k of ["PROJECTS_DIR"]) {
   const __v = process.env[__k];
   if (__v && /^\$\{?HOME\}?(\/|$)/.test(__v)) process.env[__k] = __v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
 }
@@ -16,7 +16,7 @@ for (const __k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
  * Usage:
  *   generate-midjourney-image --prompt "..." --aspect-ratio 16:9 --output /tmp/image.png
  *
- * @see ~/.claude/skills/art/SKILL.md
+ * @see ~/.agents/skills/do-art/SKILL.md
  */
 
 import { DiscordBotClient } from '../lib/discord-bot.js';
@@ -25,7 +25,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 // Normalize env path vars that Claude Code injects without shell expansion (shadow-dir env injection)
-for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
+for (const k of ["PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
 }
@@ -40,8 +40,7 @@ for (const k of ["LIFEOS_DIR", "LIFEOS_CONFIG_DIR", "PROJECTS_DIR"]) {
  * This ensures API keys are available regardless of how the CLI is invoked
  */
 async function loadEnv(): Promise<void> {
-  const paiDir = process.env.LIFEOS_DIR || resolve(process.env.HOME!, '.claude');
-  const envPath = resolve(paiDir, '.env');
+  const envPath = resolve(process.env.HOME!, '.env');
   try {
     const envContent = await readFile(envPath, 'utf-8');
     for (const line of envContent.split('\n')) {

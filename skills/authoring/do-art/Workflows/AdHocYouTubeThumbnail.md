@@ -114,7 +114,7 @@ Topic context: [EXTRACTED TOPIC]
 ### Generate Command
 
 ```bash
-bun run ~/.claude/skills/do-art/Tools/Generate.ts \
+bun run ~/.agents/skills/do-art/Tools/Generate.ts \
   --workflow=AdHocYouTubeThumbnail \
   --model nano-banana-pro \
   --prompt "[BACKGROUND PROMPT]" \
@@ -198,11 +198,11 @@ Rembrandt lighting pattern. Looking at camera. Ultra-tight crop on face only.
 ```bash
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 
-bun ~/.claude/skills/<your-headshot-skill>/Tools/Headshot.ts \
+bun ~/.agents/skills/<your-headshot-skill>/Tools/Headshot.ts \
   --prompt "[FACE-ONLY HEADSHOT PROMPT]" \
-  --reference ~/.claude/skills/<your-headshot-skill>/Examples/reference.png \
-  --reference ~/.claude/skills/<your-headshot-skill>/Examples/studio-style.png \
-  --reference ~/.claude/skills/<your-headshot-skill>/Examples/clean-smile.png \
+  --reference ~/.agents/skills/<your-headshot-skill>/Examples/reference.png \
+  --reference ~/.agents/skills/<your-headshot-skill>/Examples/studio-style.png \
+  --reference ~/.agents/skills/<your-headshot-skill>/Examples/clean-smile.png \
   --size 2K \
   --aspect-ratio 1:1 \
   --output ~/Downloads/yt-headshot-${TIMESTAMP}.png
@@ -213,7 +213,7 @@ bun ~/.claude/skills/<your-headshot-skill>/Tools/Headshot.ts \
 ### Remove Background
 
 ```bash
-bun ~/.claude/skills/do-art/Tools/RemoveBg.ts ~/Downloads/yt-headshot-${TIMESTAMP}.png
+bun ~/.agents/skills/do-art/Tools/RemoveBg.ts ~/Downloads/yt-headshot-${TIMESTAMP}.png
 ```
 
 ---
@@ -225,7 +225,7 @@ bun ~/.claude/skills/do-art/Tools/RemoveBg.ts ~/Downloads/yt-headshot-${TIMESTAM
 ### Compose Command
 
 ```bash
-bun ~/.claude/skills/do-art/Tools/ComposeThumbnail.ts \
+bun ~/.agents/skills/do-art/Tools/ComposeThumbnail.ts \
   --background ~/Downloads/yt-bg-${TIMESTAMP}.png \
   --headshot ~/Downloads/yt-headshot-${TIMESTAMP}.png \
   --title "[TITLE]" \

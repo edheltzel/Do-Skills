@@ -5,7 +5,7 @@ Extracting facts from N pages to answer a comparative question — "who designed
 ## Preflight Isolation Gate (MANDATORY first step)
 
 ```bash
-bash ~/.claude/skills/do-interceptor/Tools/PreflightIsolation.sh
+bash ~/.agents/skills/do-interceptor/Tools/PreflightIsolation.sh
 ```
 
 Non-zero exit → STOP and surface the message verbatim. Do not fall back to the Default profile. `--context "$INTERCEPTOR_TEST_CONTEXT_ID"` (the pinned isolated context from `preferences.env`) is doctrine on every `open` below, not optional — it does not count against the command budget.
