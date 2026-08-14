@@ -234,20 +234,20 @@ function parseArgs(args: string[]): CLIArgs {
 
       case '--stylize':
       case '-s':
-        result.stylize = parseInt(args[++i]);
+        result.stylize = parseInt(args[++i] ?? "");
         break;
 
       case '--quality':
       case '-q':
-        result.quality = parseFloat(args[++i]);
+        result.quality = parseFloat(args[++i] ?? "");
         break;
 
       case '--chaos':
-        result.chaos = parseInt(args[++i]);
+        result.chaos = parseInt(args[++i] ?? "");
         break;
 
       case '--weird':
-        result.weird = parseInt(args[++i]);
+        result.weird = parseInt(args[++i] ?? "");
         break;
 
       case '--tile':
@@ -260,7 +260,7 @@ function parseArgs(args: string[]): CLIArgs {
         break;
 
       case '--timeout':
-        result.timeout = parseInt(args[++i]);
+        result.timeout = parseInt(args[++i] ?? "");
         break;
 
       default:

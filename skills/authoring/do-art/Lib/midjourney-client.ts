@@ -267,7 +267,7 @@ export class MidjourneyClient {
 
     // Extract prompt (usually before the first --)
     const promptMatch = content.match(/^(.+?)(?:\s+--|\s*$)/);
-    const prompt = promptMatch ? promptMatch[1].trim() : content;
+    const prompt = promptMatch?.[1]?.trim() ?? content;
 
     // Extract parameters
     const parameters: Record<string, string> = {};
@@ -275,7 +275,10 @@ export class MidjourneyClient {
     let match;
 
     while ((match = paramRegex.exec(content)) !== null) {
-      parameters[match[1]] = match[2];
+      const [, name, value] = match;
+      if (name !== undefined && value !== undefined) {
+        parameters[name] = value;
+      }
     }
 
     return { prompt, parameters };

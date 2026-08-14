@@ -102,7 +102,7 @@ function parseArgs(): {
   };
 
   for (let i = 0; i < args.length; i += 2) {
-    const key = args[i].replace(/^--/, "");
+    const key = (args[i] ?? "").replace(/^--/, "");
     const value = args[i + 1];
     parsed[key] = value;
   }
@@ -260,10 +260,10 @@ function buildVisualMetaphor(
       metaphor = `Maya and Theo positioned with space between them, interacting with a shared element or concept in the center, representing different perspectives on ${analysis.theme}`;
       break;
     case "workshop":
-      metaphor = `${characterFocus === "theo" ? "the DA" : "Both Maya and Theo"} actively building or creating, with elements spreading horizontally showing the process of making something related to ${analysis.theme}`;
+      metaphor = `${characterFocus === "kai" ? "Theo" : "Both Maya and Theo"} actively building or creating, with elements spreading horizontally showing the process of making something related to ${analysis.theme}`;
       break;
     case "aura":
-      metaphor = `${characterFocus === "maya" ? "Maya" : characterFocus === "theo" ? "the DA" : "The character"} surrounded by a soft, translucent aura bubble containing tiny symbolic icons representing aspects of ${analysis.theme}`;
+      metaphor = `${characterFocus === "maya" ? "Maya" : characterFocus === "kai" ? "Theo" : "The character"} surrounded by a soft, translucent aura bubble containing tiny symbolic icons representing aspects of ${analysis.theme}`;
       break;
   }
 

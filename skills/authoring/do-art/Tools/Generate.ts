@@ -448,7 +448,7 @@ function parseArgs(argv: string[]): CLIArgs {
   for (let i = 0; i < args.length; i++) {
     const flag = args[i];
 
-    if (!flag.startsWith("--")) {
+    if (!flag || !flag.startsWith("--")) {
       throw new CLIError(`Invalid flag: ${flag}. Flags must start with --`);
     }
 
@@ -848,8 +848,8 @@ async function generateWithFlux(prompt: string, size: ReplicateSize, output: str
     imageData = Buffer.from(await resp.arrayBuffer());
   } else if (result && typeof (result as any).arrayBuffer === "function") {
     imageData = Buffer.from(await (result as any).arrayBuffer());
-  } else if (typeof result === "string" && result.startsWith("http")) {
-    const resp = await fetch(result);
+  } else if (typeof result === "string" && (result as string).startsWith("http")) {
+    const resp = await fetch(result as string);
     imageData = Buffer.from(await resp.arrayBuffer());
   } else {
     imageData = result as Buffer;
@@ -1009,7 +1009,7 @@ async function generateWithNanoBananaPro(
   let imageData: string | undefined;
 
   if (response.candidates && response.candidates.length > 0) {
-    const parts = response.candidates[0].content.parts;
+    const parts = response.candidates[0]?.content?.parts ?? [];
     for (const part of parts) {
       // Check if this part contains inline image data
       if (part.inlineData && part.inlineData.data) {
@@ -1166,7 +1166,9 @@ async function main(): Promise<void> {
         1,
         args.output
       );
-      actualOutput = paths[0];
+      // Non-null: called with n=1 and generateWithGPTImage2 throws on empty data,
+      // so it always returns at least one path.
+      actualOutput = paths[0]!;
     }
 
     // Remove background if requested (use actual output path)
