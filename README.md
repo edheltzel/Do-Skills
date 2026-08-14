@@ -1,15 +1,13 @@
 # Skills
 
-This is my personal collection of [Agent Skills](https://skills.sh/).
-
 >[!NOTE]
-> This is a **WIP** and changes often. It is a collection of skills that I have created or found valuable for my workflow. Many, if not most, are from talented developers, engineers, creators, and researchers. I have unashamedly copied and/or improved/modified most of the skills to fit my use case. 
+> This is a **WIP** and changes often. Just like any code/software you find, don't blindly download and run it. Review it, learn what it does to make an educated decision if you should use it.
 
+This is a collection of skills that I've created or found valuable for my workflow. Many are from talented people that I have unashamedly copied, borrowed, improved, and modified most to fit my use cases. 
 
 ## Installation
 
-Install any skill from using the [skills CLI](https://skills.sh/), **I highly
-recommend install only what you want and to read each skill before you blindly install.**
+To keep is easy, I'm use [Skills.sh](https://skills.sh) for installation and updates.
 
 ```bash
 npx skills add edheltzel/skills
@@ -21,11 +19,14 @@ To install a specific skill (every skill name carries the `do-` prefix):
 npx skills add edheltzel/skills@do-<skill-name>
 ```
 
+If you want to install for a specific agents, use the option flags ie: `-a
+claude-code ` or `-a claude-code -a pi`
+
 ## Available Skills
 
-Many hard from different Github repos and many are also custom to fit my needs. Use it as is, take what you like leave the rest.  
+These are broken into buckets, similar to how [Matt Pocock's Skills](https://github.com/mattpocock/skills) are structured. 
 
-<!-- skills-start -->
+I've also prefixed most of the skills with `do-` this way it is easier to identify which skills are mine... The reasoning for this is, I get all little trigger happy and select the wrong slash command/skill. Many harnesses have their own built-in commands/skills, like "/simplify", so if I have `do-simplify` I now for a fact I'm running my version.
 
 ### Core
 
@@ -99,9 +100,18 @@ Operating AI agents and driving machines - delegation, evaluation, prompt audits
 | [`do-browser`](./skills/operations/do-browser/) | Browser automation through the installed chrome-devtools-axi CLI. |
 | [`do-context-search`](./skills/operations/do-context-search/) | Find prior project work through the current Recall MCP tools. |
 | [`do-delegation`](./skills/operations/do-delegation/) | Routes independent work through current Agent dispatch, background execution, role briefs, worktree isolation, and coordinator-managed synthesis. |
+| [`do-evals`](./skills/operations/do-evals/) | AI agent evaluation framework with three grader types (code-based, model-based, human) and pass@k/pass^k scoring over agent transcripts, tool-call sequences, and multi-turn conversations; covers capability and regression evals. |
 | [`do-interceptor`](./skills/operations/do-interceptor/) | Real Chrome/Brave/Helium + macOS Computer Use from inside the browser - zero CDP fingerprint, real sessions; mandatory for visual deploy verification. |
 
 <!-- skills-end -->
+### Archived
+
+No longer using.
+
+| Skill | Description |
+| --- | --- |
+| [`do-karpathy-guidelines`](./skills/core/do-karpathy-guidelines/) | Behavioral guidelines to reduce common LLM coding mistakes. |
+
 
 ## Creating a Skill
 
@@ -140,6 +150,8 @@ After adding, moving, or renaming a skill, regenerate the Available Skills secti
 ```bash
 bash skills/authoring/do-update-readme/update-readme.sh
 ```
+
+---
 
 ## License
 
