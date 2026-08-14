@@ -5,7 +5,7 @@ description: "Audits AI instruction sets for over-prompting. Applies six tests t
 effort: medium
 ---
 
-# BitterPillEngineering
+# Bitter Pill Engineering
 
 ## Purpose
 
