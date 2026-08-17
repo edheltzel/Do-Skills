@@ -1,5 +1,5 @@
 ---
-name: coding-standards
+name: do-coding-standards
 description: Correct-by-construction TypeScript and Effect standards. Use for TypeScript engineering, Effect code, or when another skill needs the user's coding standards.
 ---
 

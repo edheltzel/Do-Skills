@@ -10,13 +10,13 @@ skill's `name`, `description`, directory, or bucket, regenerate the Available
 Skills section by running the script from the repo root:
 
 ```bash
-bash skills/personal/update-readme/update-readme.sh
+bash skills/authoring/do-update-readme/update-readme.sh
 ```
 
 It rewrites the region between `<!-- skills-start -->` and `<!-- skills-end -->`
-in `README.md` — a per-bucket subsection (Core, Engineering, Writing,
-Productivity, Personal), each with a heading, blurb, and a table of that bucket's skills
-sorted by name and linked to their folder.
+in `README.md` — a per-bucket subsection (Core, Engineering, Authoring,
+Workflow, Operations, Private), each with a heading, blurb, and a bulleted list
+of that bucket's skills sorted by name and linked to their folder.
 
 ## When to run
 

@@ -120,9 +120,8 @@ EOF
     {
         printf '### %s\n\n' "$title"
         [ -n "$blurb" ] && printf '%s\n\n' "$blurb"
-        printf '| Skill | Description |\n| --- | --- |\n'
         while IFS=$'\t' read -r name reldir desc; do
-            printf '| [`%s`](./%s/) | %s |\n' "$name" "$reldir" "$desc"
+            printf '%s\n' "- [\`$name\`](./$reldir/)"
         done < "$group_file"
         printf '\n'
     } >> "$section_file"
@@ -132,9 +131,8 @@ EOF
     {
         printf '# %s\n\n' "$title"
         [ -n "$blurb" ] && printf '%s\n\n' "$blurb"
-        printf '| Skill | Description |\n| --- | --- |\n'
         while IFS=$'\t' read -r name reldir desc; do
-            printf '| [`%s`](./%s/) | %s |\n' "$name" "$(basename "$reldir")" "$desc"
+            printf '%s\n' "- [\`$name\`](./$(basename "$reldir")/)"
         done < "$group_file"
     } > "$SKILLS_DIR/$bucket/README.md"
 
