@@ -1,4 +1,4 @@
-# Skills
+# Do Skills
 
 >[!NOTE]
 > This is a **WIP** and changes often. Just like any code/software you find, don't blindly download and run it. Review it, learn what it does to make an educated decision if you should use it.
@@ -26,7 +26,7 @@ claude-code ` or `-a claude-code -a pi`
 
 These are broken into buckets, similar to how [Matt Pocock's Skills](https://github.com/mattpocock/skills) are structured. 
 
-I've also prefixed most of the skills with `do-` this way it is easier to identify which skills are mine... The reasoning for this is, I get all little trigger happy and select the wrong slash command/skill. Many harnesses have their own built-in commands/skills, like "/simplify", so if I have `do-simplify` I now for a fact I'm running my version.
+I've also prefixed most of the skills with `do-` this way it is easier to identify which skills are mine... The reasoning for this is, I get all little trigger happy and select the wrong slash command/skill. Many harnesses have their own built-in commands/skills, like "/simplify", so if I have `do-simplify` I know for a fact I'm running my version.
 
 ### Core
 
