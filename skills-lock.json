@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "coding-standards": {
+      "source": "dmmulroy/skills",
+      "sourceType": "github",
+      "skillPath": "coding-standards/SKILL.md",
+      "computedHash": "4e740075d71028a0d0ee59e2ec28721d8e021be93726dcf9e19b76eff1fd9293"
+    }
+  }
+}
