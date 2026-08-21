@@ -10,13 +10,14 @@ SKILLS_DIR="$ROOT/skills"
 
 # Bucket render order and their one-line blurbs. Any bucket found on disk but not
 # listed here is appended alphabetically with no blurb.
-BUCKET_ORDER="core engineering authoring workflow operations private"
+BUCKET_ORDER="core engineering authoring slop-guard workflow operations private"
 
 bucket_title() {
     case "$1" in
         core)         echo "Core" ;;
         engineering)  echo "Engineering" ;;
         authoring)    echo "Authoring" ;;
+        slop-guard)   echo "Slop Guard" ;;
         workflow)     echo "Workflow" ;;
         operations)   echo "Operations" ;;
         private)      echo "Private" ;;
@@ -29,6 +30,7 @@ bucket_blurb() {
         core)         echo "Essential, stack-agnostic safeguards and adversarial-thinking tools reached for by default across setup, implementation, testing, review, and shipping." ;;
         engineering)  echo "Code design and implementation practices, from general principles to language-, framework-, and platform-specific craft." ;;
         authoring)    echo "Producing and refining artifacts - technical prose, documentation, skills, and visual media." ;;
+        slop-guard)   echo "Catching AI slop — restating output in plain human language and stripping jargon-heavy writing." ;;
         workflow)     echo "Source-control, pull-request, and project-tracking tooling for day-to-day delivery." ;;
         operations)   echo "Operating AI agents and driving machines - delegation, evaluation, prompt audits, memory recall, and browser or computer automation." ;;
         private)      echo "Scope, not topic: this repository's own tooling. Not portable." ;;

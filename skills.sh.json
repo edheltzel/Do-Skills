@@ -50,6 +50,13 @@
       ]
     },
     {
+      "title": "Slop Guard",
+      "description": "Catching AI slop — restating output in plain human language and stripping jargon-heavy writing.",
+      "skills": [
+        "do-bro"
+      ]
+    },
+    {
       "title": "Workflow",
       "description": "Source-control, pull-request, and project-tracking tooling for day-to-day delivery.",
       "skills": [

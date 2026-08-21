@@ -15,7 +15,7 @@ bash skills/authoring/do-update-readme/update-readme.sh
 
 It rewrites the region between `<!-- skills-start -->` and `<!-- skills-end -->`
 in `README.md` — a per-bucket subsection (Core, Engineering, Authoring,
-Workflow, Operations, Private), each with a heading, blurb, and a bulleted list
+Slop Guard, Workflow, Operations, Private), each with a heading, blurb, and a bulleted list
 of that bucket's skills sorted by name and linked to their folder.
 
 ## When to run

@@ -5,7 +5,6 @@ Producing and refining artifacts - technical prose, documentation, skills, and v
 - [`do-agents-md`](./do-agents-md/)
 - [`do-architecture-md`](./do-architecture-md/)
 - [`do-art`](./do-art/)
-- [`do-bro`](./do-bro/)
 - [`do-code-comments`](./do-code-comments/)
 - [`do-distill-to-skill`](./do-distill-to-skill/)
 - [`do-roughdraft`](./do-roughdraft/)
