@@ -70,13 +70,18 @@ Producing and refining artifacts - technical prose, documentation, skills, and v
 - [`do-agents-md`](./skills/authoring/do-agents-md/)
 - [`do-architecture-md`](./skills/authoring/do-architecture-md/)
 - [`do-art`](./skills/authoring/do-art/)
-- [`do-bro`](./skills/authoring/do-bro/)
 - [`do-code-comments`](./skills/authoring/do-code-comments/)
 - [`do-distill-to-skill`](./skills/authoring/do-distill-to-skill/)
 - [`do-roughdraft`](./skills/authoring/do-roughdraft/)
 - [`do-tech-writing`](./skills/authoring/do-tech-writing/)
 - [`do-update-readme`](./skills/authoring/do-update-readme/)
 - [`do-ux-flow-plan`](./skills/authoring/do-ux-flow-plan/)
+
+### Slop Guard
+
+Catching AI slop — restating output in plain human language and stripping jargon-heavy writing.
+
+- [`do-bro`](./skills/slop-guard/do-bro/)
 
 ### Workflow
 
@@ -128,6 +133,7 @@ Buckets group skills by purpose and scope:
 - `core/` - essential, stack-agnostic safeguards and adversarial-thinking tools reached for by default
 - `engineering/` - code design and implementation craft, from general principles to stack-specific
 - `authoring/` - producing and refining artifacts: technical prose, documentation, skills, and visual media
+- `slop-guard/` - catching AI slop: restating output in plain language and stripping jargon-heavy writing
 - `workflow/` - source-control, pull-request, and project-tracking tooling for day-to-day delivery
 - `operations/` - operating AI agents and driving machines: delegation, evaluation, prompt audits, recall, and automation
 - `private/` - this repository's own tooling, not portable
