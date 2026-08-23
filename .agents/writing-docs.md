@@ -1,11 +1,11 @@
 # Writing docs pages
 
 Every skill in a **promoted** bucket - `core/`, `engineering/`, `authoring/`,
-`workflow/` - has a human-facing **docs page** at
+`slop-guard/`, or `workflow/` - has a human-facing **docs page** at
 `docs/<bucket>/<base-slug>.md`, where `<base-slug>` is the skill's directory
-name **without** its `do-` prefix. The docs tree mirrors those four bucket
-folders under `skills/`. `operations/` and `private/` are **not** promoted and
-ship no docs page.
+name **without** its `do-` prefix. The docs tree mirrors those five bucket
+folders under `skills/`. `operations/`, `personal/`, and `private/` are **not**
+promoted and ship no docs page.
 
 The page is not the skill and not a copy of `SKILL.md`. Its job is to orient one
 reader around one skill: what it does, when to reach for it, and where it sits
@@ -15,8 +15,8 @@ Act whenever a promoted skill is added, renamed, moved between buckets, or has
 its behaviour changed: create or re-sync its docs page. A rename moves the file
 (`docs/<bucket>/<old>.md` → `docs/<bucket>/<new>.md`); a skill moving between
 promoted buckets moves its docs file to the matching folder. A skill moving into
-a non-promoted bucket (`operations/`, `private/`) loses its page; one moving into
-a promoted bucket gains one.
+a non-promoted bucket (`operations/`, `personal/`, or `private/`) loses its
+page; one moving into a promoted bucket gains one.
 
 ## Repo conventions
 
@@ -48,14 +48,14 @@ substance sections — carries only what this skill earns; delete the rest.
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=<dir-name>
+npx skills add edheltzel/Do-Skills --skill=<dir-name>
 ```
 
 ```bash
 npx skills update <dir-name>
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/<bucket>/<dir-name>)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/<bucket>/<dir-name>)
 
 ## What it does
 

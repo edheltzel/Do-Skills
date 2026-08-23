@@ -10,8 +10,9 @@ Only **promoted** buckets have docs pages:
 - [`core/`](./core/) - essential safeguards and adversarial-thinking tools
 - [`engineering/`](./engineering/) - general and stack-specific code craft
 - [`authoring/`](./authoring/) - technical prose, documentation, skills, and visual media
+- [`slop-guard/`](./slop-guard/) - corrective tools that strip jargon and AI slop from output
 - [`workflow/`](./workflow/) - source-control, pull-request, and project-tracking tooling
 
-`operations/` and `private/` are not promoted and have no docs pages.
+`operations/`, `personal/`, and `private/` are not promoted and have no docs pages.
 
 To add or update a page, follow [`.agents/writing-docs.md`](../.agents/writing-docs.md).
