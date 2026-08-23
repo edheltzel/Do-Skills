@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-design-system
+npx skills add edheltzel/Do-Skills --skill=do-design-system
 ```
 
 ```bash
 npx skills update do-design-system
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-design-system)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-design-system)
 
 ## What it does
 
@@ -24,7 +24,7 @@ scale, is wrong by definition — there is no "add a11y later" path.
 
 ## When to reach for it
 
-Type `/design-system`, or the agent reaches for it automatically when building
+Type `/do-design-system`, or the agent reaches for it automatically when building
 buttons, dialogs, forms, cards, or any reusable component (it triggers on `.tsx`,
 `.jsx`, `.css`, and `.scss`).
 
@@ -58,6 +58,6 @@ any components exist, use [bootstrap-design-system](./bootstrap-design-system.md
 
 A reach-for-it-anytime standalone for component work that sits above
 [modern-css](./modern-css.md) (the CSS it's built from) and pairs with
-[typescript](./typescript.md) for prop types like discriminated unions.
+[write-typescript](./write-typescript.md) for prop types like discriminated unions.
 [bootstrap-design-system](./bootstrap-design-system.md) is the upstream step that
 writes the spec; this skill implements against it.

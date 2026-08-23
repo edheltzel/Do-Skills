@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-parse-dont-validate
+npx skills add edheltzel/Do-Skills --skill=do-parse-dont-validate
 ```
 
 ```bash
 npx skills update do-parse-dont-validate
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-parse-dont-validate)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-parse-dont-validate)
 
 ## What it does
 
@@ -24,14 +24,14 @@ application of Alexis King's essay of the same name.
 
 ## When to reach for it
 
-Type `/parse-dont-validate`, or the agent reaches for it automatically when code
+Type `/do-parse-dont-validate`, or the agent reaches for it automatically when code
 validates input, designs data types, defines signatures, or models a domain.
 
 Reach for it whenever data crosses a boundary — request bodies, config, CLI args,
 external APIs — and you're deciding how to type it. For applying this as one step
 of a broader cleanup, use [typescript-refactoring](./typescript-refactoring.md)
 (its Level 6 is this principle); for general authoring style,
-[typescript](./typescript.md) leans on it at boundaries.
+[write-typescript](./write-typescript.md) leans on it at boundaries.
 
 ## Strengthen the input, don't weaken the output
 
@@ -59,7 +59,7 @@ unrepresentability is impractical.
 ## Where it fits
 
 A principle you reach for anytime you shape data, and one the other TypeScript
-skills defer to at the edges: [typescript](./typescript.md) names it as the
+skills defer to at the edges: [write-typescript](./write-typescript.md) names it as the
 type-driven idea it leans on, and
 [typescript-refactoring](./typescript-refactoring.md) makes it the final polish
 once structure and naming are clean.

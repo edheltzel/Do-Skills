@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-design-patterns-gof
+npx skills add edheltzel/Do-Skills --skill=do-design-patterns-gof
 ```
 
 ```bash
 npx skills update do-design-patterns-gof
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-design-patterns-gof)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-design-patterns-gof)
 
 ## What it does
 
@@ -24,7 +24,7 @@ steering you away from the *scaffolding*.
 
 ## When to reach for it
 
-Type `/design-patterns-gof`, or the agent reaches for it automatically when you
+Type `/do-design-patterns-gof`, or the agent reaches for it automatically when you
 name a shape in review ("this is a Decorator chain"), weigh competing designs,
 or question whether an abstraction earns its keep.
 
@@ -69,4 +69,4 @@ vocabulary and a brake on premature abstraction. It aligns with
 [karpathy-guidelines](../core/karpathy-guidelines.md)' simplicity-first bias, and its
 language-native leanings echo the other craft skills in this bucket — for the
 TypeScript form of "prefer a union over a hierarchy," see
-[typescript](./typescript.md).
+[write-typescript](./write-typescript.md).

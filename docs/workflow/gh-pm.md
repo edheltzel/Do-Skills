@@ -3,18 +3,18 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-pm
+npx skills add edheltzel/Do-Skills --skill=do-gh-pm
 ```
 
 ```bash
-npx skills update do-pm
+npx skills update do-gh-pm
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/workflow/do-pm)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/workflow/do-gh-pm)
 
 ## What it does
 
-`pm-tools` drives GitHub Projects (v2) from the `gh` CLI — creating boards,
+`gh-pm` drives GitHub Projects (v2) from the `gh` CLI — creating boards,
 adding items, defining custom fields, and editing field values — and layers a set
 of opinionated PM recipes on top: board bootstrap, an Epic→Feature→Task issue
 hierarchy with real sub-issue linking, a label policy, running a plan against the
@@ -24,7 +24,7 @@ clicking and every board change is a scriptable, repeatable command.
 
 ## When to reach for it
 
-Type `/pm-tools`, or the agent reaches for it automatically when a task involves
+Type `/do-gh-pm`, or the agent reaches for it automatically when a task involves
 GitHub Projects — adding issues or PRs to a project, creating fields,
 bootstrapping a board, decomposing work into epics and features, executing a plan
 with board updates, or reporting progress.

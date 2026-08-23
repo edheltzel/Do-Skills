@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-agents-md
+npx skills add edheltzel/Do-Skills --skill=do-agents-md
 ```
 
 ```bash
 npx skills update do-agents-md
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/authoring/do-agents-md)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/core/do-agents-md)
 
 ## What it does
 
@@ -24,13 +24,13 @@ pattern-match locally instead of navigating on purpose.
 
 ## When to reach for it
 
-Type `/agents-md`, or the agent reaches for it automatically when you're creating or
+Type `/do-agents-md`, or the agent reaches for it automatically when you're creating or
 improving an `AGENTS.md` or onboarding an agent to a codebase.
 
 Reach for it when the deliverable is that one file. For the whole-repo documentation
 architecture it sits inside, use [agent-first-repo](../core/agent-first-repo.md); for the
 architecture codemap it should point to rather than contain, use
-[architecture-md](./architecture-md.md).
+[architecture-md](../core/architecture-md.md).
 
 ## What earns a place in the file
 
@@ -60,4 +60,4 @@ about that package — the closest file to the edited code wins.
 
 A run-once setup skill you revisit when conventions change. It owns the entry-point
 layer of [agent-first-repo](../core/agent-first-repo.md)'s knowledge hierarchy, and hands
-off architecture depth to [architecture-md](./architecture-md.md).
+off architecture depth to [architecture-md](../core/architecture-md.md).

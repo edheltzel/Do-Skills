@@ -5,6 +5,7 @@ Code design and implementation practices, from general principles to language-, 
 - [`do-bootstrap-design-system`](./do-bootstrap-design-system/)
 - [`do-cleanup-swift`](./do-cleanup-swift/)
 - [`do-cleanup-web`](./do-cleanup-web/)
+- [`do-code-comments`](./do-code-comments/)
 - [`do-coding-standards`](./do-coding-standards/)
 - [`do-create-cli`](./do-create-cli/)
 - [`do-design-patterns-gof`](./do-design-patterns-gof/)
@@ -16,4 +17,5 @@ Code design and implementation practices, from general principles to language-, 
 - [`do-no-use-effect`](./do-no-use-effect/)
 - [`do-parse-dont-validate`](./do-parse-dont-validate/)
 - [`do-typescript-refactoring`](./do-typescript-refactoring/)
+- [`do-ux-flow-plan`](./do-ux-flow-plan/)
 - [`do-write-typescript`](./do-write-typescript/)

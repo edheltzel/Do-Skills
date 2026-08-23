@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-roughdraft
+npx skills add edheltzel/Do-Skills --skill=do-roughdraft
 ```
 
 ```bash
 npx skills update do-roughdraft
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/authoring/do-roughdraft)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/workflow/do-roughdraft)
 
 ## What it does
 
@@ -24,7 +24,7 @@ opens it, and waits for feedback.
 
 ## When to reach for it
 
-Type `/roughdraft`, or the agent reaches for it automatically on "open in
+Type `/do-roughdraft`, or the agent reaches for it automatically on "open in
 roughdraft", "review this markdown", "hand off for review", or the CLI verbs
 (`open`, `start`, `status`, `stop`). Not for generic markdown linting, and not for
 building the tool from source — this drives the published CLI only.
@@ -62,7 +62,6 @@ from waiting, `open --no-watch` then `roughdraft watch <file>` later.
 ## Where it fits
 
 A standalone tool skill you reach for whenever a draft needs human eyes — the
-review handoff at the end of any writing task. It sits alongside the skills in
-[`writing/`](../authoring/), such as
-[tech-writing](../authoring/tech-writing.md), which produce the drafts
-roughdraft hands off.
+review handoff at the end of any writing task. It sits alongside
+[tech-writing](./tech-writing.md), which shapes the drafts that roughdraft
+hands off.

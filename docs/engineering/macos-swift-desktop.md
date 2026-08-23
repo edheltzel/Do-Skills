@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-macos-swift-desktop
+npx skills add edheltzel/Do-Skills --skill=do-macos-swift-desktop
 ```
 
 ```bash
 npx skills update do-macos-swift-desktop
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-macos-swift-desktop)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-macos-swift-desktop)
 
 ## What it does
 
@@ -26,7 +26,7 @@ app needs.
 
 ## When to reach for it
 
-Type `/macos-swift-desktop`, or the agent reaches for it automatically when a
+Type `/do-macos-swift-desktop`, or the agent reaches for it automatically when a
 task touches AppKit, `NSDocument`, `NSApplicationDelegate`, Swift+Metal, macOS
 code signing, or Sparkle auto-updates.
 

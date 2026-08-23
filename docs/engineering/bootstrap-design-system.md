@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-bootstrap-design-system
+npx skills add edheltzel/Do-Skills --skill=do-bootstrap-design-system
 ```
 
 ```bash
 npx skills update do-bootstrap-design-system
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-bootstrap-design-system)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-bootstrap-design-system)
 
 ## What it does
 
@@ -24,7 +24,7 @@ no spacing system) it stops and asks rather than making one up.
 
 ## When to reach for it
 
-You invoke this by typing `/bootstrap-design-system` — the agent won't reach for
+You invoke this by typing `/do-bootstrap-design-system` — the agent won't reach for
 it on its own. Pass overrides as `key:value` arguments (e.g.
 `route:/style-guide mood:"calm editorial" name:"Acme" framework:Astro`); anything
 you don't pass is auto-detected from the project.

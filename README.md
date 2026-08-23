@@ -7,16 +7,16 @@ This is a collection of skills that I've created or found valuable for my workfl
 
 ## Installation
 
-To keep is easy, I'm use [Skills.sh](https://skills.sh) for installation and updates.
+To keep this easy, I use [Skills.sh](https://skills.sh) for installation and updates.
 
 ```bash
-npx skills add edheltzel/skills
+npx skills add edheltzel/Do-Skills
 ```
 
 To install a specific skill (every skill name carries the `do-` prefix):
 
 ```bash
-npx skills add edheltzel/skills@do-<skill-name>
+npx skills add edheltzel/Do-Skills@do-<skill-name>
 ```
 
 If you want to install for a specific agents, use the option flags ie: `-a
@@ -32,14 +32,15 @@ I've also prefixed most of the skills with `do-` this way it is easier to identi
 
 ### Core
 
-Essential, stack-agnostic safeguards and adversarial-thinking tools reached for by default across setup, implementation, testing, review, and shipping.
+Foundational tools for every project and workbench - repo structure, agent maps, and review lenses.
 
 - [`do-adversarial-review`](./skills/core/do-adversarial-review/)
 - [`do-agent-context-layer`](./skills/core/do-agent-context-layer/)
 - [`do-agent-first-repo`](./skills/core/do-agent-first-repo/)
+- [`do-agents-md`](./skills/core/do-agents-md/)
+- [`do-architecture-md`](./skills/core/do-architecture-md/)
 - [`do-behavioral-testing`](./skills/core/do-behavioral-testing/)
 - [`do-first-principles`](./skills/core/do-first-principles/)
-- [`do-git-safe-pr-workflow`](./skills/core/do-git-safe-pr-workflow/)
 - [`do-red-team`](./skills/core/do-red-team/)
 - [`do-simplify`](./skills/core/do-simplify/)
 
@@ -50,6 +51,7 @@ Code design and implementation practices, from general principles to language-, 
 - [`do-bootstrap-design-system`](./skills/engineering/do-bootstrap-design-system/)
 - [`do-cleanup-swift`](./skills/engineering/do-cleanup-swift/)
 - [`do-cleanup-web`](./skills/engineering/do-cleanup-web/)
+- [`do-code-comments`](./skills/engineering/do-code-comments/)
 - [`do-coding-standards`](./skills/engineering/do-coding-standards/)
 - [`do-create-cli`](./skills/engineering/do-create-cli/)
 - [`do-design-patterns-gof`](./skills/engineering/do-design-patterns-gof/)
@@ -61,38 +63,40 @@ Code design and implementation practices, from general principles to language-, 
 - [`do-no-use-effect`](./skills/engineering/do-no-use-effect/)
 - [`do-parse-dont-validate`](./skills/engineering/do-parse-dont-validate/)
 - [`do-typescript-refactoring`](./skills/engineering/do-typescript-refactoring/)
+- [`do-ux-flow-plan`](./skills/engineering/do-ux-flow-plan/)
 - [`do-write-typescript`](./skills/engineering/do-write-typescript/)
 
-### Authoring
+### Content
 
-Producing and refining artifacts - technical prose, documentation, skills, and visual media.
+Audience-facing media - pictures, diagrams, video, motion, blog, and social.
 
-- [`do-agents-md`](./skills/authoring/do-agents-md/)
-- [`do-architecture-md`](./skills/authoring/do-architecture-md/)
-- [`do-art`](./skills/authoring/do-art/)
-- [`do-code-comments`](./skills/authoring/do-code-comments/)
-- [`do-distill-to-skill`](./skills/authoring/do-distill-to-skill/)
-- [`do-roughdraft`](./skills/authoring/do-roughdraft/)
-- [`do-tech-writing`](./skills/authoring/do-tech-writing/)
-- [`do-update-readme`](./skills/authoring/do-update-readme/)
-- [`do-ux-flow-plan`](./skills/authoring/do-ux-flow-plan/)
+- [`do-art`](./skills/content/do-art/)
+
+### Harness
+
+Modifying the coding-agent harness - distilling knowledge into reusable skills.
+
+- [`do-distill-to-skill`](./skills/harness/do-distill-to-skill/)
 
 ### Slop Guard
 
-Catching AI slop — restating output in plain human language and stripping jargon-heavy writing.
+Catching AI slop - restating output in plain human language and stripping jargon-heavy writing.
 
 - [`do-bro`](./skills/slop-guard/do-bro/)
 
 ### Workflow
 
-Source-control, pull-request, and project-tracking tooling for day-to-day delivery.
+Shipping process - commits, issues, PRs, specs, and draft review.
 
 - [`do-commit`](./skills/workflow/do-commit/)
 - [`do-commit-push`](./skills/workflow/do-commit-push/)
 - [`do-gh-pm`](./skills/workflow/do-gh-pm/)
 - [`do-gh-stack`](./skills/workflow/do-gh-stack/)
 - [`do-git-pr-review-triage`](./skills/workflow/do-git-pr-review-triage/)
+- [`do-git-safe-pr-workflow`](./skills/workflow/do-git-safe-pr-workflow/)
 - [`do-git-worktree`](./skills/workflow/do-git-worktree/)
+- [`do-roughdraft`](./skills/workflow/do-roughdraft/)
+- [`do-tech-writing`](./skills/workflow/do-tech-writing/)
 
 ### Operations
 
@@ -104,18 +108,24 @@ Operating AI agents and driving machines - delegation, evaluation, prompt audits
 - [`do-delegation`](./skills/operations/do-delegation/)
 - [`do-interceptor`](./skills/operations/do-interceptor/)
 
+### Personal
+
+Your non-portable extras.
+
+- [`do-recipe-diagrams`](./skills/personal/do-recipe-diagrams/)
+
 ### Private
 
-Scope, not topic: this repository's own tooling. Not portable.
+This repository's own tooling. Not portable.
 
-- [`do-recipe-diagrams`](./skills/private/do-recipe-diagrams/)
+- [`do-update-readme`](./skills/private/do-update-readme/)
 
 <!-- skills-end -->
 ### Archived
 
 No longer using.
 
-- [`do-karpathy-guidelines`](./skills/core/do-karpathy-guidelines/)
+- [`do-karpathy-guidelines`](./docs/core/karpathy-guidelines.md)
 
 
 ## Creating a Skill
@@ -130,12 +140,14 @@ skills/<bucket>/do-skill-name/
 
 Buckets group skills by purpose and scope:
 
-- `core/` - essential, stack-agnostic safeguards and adversarial-thinking tools reached for by default
+- `core/` - foundational tools for every project and workbench: repo structure, agent maps, review lenses
 - `engineering/` - code design and implementation craft, from general principles to stack-specific
-- `authoring/` - producing and refining artifacts: technical prose, documentation, skills, and visual media
+- `content/` - audience-facing media: pictures, diagrams, video, motion, blog, social
+- `harness/` - modifying the coding-agent harness: distilling knowledge into reusable skills
 - `slop-guard/` - catching AI slop: restating output in plain language and stripping jargon-heavy writing
-- `workflow/` - source-control, pull-request, and project-tracking tooling for day-to-day delivery
+- `workflow/` - shipping process: commits, issues, PRs, specs, draft review
 - `operations/` - operating AI agents and driving machines: delegation, evaluation, prompt audits, recall, and automation
+- `personal/` - your non-portable extras
 - `private/` - this repository's own tooling, not portable
 
 The `SKILL.md` file contains YAML frontmatter and markdown instructions:
@@ -154,7 +166,7 @@ description: A clear description of what this skill does and when to use it
 After adding, moving, or renaming a skill, regenerate the Available Skills section:
 
 ```bash
-bash skills/authoring/do-update-readme/update-readme.sh
+bash skills/private/do-update-readme/update-readme.sh
 ```
 
 ---

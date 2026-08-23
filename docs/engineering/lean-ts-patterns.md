@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-lean-ts-patterns
+npx skills add edheltzel/Do-Skills --skill=do-lean-ts-patterns
 ```
 
 ```bash
 npx skills update do-lean-ts-patterns
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-lean-ts-patterns)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-lean-ts-patterns)
 
 ## What it does
 
@@ -24,12 +24,12 @@ antfu ecosystems, so the patterns are ones that ship in real libraries.
 
 ## When to reach for it
 
-Type `/lean-ts-patterns`, or the agent reaches for it automatically when building
+Type `/do-lean-ts-patterns`, or the agent reaches for it automatically when building
 a CLI, logger, or utility from scratch, or when refactoring to shed dependencies.
 
 Reach for it when weight and dependency count matter — a published library, a CLI
 you don't want to bloat, infrastructure code that should be self-contained. For
-general day-to-day TypeScript style, use [typescript](./typescript.md); for
+general day-to-day TypeScript style, use [write-typescript](./write-typescript.md); for
 reshaping an existing project's structure, use
 [typescript-refactoring](./typescript-refactoring.md).
 
@@ -55,7 +55,7 @@ recipes in `references/`.
 ## Where it fits
 
 A specialist you reach for when building tooling, not a whole-codebase pass. It
-applies the [typescript](./typescript.md) style to the narrow world of
+applies the [write-typescript](./write-typescript.md) style to the narrow world of
 zero-dependency infrastructure, and complements
 [typescript-refactoring](./typescript-refactoring.md) when the refactor in
 question is "remove this dependency and inline what we actually use".

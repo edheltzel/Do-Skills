@@ -1,5 +1,5 @@
 # Private
 
-Scope, not topic: this repository's own tooling. Not portable.
+This repository's own tooling. Not portable.
 
-- [`do-recipe-diagrams`](./do-recipe-diagrams/)
+- [`do-update-readme`](./do-update-readme/)

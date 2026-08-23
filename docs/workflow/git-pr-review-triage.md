@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-git-pr-review-triage
+npx skills add edheltzel/Do-Skills --skill=do-git-pr-review-triage
 ```
 
 ```bash
 npx skills update do-git-pr-review-triage
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/workflow/do-git-pr-review-triage)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/workflow/do-git-pr-review-triage)
 
 ## What it does
 
@@ -22,7 +22,7 @@ or posts a reply, so you stay the one who decides and sends.
 
 ## When to reach for it
 
-Type `/git-pr-review-triage`, or the agent reaches for it automatically whenever
+Type `/do-git-pr-review-triage`, or the agent reaches for it automatically whenever
 you mention PR comments or code-review feedback — "review my PR comments", "triage
 this feedback", "go through my PR" — even without the word "triage".
 
@@ -52,6 +52,6 @@ it defers when you push back.
 ## Where it fits
 
 A reach-for-it-anytime standalone for the review stage of a PR. It comes after
-[git-safe-pr-workflow](../core/git-safe-pr-workflow.md) has opened the PR, and the
+[git-safe-pr-workflow](./git-safe-pr-workflow.md) has opened the PR, and the
 branch it triages was likely set up with
 [git-worktree](./git-worktree.md).

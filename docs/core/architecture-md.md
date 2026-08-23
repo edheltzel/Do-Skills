@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-architecture-md
+npx skills add edheltzel/Do-Skills --skill=do-architecture-md
 ```
 
 ```bash
 npx skills update do-architecture-md
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/authoring/do-architecture-md)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/core/do-architecture-md)
 
 ## What it does
 
@@ -24,11 +24,11 @@ year rather than synchronised with every PR.
 
 ## When to reach for it
 
-Type `/architecture-md`, or the agent reaches for it automatically when you ask to
+Type `/do-architecture-md`, or the agent reaches for it automatically when you ask to
 write an architecture doc, document the codebase structure, or draft a codemap.
 
 Reach for it when you need the bird's-eye map of a whole codebase. For the lean
-entry-point file that should *point* to this doc, use [agents-md](./agents-md.md); for
+entry-point file that should *point* to this doc, use [agents-md](../core/agents-md.md); for
 the surrounding agent-first documentation strategy, use
 [agent-first-repo](../core/agent-first-repo.md).
 
@@ -57,4 +57,4 @@ are more likely to be read and kept current.
 
 A run-once setup skill with a light twice-a-year refresh. It owns the architecture
 layer of [agent-first-repo](../core/agent-first-repo.md)'s knowledge hierarchy, sitting one
-level below the [agents-md](./agents-md.md) entry point that links to it.
+level below the [agents-md](../core/agents-md.md) entry point that links to it.

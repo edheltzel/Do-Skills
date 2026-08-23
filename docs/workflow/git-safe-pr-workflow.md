@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-git-safe-pr-workflow
+npx skills add edheltzel/Do-Skills --skill=do-git-safe-pr-workflow
 ```
 
 ```bash
 npx skills update do-git-safe-pr-workflow
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/core/do-git-safe-pr-workflow)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/workflow/do-git-safe-pr-workflow)
 
 ## What it does
 
@@ -23,7 +23,7 @@ for `git revert` over rewriting history whenever commits may already be pushed.
 
 ## When to reach for it
 
-Type `/git-safe-pr-workflow`, or the agent reaches for it automatically on
+Type `/do-git-safe-pr-workflow`, or the agent reaches for it automatically on
 triggers like "update my branch", "resolve git conflicts", "recover from a bad
 rebase", "undo a pushed commit", or "keep main clean".
 

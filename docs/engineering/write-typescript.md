@@ -3,18 +3,18 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-typescript
+npx skills add edheltzel/Do-Skills --skill=do-write-typescript
 ```
 
 ```bash
-npx skills update do-typescript
+npx skills update do-write-typescript
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-typescript)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-write-typescript)
 
 ## What it does
 
-`typescript` steers code toward TypeScript that is simple, clear, composable, and
+`write-typescript` steers code toward TypeScript that is simple, clear, composable, and
 soundly typed — small functions that combine, discriminated unions, explicit over
 clever. It borrows the good parts of a functional style without the dogma: the
 defining constraint is that readability wins over both cleverness and purity, so
@@ -24,7 +24,7 @@ code, that's a different skill (below).
 
 ## When to reach for it
 
-Type `/typescript`, or the agent reaches for it automatically when working in
+Type `/do-write-typescript`, or the agent reaches for it automatically when working in
 `.ts`, `.tsx`, `.mts`, or `.cts` files.
 
 Reach for it when you're *writing* TypeScript and want it to read cleanly the

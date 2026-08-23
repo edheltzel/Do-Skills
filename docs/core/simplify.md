@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-simplify
+npx skills add edheltzel/Do-Skills --skill=do-simplify
 ```
 
 ```bash
 npx skills update do-simplify
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/core/do-simplify)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/core/do-simplify)
 
 ## What it does
 
@@ -21,7 +21,7 @@ and error handling stay intact.
 
 ## When to reach for it
 
-Type `/simplify`, or the agent reaches for it after code has been written or
+Type `/do-simplify`, or the agent reaches for it after code has been written or
 modified and a behavior-preserving cleanup would help.
 
 Reach for it when nesting, vague names, duplicate logic, dead branches, or
@@ -54,7 +54,7 @@ mechanics out of the high-level call site.
 ## Where it fits
 
 A reach-for-it-anytime cleanup lens and a building block for the cleanup skills.
-It complements [code-comments](../authoring/code-comments.md): simplify until the code
+It complements [code-comments](../engineering/code-comments.md): simplify until the code
 explains the mechanics, then comment only the surviving rationale. Use
 [adversarial-review](./adversarial-review.md) afterward when correctness, rather
 than clarity, is the remaining question.

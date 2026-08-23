@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-modern-css
+npx skills add edheltzel/Do-Skills --skill=do-modern-css
 ```
 
 ```bash
 npx skills update do-modern-css
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-modern-css)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-modern-css)
 
 ## What it does
 
@@ -25,7 +25,7 @@ newer or cleaner.
 
 ## When to reach for it
 
-Type `/modern-css`, or the agent reaches for it automatically when writing or
+Type `/do-modern-css`, or the agent reaches for it automatically when writing or
 reviewing CSS.
 
 Reach for it whenever you're authoring stylesheets and want the current idiom

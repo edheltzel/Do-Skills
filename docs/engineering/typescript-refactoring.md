@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-typescript-refactoring
+npx skills add edheltzel/Do-Skills --skill=do-typescript-refactoring
 ```
 
 ```bash
 npx skills update do-typescript-refactoring
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-typescript-refactoring)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-typescript-refactoring)
 
 ## What it does
 
@@ -19,18 +19,18 @@ through small, verified steps — assess first, then transform one smell at a ti
 codebase-wide. Refactoring changes structure without changing behaviour, and the
 defining constraint enforces exactly that: a commit changes structure *or*
 behaviour, never both, and tests pass after every single step. Where
-[typescript](./typescript.md) defines what good code looks like, this skill
+[write-typescript](./write-typescript.md) defines what good code looks like, this skill
 defines how to get there from bad code without breaking it.
 
 ## When to reach for it
 
-Type `/typescript-refactoring`, or the agent reaches for it automatically when a
+Type `/do-typescript-refactoring`, or the agent reaches for it automatically when a
 task says "refactor this", "clean this up", "improve code quality", or you inherit
 a tangled project.
 
 Reach for it when the goal is *reshaping* existing code — extracting types,
 killing `any`, renaming for intent, splitting God files. For writing new code in
-the target style, use [typescript](./typescript.md) instead; for the type-driven
+the target style, use [write-typescript](./write-typescript.md) instead; for the type-driven
 principle it leans on at boundaries, see
 [parse-dont-validate](./parse-dont-validate.md).
 
@@ -61,7 +61,7 @@ alongside the old, migrate callers one at a time, delete the old when empty.
 ## Where it fits
 
 A project-level workhorse you reach for when quality has slipped, not a
-run-once setup. It sits directly on top of [typescript](./typescript.md) (its
+run-once setup. It sits directly on top of [write-typescript](./write-typescript.md) (its
 target state), leans on [parse-dont-validate](./parse-dont-validate.md) at Level
 6 boundaries, and pairs with
 [karpathy-guidelines](../core/karpathy-guidelines.md) for the surgical,

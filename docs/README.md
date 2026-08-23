@@ -7,11 +7,12 @@ a copy of the skill's `SKILL.md`.
 
 Only **promoted** buckets have docs pages:
 
-- [`core/`](./core/) - essential safeguards and adversarial-thinking tools
+- [`core/`](./core/) - foundational tools for every project and workbench
 - [`engineering/`](./engineering/) - general and stack-specific code craft
-- [`authoring/`](./authoring/) - technical prose, documentation, skills, and visual media
+- [`content/`](./content/) - audience-facing media: pictures, diagrams, video, motion, blog, social
+- [`harness/`](./harness/) - modifying the coding-agent harness
 - [`slop-guard/`](./slop-guard/) - corrective tools that strip jargon and AI slop from output
-- [`workflow/`](./workflow/) - source-control, pull-request, and project-tracking tooling
+- [`workflow/`](./workflow/) - shipping process: commits, issues, PRs, specs, draft review
 
 `operations/`, `personal/`, and `private/` are not promoted and have no docs pages.
 

@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-cleanup-web
+npx skills add edheltzel/Do-Skills --skill=do-cleanup-web
 ```
 
 ```bash
 npx skills update do-cleanup-web
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-cleanup-web)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-cleanup-web)
 
 ## What it does
 
@@ -25,7 +25,7 @@ busy.
 
 ## When to reach for it
 
-You invoke this by typing `/cleanup-web` — treat it as the thing you run when
+You invoke this by typing `/do-cleanup-web` — treat it as the thing you run when
 you're wrapping up. The agent may also reach for it when you signal you want to
 finalize or tidy web work, even without the word "cleanup". Don't use it for
 one-off edits, bug fixes, or active feature work.
@@ -49,7 +49,7 @@ before reviewing and reporting only through that lens:
 
 - **Simplification** ([simplify](../core/simplify.md)) — dead code, needless
   abstractions, and helpers whose names do not improve the call site.
-- **TypeScript** ([typescript](./typescript.md)) — sound types, `unknown` over
+- **TypeScript** ([write-typescript](./write-typescript.md)) — sound types, `unknown` over
   `any`, discriminated unions over `as`.
 - **Type-driven design** ([parse-dont-validate](./parse-dont-validate.md)) — push
   checks into types; make invalid states unrepresentable.
@@ -59,7 +59,7 @@ before reviewing and reporting only through that lens:
   fetching, memoization.
 - **CSS** ([modern-css](./modern-css.md)) — native CSS over JS, logical
   properties, container queries, no legacy hacks.
-- **Comment hygiene** ([code-comments](../authoring/code-comments.md)) — strip "what"
+- **Comment hygiene** ([code-comments](../engineering/code-comments.md)) — strip "what"
   comments and AI narration; keep "why".
 - **Correctness** ([adversarial-review](../core/adversarial-review.md)) —
   dropped guards, edge cases, async timing, stale callers, and other regressions
@@ -75,6 +75,6 @@ A periodic-maintenance skill — the closing bracket on a web coding session, wh
 the individual review skills it invokes are the per-topic standalones. It reaches
 across [simplify](../core/simplify.md),
 [adversarial-review](../core/adversarial-review.md),
-[typescript](./typescript.md), [parse-dont-validate](./parse-dont-validate.md),
+[write-typescript](./write-typescript.md), [parse-dont-validate](./parse-dont-validate.md),
 [no-use-effect](./no-use-effect.md), [modern-css](./modern-css.md), and
-[code-comments](../authoring/code-comments.md) so you don't have to run each by hand.
+[code-comments](../engineering/code-comments.md) so you don't have to run each by hand.

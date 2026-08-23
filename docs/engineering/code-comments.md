@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-code-comments
+npx skills add edheltzel/Do-Skills --skill=do-code-comments
 ```
 
 ```bash
 npx skills update do-code-comments
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/authoring/do-code-comments)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-code-comments)
 
 ## What it does
 
@@ -23,7 +23,7 @@ context that cannot live in the code itself.
 
 ## When to reach for it
 
-Type `/code-comments`, or the agent reaches for it automatically when adding
+Type `/do-code-comments`, or the agent reaches for it automatically when adding
 inline comments, docstrings, or API documentation.
 
 Reach for it when a comment would explain a non-obvious decision, guard an

@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-behavioral-testing
+npx skills add edheltzel/Do-Skills --skill=do-behavioral-testing
 ```
 
 ```bash
 npx skills update do-behavioral-testing
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/core/do-behavioral-testing)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/core/do-behavioral-testing)
 
 ## What it does
 
@@ -23,7 +23,7 @@ mock is allowed to exist.
 
 ## When to reach for it
 
-Type `/behavioral-testing`, or the agent reaches for it automatically when
+Type `/do-behavioral-testing`, or the agent reaches for it automatically when
 writing tests, planning a feature's test strategy, or reviewing a suite that has
 gone brittle.
 

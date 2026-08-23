@@ -27,7 +27,7 @@ You invoke this by typing `/do-bro` — the agent won't reach for it on its own.
 
 Reach for it when an answer is technically correct but too dense, abstract, or
 jargon-heavy to use. For setting a direct writing style before producing
-technical prose, use [tech-writing](../authoring/tech-writing.md) instead.
+technical prose, use [tech-writing](../workflow/tech-writing.md) instead.
 
 ## Say it like a person
 
@@ -44,6 +44,6 @@ concise, and coherent.
 ## Where it fits
 
 A user-invoked corrective pass in the Slop Guard bucket. It runs after a
-response needs repair; authoring skills such as
-[tech-writing](../authoring/tech-writing.md) shape content before or during
+response needs repair; workflow skills such as
+[tech-writing](../workflow/tech-writing.md) shape prose before or during
 creation.

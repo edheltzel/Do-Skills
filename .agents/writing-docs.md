@@ -1,9 +1,9 @@
 # Writing docs pages
 
-Every skill in a **promoted** bucket - `core/`, `engineering/`, `authoring/`,
-`slop-guard/`, or `workflow/` - has a human-facing **docs page** at
+Every skill in a **promoted** bucket - `core/`, `engineering/`, `content/`,
+`harness/`, `slop-guard/`, or `workflow/` - has a human-facing **docs page** at
 `docs/<bucket>/<base-slug>.md`, where `<base-slug>` is the skill's directory
-name **without** its `do-` prefix. The docs tree mirrors those five bucket
+name **without** its `do-` prefix. The docs tree mirrors those six bucket
 folders under `skills/`. `operations/`, `personal/`, and `private/` are **not**
 promoted and ship no docs page.
 
@@ -70,9 +70,9 @@ valuable on the page; never omit it.
 How and when you reach for the skill — two beats:
 
 - **Invocation mode.** Whether you type it or the agent fires it. User-invoked:
-  "You invoke this by typing `/<name>` — the agent won't reach for it on its
-  own." Model-invoked: "Type `/<name>`, or the agent reaches for it
-  automatically when a task fits."
+  "You invoke this by typing `/<dir-name>` — the agent won't reach for it on its
+  own." Model-invoked: "Type `/<dir-name>`, or the agent reaches for it
+  automatically when a task fits." The directory name includes the `do-` prefix.
 - **Trigger boundary.** "Reach for this when …". Where it's confusable with a
   sibling, add the other half — "for <X> instead, use
   [<sibling>](../<bucket>/<sibling>.md)."

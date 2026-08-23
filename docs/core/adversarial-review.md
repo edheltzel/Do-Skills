@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-adversarial-review
+npx skills add edheltzel/Do-Skills --skill=do-adversarial-review
 ```
 
 ```bash
 npx skills update do-adversarial-review
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/core/do-adversarial-review)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/core/do-adversarial-review)
 
 ## What it does
 
@@ -21,7 +21,7 @@ causes the failure. One reproducible bug beats ten plausible suspicions.
 
 ## When to reach for it
 
-Type `/adversarial-review`, or the agent reaches for it when reviewing a diff
+Type `/do-adversarial-review`, or the agent reaches for it when reviewing a diff
 before finalizing, pressure-testing recent changes, or answering “what could
 break?”
 
@@ -54,7 +54,7 @@ shapes; and one branch updated without its twin.
 ## Where it fits
 
 A read-only correctness lens for the end of a change. It complements
-[simplify](./simplify.md), [code-comments](../authoring/code-comments.md), and
+[simplify](./simplify.md), [code-comments](../engineering/code-comments.md), and
 [parse-dont-validate](../engineering/parse-dont-validate.md), each of which owns
 a different concern. It also runs as the correctness lens inside
 [cleanup-web](../engineering/cleanup-web.md) and

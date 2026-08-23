@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Regenerates the Available Skills section in README.md from SKILL.md frontmatters.
 # Skills live under skills/<bucket>/<skill>/SKILL.md; the section is grouped by bucket.
-# Usage: bash skills/authoring/do-update-readme/update-readme.sh
+# Usage: bash skills/private/do-update-readme/update-readme.sh
 set -euo pipefail
 
 ROOT="$(git -C "$(dirname "${BASH_SOURCE[0]}")" rev-parse --show-toplevel)"
@@ -10,16 +10,18 @@ SKILLS_DIR="$ROOT/skills"
 
 # Bucket render order and their one-line blurbs. Any bucket found on disk but not
 # listed here is appended alphabetically with no blurb.
-BUCKET_ORDER="core engineering authoring slop-guard workflow operations private"
+BUCKET_ORDER="core engineering content harness slop-guard workflow operations personal private"
 
 bucket_title() {
     case "$1" in
         core)         echo "Core" ;;
         engineering)  echo "Engineering" ;;
-        authoring)    echo "Authoring" ;;
+        content)      echo "Content" ;;
+        harness)      echo "Harness" ;;
         slop-guard)   echo "Slop Guard" ;;
         workflow)     echo "Workflow" ;;
         operations)   echo "Operations" ;;
+        personal)     echo "Personal" ;;
         private)      echo "Private" ;;
         *)            echo "$1" ;;
     esac
@@ -27,13 +29,15 @@ bucket_title() {
 
 bucket_blurb() {
     case "$1" in
-        core)         echo "Essential, stack-agnostic safeguards and adversarial-thinking tools reached for by default across setup, implementation, testing, review, and shipping." ;;
+        core)         echo "Foundational tools for every project and workbench - repo structure, agent maps, and review lenses." ;;
         engineering)  echo "Code design and implementation practices, from general principles to language-, framework-, and platform-specific craft." ;;
-        authoring)    echo "Producing and refining artifacts - technical prose, documentation, skills, and visual media." ;;
-        slop-guard)   echo "Catching AI slop — restating output in plain human language and stripping jargon-heavy writing." ;;
-        workflow)     echo "Source-control, pull-request, and project-tracking tooling for day-to-day delivery." ;;
+        content)      echo "Audience-facing media - pictures, diagrams, video, motion, blog, and social." ;;
+        harness)      echo "Modifying the coding-agent harness - distilling knowledge into reusable skills." ;;
+        slop-guard)   echo "Catching AI slop - restating output in plain human language and stripping jargon-heavy writing." ;;
+        workflow)     echo "Shipping process - commits, issues, PRs, specs, and draft review." ;;
         operations)   echo "Operating AI agents and driving machines - delegation, evaluation, prompt audits, memory recall, and browser or computer automation." ;;
-        private)      echo "Scope, not topic: this repository's own tooling. Not portable." ;;
+        personal)     echo "Your non-portable extras." ;;
+        private)      echo "This repository's own tooling. Not portable." ;;
         *)            echo "" ;;
     esac
 }

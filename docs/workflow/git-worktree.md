@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-git-worktree
+npx skills add edheltzel/Do-Skills --skill=do-git-worktree
 ```
 
 ```bash
 npx skills update do-git-worktree
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/workflow/do-git-worktree)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/workflow/do-git-worktree)
 
 ## What it does
 
@@ -22,7 +22,7 @@ working trees stay tidy and a worktree never gets mistaken for repo content.
 
 ## When to reach for it
 
-Type `/git-worktree`, or the agent reaches for it automatically when you ask to
+Type `/do-git-worktree`, or the agent reaches for it automatically when you ask to
 create, remove, or list a worktree. Given a bare branch name, it defaults to
 **create**.
 
@@ -47,7 +47,7 @@ ambiguous intent resolves to the non-destructive create.
 
 A reach-for-it-anytime standalone for managing where your branches live on disk.
 It pairs with the other Git workflow skills:
-[git-safe-pr-workflow](../core/git-safe-pr-workflow.md) governs how a branch syncs
+[git-safe-pr-workflow](./git-safe-pr-workflow.md) governs how a branch syncs
 and merges once you're working in it, and
 [git-pr-review-triage](./git-pr-review-triage.md) handles the review comments
 that come back on its PR.

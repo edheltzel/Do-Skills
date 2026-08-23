@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-distill-to-skill
+npx skills add edheltzel/Do-Skills --skill=do-distill-to-skill
 ```
 
 ```bash
 npx skills update do-distill-to-skill
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/authoring/do-distill-to-skill)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/harness/do-distill-to-skill)
 
 ## What it does
 
@@ -24,7 +24,7 @@ write code or make a call, not merely explain the source.
 
 ## When to reach for it
 
-Type `/distill-to-skill`, or the agent reaches for it automatically when you
+Type `/do-distill-to-skill`, or the agent reaches for it automatically when you
 share a URL, article, repo, or body of knowledge and ask to turn it into a
 reusable skill ("make a skill from this", "distill this into a skill").
 
@@ -61,8 +61,7 @@ layout, YAML, init scripts — hand off to `skill-creator`.
 
 ## Where it fits
 
-A reach-for-it-anytime standalone that feeds `skill-creator`: distill decides
-*what* the skill should say and how it's shaped, then skill-creator handles the
-scaffolding and packaging. It's the productivity-bucket counterpart to the
-authoring skills — where they format one file, this one decides what knowledge is
-worth encoding at all.
+A harness-modification skill that feeds `skill-creator`: distill decides *what*
+the skill should say and how it is shaped, then skill-creator handles
+scaffolding and packaging. It changes the agent's reusable knowledge rather than
+producing audience-facing content.

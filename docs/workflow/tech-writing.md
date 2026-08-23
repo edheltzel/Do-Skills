@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-tech-writing
+npx skills add edheltzel/Do-Skills --skill=do-tech-writing
 ```
 
 ```bash
 npx skills update do-tech-writing
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/authoring/do-tech-writing)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/workflow/do-tech-writing)
 
 ## What it does
 
@@ -24,13 +24,13 @@ fill.
 
 ## When to reach for it
 
-Type `/tech-writing`, or the agent reaches for it automatically when writing a
+Type `/do-tech-writing`, or the agent reaches for it automatically when writing a
 commit message, issue, PRD, spec, or PR description.
 
 Reach for it whenever you're producing technical prose and want it short and
 direct the first time. For the narrower question of what belongs in a code
-comment, use [code-comments](./code-comments.md); for the specific files
-[agents-md](./agents-md.md) and [architecture-md](./architecture-md.md)
+comment, use [code-comments](../engineering/code-comments.md); for the specific files
+[agents-md](../core/agents-md.md) and [architecture-md](../core/architecture-md.md)
 govern, use those — this skill sets the writing posture they all share.
 
 ## The rules that do the work
@@ -58,7 +58,7 @@ govern, use those — this skill sets the writing posture they all share.
 ## Where it fits
 
 A reach-for-it-anytime standalone for any technical prose, and the shared voice
-behind the documentation skills: [code-comments](./code-comments.md),
-[agents-md](./agents-md.md), and
-[architecture-md](./architecture-md.md) each format one artifact, while this
+behind the documentation skills: [code-comments](../engineering/code-comments.md),
+[agents-md](../core/agents-md.md), and
+[architecture-md](../core/architecture-md.md) each format one artifact, while this
 skill governs how the words in all of them should read.

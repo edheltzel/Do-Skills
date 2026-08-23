@@ -3,14 +3,14 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/skills --skill=do-cleanup-swift
+npx skills add edheltzel/Do-Skills --skill=do-cleanup-swift
 ```
 
 ```bash
 npx skills update do-cleanup-swift
 ```
 
-[Source](https://github.com/edheltzel/skills/tree/main/skills/engineering/do-cleanup-swift)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-cleanup-swift)
 
 ## What it does
 
@@ -24,7 +24,7 @@ clean, it says so and stops rather than inventing work.
 
 ## When to reach for it
 
-Type `/cleanup-swift`, or the agent reaches for it automatically when you signal
+Type `/do-cleanup-swift`, or the agent reaches for it automatically when you signal
 you're wrapping up Swift work — "clean up", "polish", "tidy", "finalize". It is
 explicitly *not* for one-off edits, bug fixes, or active feature work.
 
@@ -48,7 +48,7 @@ its own skill first and reviewing only through that lens:
   patterns only where they earn their weight.
 - **Platform conventions** ([macos-swift-desktop](./macos-swift-desktop.md)) —
   naming, ARC, AppKit/SwiftUI boundaries, threading, main-actor isolation.
-- **Comment hygiene** ([code-comments](../authoring/code-comments.md)) — strip "what"
+- **Comment hygiene** ([code-comments](../engineering/code-comments.md)) — strip "what"
   comments and AI narration; keep "why" only.
 - **Correctness** ([adversarial-review](../core/adversarial-review.md)) —
   dropped guards, edge cases, concurrency hazards, swallowed errors, stale

@@ -1,16 +1,7 @@
-# Karpathy Guidelines
+# Karpathy Guidelines (Archived)
 
-Quickstart:
-
-```bash
-npx skills add edheltzel/skills --skill=do-karpathy-guidelines
-```
-
-```bash
-npx skills update do-karpathy-guidelines
-```
-
-[Source](https://github.com/edheltzel/skills/tree/main/skills/core/do-karpathy-guidelines)
+This skill is archived and no longer shipped or installable. This page remains
+as a reference for the behavior it encoded.
 
 ## What it does
 
@@ -22,17 +13,10 @@ without a way to check. It doesn't teach a language or a framework; it changes
 caution over speed — it would rather the agent stop and ask than produce 200
 confident lines that solve a problem nobody posed.
 
-## When to reach for it
+## When it applied
 
-Type `/karpathy-guidelines`, or the agent reaches for it automatically when a
-task involves writing, reviewing, or refactoring code.
-
-Reach for it when you want an agent's output to stay small, surgical, and honest
-about its assumptions — especially on an unfamiliar or brownfield codebase where
-the temptation to "improve" adjacent code does real damage. For the language-level
-"how should this TypeScript actually read" question, use
-[typescript](../engineering/typescript.md) instead; this skill governs behaviour,
-not syntax.
+The skill applied to writing, reviewing, and refactoring code where an agent
+needed to stay small, surgical, and honest about assumptions.
 
 ## The four guidelines
 

@@ -4,14 +4,15 @@
   "groupings": [
     {
       "title": "Core",
-      "description": "Essential, stack-agnostic safeguards and adversarial-thinking tools reached for by default across setup, implementation, testing, review, and shipping.",
+      "description": "Foundational tools for every project and workbench - repo structure, agent maps, and review lenses.",
       "skills": [
         "do-adversarial-review",
         "do-agent-context-layer",
         "do-agent-first-repo",
+        "do-agents-md",
+        "do-architecture-md",
         "do-behavioral-testing",
         "do-first-principles",
-        "do-git-safe-pr-workflow",
         "do-red-team",
         "do-simplify"
       ]
@@ -23,47 +24,56 @@
         "do-bootstrap-design-system",
         "do-cleanup-swift",
         "do-cleanup-web",
+        "do-code-comments",
+        "do-coding-standards",
         "do-create-cli",
         "do-design-patterns-gof",
         "do-design-system",
+        "do-effect-service-design",
         "do-lean-ts-patterns",
         "do-macos-swift-desktop",
         "do-modern-css",
         "do-no-use-effect",
         "do-parse-dont-validate",
-        "do-typescript",
-        "do-typescript-refactoring"
+        "do-typescript-refactoring",
+        "do-ux-flow-plan",
+        "do-write-typescript"
       ]
     },
     {
-      "title": "Authoring",
-      "description": "Producing and refining artifacts - technical prose, documentation, skills, and visual media.",
+      "title": "Content",
+      "description": "Audience-facing media - pictures, diagrams, video, motion, blog, and social.",
       "skills": [
-        "do-agents-md",
-        "do-architecture-md",
-        "do-art",
-        "do-code-comments",
-        "do-distill-to-skill",
-        "do-roughdraft",
-        "do-tech-writing",
-        "do-update-readme"
+        "do-art"
+      ]
+    },
+    {
+      "title": "Harness",
+      "description": "Modifying the coding-agent harness - distilling knowledge into reusable skills.",
+      "skills": [
+        "do-distill-to-skill"
       ]
     },
     {
       "title": "Slop Guard",
-      "description": "Catching AI slop — restating output in plain human language and stripping jargon-heavy writing.",
+      "description": "Catching AI slop - restating output in plain human language and stripping jargon-heavy writing.",
       "skills": [
         "do-bro"
       ]
     },
     {
       "title": "Workflow",
-      "description": "Source-control, pull-request, and project-tracking tooling for day-to-day delivery.",
+      "description": "Shipping process - commits, issues, PRs, specs, and draft review.",
       "skills": [
+        "do-commit",
+        "do-commit-push",
+        "do-gh-pm",
         "do-gh-stack",
         "do-git-pr-review-triage",
+        "do-git-safe-pr-workflow",
         "do-git-worktree",
-        "do-pm"
+        "do-roughdraft",
+        "do-tech-writing"
       ]
     },
     {
@@ -75,6 +85,20 @@
         "do-context-search",
         "do-delegation",
         "do-interceptor"
+      ]
+    },
+    {
+      "title": "Personal",
+      "description": "Your non-portable extras.",
+      "skills": [
+        "do-recipe-diagrams"
+      ]
+    },
+    {
+      "title": "Private",
+      "description": "This repository's own tooling. Not portable.",
+      "skills": [
+        "do-update-readme"
       ]
     }
   ]
