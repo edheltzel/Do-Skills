@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill buckets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --font-display: 'Fraunces', 'Georgia', serif;
+    --font-mono: 'Source Code Pro', 'SF Mono', Consolas, monospace;
+    --font-body: 'Fraunces', 'Georgia', serif;
+
+    --bg: #faf7f5;
+    --surface: #fffdfb;
+    --surface2: #f3ece6;
+    --surface-elevated: #fff9f4;
+    --border: rgba(61, 36, 24, 0.08);
+    --border-bright: rgba(61, 36, 24, 0.16);
+    --text: #2a1d16;
+    --text-dim: #7a6558;
+    --accent: #c2410c;
+    --accent-dim: rgba(194, 65, 12, 0.08);
+    --sage: #4d7c0f;
+    --sage-dim: rgba(77, 124, 15, 0.1);
+    --ink: #5c4a3d;
+    --ink-dim: rgba(92, 74, 61, 0.1);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1410;
+      --surface: #241c17;
+      --surface2: #2d231c;
+      --surface-elevated: #322820;
+      --border: rgba(255, 236, 220, 0.07);
+      --border-bright: rgba(255, 236, 220, 0.14);
+      --text: #f4e8de;
+      --text-dim: #c4b0a0;
+      --accent: #ea8a4a;
+      --accent-dim: rgba(234, 138, 74, 0.14);
+      --sage: #a3d16a;
+      --sage-dim: rgba(163, 209, 106, 0.12);
+      --ink: #d9c4b2;
+      --ink-dim: rgba(217, 196, 178, 0.1);
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse at 18% 0%, var(--accent-dim) 0%, transparent 48%),
+      radial-gradient(ellipse at 88% 100%, var(--sage-dim) 0%, transparent 42%),
+      repeating-linear-gradient(-45deg, transparent, transparent 46px, var(--border) 46px, var(--border) 47px);
+    color: var(--text);
+    font-family: var(--font-body);
+    padding: 40px;
+    min-height: 100vh;
+    overflow-wrap: break-word;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeScale {
+    from { opacity: 0; transform: scale(0.94); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .animate {
+    animation: fadeUp 0.35s ease-out both;
+    animation-delay: calc(var(--i, 0) * 0.04s);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  .wrap {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 0 40px;
+  }
+
+  .main { min-width: 0; }
+
+  .toc {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+    padding: 14px 0;
+    grid-row: 1 / -1;
+    max-height: calc(100dvh - 48px);
+    overflow-y: auto;
+  }
+
+  .toc::-webkit-scrollbar { width: 3px; }
+  .toc::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 2px; }
+
+  .toc-title {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    padding: 0 0 10px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .toc a {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 5px;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+    line-height: 1.4;
+    margin-bottom: 1px;
+  }
+
+  .toc a:hover { color: var(--text); background: var(--surface2); }
+  .toc a.active { color: var(--text); border-left-color: var(--accent); }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: 42px;
+    font-weight: 400;
+    letter-spacing: -0.6px;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    margin-bottom: 28px;
+  }
+
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .kpi-card {
+    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(61, 36, 24, 0.05);
+    animation: fadeScale 0.35s ease-out both;
+    animation-delay: calc(var(--i, 0) * 0.06s);
+    min-width: 0;
+  }
+
+  .kpi-card__value {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .kpi-card__label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text-dim);
+    margin-top: 6px;
+  }
+
+  .sec-head {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+    margin: 36px 0 12px;
+    scroll-margin-top: 24px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .sec-count {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.4px;
+  }
+
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    animation: fadeUp 0.35s ease-out both;
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .data-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  .data-table th {
+    background: var(--surface2);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text-dim);
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--border-bright);
+    white-space: nowrap;
+  }
+
+  .data-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    font-size: 15px;
+    font-weight: 400;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .data-table tbody tr:last-child td { border-bottom: none; }
+
+  .data-table .wide {
+    min-width: 200px;
+    max-width: 480px;
+  }
+
+  .data-table tbody tr:nth-child(even) {
+    background: var(--accent-dim);
+  }
+
+  .data-table tbody tr {
+    transition: background 0.15s ease;
+  }
+
+  .data-table tbody tr:hover {
+    background: var(--border);
+  }
+
+  .data-table code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    padding: 1px 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+
+  .status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .status--user {
+    background: var(--accent-dim);
+    color: var(--accent);
+  }
+
+  .status--both {
+    background: var(--sage-dim);
+    color: var(--sage);
+  }
+
+  .status--agent {
+    background: var(--ink-dim);
+    color: var(--ink);
+  }
+
+  .page-foot {
+    margin-top: 40px;
+    padding: 20px 0 8px;
+    border-top: 1px solid var(--border-bright);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .page-foot code {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  @media (max-width: 1000px) {
+    .wrap { grid-template-columns: 1fr; padding-top: 0; }
+    body { padding: 16px; padding-top: 0; }
+
+    .toc {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      max-height: none;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+      margin: 0 -16px;
+      padding-left: 16px;
+      padding-right: 16px;
+      grid-row: auto;
+    }
+    .toc::-webkit-scrollbar { display: none; }
+    .toc-title { display: none; }
+
+    .toc a {
+      white-space: nowrap;
+      flex-shrink: 0;
+      border-left: none;
+      border-bottom: 2px solid transparent;
+      border-radius: 4px 4px 0 0;
+      padding: 6px 10px;
+      font-size: 10px;
+    }
+    .toc a.active {
+      border-left: none;
+      border-bottom-color: var(--accent);
+      background: var(--surface);
+    }
+
+    .main { padding-top: 20px; }
+    .sec-head { scroll-margin-top: 52px; }
+    .kpi-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    h1 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="toc" id="toc">
+    <div class="toc-title">Buckets</div>
+    <a href="#core">Core</a>
+    <a href="#engineering">Engineering</a>
+    <a href="#content">Content</a>
+    <a href="#harness">Harness</a>
+    <a href="#slop-guard">Slop Guard</a>
+    <a href="#workflow">Workflow</a>
+    <a href="#operations">Operations</a>
+    <a href="#personal">Personal</a>
+    <a href="#private">Private</a>
+  </nav>
+
+  <div class="main">
+    <h1 class="animate" style="--i:0">Skill buckets</h1>
+    <p class="subtitle animate" style="--i:1">45 skills · nine buckets · origin/master 4439137</p>
+
+    <div class="kpi-row">
+      <div class="kpi-card" style="--i:0">
+        <div class="kpi-card__value">45</div>
+        <div class="kpi-card__label">Skills</div>
+      </div>
+      <div class="kpi-card" style="--i:1">
+        <div class="kpi-card__value" style="color:var(--accent)">4</div>
+        <div class="kpi-card__label">User</div>
+      </div>
+      <div class="kpi-card" style="--i:2">
+        <div class="kpi-card__value" style="color:var(--sage)">1</div>
+        <div class="kpi-card__label">User or agent</div>
+      </div>
+      <div class="kpi-card" style="--i:3">
+        <div class="kpi-card__value">40</div>
+        <div class="kpi-card__label">Agent</div>
+      </div>
+    </div>
+
+    <h2 id="core" class="sec-head">Core <span class="sec-count">9</span></h2>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th class="wide">Description</th>
+              <th class="wide">Behavior</th>
+              <th>Invoked by</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>do-adversarial-review</code></td>
+              <td class="wide">Hunt correctness bugs and regressions in a change set.</td>
+              <td class="wide">Reads the diff and reports triggerable findings only.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-agent-context-layer</code></td>
+              <td class="wide">Structure a repo's docs so an agent can navigate with ICM rules.</td>
+              <td class="wide">Turns AGENTS/CLAUDE into a routing catalogue, not a dump.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-agent-first-repo</code></td>
+              <td class="wide">Make a repository and its docs work for coding agents.</td>
+              <td class="wide">Sets knowledge hierarchy, disclosure, and entropy rules.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-agents-md</code></td>
+              <td class="wide">Write the root AGENTS.md coding-agent map.</td>
+              <td class="wide">Produces a short command-and-boundary file, not a manual.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-architecture-md</code></td>
+              <td class="wide">Generate a stable ARCHITECTURE.md codemap.</td>
+              <td class="wide">Names modules, boundaries, and invariants; no stale links.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-behavioral-testing</code></td>
+              <td class="wide">Test what users observe, not how code is structured.</td>
+              <td class="wide">Writes or reviews tests against visible behavior.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-first-principles</code></td>
+              <td class="wide">Rebuild a problem from hard constraints, not analogy.</td>
+              <td class="wide">Classifies constraints vs assumptions, then reconstructs.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-red-team</code></td>
+              <td class="wide">Attack an idea with parallel adversarial agents.</td>
+              <td class="wide">Breaks claims, steelmans, ranks findings with fixes.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-simplify</code></td>
+              <td class="wide">Clarify recently changed code without changing behavior.</td>
+              <td class="wide">Edits the latest diff until intent is obvious.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 id="engineering" class="sec-head">Engineering <span class="sec-count">17</span></h2>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th class="wide">Description</th>
+              <th class="wide">Behavior</th>
+              <th>Invoked by</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>do-bootstrap-design-system</code></td>
+              <td class="wide">Generate DESIGN.md plus a live HTML style guide.</td>
+              <td class="wide">Discovers tokens, writes the spec, verifies the page.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-cleanup-swift</code></td>
+              <td class="wide">End-of-session Swift cleanup.</td>
+              <td class="wide">Reviews this session's Swift files for simplify, types, platform, comments.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-cleanup-web</code></td>
+              <td class="wide">End-of-session TypeScript/React/CSS cleanup.</td>
+              <td class="wide">Reviews this session's web files across those same lenses.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-code-comments</code></td>
+              <td class="wide">Write why/invariant comments next to code.</td>
+              <td class="wide">Adds durable rationale; deletes narration and restated <code>what</code>.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-coding-standards</code></td>
+              <td class="wide">Correct-by-construction TypeScript and Effect rules.</td>
+              <td class="wide">Parses inputs, makes failures explicit, keeps effects in services.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-create-cli</code></td>
+              <td class="wide">Scaffold a production TypeScript CLI.</td>
+              <td class="wide">Emits one of three tiers: manual args, Commander, or oclif.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-design-patterns-gof</code></td>
+              <td class="wide">Field guide to the 23 GoF patterns.</td>
+              <td class="wide">Names the shape, tradeoffs, and when not to use it.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-design-system</code></td>
+              <td class="wide">Build accessible, themeable UI components.</td>
+              <td class="wide">Designs API, tokens, a11y, and interaction for reusable UI.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-effect-service-design</code></td>
+              <td class="wide">Design Effect services as authority seams.</td>
+              <td class="wide">Owns contract, construction, Layer, and honest test impl.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-lean-ts-patterns</code></td>
+              <td class="wide">Zero-dependency TypeScript tools and libraries.</td>
+              <td class="wide">Builds CLIs, fetch wrappers, loggers without extra packages.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-macos-swift-desktop</code></td>
+              <td class="wide">Native macOS AppKit/SwiftUI app patterns.</td>
+              <td class="wide">Implements windows, documents, menus, persistence, sandbox.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-modern-css</code></td>
+              <td class="wide">Native CSS instead of JS and legacy hacks.</td>
+              <td class="wide">Replaces old patterns with current layout, color, selectors.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-no-use-effect</code></td>
+              <td class="wide">Stop unnecessary React <code>useEffect</code>.</td>
+              <td class="wide">Steers to derived state, handlers, keys, and query APIs.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-parse-dont-validate</code></td>
+              <td class="wide">Make illegal states unrepresentable at boundaries.</td>
+              <td class="wide">Parses input into types instead of checking and hoping.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-typescript-refactoring</code></td>
+              <td class="wide">Systematic TypeScript readability and type-safety rewrite.</td>
+              <td class="wide">Assesses, prioritizes, and refactors without drive-by churn.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-ux-flow-plan</code></td>
+              <td class="wide">Plan from UX trees, then attach code anchors.</td>
+              <td class="wide">Builds current/desired flow trees, then files and functions.</td>
+              <td><span class="status status--both">User or agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-write-typescript</code></td>
+              <td class="wide">Write simple, composable, soundly typed TypeScript.</td>
+              <td class="wide">Prefers small functions, unions, and readable control flow.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 id="content" class="sec-head">Content <span class="sec-count">1</span></h2>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th class="wide">Description</th>
+              <th class="wide">Behavior</th>
+              <th>Invoked by</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>do-art</code></td>
+              <td class="wide">Static visuals: diagrams, mermaid, infographics, comics, icons, wallpaper.</td>
+              <td class="wide">Generates still images/diagrams; not locked channel thumbs or video.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 id="harness" class="sec-head">Harness <span class="sec-count">1</span></h2>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th class="wide">Description</th>
+              <th class="wide">Behavior</th>
+              <th>Invoked by</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>do-distill-to-skill</code></td>
+              <td class="wide">Turn a source into a reusable agent skill.</td>
+              <td class="wide">Extracts decision rules; does not package the skill folder.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 id="slop-guard" class="sec-head">Slop Guard <span class="sec-count">1</span></h2>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th class="wide">Description</th>
+              <th class="wide">Behavior</th>
+              <th>Invoked by</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>do-bro</code></td>
+              <td class="wide">Restate the last answer in plain human language.</td>
+              <td class="wide">Rewrites only the previous response; adds no new claims.</td>
+              <td><span class="status status--user">User</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 id="workflow" class="sec-head">Workflow <span class="sec-count">9</span></h2>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th class="wide">Description</th>
+              <th class="wide">Behavior</th>
+              <th>Invoked by</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>do-commit</code></td>
+              <td class="wide">Commit local changes with Conventional Commits.</td>
+              <td class="wide">Stages intended files and creates the commit; does not push.</td>
+              <td><span class="status status--user">User</span></td>
+            </tr>
+            <tr>
+              <td><code>do-commit-push</code></td>
+              <td class="wide">Commit then push to the intended remote.</td>
+              <td class="wide">Same commit gates, then push and confirm upstream.</td>
+              <td><span class="status status--user">User</span></td>
+            </tr>
+            <tr>
+              <td><code>do-gh-pm</code></td>
+              <td class="wide">Drive GitHub Projects v2 from <code>gh</code>.</td>
+              <td class="wide">Creates boards, items, fields, and Epic→Feature→Task recipes.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-gh-stack</code></td>
+              <td class="wide">Manage stacked PRs with gh-stack.</td>
+              <td class="wide">Creates, syncs, rebases, submits, or splits stacked branches.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-git-pr-review-triage</code></td>
+              <td class="wide">Triage PR review comments.</td>
+              <td class="wide">Classifies feedback and drafts replies; does not apply patches.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-git-safe-pr-workflow</code></td>
+              <td class="wide">Safe GitHub PR flow for low-experience Git.</td>
+              <td class="wide">Syncs, resolves, undoes, and lands without wrecking <code>main</code>.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-git-worktree</code></td>
+              <td class="wide">Create, list, remove worktrees under <code>~/.git-worktrees</code>.</td>
+              <td class="wide">Adds or removes <code>~/.git-worktrees/&lt;repo&gt;/&lt;branch&gt;</code>.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-roughdraft</code></td>
+              <td class="wide">Open a markdown file in the roughdraft review CLI.</td>
+              <td class="wide">Starts the local editor and waits for human review.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-tech-writing</code></td>
+              <td class="wide">Write terse commits, issues, PRDs, specs, and PRs.</td>
+              <td class="wide">Cuts filler and leads with the point.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 id="operations" class="sec-head">Operations <span class="sec-count">5</span></h2>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th class="wide">Description</th>
+              <th class="wide">Behavior</th>
+              <th>Invoked by</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>do-bitter-pill</code></td>
+              <td class="wide">Audit AI instruction sets for over-prompting.</td>
+              <td class="wide">Classifies each rule CUT/RESOLVE/MERGE/EVALUATE/SHARPEN/MOVE/KEEP.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-browser</code></td>
+              <td class="wide">Automate Chrome via chrome-devtools-axi.</td>
+              <td class="wide">Opens, snapshots, clicks, fills, screenshots, inspects network.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-context-search</code></td>
+              <td class="wide">Find prior project work in Recall.</td>
+              <td class="wide">Searches session memory; not the public web.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-delegation</code></td>
+              <td class="wide">Fan independent work across agents.</td>
+              <td class="wide">Dispatches, isolates, and synthesizes parallel agent work.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-interceptor</code></td>
+              <td class="wide">Drive real Chrome/Brave plus macOS Computer Use.</td>
+              <td class="wide">Verifies deploys and UI with real sessions, not CDP spoofing.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 id="personal" class="sec-head">Personal <span class="sec-count">1</span></h2>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th class="wide">Description</th>
+              <th class="wide">Behavior</th>
+              <th>Invoked by</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>do-recipe-diagrams</code></td>
+              <td class="wide">Render a recipe as a Cooking-for-Engineers PNG.</td>
+              <td class="wide">Builds a planar process graph and writes a ≥3840px table image.</td>
+              <td><span class="status status--user">User</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 id="private" class="sec-head">Private <span class="sec-count">1</span></h2>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th class="wide">Description</th>
+              <th class="wide">Behavior</th>
+              <th>Invoked by</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>do-update-readme</code></td>
+              <td class="wide">Regenerate this repo's Available Skills catalog.</td>
+              <td class="wide">Runs <code>skills/private/do-update-readme/update-readme.sh</code>.</td>
+              <td><span class="status status--agent">Agent</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p class="page-foot">
+      45 skills · User 4 · User or agent 1 · Agent 40<br>
+      User: <code>do-bro</code>, <code>do-commit</code>, <code>do-commit-push</code>, <code>do-recipe-diagrams</code><br>
+      User or agent: <code>do-ux-flow-plan</code>
+    </p>
+  </div>
+</div>
+
+<script>
+(function() {
+  const toc = document.getElementById('toc');
+  const links = toc.querySelectorAll('a');
+  const sections = [];
+
+  links.forEach(link => {
+    const id = link.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (el) sections.push({ id, el, link });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const match = sections.find(s => s.el === entry.target);
+        if (match) {
+          match.link.classList.add('active');
+          if (window.innerWidth <= 1000) {
+            match.link.scrollIntoView({
+              behavior: 'smooth', block: 'nearest', inline: 'center'
+            });
+          }
+        }
+      }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px' });
+
+  sections.forEach(s => observer.observe(s.el));
+
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const id = link.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', '#' + id);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
