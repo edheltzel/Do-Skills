@@ -7,9 +7,8 @@ description: >-
   layered context model, and the honest limits of doc-based context (what CI can and cannot
   enforce). Use when structuring AGENTS.md or CLAUDE.md as a routing catalogue, designing a
   docs/ tree for agent consumption, or making an existing repo's context legible to agents.
-  Triggers on: "ICM", "interpretable context methodology", "interpreted context", "agent context
-  layer", "structure AGENTS.md for agents", "make repo context legible", "context legibility",
-  "ICM for my codebase".
+  Do not use for requests to ICM, interview, or grill a folder, workspace, process, or codebase;
+  those route to icm-grill.
 ---
 
 # Agent Context Layer
@@ -32,8 +31,9 @@ staged pipeline.
 - For the **code side** of agent-first work (repo as single source of truth, mechanical
   enforcement of architecture via lint/CI, entropy management, quality scoring), use the
   `agent-first-repo` skill.
-- For building a **staged workflow workspace** where folder structure orchestrates a sequential
-  process (content pipelines, record libraries, knowledge bundles), use the `icm-architect` skill.
+- For an **ICM interview or workspace design** request, including "ICM this folder/codebase" or a
+  staged process, use `icm-grill`. It decides whether a workspace is justified and, if so, which
+  approved tree fits before creating folders.
 
 ## The three rules that do the work
 
@@ -96,7 +96,7 @@ than no docs, because agents follow them faithfully.
 | Topic | Skill | What it covers |
 |---|---|---|
 | Code-side agent-first work | `agent-first-repo` | Single source of truth, mechanical enforcement, entropy management, quality scoring |
-| Staged workflow workspaces | `icm-architect` | Numbered stage pipelines, record libraries, knowledge bundles |
+| ICM interviews and workspace design | `icm-grill` | Need test, frontier interview, and one approved tree or none |
 | Writing the entry file | `agents-md` | Structure, sections, anti-patterns for AGENTS.md |
 | Architecture docs | `architecture-md` | Codemap with boundaries, invariants, cross-cutting concerns |
 

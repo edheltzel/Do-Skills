@@ -12,7 +12,7 @@ Only **promoted** buckets have docs pages:
 - [`content/`](./content/) - audience-facing media: pictures, diagrams, video, motion, blog, social
 - [`harness/`](./harness/) - modifying the coding-agent harness
 - [`slop-guard/`](./slop-guard/) - corrective tools that strip jargon and AI slop from output
-- [`workflow/`](./workflow/) - shipping process: commits, issues, PRs, specs, draft review
+- [`workflow/`](./workflow/) - see the canonical grouping metadata in [`skills.sh.json`](../skills.sh.json)
 
 `operations/`, `personal/`, and `private/` are not promoted and have no docs pages.
 

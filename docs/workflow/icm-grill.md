@@ -1,0 +1,63 @@
+# ICM Grill
+
+Quickstart:
+
+```bash
+npx skills add edheltzel/Do-Skills --skill=icm-grill
+```
+
+```bash
+npx skills update icm-grill
+```
+
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/workflow/icm-grill)
+
+## What it does
+
+`icm-grill` interviews a process or folder until there is a shared
+understanding, then emits one of six ICM fleet trees: skill library,
+firstmate home, product-app pipeline, docs bundle, brownfield map
+overlay, or scout. The defining constraint is that the kit is a designer,
+not a catalog of product templates: you copy a stamp after the frontier is
+empty, and this skill never runs `icm new` or `icm init`.
+
+## When to reach for it
+
+Type `/icm-grill`, or the agent reaches for it when the ask is to ICM a
+folder, grill a workspace, or design one of those six trees. It is opt-in.
+It does not fire on ordinary project-add, and it stops if the work is once
+or twice.
+
+For a generic agent-first repo layout that is not ICM, use
+[agent-first-repo](../core/agent-first-repo.md). For writing `AGENTS.md`
+alone, use [agents-md](../core/agents-md.md).
+
+## The grill, then the stamp
+
+It works the design tree in frontier rounds. Each question gets a
+recommended answer. Disk facts are looked up; only decisions go to the
+human. Once the selected emission has a canonical glossary destination, terms
+land in one tracked active notes path as they settle, including applicable
+terms and decisions migrated from the earlier brief; a Firstmate home without
+a map skips glossary and decision-log collection and migration. The skill
+prefers `icm-grill-notes.md` and uses a collision-safe scratch path when that
+file is user-owned. Folders are not created until the human confirms the filled
+tree, and every planned path is re-read after approval before emission.
+
+Layer 0 stays `AGENTS.md`. Before an existing `CLAUDE.md` becomes a pointer,
+its unique rules move into `AGENTS.md` or the stamp's canonical catalog.
+
+## It's working if
+
+- Round 0 reports the existing tree before any human question.
+- A one-off or two-use job is refused instead of scaffolded.
+- The emitted tree is one of the six stamps, or an explicit "none".
+- Neither `icm new` nor `icm init` was run.
+
+## Where it fits
+
+A run-once design interview that sits beside the shipping workflow skills.
+Use it before the target ICM folders exist. Product-app and brownfield stamps
+can add those folders to an existing repository. After a pipeline exists,
+ordinary change work goes through [commit](./commit.md) and friends, not
+another grill.

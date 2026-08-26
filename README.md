@@ -13,10 +13,11 @@ To keep this easy, I use [Skills.sh](https://skills.sh) for installation and upd
 npx skills add edheltzel/Do-Skills
 ```
 
-To install a specific skill (every skill name carries the `do-` prefix):
+To install a specific skill, use its exact listed name. Most carry the `do-`
+prefix; `icm-grill` is intentionally unprefixed:
 
 ```bash
-npx skills add edheltzel/Do-Skills@do-<skill-name>
+npx skills add edheltzel/Do-Skills --skill=<skill-name>
 ```
 
 If you want to install for a specific agents, use the option flags ie: `-a
@@ -89,7 +90,7 @@ Catching AI slop - restating output in plain human language and stripping jargon
 
 ### Workflow
 
-Shipping process - commits, issues, PRs, specs, and draft review.
+Workspace design and change delivery - interviews, commits, issues, PRs, specs, and draft review.
 
 - [`do-commit`](./skills/workflow/do-commit/)
 - [`do-commit-push`](./skills/workflow/do-commit-push/)
@@ -101,6 +102,7 @@ Shipping process - commits, issues, PRs, specs, and draft review.
 - [`do-tech-writing`](./skills/workflow/do-tech-writing/)
 - [`do-tutorial-docs`](./skills/workflow/do-tutorial-docs/)
 - [`do-update-readme`](./skills/workflow/do-update-readme/)
+- [`icm-grill`](./skills/workflow/icm-grill/)
 
 ### Operations
 
@@ -130,7 +132,8 @@ No longer using.
 ## Creating a Skill
 
 Each skill lives in its own folder, grouped into a bucket under `skills/`. Every
-skill folder and its frontmatter `name:` carry the `do-` prefix:
+skill folder and its frontmatter `name:` carry the `do-` prefix, except
+`icm-grill`, which is named that way on purpose:
 
 ```
 skills/<bucket>/do-skill-name/
@@ -144,7 +147,7 @@ Buckets group skills by purpose and scope:
 - `content/` - audience-facing media: pictures, diagrams, video, motion, blog, social
 - `harness/` - modifying the coding-agent harness: distilling knowledge into reusable skills
 - `slop-guard/` - catching AI slop: restating output in plain language and stripping jargon-heavy writing
-- `workflow/` - shipping process: commits, issues, PRs, specs, draft review
+- `workflow/` - see its generated description under [Available Skills](#available-skills)
 - `operations/` - operating AI agents and driving machines: delegation, evaluation, prompt audits, recall, and automation
 - `personal/` - your non-portable extras
 - `private/` - this repository's own tooling, not portable

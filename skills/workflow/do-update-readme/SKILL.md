@@ -27,8 +27,9 @@ their folder.
 
 ## Script
 
-The generator is [`update-readme.sh`](./update-readme.sh) next to this file — it
-is the single source of truth. It reads each `SKILL.md`'s frontmatter, groups by
-the bucket folder under `skills/`, and derives the repo-relative link from each
-skill's path. Resolve the repo root with `git rev-parse --show-toplevel` so the
-script works from anywhere in the tree.
+The generator is [`update-readme.sh`](./update-readme.sh) next to this file. It
+reads each `SKILL.md`'s frontmatter, groups by the bucket folder under `skills/`,
+and derives the repo-relative link from each skill's path. Bucket descriptions
+have one owner in [`skills.sh.json`](../../../skills.sh.json), which the script
+reads while rendering. Resolve the repo root with `git rev-parse
+--show-toplevel` so the script works from anywhere in the tree.

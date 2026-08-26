@@ -66,7 +66,7 @@
     },
     {
       "title": "Workflow",
-      "description": "Shipping process - commits, issues, PRs, specs, and draft review.",
+      "description": "Workspace design and change delivery - interviews, commits, issues, PRs, specs, and draft review.",
       "skills": [
         "do-commit",
         "do-commit-push",
@@ -77,7 +77,8 @@
         "do-git-worktree",
         "do-tech-writing",
         "do-tutorial-docs",
-        "do-update-readme"
+        "do-update-readme",
+        "icm-grill"
       ]
     },
     {
