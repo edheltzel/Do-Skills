@@ -19,7 +19,7 @@ understanding, then emits one of six ICM fleet trees: skill library,
 firstmate home map, product-app pipeline, docs bundle, brownfield map
 overlay, or scout. The defining constraint is that the kit is a designer,
 not a catalog of product templates: you copy a stamp after the frontier is
-empty, and you never run `icm init` on a live product repo.
+empty, and this skill never runs `icm new` or `icm init`.
 
 ## When to reach for it
 
@@ -46,7 +46,7 @@ Layer 0 stays `AGENTS.md`. `CLAUDE.md` is a pointer, never a twin.
 - Round 0 reports the existing tree before any human question.
 - A one-off or two-use job is refused instead of scaffolded.
 - The emitted tree is one of the six stamps, or an explicit "none".
-- A live product repo was not given `icm init`.
+- Neither `icm new` nor `icm init` was run.
 
 ## Where it fits
 

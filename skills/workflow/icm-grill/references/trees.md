@@ -1,7 +1,8 @@
 # Six fleet trees
 
 Source: Firstmate scout `icm-template-map-scout`. Each is opt-in. None is
-required on project add. Pick one. Do not invent a seventh on the first ask.
+required on project add. Pick one or stop when none applies. Do not invent a
+seventh or use the designer as a fallback.
 
 Shared conventions for any tree that should pass the cloned ICMTemp kit:
 
@@ -10,8 +11,7 @@ Shared conventions for any tree that should pass the cloned ICMTemp kit:
 - Stages = `NN_slug` with `CONTEXT.md` + `references/` + `output/`.
 - Headings = Inputs, Process, Outputs, Review Gate, Verify.
 - Root dirs = `_config/`, `_templates/`, `shared/`, `stages/` when it is a pipeline.
-- Do not generate a designer (`00_intake` through `05_validation`) unless the
-  job is designing a workspace.
+- Do not generate the designer (`00_intake` through `05_validation`).
 
 Kit stage folder regex: `^\d{2}_[a-z0-9][a-z0-9_-]*$`. `01-audit-ia` fails
 `icm validate --strict`.
@@ -65,6 +65,7 @@ Do not run `icm init` here. Do not invent `stages/` for spawn/supervise. A
   docs/
   map/                              # optional overlay, never a second catalog
     CONTEXT.md
+    _meta/glossary.md
     objects/
       home.md
       project.md
@@ -100,6 +101,7 @@ Implementation writes **code in the subject tree** and a short note in
   _templates/
     run-brief.md
   shared/
+    glossary.md
     decision-log.md
     acceptance-log.md
   stages/
@@ -163,7 +165,9 @@ Do not bolt a fake pipeline onto a map so the CLI goes green.
   src/ ...                          # untouched by the overlay
   map/
     CONTEXT.md
-    _meta/schema.md
+    _meta/
+      glossary.md
+      schema.md
     _templates/
       object.md
       process.md
@@ -202,8 +206,7 @@ scout-workspace/                    # or data/<id>/ as the product shelf
 
 ## Designer vs stamp
 
-`icm new <empty-dir>` copies the six-stage **designer** (`00_intake` through
-`05_validation`). Its job is to design a project-specific ICM. Use it only
-when none of the six stamps fit.
-
-`icm init <existing>` copies that same designer into a live tree. Do not.
+ICMTemp's six-stage tree (`00_intake` through `05_validation`) is a
+**designer**, not a seventh stamp or a fallback. If none of the six stamps
+fits, stop and say that none applies. This skill never runs `icm new` or
+`icm init`.

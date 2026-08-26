@@ -32,12 +32,12 @@ confirm / emit.
 - **Do not create the target tree** (`_config/`, `stages/`, `map/`,
   `shared/`, ...) until the frontier is empty **and** the human confirms
   shared understanding.
-- Emit **one** of the six trees. Do not invent a seventh on the first ask.
-- **Never** `icm init` a live product repo or Firstmate home. That copies
-  the designer.
+- Emit **one** of the six trees. If none applies, record that conclusion and
+  stop. Do not invent a seventh or fall back to the designer.
+- **Never** run `icm new` or `icm init`. ICMTemp's designer is not a stamp.
 - Layer 0 is `AGENTS.md`. `CLAUDE.md` is a one-line pointer, never a twin.
-- Do not generate a designer (`00_intake` ... `05_validation`) unless the job
-  is designing a new workspace.
+- Do not generate a designer (`00_intake` ... `05_validation`). If the job is
+  a new workspace that is not one of the six, stop.
 - Pipeline stages use `NN_slug` (kit regex). Maps have no prefix.
 - No require-on-add. No Herdr lifecycle. No ICM twins.
 
@@ -133,10 +133,7 @@ System-level only. Write a one-pass `setup-questionnaire.md` in the notes.
 
 Show the filled target tree from [references/trees.md](references/trees.md).
 Wait for "yes, that is the shared understanding." Then emit that stamp.
-
-If the form is genuinely new, run the ICMTemp designer in an **empty**
-directory (`icm new`) and treat its scaffold plan as the thing to review.
-Never `icm init` onto a live tree.
+If none of the six applies, stop in Round 1 without creating a tree.
 
 ## Round 6 - walk / validate
 

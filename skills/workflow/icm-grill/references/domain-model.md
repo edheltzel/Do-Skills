@@ -5,8 +5,11 @@ challenge terms, invent edge cases, write the glossary the moment a term
 settles. Reading a glossary is not this file.
 
 During the grill, keep the glossary inside `icm-grill-notes.md`. After the
-human confirms and the stamp is emitted, move it to `shared/glossary.md`
-(or a Language section of root `CONTEXT.md` if the tree has no `shared/`).
+human confirms and the stamp is emitted, place it according to the stamp:
+
+- Skill library, product-app pipeline, docs bundle, or scout:
+  `shared/glossary.md`.
+- Firstmate home map or brownfield map overlay: `map/_meta/glossary.md`.
 
 Root `CONTEXT.md` stays routing. Do not dump the glossary there.
 
