@@ -14,7 +14,9 @@ support the fixed required topology, reject the stamp instead of adapting it.
 
 Shared conventions for any tree that should pass the cloned ICMTemp kit:
 
-- Layer 0 = `AGENTS.md`. Before replacing an existing `CLAUDE.md`, move every
+- Layer 0 = required `AGENTS.md`. If missing, add a thin catalog. If present,
+  preserve all unique content and merge only the exact additions approved in
+  the collision plan. Before replacing an existing `CLAUDE.md`, move every
   unique rule into `AGENTS.md` or the stamp's canonical catalog. Only then make
   `CLAUDE.md` a one-line pointer; never discard rules or create a twin.
 - Layer 1 = root `CONTEXT.md` (routing only).
@@ -68,7 +70,7 @@ skill-workspace/
       SKILL.md
       references/
       assets/                       # optional
-  stages/                           # only if authoring is repeating
+  stages/                           # conditional: authoring is repeating
     00_intake/        output/skill-brief.md
     01_outline/       output/skill-outline.md
     02_draft/         output/SKILL.md
@@ -120,7 +122,7 @@ Implementation writes **code in the subject tree** and a short note in
 
 ```text
 <app>/
-  AGENTS.md                         # existing product catalog stays Layer 0
+  AGENTS.md                         # Layer 0: add thin or preserve/merge safely
   CLAUDE.md                         # conditional: existing or tool-required pointer
   CONTEXT.md                        # route: bug | feature | release
   src/ ... tests/ ...               # subject tree; ICM does not move it

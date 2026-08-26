@@ -27,21 +27,25 @@ Load [references/trees.md](references/trees.md) and
 - Ask the current **frontier** only. Number every question. Give a
   recommended answer each time. Wait before the next round.
 - Persist working docs in one tracked **active notes path** at the target root
-  or cwd. Prefer `icm-grill-notes.md`. First resolve the target root to one
-  absolute, normalized, symlink-resolved path. Start every notes file this
-  skill creates with
-  `<!-- icm-grill-notes:v2 status=incomplete target="<canonical-target>" -->`.
+  or cwd. Prefer `icm-grill-notes.md`. Canonicalize the target without creating
+  it: make the path absolute and lexically normalized, resolve its deepest
+  existing ancestor to a physical symlink-resolved path, then append the
+  normalized unresolved suffix. Hash that exact canonical path as UTF-8 with
+  SHA-256 and lowercase hexadecimal, with no trailing newline. Record only the
+  digest, never the path, in
+  `<!-- icm-grill-notes:v3 status=incomplete target-sha256="<digest>" -->`.
   Before creating a new scratch file, search the target root and cwd for marked
-  `icm-grill-notes*.md` files. Resume only a `v2` file whose status is
-  `incomplete` and whose recorded target exactly matches this invocation's
-  canonical target. Ignore notes recorded for another target. Never resume
-  `status=done-no-tree`. A targetless `v1` marker is legacy: never resume it
-  automatically. Show its path and require confirmation that it belongs to
-  this target; after confirmation, replace its marker with the matching `v2`
-  marker before writing anything else. Resume a single matching scratch; if
-  several match, ask which one. If the preferred path exists and is not
-  skill-owned, do not overwrite it. Once selected, use the same active notes
-  path for every later write.
+  `icm-grill-notes*.md` files. Resume only an incomplete `v3` file whose digest
+  exactly matches this invocation. Ignore notes recorded for another target.
+  Never resume `status=done-no-tree`. A targetless `v1` marker is legacy: never
+  resume it automatically. Show its path and require confirmation that it
+  belongs to this target, then replace its marker with the matching `v3`
+  marker before writing anything else. A `v2` marker containing a raw target
+  path is also legacy: resume it only when that path exactly matches the
+  canonical target, and replace it with the matching `v3` marker before any
+  other write. Resume a single matching scratch; if several match, ask which
+  one. If the preferred path exists and is not skill-owned, do not overwrite
+  it. Once selected, use the same active notes path for every later write.
   Write the brief, glossary, stage-map or map-plan, and decision log **as they
   land**. Write a questionnaire only for stamps with `_config/`. Do not batch
   them at the end. After a successful emission, move every fact into its
@@ -75,8 +79,11 @@ Load [references/trees.md](references/trees.md) and
 - Emit **one** of the six trees. If none applies, record that conclusion and
   stop. Do not invent a seventh or fall back to the designer.
 - **Never** run `icm new` or `icm init`. ICMTemp's designer is not a stamp.
-- Layer 0 is `AGENTS.md`. Before replacing an existing `CLAUDE.md`, move every
-  unique rule into `AGENTS.md` or the stamp's canonical catalog. Only then make
+- Layer 0 is a required `AGENTS.md`; its absence does not disqualify a stamp.
+  If it is missing, add a thin catalog. If it exists, preserve every unique
+  rule and propose any needed catalog merge in the Round 8 collision plan;
+  never clobber it. Before replacing an existing `CLAUDE.md`, move every unique
+  rule into `AGENTS.md` or the stamp's canonical catalog. Only then make
   `CLAUDE.md` a one-line pointer; never discard rules or create twin catalogs.
 - Do not generate a designer (`00_intake` ... `05_validation`). If the job is
   a new workspace that is not one of the six, stop.
