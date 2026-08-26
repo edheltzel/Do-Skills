@@ -10,14 +10,23 @@ move it to the stamp's canonical home:
 
 - Skill library, product-app pipeline, docs bundle, or scout:
   `shared/glossary.md`.
-- Firstmate home map or brownfield map overlay: `map/_meta/glossary.md`.
+- Brownfield map overlay, or firstmate-home when this emit includes `map/`:
+  `map/_meta/glossary.md`.
+- Firstmate-home with no map overlay: do not emit a glossary file.
+
+Move the working decision log to `shared/decision-log.md` when the stamp has
+`shared/`. Use `map/_meta/decision-log.md` only when this emit includes a
+`map/` overlay. A firstmate-home with no map does not get a decision-log file.
+Never create a root decision log.
 
 Root `CONTEXT.md` stays routing. Do not dump the glossary there.
-After every working fact has moved to its canonical stamp file, delete the
-active notes file only if this invocation created it or recognized it as
-skill-owned by the required marker when resuming. Never delete or clobber a
-user-owned notes file. Never copy the notes into the emitted tree; the walk
-test must find one home for each fact.
+After every working fact has moved to its canonical stamp file, retain the
+active notes through the Round 9 walk test and any strict validation required
+for a tree with `stages/`. Delete it only after those checks succeed and only
+if this invocation created it or recognized it as skill-owned by the required
+marker when resuming. Never delete or clobber a user-owned notes file. Never
+copy the notes into the emitted tree; the walk test must find one home for each
+fact.
 
 ## Challenge
 

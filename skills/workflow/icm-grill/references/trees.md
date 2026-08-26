@@ -73,7 +73,8 @@ skill-workspace/
 Repeating unit is a home + its projects, not a run.
 
 Do not run `icm init` here. Do not invent `stages/` for spawn/supervise. A
-`map/` is only justified if later agents keep getting lost.
+`map/` is only justified if later agents keep getting lost. If this emit has
+no `map/`, do not write glossary or decision-log under `map/_meta/`.
 
 ```text
 <home>/
@@ -83,7 +84,9 @@ Do not run `icm init` here. Do not invent `stages/` for spawn/supervise. A
   docs/
   map/                              # optional overlay, never a second catalog
     CONTEXT.md
-    _meta/glossary.md
+    _meta/
+      glossary.md
+      decision-log.md
     objects/
       home.md
       project.md
@@ -149,6 +152,7 @@ docs-workspace/
     review-note.md
   shared/
     glossary.md
+    decision-log.md
   corpus/                           # raw sources + checkbox index
   bundle/                           # navigable product
     index.md
@@ -192,6 +196,7 @@ Do not bolt a fake pipeline onto a map so the CLI goes green.
     CONTEXT.md
     _meta/
       glossary.md
+      decision-log.md
       schema.md
     _templates/
       object.md

@@ -38,10 +38,15 @@ Load [references/trees.md](references/trees.md) and
   Write the brief, glossary, stage-map or map-plan, and decision log **as they
   land**. Write a questionnaire only for stamps with `_config/`. Do not batch
   them at the end. After a successful emission, move every fact into its
-  canonical stamp file and delete the active notes file only when this
-  invocation created it or recognized it as skill-owned by that marker when
-  resuming. Never delete or clobber a user-owned notes file. Do not copy the
-  notes into the emitted tree.
+  canonical stamp file. The decision log belongs in `shared/decision-log.md`
+  when the stamp has `shared/`. Use `map/_meta/decision-log.md` only when this
+  emit includes a `map/` overlay. A firstmate-home with no map does not get a
+  glossary or decision-log file. Never create a root decision log. Delete the
+  active notes file only after all applicable Round 9 checks succeed and only
+  when this invocation created it or recognized it as skill-owned by that
+  marker when resuming. Retain it while emission or validation is incomplete.
+  Never delete or clobber a user-owned notes file. Do not copy the notes into
+  the emitted tree.
 - **Do not create the target tree** (`_config/`, `stages/`, `map/`,
   `shared/`, ...) until the frontier is empty **and** the human confirms
   shared understanding.
@@ -49,7 +54,10 @@ Load [references/trees.md](references/trees.md) and
   path-by-path collision plan for every file the stamp would add or modify,
   including the exact merge or replacement proposed. A confirmed tree shape
   is not permission to overwrite anything; obtain explicit confirmation for
-  each merge or replacement.
+  each merge or replacement. A stamp node is optional only when
+  [references/trees.md](references/trees.md) labels it optional or conditional.
+  If a required node collides and its merge or replacement is not approved,
+  abort emission; do not omit or relocate the node and still claim that stamp.
 - Emit **one** of the six trees. If none applies, record that conclusion and
   stop. Do not invent a seventh or fall back to the designer.
 - **Never** run `icm new` or `icm init`. ICMTemp's designer is not a stamp.
@@ -205,31 +213,36 @@ Resolve it against the current disk and show a collision plan with one row per
 target file: path, current state, proposed action (`add`, `preserve`, `merge`,
 or `replace`), and the exact content change for every merge or replacement.
 Wait for "yes, that is the shared understanding" and explicit approval of
-each merge or replacement. Preserve unapproved collisions and revise the tree
-around them; never infer overwrite permission from approval of the overall
-stamp. Then emit only the agreed actions.
+each merge or replacement. For an unapproved collision on an optional node,
+preserve the existing file and omit that node. For an unapproved collision on
+a required node, abort emission. Do not omit or relocate required catalogs,
+routing files, or selected stage contracts and still claim that stamp. Never
+infer overwrite permission from approval of the overall stamp. Then emit only
+the agreed actions.
 If none of the six applies, stop in Round 4 without creating a tree.
 For an emitted tree that includes `stages/`, persist the complete **Pipeline
 reset contract** from [references/trees.md](references/trees.md) in
 `AGENTS.md`, or in `_config/delivery.md` when that file exists. Do not shorten
 it to an overwrite statement. Do not write this reset contract for a home,
 map, or any emitted tree without `stages/`.
-After the canonical files are complete, delete the active notes file only if
-this invocation created it or recognized it as skill-owned when resuming, then
-run Round 9. Keep it if emission does not complete. Never delete a user-owned
-notes file.
+After the canonical files are complete, retain the active notes file and run
+Round 9. Keep it if emission does not complete.
 
 ## Round 9 - walk / validate
 
 After emit, run the walk test in [references/walk-test.md](references/walk-test.md).
-Pipelines that claim kit compatibility: `icm validate --strict`.
-Maps must **not** grow a fake `stages/` just to please the CLI.
+For every emitted tree that contains `stages/`, run `icm validate --strict`.
+Do not run strict validation for a home or brownfield map without `stages/`,
+and do not add fake stages to make one pass. Only after every applicable check
+succeeds, delete the active notes file if this invocation created it or
+recognized it as skill-owned when resuming. Never delete a user-owned notes
+file; retain skill-owned notes when a check fails or remediation is interrupted.
 
 ## Write / do not write
 
-**Write:** brief, glossary, stage-map or map-plan in the active notes path, a
-questionnaire only for stamps with `_config/`, then files from the chosen
-stamp.
+**Write:** brief, glossary, decision log, stage-map or map-plan in the active
+notes path, a questionnaire only for stamps with `_config/`, then files from
+the chosen stamp.
 
 **Do not write:** a second designer inside a product repo; ICM twins;
 require-on-add hooks; Herdr lifecycle; a workspace for a two-use chat.

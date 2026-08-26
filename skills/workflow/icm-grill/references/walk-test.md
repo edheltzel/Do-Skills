@@ -17,11 +17,10 @@ Walk it cold, as an agent with no memory:
 
 - Open the root. Can you answer *where am I* and *where do I go for the
   current task* from `AGENTS.md` plus at most two more reads?
-- Pick any stage or node. Does its contract name exact input paths, the
-  job, the output, and the human check?
+- For a pipeline stage only: does its contract name exact input paths, the
+  job, the output, and the human check? Do not apply this check to map cards.
 - For a pipeline, after the confirmed-run reset, can you state status purely by
-  scanning what exists in `output/`? For a map, can you do so from node
-  frontmatter?
+  scanning what exists in `output/`?
 - Is any routing file carrying content payload? Move the payload; leave a
   pointer.
 - Is any fact stored in two places? Pick one home; link from the other.
@@ -35,9 +34,9 @@ Map / home extra:
 
 If a step fails, fix the structure. Do not explain more.
 
-## Kit validate (pipelines only)
+## Kit validate (trees with stages only)
 
-When the tree claims ICMTemp compatibility:
+For every emitted tree that contains `stages/`:
 
 ```text
 icm validate --strict
