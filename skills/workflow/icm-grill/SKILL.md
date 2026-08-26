@@ -27,12 +27,19 @@ Load [references/trees.md](references/trees.md) and
 - Ask the current **frontier** only. Number every question. Give a
   recommended answer each time. Wait before the next round.
 - Persist working docs in one tracked **active notes path** at the target root
-  or cwd. Prefer `icm-grill-notes.md`. Start every notes file this skill creates
-  with `<!-- icm-grill-notes:v1 status=incomplete -->`. Resume a file only when
-  that marker is present and `status=incomplete`. Before creating a new scratch
-  file, search the target root and cwd for marked `icm-grill-notes*.md` files.
-  Resume a single incomplete scratch; if several exist, ask which one. Never
-  resume `status=done-no-tree`. If the preferred path exists and is not
+  or cwd. Prefer `icm-grill-notes.md`. First resolve the target root to one
+  absolute, normalized, symlink-resolved path. Start every notes file this
+  skill creates with
+  `<!-- icm-grill-notes:v2 status=incomplete target="<canonical-target>" -->`.
+  Before creating a new scratch file, search the target root and cwd for marked
+  `icm-grill-notes*.md` files. Resume only a `v2` file whose status is
+  `incomplete` and whose recorded target exactly matches this invocation's
+  canonical target. Ignore notes recorded for another target. Never resume
+  `status=done-no-tree`. A targetless `v1` marker is legacy: never resume it
+  automatically. Show its path and require confirmation that it belongs to
+  this target; after confirmation, replace its marker with the matching `v2`
+  marker before writing anything else. Resume a single matching scratch; if
+  several match, ask which one. If the preferred path exists and is not
   skill-owned, do not overwrite it. Once selected, use the same active notes
   path for every later write.
   Write the brief, glossary, stage-map or map-plan, and decision log **as they
@@ -50,6 +57,13 @@ Load [references/trees.md](references/trees.md) and
 - **Do not create the target tree** (`_config/`, `stages/`, `map/`,
   `shared/`, ...) until the frontier is empty **and** the human confirms
   shared understanding.
+- The selected stamp's required topology is fixed. Every node in
+  [references/trees.md](references/trees.md) that is not explicitly labeled
+  optional or conditional is required; selecting a conditional parent makes
+  its unmarked descendants required. Round 5 observations may add optional
+  nodes, but may not remove, rename, or substitute a required node. If the
+  target facts do not fit every required node, reject that stamp and stop or
+  choose another; do not emit a modified version under the stamp's name.
 - Preserve every existing target file by default. Before emission, show a
   path-by-path collision plan for every file the stamp would add or modify,
   including the exact merge or replacement proposed. A confirmed tree shape
@@ -153,6 +167,10 @@ the active notes path.
 If the answer is none: stop. Write that in the active notes path, set the
 marker to `status=done-no-tree`, and do not create a tree.
 
+A stamp fits only when all its required topology applies to the landed facts.
+Reject it and choose another stamp or `none` when any required stage, card,
+catalog, or routing node does not fit.
+
 For Firstmate-home and brownfield-map stamps, stable map vocabulary belongs
 in `map/_meta/`; keep existing operational configuration in place. Do not add
 `_config/` or schedule factory setup for those stamps.
@@ -163,7 +181,7 @@ in `map/_meta/`; keep existing operational configuration in place. Do not add
 
 | Q | Recommend |
 | --- | --- |
-| Where does a human already pause? | Those pauses are the only stages. Three real beats beat seven imagined ones. |
+| Where does a human already pause beyond the required stamp stages? | Use those pauses only to propose optional stages. Do not remove or replace a required stage. |
 | What must never be model judgment? | That goes in Verify / a script. |
 
 **Map / home:**
@@ -171,30 +189,36 @@ in `map/_meta/`; keep existing operational configuration in place. Do not add
 | Q | Recommend |
 | --- | --- |
 | Nouns a later agent must not confuse? | Object cards, cite `path:line`. |
-| What actually moves today? | Process cards only for those. Not aspirational. |
+| What actually moves today beyond the required stamp cards? | Add optional process cards only for observed movements. Not aspirational. |
 | Additive overlay only? | Yes. |
 
-Write a draft `stage-map.md` or `map-plan.md` into the active notes path.
+Write a draft `stage-map.md` or `map-plan.md` into the active notes path. Keep
+the required stamp nodes intact and label every discovered addition optional.
+If a required node is false for the target, return to Round 4 and reject the
+stamp.
 
 ## Round 6 - derived contracts
 
-Ask only about structure discovered in Round 5.
+Ask about the selected stamp's required nodes and any optional structure
+discovered in Round 5.
 
 **Pipeline / skill / scout / docs:**
 
 | Q | Recommend |
 | --- | --- |
-| For each confirmed pause, what exact inputs, handoff artifact, and human gate apply? | One output per stage, with exact paths and one review gate. |
+| For each required or optional stage, what exact inputs, handoff artifact, and human gate apply? | One output per stage, with exact paths and one review gate. |
 
 **Map / home:**
 
 | Q | Recommend |
 | --- | --- |
-| Which card owns each confirmed noun or movement, and what source path proves it? | One canonical card per concept, citing `path:line`. |
+| Which required or optional card owns each noun or movement, and what source path proves it? | One canonical card per concept, citing `path:line`. |
 
 Update `stage-map.md` or `map-plan.md` in the active notes path. Offer an ADR
-only when hard-to-reverse + surprising + a real trade-off. Layer-0 catalog
-form is already decided for this fleet (DOX-native `AGENTS.md`).
+only when hard-to-reverse + surprising + a real trade-off, and keep any ADR
+draft in the active notes path until Round 8 confirmation and collision
+approval. Layer-0 catalog form is already decided for this fleet (DOX-native
+`AGENTS.md`).
 
 ## Round 7 - factory setup (stamps with `_config/` only)
 

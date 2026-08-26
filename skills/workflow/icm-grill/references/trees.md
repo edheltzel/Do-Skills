@@ -4,6 +4,14 @@ Source: Firstmate scout `icm-template-map-scout`. Each is opt-in. None is
 required on project add. Pick one or stop when none applies. Do not invent a
 seventh or use the designer as a fallback.
 
+Topology labels are contractual. Every unmarked node in the selected stamp is
+required. A node marked `optional` may be omitted. A node marked `conditional`
+is omitted unless its stated condition is true; once selected, its unmarked
+descendants are required. Lines marked `existing` or `subject tree` describe
+preserved target context, not nodes to create. Round 5 may add optional nodes
+but may not remove, rename, or replace required nodes. If the target cannot
+support the fixed required topology, reject the stamp instead of adapting it.
+
 Shared conventions for any tree that should pass the cloned ICMTemp kit:
 
 - Layer 0 = `AGENTS.md`. Before replacing an existing `CLAUDE.md`, move every
@@ -79,7 +87,7 @@ no `map/`, do not write glossary or decision-log under `map/_meta/`.
 ```text
 <home>/
   AGENTS.md                         # already the catalog; keep it
-  CLAUDE.md                         # pointer to AGENTS.md
+  CLAUDE.md                         # conditional: existing or tool-required pointer
   CONTEXT.md                        # optional thin route table
   docs/
   map/                              # optional overlay, never a second catalog
@@ -113,7 +121,7 @@ Implementation writes **code in the subject tree** and a short note in
 ```text
 <app>/
   AGENTS.md                         # existing product catalog stays Layer 0
-  CLAUDE.md                         # pointer
+  CLAUDE.md                         # conditional: existing or tool-required pointer
   CONTEXT.md                        # route: bug | feature | release
   src/ ... tests/ ...               # subject tree; ICM does not move it
   _config/
@@ -190,7 +198,7 @@ Do not bolt a fake pipeline onto a map so the CLI goes green.
 ```text
 <existing-repo>/
   AGENTS.md                         # real catalog (DOX-native)
-  CLAUDE.md                         # pointer only
+  CLAUDE.md                         # conditional: existing or tool-required pointer
   src/ ...                          # untouched by the overlay
   map/
     CONTEXT.md
@@ -202,8 +210,8 @@ Do not bolt a fake pipeline onto a map so the CLI goes green.
       object.md
       process.md
     objects/                        # nouns, cite path:line
-    processes/                      # real movements only
-    effects/CONTEXT.md
+    processes/                      # conditional: real movements only
+    effects/CONTEXT.md              # conditional: real effects only
 ```
 
 ## 6. Scout

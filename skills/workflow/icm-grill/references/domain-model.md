@@ -76,8 +76,10 @@ The existing catalog already routes. A generated CLAUDE.md twin would
 drift and overwrite DOX. Pointer file only if a tool requires the name.
 ```
 
-Write ADRs lazily (`docs/adr/0001-slug.md`) after confirm, not during the
-grill, unless the human asks to lock a decision now.
+During the grill, keep every ADR draft in the active notes path, even when the
+human asks to lock the decision. Add its proposed `docs/adr/0001-slug.md` path
+to the Round 8 plan. Materialize it only after shared-understanding
+confirmation and approval of any collision at that path.
 
 Layer-0 catalog form is already decided for this fleet: DOX-native
 `AGENTS.md`. Do not re-open that as a fresh ADR.

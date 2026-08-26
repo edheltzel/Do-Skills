@@ -32,7 +32,12 @@ Map / home extra:
 - Can a cold agent answer *what is X* and *what else moves if I change X*
   from `AGENTS.md` or `map/CONTEXT.md` plus one card?
 
-If a step fails, fix the structure. Do not explain more.
+If a step fails, remediate automatically only in files this skill added during
+the current emission under the approved plan. Do not auto-edit a file that
+existed before emission, including one already merged or replaced. If a fix
+would change any such file, retain the active notes, present a revised
+path-by-path collision plan with the exact change, and wait for explicit
+approval before editing it.
 
 ## Kit validate (trees with stages only)
 
