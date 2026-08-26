@@ -12,6 +12,10 @@ Shared conventions for any tree that should pass the cloned ICMTemp kit:
 - Headings = Inputs, Process, Outputs, Review Gate, Verify.
 - Root dirs = `_config/`, `_templates/`, `shared/`, `stages/` when it is a pipeline.
 - Do not generate the designer (`00_intake` through `05_validation`).
+- Bake into an existing file: a new confirmed run overwrites
+  `stages/*/output/` in place; leftover output is not this run.
+  Pipelines: `AGENTS.md`, or `_config/delivery.md` when that file exists.
+  Firstmate-home and brownfield: `map/CONTEXT.md`.
 
 Kit stage folder regex: `^\d{2}_[a-z0-9][a-z0-9_-]*$`. `01-audit-ia` fails
 `icm validate --strict`.

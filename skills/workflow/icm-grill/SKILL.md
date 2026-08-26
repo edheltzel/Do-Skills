@@ -27,8 +27,9 @@ confirm / emit.
 - Ask the current **frontier** only. Number every question. Give a
   recommended answer each time. Wait before the next round.
 - Persist working docs in one file, `icm-grill-notes.md`, at the target root
-  or cwd. Write the brief, glossary, stage-map or map-plan, questionnaire,
-  and decision log **as they land**. Do not batch them at the end.
+  or cwd. Write the brief, glossary, stage-map or map-plan, and decision log
+  **as they land**. Write a questionnaire only for stamps with `_config/`.
+  Do not batch them at the end.
 - **Do not create the target tree** (`_config/`, `stages/`, `map/`,
   `shared/`, ...) until the frontier is empty **and** the human confirms
   shared understanding.
@@ -62,11 +63,12 @@ need ICM at all?
        +-- done artifact
        +-- primary reader (default: agents)
        +-- existing catalog? (AGENTS.md / DOX)
-            +-- pipeline path -> stages, gates, handoffs, verify
-            +-- map path -> nouns, movements, effects, additive-only
-                 +-- factory files + questionnaire
-                      +-- which of the six trees to copy
-                           +-- walk test / icm validate (pipelines only)
+       +-- pipeline path -> stages, gates, handoffs, verify
+       +-- map path -> nouns, movements, effects, additive-only
+            +-- pipeline / library / bundle / scout -> factory questionnaire
+            +-- home / map -> skip factory setup
+                 +-- which of the six trees to copy
+                      +-- walk test / icm validate (pipelines only)
 ```
 
 ## Round 0 - facts (no human questions)
@@ -99,6 +101,10 @@ If the answer is none / one-off: stop. Write that in the notes and do not contin
 | Who is the primary reader? | Agents. |
 | Keep the existing `AGENTS.md`? | Yes. Pointer `CLAUDE.md` if a tool needs that name. |
 
+For Firstmate-home and brownfield-map stamps, stable map vocabulary belongs
+in `map/_meta/`; keep existing operational configuration in place. Do not add
+`_config/` or schedule factory setup for those stamps.
+
 Write the brief + first glossary terms into `icm-grill-notes.md`.
 
 ## Round 3 - structure
@@ -123,7 +129,10 @@ Write `stage-map.md` or `map-plan.md` into the notes. Offer an ADR only when
 hard-to-reverse + surprising + a real trade-off. Layer-0 catalog form is
 already decided for this fleet (DOX-native `AGENTS.md`).
 
-## Round 4 - factory setup
+## Round 4 - factory setup (stamps with `_config/` only)
+
+Skip this round for Firstmate-home and brownfield-map stamps. Do not add
+`_config/` or a setup questionnaire to either stamp.
 
 Grill the **send**, not the subject: who answers, what must be baked into
 `_config/` so no run re-asks it. Each question maps to one file.
@@ -134,6 +143,12 @@ System-level only. Write a one-pass `setup-questionnaire.md` in the notes.
 Show the filled target tree from [references/trees.md](references/trees.md).
 Wait for "yes, that is the shared understanding." Then emit that stamp.
 If none of the six applies, stop in Round 1 without creating a tree.
+When emitting, bake this one line into a file the stamp already has:
+pipelines write it to `AGENTS.md`, or to `_config/delivery.md` when that
+file exists; Firstmate-home and brownfield write it to `map/CONTEXT.md`.
+The line: a new confirmed run overwrites `stages/*/output/` in place;
+leftover output is not this run. Do not add per-run namespaces or archive
+dirs. For an existing emitted pipeline, apply that overwrite before stage work.
 
 ## Round 6 - walk / validate
 
@@ -143,8 +158,8 @@ Maps must **not** grow a fake `stages/` just to please the CLI.
 
 ## Write / do not write
 
-**Write:** brief, glossary, stage-map or map-plan, questionnaire, then files
-from the chosen stamp.
+**Write:** brief, glossary, stage-map or map-plan, a questionnaire only for
+stamps with `_config/`, then files from the chosen stamp.
 
 **Do not write:** a second designer inside a product repo; ICM twins;
 require-on-add hooks; Herdr lifecycle; a workspace for a two-use chat.

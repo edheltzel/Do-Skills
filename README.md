@@ -132,7 +132,8 @@ No longer using.
 ## Creating a Skill
 
 Each skill lives in its own folder, grouped into a bucket under `skills/`. Every
-skill folder and its frontmatter `name:` carry the `do-` prefix:
+skill folder and its frontmatter `name:` carry the `do-` prefix, except
+`icm-grill`, which is named that way on purpose:
 
 ```
 skills/<bucket>/do-skill-name/
