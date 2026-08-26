@@ -17,7 +17,7 @@ To install a specific skill, use its exact listed name. Most carry the `do-`
 prefix; `icm-grill` is intentionally unprefixed:
 
 ```bash
-npx skills add edheltzel/Do-Skills@<skill-name>
+npx skills add edheltzel/Do-Skills --skill=<skill-name>
 ```
 
 If you want to install for a specific agents, use the option flags ie: `-a
