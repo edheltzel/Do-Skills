@@ -7,9 +7,10 @@ set -euo pipefail
 ROOT="$(git -C "$(dirname "${BASH_SOURCE[0]}")" rev-parse --show-toplevel)"
 README="$ROOT/README.md"
 SKILLS_DIR="$ROOT/skills"
+GROUPINGS_FILE="$ROOT/skills.sh.json"
 
-# Bucket render order and their one-line blurbs. Any bucket found on disk but not
-# listed here is appended alphabetically with no blurb.
+# Bucket render order and display titles. Descriptions come from skills.sh.json,
+# their authoritative owner. Any unlisted bucket is appended with no blurb.
 BUCKET_ORDER="core engineering content harness slop-guard workflow operations personal private"
 
 bucket_title() {
@@ -28,18 +29,14 @@ bucket_title() {
 }
 
 bucket_blurb() {
-    case "$1" in
-        core)         echo "Foundational tools for every project and workbench - repo structure, agent maps, and review lenses." ;;
-        engineering)  echo "Code design and implementation practices, from general principles to language-, framework-, and platform-specific craft." ;;
-        content)      echo "Audience-facing media - pictures, diagrams, video, motion, blog, and social." ;;
-        harness)      echo "Modifying the coding-agent harness - distilling knowledge into reusable skills." ;;
-        slop-guard)   echo "Catching AI slop - restating output in plain human language and stripping jargon-heavy writing." ;;
-        workflow)     echo "Shipping process - commits, issues, PRs, specs, and draft review." ;;
-        operations)   echo "Operating AI agents and driving machines - delegation, evaluation, prompt audits, memory recall, and browser or computer automation." ;;
-        personal)     echo "Your non-portable extras." ;;
-        private)      echo "This repository's own tooling. Not portable." ;;
-        *)            echo "" ;;
-    esac
+    title=$(bucket_title "$1")
+    node -e '
+const fs = require("fs");
+const [path, title] = process.argv.slice(1);
+const config = JSON.parse(fs.readFileSync(path, "utf8"));
+const group = config.groupings.find((candidate) => candidate.title === title);
+process.stdout.write(group?.description ?? "");
+' "$GROUPINGS_FILE" "$title"
 }
 
 section_file=$(mktemp)
@@ -170,4 +167,4 @@ awk -v section="$section_file" '
     !skip { print }
 ' "$README" > "$README.tmp" && mv "$README.tmp" "$README"
 
-echo "✓ Updated README.md with $total skills across $(echo $ordered | wc -w | tr -d ' ') buckets"
+echo "✓ Updated README.md with $total skills across $(echo "$ordered" | wc -w | tr -d ' ') buckets"

@@ -1,6 +1,6 @@
 # Workflow
 
-Shipping process - commits, issues, PRs, specs, and draft review.
+Workspace design and change delivery - interviews, commits, issues, PRs, specs, and draft review.
 
 - [`do-commit`](./do-commit/)
 - [`do-commit-push`](./do-commit-push/)

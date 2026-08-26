@@ -87,7 +87,7 @@ Catching AI slop - restating output in plain human language and stripping jargon
 
 ### Workflow
 
-Shipping process - commits, issues, PRs, specs, and draft review.
+Workspace design and change delivery - interviews, commits, issues, PRs, specs, and draft review.
 
 - [`do-commit`](./skills/workflow/do-commit/)
 - [`do-commit-push`](./skills/workflow/do-commit-push/)
@@ -148,7 +148,7 @@ Buckets group skills by purpose and scope:
 - `content/` - audience-facing media: pictures, diagrams, video, motion, blog, social
 - `harness/` - modifying the coding-agent harness: distilling knowledge into reusable skills
 - `slop-guard/` - catching AI slop: restating output in plain language and stripping jargon-heavy writing
-- `workflow/` - shipping process: commits, issues, PRs, specs, draft review
+- `workflow/` - see its generated description under [Available Skills](#available-skills)
 - `operations/` - operating AI agents and driving machines: delegation, evaluation, prompt audits, recall, and automation
 - `personal/` - your non-portable extras
 - `private/` - this repository's own tooling, not portable
