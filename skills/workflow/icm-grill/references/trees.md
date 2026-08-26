@@ -18,10 +18,18 @@ Shared conventions for any tree that should pass the cloned ICMTemp kit:
 - Headings = Inputs, Process, Outputs, Review Gate, Verify.
 - Root dirs = `_config/`, `_templates/`, `shared/`, `stages/` when it is a pipeline.
 - Do not generate the designer (`00_intake` through `05_validation`).
-- When the emitted tree includes `stages/`, bake into `AGENTS.md`, or
-  `_config/delivery.md` when that file exists: a new confirmed run overwrites
-  `stages/*/output/` in place; leftover output is not this run. Do not write
-  this rule for home, map, or any emitted tree without `stages/`.
+- When the emitted tree includes `stages/`, bake the **Pipeline reset
+  contract** below into `AGENTS.md`, or `_config/delivery.md` when that file
+  exists. Do not write it for home, map, or any emitted tree without
+  `stages/`.
+
+### Pipeline reset contract
+
+Before stage work begins on every confirmed new run, clear all prior artifacts
+from every `stages/*/output/` directory while preserving `.gitkeep`. Ignore
+`.gitkeep` when deriving stage status. Only artifacts written after that reset
+count as current-run evidence or completion. Reuse the canonical output paths;
+do not archive artifacts or create per-run namespaces.
 
 Kit stage folder regex: `^\d{2}_[a-z0-9][a-z0-9_-]*$`. `01-audit-ia` fails
 `icm validate --strict`.
@@ -141,7 +149,6 @@ docs-workspace/
     review-note.md
   shared/
     glossary.md
-    source-inventory.md
   corpus/                           # raw sources + checkbox index
   bundle/                           # navigable product
     index.md
@@ -155,6 +162,11 @@ docs-workspace/
     03_review/        output/review-report.md
     04_publish/       output/publish-notes.md
 ```
+
+The canonical source inventory is
+`stages/01_inventory/output/source-inventory.md`. If existing navigation
+requires `shared/source-inventory.md`, make it a pointer to that canonical
+artifact and store no inventory facts there.
 
 ## 5. Brownfield map overlay
 

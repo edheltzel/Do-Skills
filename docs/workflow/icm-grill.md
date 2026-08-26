@@ -36,8 +36,10 @@ alone, use [agents-md](../core/agents-md.md).
 
 It works the design tree in frontier rounds. Each question gets a
 recommended answer. Disk facts are looked up; only decisions go to the
-human. Glossary terms land in `icm-grill-notes.md` as they settle. Folders
-are not created until the human confirms the filled tree.
+human. Glossary terms land in one tracked active notes path as they settle;
+the skill prefers `icm-grill-notes.md` and uses a collision-safe scratch path
+when that file is user-owned. Folders are not created until the human confirms
+the filled tree.
 
 Layer 0 stays `AGENTS.md`. Before an existing `CLAUDE.md` becomes a pointer,
 its unique rules move into `AGENTS.md` or the stamp's canonical catalog.

@@ -4,19 +4,20 @@ From `grill-with-docs` / `domain-modeling`. This is the active discipline:
 challenge terms, invent edge cases, write the glossary the moment a term
 settles. Reading a glossary is not this file.
 
-During the grill, keep the glossary inside `icm-grill-notes.md`. After the
-human confirms and the stamp is emitted, move it to the stamp's canonical
-home:
+During the grill, keep the glossary inside the tracked active notes path
+selected in `SKILL.md`. After the human confirms and the stamp is emitted,
+move it to the stamp's canonical home:
 
 - Skill library, product-app pipeline, docs bundle, or scout:
   `shared/glossary.md`.
 - Firstmate home map or brownfield map overlay: `map/_meta/glossary.md`.
 
 Root `CONTEXT.md` stays routing. Do not dump the glossary there.
-After every working fact has moved to its canonical stamp file, delete only
-the notes file this invocation created. Never delete or clobber a user-owned
-notes file. Never copy the notes into the emitted tree; the walk test must
-find one home for each fact.
+After every working fact has moved to its canonical stamp file, delete the
+active notes file only if this invocation created it or recognized it as
+skill-owned by the required marker when resuming. Never delete or clobber a
+user-owned notes file. Never copy the notes into the emitted tree; the walk
+test must find one home for each fact.
 
 ## Challenge
 

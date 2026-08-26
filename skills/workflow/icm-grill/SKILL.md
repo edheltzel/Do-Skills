@@ -26,16 +26,22 @@ Load [references/trees.md](references/trees.md) and
 - Look up disk facts yourself. Only decisions go to the human.
 - Ask the current **frontier** only. Number every question. Give a
   recommended answer each time. Wait before the next round.
-- Persist working docs in one notes file at the target root or cwd. Prefer
-  `icm-grill-notes.md`. If that path already exists: resume it only when it
-  is a recognized incomplete grill from this skill; otherwise use a unique
-  scratch name and never overwrite the existing file. Write the brief,
-  glossary, stage-map or map-plan, and decision log **as they land**. Write
-  a questionnaire only for stamps with `_config/`. Do not batch them at the
-  end. After a successful emission, move every fact into its canonical stamp
-  file and delete only the notes file this invocation created. Never delete
-  or clobber a user-owned notes file. Do not copy the notes into the emitted
-  tree.
+- Persist working docs in one tracked **active notes path** at the target root
+  or cwd. Prefer `icm-grill-notes.md`. Start every notes file this skill creates
+  with `<!-- icm-grill-notes:v1 status=incomplete -->`. Resume a file only when
+  that marker is present and `status=incomplete`. Before creating a new scratch
+  file, search the target root and cwd for marked `icm-grill-notes*.md` files.
+  Resume a single incomplete scratch; if several exist, ask which one. Never
+  resume `status=done-no-tree`. If the preferred path exists and is not
+  skill-owned, do not overwrite it. Once selected, use the same active notes
+  path for every later write.
+  Write the brief, glossary, stage-map or map-plan, and decision log **as they
+  land**. Write a questionnaire only for stamps with `_config/`. Do not batch
+  them at the end. After a successful emission, move every fact into its
+  canonical stamp file and delete the active notes file only when this
+  invocation created it or recognized it as skill-owned by that marker when
+  resuming. Never delete or clobber a user-owned notes file. Do not copy the
+  notes into the emitted tree.
 - **Do not create the target tree** (`_config/`, `stages/`, `map/`,
   `shared/`, ...) until the frontier is empty **and** the human confirms
   shared understanding.
@@ -95,15 +101,19 @@ In parallel, look up:
 - Whether one of the six trees already covers it
 - Whether `icm validate` would even apply (needs `stages/`)
 
-Report the inventory, then open Round 1.
+If an existing tree already covers the target, report the matching tree, route
+the requested work to its existing contracts or maintenance workflow, and
+stop. Do not create or resume notes and do not open Round 1. Otherwise report
+the inventory, select the active notes path, and open Round 1.
 
 ## Round 1 - should this exist?
 
 | Q | Recommend |
 | --- | --- |
-| Repeating sequential reviewable work, a body later agents must edit, or a one-off? | One-off: no workspace and stop. Otherwise continue; pick the stamp in Round 4. |
+| Will this be used once, twice, repeatedly, or as a durable body later agents must maintain? | Once or twice: no workspace and stop. Repeating work or a durable maintained body: continue and pick the stamp in Round 4. |
 
-If the answer is one-off: stop. Write that in the notes and do not continue.
+If the answer is once or twice: stop. Write that in the active notes path,
+set the marker to `status=done-no-tree`, and do not continue.
 
 ## Round 2 - repeating unit
 
@@ -111,7 +121,8 @@ If the answer is one-off: stop. Write that in the notes and do not continue.
 | --- | --- |
 | What one noun repeats, or what durable subject must remain navigable? | Name one unit or subject before choosing a tree. |
 
-Add the settled unit or subject to the brief and glossary.
+Add the settled unit or subject to the brief and glossary in the active notes
+path.
 
 ## Round 3 - factory / product / done
 
@@ -123,7 +134,7 @@ Add the settled unit or subject to the brief and glossary.
 
 For a durable map or library, the product may be the maintained body itself
 rather than a per-run artifact. Write the brief + first glossary terms into
-`icm-grill-notes.md`.
+the active notes path.
 
 ## Round 4 - choose the stamp
 
@@ -131,7 +142,8 @@ rather than a per-run artifact. Write the brief + first glossary terms into
 | --- | --- |
 | Which of the six trees, or none, fits the landed facts and product boundary? | Pick one. Do not invent a seventh. |
 
-If the answer is none: stop. Write that in the notes and do not create a tree.
+If the answer is none: stop. Write that in the active notes path, set the
+marker to `status=done-no-tree`, and do not create a tree.
 
 For Firstmate-home and brownfield-map stamps, stable map vocabulary belongs
 in `map/_meta/`; keep existing operational configuration in place. Do not add
@@ -154,7 +166,7 @@ in `map/_meta/`; keep existing operational configuration in place. Do not add
 | What actually moves today? | Process cards only for those. Not aspirational. |
 | Additive overlay only? | Yes. |
 
-Write a draft `stage-map.md` or `map-plan.md` into the notes.
+Write a draft `stage-map.md` or `map-plan.md` into the active notes path.
 
 ## Round 6 - derived contracts
 
@@ -172,9 +184,9 @@ Ask only about structure discovered in Round 5.
 | --- | --- |
 | Which card owns each confirmed noun or movement, and what source path proves it? | One canonical card per concept, citing `path:line`. |
 
-Update `stage-map.md` or `map-plan.md` in the notes. Offer an ADR only when
-hard-to-reverse + surprising + a real trade-off. Layer-0 catalog form is
-already decided for this fleet (DOX-native `AGENTS.md`).
+Update `stage-map.md` or `map-plan.md` in the active notes path. Offer an ADR
+only when hard-to-reverse + surprising + a real trade-off. Layer-0 catalog
+form is already decided for this fleet (DOX-native `AGENTS.md`).
 
 ## Round 7 - factory setup (stamps with `_config/` only)
 
@@ -183,7 +195,8 @@ Skip this round for Firstmate-home and brownfield-map stamps. Do not add
 
 Grill the **send**, not the subject: who answers, what must be baked into
 `_config/` so no run re-asks it. Each question maps to one file.
-System-level only. Write a one-pass `setup-questionnaire.md` in the notes.
+System-level only. Write a one-pass `setup-questionnaire.md` in the active
+notes path.
 
 ## Round 8 - confirm, then copy
 
@@ -196,16 +209,15 @@ each merge or replacement. Preserve unapproved collisions and revise the tree
 around them; never infer overwrite permission from approval of the overall
 stamp. Then emit only the agreed actions.
 If none of the six applies, stop in Round 4 without creating a tree.
-For an emitted tree that includes `stages/`, bake this line into an existing
-file: write it to `AGENTS.md`, or to `_config/delivery.md` when that file
-exists. The line: a new confirmed run
-overwrites `stages/*/output/` in place; leftover output is not this run. Do not
-add per-run namespaces or archive dirs. For an existing emitted pipeline,
-apply that overwrite before stage work. Do not write this reset rule for a
-home, map, or any emitted tree without `stages/`.
-After the canonical files are complete, delete only the notes file this
-invocation created, then run Round 9. Keep that file if emission does not
-complete. Never delete a notes file this run did not create.
+For an emitted tree that includes `stages/`, persist the complete **Pipeline
+reset contract** from [references/trees.md](references/trees.md) in
+`AGENTS.md`, or in `_config/delivery.md` when that file exists. Do not shorten
+it to an overwrite statement. Do not write this reset contract for a home,
+map, or any emitted tree without `stages/`.
+After the canonical files are complete, delete the active notes file only if
+this invocation created it or recognized it as skill-owned when resuming, then
+run Round 9. Keep it if emission does not complete. Never delete a user-owned
+notes file.
 
 ## Round 9 - walk / validate
 
@@ -215,8 +227,9 @@ Maps must **not** grow a fake `stages/` just to please the CLI.
 
 ## Write / do not write
 
-**Write:** brief, glossary, stage-map or map-plan, a questionnaire only for
-stamps with `_config/`, then files from the chosen stamp.
+**Write:** brief, glossary, stage-map or map-plan in the active notes path, a
+questionnaire only for stamps with `_config/`, then files from the chosen
+stamp.
 
 **Do not write:** a second designer inside a product repo; ICM twins;
 require-on-add hooks; Herdr lifecycle; a workspace for a two-use chat.
