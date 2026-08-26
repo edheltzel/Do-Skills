@@ -36,16 +36,20 @@ Load [references/trees.md](references/trees.md) and
   `<!-- icm-grill-notes:v3 status=incomplete target-sha256="<digest>" -->`.
   Before creating a new scratch file, search the target root and cwd for marked
   `icm-grill-notes*.md` files. Resume only an incomplete `v3` file whose digest
-  exactly matches this invocation. Ignore notes recorded for another target.
+  exactly matches this invocation. Preserve every marker recorded for another
+  target; it is never reusable, overwriteable, or deletable by this invocation.
   Never resume `status=done-no-tree`. A targetless `v1` marker is legacy: never
   resume it automatically. Show its path and require confirmation that it
   belongs to this target, then replace its marker with the matching `v3`
   marker before writing anything else. A `v2` marker containing a raw target
   path is also legacy: resume it only when that path exactly matches the
   canonical target, and replace it with the matching `v3` marker before any
-  other write. Resume a single matching scratch; if several match, ask which
-  one. If the preferred path exists and is not skill-owned, do not overwrite
-  it. Once selected, use the same active notes path for every later write.
+  other write. Resume a single matching incomplete scratch; if several match,
+  ask which one. Only that selected scratch is reusable. If the preferred path
+  is occupied by anything else, including user-owned notes, a nonmatching
+  skill marker, or a done marker, preserve it and choose an unused
+  `icm-grill-notes-<digest-prefix>-<counter>.md` path. Once selected, use the
+  same active notes path for every later write.
   Write the brief, glossary, stage-map or map-plan, and decision log **as they
   land**. Write a questionnaire only for stamps with `_config/`. Do not batch
   them at the end. After a successful emission, move every fact into its
@@ -54,10 +58,10 @@ Load [references/trees.md](references/trees.md) and
   emit includes a `map/` overlay. A firstmate-home with no map does not get a
   glossary or decision-log file. Never create a root decision log. Delete the
   active notes file only after all applicable Round 9 checks succeed and only
-  when this invocation created it or recognized it as skill-owned by that
-  marker when resuming. Retain it while emission or validation is incomplete.
-  Never delete or clobber a user-owned notes file. Do not copy the notes into
-  the emitted tree.
+  when this invocation created it or resumed it under the matching `v3` target
+  marker. Retain it while emission or validation is incomplete. Never delete
+  or clobber user-owned or nonmatching notes. Do not copy the notes into the
+  emitted tree.
 - **Do not create the target tree** (`_config/`, `stages/`, `map/`,
   `shared/`, ...) until the frontier is empty **and** the human confirms
   shared understanding.
@@ -266,8 +270,9 @@ For every emitted tree that contains `stages/`, run `icm validate --strict`.
 Do not run strict validation for a home or brownfield map without `stages/`,
 and do not add fake stages to make one pass. Only after every applicable check
 succeeds, delete the active notes file if this invocation created it or
-recognized it as skill-owned when resuming. Never delete a user-owned notes
-file; retain skill-owned notes when a check fails or remediation is interrupted.
+resumed it under the matching `v3` target marker. Never delete user-owned or
+nonmatching notes; retain the active notes when a check fails or remediation
+is interrupted.
 
 ## Write / do not write
 

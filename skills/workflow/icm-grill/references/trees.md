@@ -187,8 +187,11 @@ artifact and store no inventory facts there.
 **When:** an existing repo later agents must edit without slurping. Never
 `icm init`.
 
-Acceptance: the map overlay is all adds, with zero `src/` edits, and is
-walkable cold from `AGENTS.md` plus one card. The only allowed modification to
+Acceptance: the map overlay makes zero `src/` edits and is walkable cold from
+`AGENTS.md`: one minimal catalog pointer routes into `map/CONTEXT.md`, which
+routes to one card. Include that exact pointer in the Round 8 collision plan
+and obtain approval before merging it into an existing `AGENTS.md`; do not
+rewrite the catalog. Apart from that pointer, the only allowed modification to
 existing root files is catalog migration: move rules unique to `CLAUDE.md`
 into `AGENTS.md`, then make `CLAUDE.md` a pointer. Do not change either file
 for any other brownfield-map purpose. Do not emit empty `processes/` or

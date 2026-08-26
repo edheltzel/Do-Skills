@@ -29,8 +29,9 @@ Walk it cold, as an agent with no memory:
 
 Map / home extra:
 
-- Can a cold agent answer *what is X* and *what else moves if I change X*
-  from `AGENTS.md` or `map/CONTEXT.md` plus one card?
+- When a map exists, does one minimal catalog pointer in `AGENTS.md` route to
+  `map/CONTEXT.md`, and can one card then answer *what is X* and *what else
+  moves if I change X*? `map/CONTEXT.md` is not an alternative Layer 0.
 
 If a step fails, remediate automatically only in files this skill added during
 the current emission under the approved plan. Do not auto-edit a file that
