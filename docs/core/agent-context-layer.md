@@ -20,7 +20,7 @@ Its defining constraint is that entry files are catalogues, not manuals: they po
 
 ## When to reach for it
 
-Type `/do-agent-context-layer`, or the agent reaches for it automatically when you are making `AGENTS.md`, `CLAUDE.md`, or a `docs/` tree legible to agents.
+Type `/do-agent-context-layer`, or the agent reaches for it automatically when you are making `AGENTS.md`, `CLAUDE.md`, or a `docs/` tree legible to agents. If the request is to ICM, interview, or grill a folder, workspace, process, or codebase, use [icm-grill](../workflow/icm-grill.md) instead.
 
 Reach for it when the problem is routing and keeping context small, canonical, and findable. For code-side architecture enforcement and entropy management, use [agent-first-repo](../core/agent-first-repo.md); for the focused entry-file and codemap guidance, use [agents-md](../core/agents-md.md) and [architecture-md](../core/architecture-md.md).
 

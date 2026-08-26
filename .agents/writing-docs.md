@@ -30,9 +30,9 @@ This repo is **not** published to a website — pages are read on GitHub. So:
   is about the skill, not the bucket.
 
 The `--skill=` value and the `[Source]` URL use the skill's full **directory
-name**, `do-` prefix included; the docs **filename** drops that prefix (e.g. dir
-`do-git-worktree` → file `git-worktree.md`, `--skill=do-git-worktree`, Source
-`.../skills/workflow/do-git-worktree`).
+name**, including a `do-` prefix when it has one; the docs **filename** drops
+that prefix (e.g. dir `do-git-worktree` → file `git-worktree.md`,
+`--skill=do-git-worktree`, Source `.../skills/workflow/do-git-worktree`).
 
 ## Page template
 
@@ -72,7 +72,8 @@ How and when you reach for the skill — two beats:
 - **Invocation mode.** Whether you type it or the agent fires it. User-invoked:
   "You invoke this by typing `/<dir-name>` — the agent won't reach for it on its
   own." Model-invoked: "Type `/<dir-name>`, or the agent reaches for it
-  automatically when a task fits." The directory name includes the `do-` prefix.
+  automatically when a task fits." Use the full directory name, including a
+  `do-` prefix when it has one.
 - **Trigger boundary.** "Reach for this when …". Where it's confusable with a
   sibling, add the other half — "for <X> instead, use
   [<sibling>](../<bucket>/<sibling>.md)."

@@ -1,6 +1,6 @@
 # Workflow
 
-Shipping process - commits, issues, PRs, specs, and draft review.
+Workspace design and change delivery - interviews, commits, issues, PRs, specs, and draft review.
 
 - [`do-commit`](./do-commit/)
 - [`do-commit-push`](./do-commit-push/)
@@ -11,3 +11,4 @@ Shipping process - commits, issues, PRs, specs, and draft review.
 - [`do-git-worktree`](./do-git-worktree/)
 - [`do-roughdraft`](./do-roughdraft/)
 - [`do-tech-writing`](./do-tech-writing/)
+- [`icm-grill`](./icm-grill/)
