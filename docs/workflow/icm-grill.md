@@ -16,7 +16,7 @@ npx skills update icm-grill
 
 `icm-grill` interviews a process or folder until there is a shared
 understanding, then emits one of six ICM fleet trees: skill library,
-firstmate home map, product-app pipeline, docs bundle, brownfield map
+firstmate home, product-app pipeline, docs bundle, brownfield map
 overlay, or scout. The defining constraint is that the kit is a designer,
 not a catalog of product templates: you copy a stamp after the frontier is
 empty, and this skill never runs `icm new` or `icm init`.
@@ -36,10 +36,12 @@ alone, use [agents-md](../core/agents-md.md).
 
 It works the design tree in frontier rounds. Each question gets a
 recommended answer. Disk facts are looked up; only decisions go to the
-human. Glossary terms land in one tracked active notes path as they settle;
-the skill prefers `icm-grill-notes.md` and uses a collision-safe scratch path
-when that file is user-owned. Folders are not created until the human confirms
-the filled tree.
+human. Once the selected emission has a canonical glossary destination, terms
+land in one tracked active notes path as they settle; a Firstmate home without
+a map skips glossary and decision-log collection. The skill prefers
+`icm-grill-notes.md` and uses a collision-safe scratch path when that file is
+user-owned. Folders are not created until the human confirms the filled tree,
+and every planned path is re-read after approval before emission.
 
 Layer 0 stays `AGENTS.md`. Before an existing `CLAUDE.md` becomes a pointer,
 its unique rules move into `AGENTS.md` or the stamp's canonical catalog.

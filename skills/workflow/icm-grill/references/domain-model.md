@@ -1,30 +1,38 @@
 # Domain model (as terms land)
 
 From `grill-with-docs` / `domain-modeling`. This is the active discipline:
-challenge terms, invent edge cases, write the glossary the moment a term
-settles. Reading a glossary is not this file.
+challenge terms, invent edge cases, and write the glossary when a term settles
+once the selected emission has a canonical glossary destination. Before that
+destination is known, keep settled source facts in the brief. Reading a
+glossary is not this file.
 
-During the grill, keep the glossary inside the tracked active notes path
-selected in `SKILL.md`. After the human confirms and the stamp is emitted,
-move it to the stamp's canonical home:
+During the grill, keep an applicable glossary inside the tracked active notes
+path selected in `SKILL.md`. After the human confirms and the stamp is
+emitted, move it to the stamp's canonical home:
 
 - Skill library, product-app pipeline, docs bundle, or scout:
   `shared/glossary.md`.
 - Brownfield map overlay, or firstmate-home when this emit includes `map/`:
   `map/_meta/glossary.md`.
-- Firstmate-home with no map overlay: do not emit a glossary file.
+- Firstmate-home with no map overlay: do not collect a glossary section or
+  emit a glossary file.
 
 Move the working decision log to `shared/decision-log.md` when the stamp has
 `shared/`. Use `map/_meta/decision-log.md` only when this emit includes a
-`map/` overlay. A firstmate-home with no map does not get a decision-log file.
-Never create a root decision log.
+`map/` overlay. For firstmate-home, wait until the optional map decision is
+settled before collecting glossary or decision-log sections. A firstmate-home
+with no map gets neither section and no files under `map/_meta/`. Never create
+a root decision log.
 
 Root `CONTEXT.md` stays routing. Do not dump the glossary there.
 After every working fact has moved to its canonical stamp file, retain the
 active notes through the Round 9 walk test and any strict validation required
 for a tree with `stages/`. Delete it only after those checks succeed and only
 if this invocation created it or recognized it as skill-owned by the required
-marker when resuming. Never delete or clobber a user-owned notes file. Never
+marker when resuming. If resumed notes already contain glossary or
+decision-log facts and a firstmate-home emits no map, retain those notes unless
+every fact has moved to another approved canonical destination. Never invent a
+destination to permit deletion, delete or clobber a user-owned notes file, or
 copy the notes into the emitted tree; the walk test must find one home for each
 fact.
 

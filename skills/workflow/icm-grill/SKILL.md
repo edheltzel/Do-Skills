@@ -50,18 +50,24 @@ Load [references/trees.md](references/trees.md) and
   skill marker, or a done marker, preserve it and choose an unused
   `icm-grill-notes-<digest-prefix>-<counter>.md` path. Once selected, use the
   same active notes path for every later write.
-  Write the brief, glossary, stage-map or map-plan, and decision log **as they
-  land**. Write a questionnaire only for stamps with `_config/`. Do not batch
-  them at the end. After a successful emission, move every fact into its
-  canonical stamp file. The decision log belongs in `shared/decision-log.md`
-  when the stamp has `shared/`. Use `map/_meta/decision-log.md` only when this
-  emit includes a `map/` overlay. A firstmate-home with no map does not get a
-  glossary or decision-log file. Never create a root decision log. Delete the
-  active notes file only after all applicable Round 9 checks succeed and only
-  when this invocation created it or resumed it under the matching `v3` target
-  marker. Retain it while emission or validation is incomplete. Never delete
-  or clobber user-owned or nonmatching notes. Do not copy the notes into the
-  emitted tree.
+  Write the brief and stage-map or map-plan **as they land**. Write glossary
+  and decision-log sections as they land only after the selected emission is
+  known to provide their canonical destinations; before then, keep settled
+  source facts in the brief. Write a questionnaire only for stamps with
+  `_config/`. Do not batch applicable sections at the end. After a successful
+  emission, move every fact into its canonical stamp file. The decision log
+  belongs in `shared/decision-log.md` when the stamp has `shared/`. Use
+  `map/_meta/decision-log.md` only when this emit includes a `map/` overlay. A
+  firstmate-home with no map gets neither glossary nor decision-log sections
+  in the active notes and no files under `map/_meta/`. If resumed active notes
+  already contain either section, retain the notes after a no-map emission
+  unless every fact has moved to another approved canonical destination;
+  never invent a destination to permit deletion. Never create a root decision
+  log. Delete the active notes file only after all applicable Round 9 checks
+  succeed and only when this invocation created it or resumed it under the
+  matching `v3` target marker. Retain it while emission or validation is
+  incomplete. Never delete or clobber user-owned or nonmatching notes. Do not
+  copy the notes into the emitted tree.
 - **Do not create the target tree** (`_config/`, `stages/`, `map/`,
   `shared/`, ...) until the frontier is empty **and** the human confirms
   shared understanding.
@@ -80,6 +86,11 @@ Load [references/trees.md](references/trees.md) and
   [references/trees.md](references/trees.md) labels it optional or conditional.
   If a required node collides and its merge or replacement is not approved,
   abort emission; do not omit or relocate the node and still claim that stamp.
+- After approval and immediately before emission, re-read every planned path
+  and compare its existence, type, and contents with the state used for the
+  approved collision plan. If any path changed, discard the stale plan,
+  present a revised collision plan, and repeat the required confirmation and
+  approvals before emitting anything.
 - Emit **one** of the six trees. If none applies, record that conclusion and
   stop. Do not invent a seventh or fall back to the designer.
 - **Never** run `icm new` or `icm init`. ICMTemp's designer is not a stamp.
@@ -154,8 +165,9 @@ set the marker to `status=done-no-tree`, and do not continue.
 | --- | --- |
 | What one noun repeats, or what durable subject must remain navigable? | Name one unit or subject before choosing a tree. |
 
-Add the settled unit or subject to the brief and glossary in the active notes
-path.
+Add the settled unit or subject to the brief in the active notes path. Do not
+create a glossary section before the selected emission is known to provide a
+canonical glossary destination.
 
 ## Round 3 - factory / product / done
 
@@ -166,8 +178,9 @@ path.
 | Who is the primary reader? | Agents. |
 
 For a durable map or library, the product may be the maintained body itself
-rather than a per-run artifact. Write the brief + first glossary terms into
-the active notes path.
+rather than a per-run artifact. Write the landed facts into the brief. Add
+glossary or decision-log sections only after their canonical destinations are
+known.
 
 ## Round 4 - choose the stamp
 
@@ -185,6 +198,11 @@ catalog, or routing node does not fit.
 For Firstmate-home and brownfield-map stamps, stable map vocabulary belongs
 in `map/_meta/`; keep existing operational configuration in place. Do not add
 `_config/` or schedule factory setup for those stamps.
+
+Begin glossary and decision-log sections after stamp selection only when the
+selected emission has their canonical destinations. For Firstmate-home, wait
+until Round 5 settles whether the optional `map/` overlay will be emitted. If
+it will not, do not collect either section.
 
 ## Round 5 - structure discovery
 
@@ -207,6 +225,9 @@ Write a draft `stage-map.md` or `map-plan.md` into the active notes path. Keep
 the required stamp nodes intact and label every discovered addition optional.
 If a required node is false for the target, return to Round 4 and reject the
 stamp.
+
+For Firstmate-home, settle whether `map/` will be emitted before collecting
+glossary terms or decision-log entries. A no-map home skips both sections.
 
 ## Round 6 - derived contracts
 
@@ -252,8 +273,12 @@ each merge or replacement. For an unapproved collision on an optional node,
 preserve the existing file and omit that node. For an unapproved collision on
 a required node, abort emission. Do not omit or relocate required catalogs,
 routing files, or selected stage contracts and still claim that stamp. Never
-infer overwrite permission from approval of the overall stamp. Then emit only
-the agreed actions.
+infer overwrite permission from approval of the overall stamp. After all
+approvals, re-resolve and re-read every planned path. Compare its existence,
+type, and contents with the snapshot used for the approved plan. If any state
+changed, emit nothing: present a revised collision plan and repeat the shared-
+understanding confirmation and required approvals. Emit only the agreed
+actions from a plan that still matches disk.
 If none of the six applies, stop in Round 4 without creating a tree.
 For an emitted tree that includes `stages/`, persist the complete **Pipeline
 reset contract** from [references/trees.md](references/trees.md) in
@@ -276,8 +301,9 @@ is interrupted.
 
 ## Write / do not write
 
-**Write:** brief, glossary, decision log, stage-map or map-plan in the active
-notes path, a questionnaire only for stamps with `_config/`, then files from
+**Write:** brief and stage-map or map-plan in the active notes path; glossary
+and decision log only when the selected emission provides canonical
+destinations; a questionnaire only for stamps with `_config/`; then files from
 the chosen stamp.
 
 **Do not write:** a second designer inside a product repo; ICM twins;
