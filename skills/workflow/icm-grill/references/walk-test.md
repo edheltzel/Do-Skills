@@ -18,8 +18,9 @@ Walk it cold, as an agent with no memory:
   current task* from `AGENTS.md` plus at most two more reads?
 - Pick any stage or node. Does its contract name exact input paths, the
   job, the output, and the human check?
-- After the confirmed-run reset, can you state status purely by scanning what
-  exists in `output/` (or node frontmatter)?
+- For a pipeline, after the confirmed-run reset, can you state status purely by
+  scanning what exists in `output/`? For a map, can you do so from node
+  frontmatter?
 - Is any routing file carrying content payload? Move the payload; leave a
   pointer.
 - Is any fact stored in two places? Pick one home; link from the other.
@@ -60,5 +61,7 @@ an acceptance log.
 ## Layer 0
 
 - Keep the existing `AGENTS.md`.
-- If a tool requires `CLAUDE.md`, write a one-line pointer at the existing
-  catalog. Never a twin.
+- Before replacing an existing `CLAUDE.md`, move every unique rule into
+  `AGENTS.md` or the stamp's canonical catalog.
+- If a tool requires `CLAUDE.md`, write a one-line pointer at the canonical
+  catalog only after that migration. Never a twin.

@@ -36,7 +36,9 @@ confirm / emit.
 - Emit **one** of the six trees. If none applies, record that conclusion and
   stop. Do not invent a seventh or fall back to the designer.
 - **Never** run `icm new` or `icm init`. ICMTemp's designer is not a stamp.
-- Layer 0 is `AGENTS.md`. `CLAUDE.md` is a one-line pointer, never a twin.
+- Layer 0 is `AGENTS.md`. Before replacing an existing `CLAUDE.md`, move every
+  unique rule into `AGENTS.md` or the stamp's canonical catalog. Only then make
+  `CLAUDE.md` a one-line pointer; never discard rules or create twin catalogs.
 - Do not generate a designer (`00_intake` ... `05_validation`). If the job is
   a new workspace that is not one of the six, stop.
 - Pipeline stages use `NN_slug` (kit regex). Maps have no prefix.
@@ -58,24 +60,26 @@ A question that depends on an unanswered one belongs in a later round.
 
 ```
 need ICM at all?
-  +-- repeating unit?  -> form (pipeline | library | bundle | map | home)
+  +-- repeating unit or durable subject?
        +-- factory vs product
        +-- done artifact
        +-- primary reader (default: agents)
        +-- existing catalog? (AGENTS.md / DOX)
-       +-- pipeline path -> stages, gates, handoffs, verify
-       +-- map path -> nouns, movements, effects, additive-only
-            +-- pipeline / library / bundle / scout -> factory questionnaire
-            +-- home / map -> skip factory setup
-                 +-- which of the six trees to copy
-                      +-- walk test / icm validate (pipelines only)
+            +-- which of the six trees to copy
+                 +-- pipeline path -> discover pauses
+                 |    +-- stages, gates, handoffs, verify
+                 +-- map path -> nouns, movements, effects, additive-only
+                      +-- pipeline / library / bundle / scout -> factory questionnaire
+                      +-- home / map -> skip factory setup
+                           +-- walk test / icm validate (pipelines only)
 ```
 
 ## Round 0 - facts (no human questions)
 
 In parallel, look up:
 
-- Tree, `AGENTS.md` / `CLAUDE.md`, existing `docs/`, `map/`, `stages/`
+- Tree, existing `docs/`, `map/`, `stages/`, and rules unique to either
+  `AGENTS.md` or `CLAUDE.md`
 - Delivery posture if already recorded (do not invent)
 - Whether one of the six trees already covers it
 - Whether `icm validate` would even apply (needs `stages/`)
@@ -86,35 +90,49 @@ Report the inventory, then open Round 1.
 
 | Q | Recommend |
 | --- | --- |
-| Repeating sequential reviewable work, a body later agents must edit, or a one-off? | One-off: no workspace. Edit job: brownfield map. Repeatable run: pipeline. |
-| What is the repeating unit? | One noun. |
-| Which of the six trees, or none? | Pick one. Do not invent a seventh. |
+| Repeating sequential reviewable work, a body later agents must edit, or a one-off? | One-off: no workspace and stop. Otherwise continue; pick the stamp in Round 4. |
 
-If the answer is none / one-off: stop. Write that in the notes and do not continue.
+If the answer is one-off: stop. Write that in the notes and do not continue.
 
-## Round 2 - factory / product / done
+## Round 2 - repeating unit
+
+| Q | Recommend |
+| --- | --- |
+| What one noun repeats, or what durable subject must remain navigable? | Name one unit or subject before choosing a tree. |
+
+Add the settled unit or subject to the brief and glossary.
+
+## Round 3 - factory / product / done
 
 | Q | Recommend |
 | --- | --- |
 | What leaves the workspace? | One artifact path. |
-| What stays the same every run? | Those files become `_config/` / `shared/`. |
+| What stays the same every run or edit? | Pipeline stamps put it in `_config/` / `shared/`; map and home stamps put vocabulary in `map/_meta/`. |
 | Who is the primary reader? | Agents. |
-| Keep the existing `AGENTS.md`? | Yes. Pointer `CLAUDE.md` if a tool needs that name. |
+
+For a durable map or library, the product may be the maintained body itself
+rather than a per-run artifact. Write the brief + first glossary terms into
+`icm-grill-notes.md`.
+
+## Round 4 - choose the stamp
+
+| Q | Recommend |
+| --- | --- |
+| Which of the six trees, or none, fits the landed facts and product boundary? | Pick one. Do not invent a seventh. |
+
+If the answer is none: stop. Write that in the notes and do not create a tree.
 
 For Firstmate-home and brownfield-map stamps, stable map vocabulary belongs
 in `map/_meta/`; keep existing operational configuration in place. Do not add
 `_config/` or schedule factory setup for those stamps.
 
-Write the brief + first glossary terms into `icm-grill-notes.md`.
-
-## Round 3 - structure
+## Round 5 - structure discovery
 
 **Pipeline / skill / scout / docs:**
 
 | Q | Recommend |
 | --- | --- |
 | Where does a human already pause? | Those pauses are the only stages. Three real beats beat seven imagined ones. |
-| Handoff file at each pause? | One output per stage. |
 | What must never be model judgment? | That goes in Verify / a script. |
 
 **Map / home:**
@@ -125,11 +143,29 @@ Write the brief + first glossary terms into `icm-grill-notes.md`.
 | What actually moves today? | Process cards only for those. Not aspirational. |
 | Additive overlay only? | Yes. |
 
-Write `stage-map.md` or `map-plan.md` into the notes. Offer an ADR only when
+Write a draft `stage-map.md` or `map-plan.md` into the notes.
+
+## Round 6 - derived contracts
+
+Ask only about structure discovered in Round 5.
+
+**Pipeline / skill / scout / docs:**
+
+| Q | Recommend |
+| --- | --- |
+| For each confirmed pause, what exact inputs, handoff artifact, and human gate apply? | One output per stage, with exact paths and one review gate. |
+
+**Map / home:**
+
+| Q | Recommend |
+| --- | --- |
+| Which card owns each confirmed noun or movement, and what source path proves it? | One canonical card per concept, citing `path:line`. |
+
+Update `stage-map.md` or `map-plan.md` in the notes. Offer an ADR only when
 hard-to-reverse + surprising + a real trade-off. Layer-0 catalog form is
 already decided for this fleet (DOX-native `AGENTS.md`).
 
-## Round 4 - factory setup (stamps with `_config/` only)
+## Round 7 - factory setup (stamps with `_config/` only)
 
 Skip this round for Firstmate-home and brownfield-map stamps. Do not add
 `_config/` or a setup questionnaire to either stamp.
@@ -138,19 +174,20 @@ Grill the **send**, not the subject: who answers, what must be baked into
 `_config/` so no run re-asks it. Each question maps to one file.
 System-level only. Write a one-pass `setup-questionnaire.md` in the notes.
 
-## Round 5 - confirm, then copy
+## Round 8 - confirm, then copy
 
 Show the filled target tree from [references/trees.md](references/trees.md).
 Wait for "yes, that is the shared understanding." Then emit that stamp.
-If none of the six applies, stop in Round 1 without creating a tree.
-When emitting, bake this one line into a file the stamp already has:
-pipelines write it to `AGENTS.md`, or to `_config/delivery.md` when that
-file exists; Firstmate-home and brownfield write it to `map/CONTEXT.md`.
-The line: a new confirmed run overwrites `stages/*/output/` in place;
-leftover output is not this run. Do not add per-run namespaces or archive
-dirs. For an existing emitted pipeline, apply that overwrite before stage work.
+If none of the six applies, stop in Round 4 without creating a tree.
+For an emitted tree that includes `stages/`, bake this line into an existing
+file: write it to `AGENTS.md`, or to `_config/delivery.md` when that file
+exists. The line: a new confirmed run
+overwrites `stages/*/output/` in place; leftover output is not this run. Do not
+add per-run namespaces or archive dirs. For an existing emitted pipeline,
+apply that overwrite before stage work. Do not write this reset rule for a
+home, map, or any emitted tree without `stages/`.
 
-## Round 6 - walk / validate
+## Round 9 - walk / validate
 
 After emit, run the walk test in [references/walk-test.md](references/walk-test.md).
 Pipelines that claim kit compatibility: `icm validate --strict`.

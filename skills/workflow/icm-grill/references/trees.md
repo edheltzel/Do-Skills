@@ -6,16 +6,18 @@ seventh or use the designer as a fallback.
 
 Shared conventions for any tree that should pass the cloned ICMTemp kit:
 
-- Layer 0 = `AGENTS.md`. `CLAUDE.md` is a one-line pointer, never a twin.
+- Layer 0 = `AGENTS.md`. Before replacing an existing `CLAUDE.md`, move every
+  unique rule into `AGENTS.md` or the stamp's canonical catalog. Only then make
+  `CLAUDE.md` a one-line pointer; never discard rules or create a twin.
 - Layer 1 = root `CONTEXT.md` (routing only).
 - Stages = `NN_slug` with `CONTEXT.md` + `references/` + `output/`.
 - Headings = Inputs, Process, Outputs, Review Gate, Verify.
 - Root dirs = `_config/`, `_templates/`, `shared/`, `stages/` when it is a pipeline.
 - Do not generate the designer (`00_intake` through `05_validation`).
-- Bake into an existing file: a new confirmed run overwrites
-  `stages/*/output/` in place; leftover output is not this run.
-  Pipelines: `AGENTS.md`, or `_config/delivery.md` when that file exists.
-  Firstmate-home and brownfield: `map/CONTEXT.md`.
+- When the emitted tree includes `stages/`, bake into `AGENTS.md`, or
+  `_config/delivery.md` when that file exists: a new confirmed run overwrites
+  `stages/*/output/` in place; leftover output is not this run. Do not write
+  this rule for home, map, or any emitted tree without `stages/`.
 
 Kit stage folder regex: `^\d{2}_[a-z0-9][a-z0-9_-]*$`. `01-audit-ia` fails
 `icm validate --strict`.

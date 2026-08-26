@@ -39,7 +39,8 @@ recommended answer. Disk facts are looked up; only decisions go to the
 human. Glossary terms land in `icm-grill-notes.md` as they settle. Folders
 are not created until the human confirms the filled tree.
 
-Layer 0 stays `AGENTS.md`. `CLAUDE.md` is a pointer, never a twin.
+Layer 0 stays `AGENTS.md`. Before an existing `CLAUDE.md` becomes a pointer,
+its unique rules move into `AGENTS.md` or the stamp's canonical catalog.
 
 ## It's working if
 
@@ -51,5 +52,7 @@ Layer 0 stays `AGENTS.md`. `CLAUDE.md` is a pointer, never a twin.
 ## Where it fits
 
 A run-once design interview that sits beside the shipping workflow skills.
-Use it before folders exist. After a pipeline exists, ordinary change work
-goes through [commit](./commit.md) and friends, not another grill.
+Use it before the target ICM folders exist. Product-app and brownfield stamps
+can add those folders to an existing repository. After a pipeline exists,
+ordinary change work goes through [commit](./commit.md) and friends, not
+another grill.
