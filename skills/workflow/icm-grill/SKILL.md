@@ -53,21 +53,25 @@ Load [references/trees.md](references/trees.md) and
   Write the brief and stage-map or map-plan **as they land**. Write glossary
   and decision-log sections as they land only after the selected emission is
   known to provide their canonical destinations; before then, keep settled
-  source facts in the brief. Write a questionnaire only for stamps with
-  `_config/`. Do not batch applicable sections at the end. After a successful
-  emission, move every fact into its canonical stamp file. The decision log
-  belongs in `shared/decision-log.md` when the stamp has `shared/`. Use
-  `map/_meta/decision-log.md` only when this emit includes a `map/` overlay. A
-  firstmate-home with no map gets neither glossary nor decision-log sections
-  in the active notes and no files under `map/_meta/`. If resumed active notes
-  already contain either section, retain the notes after a no-map emission
-  unless every fact has moved to another approved canonical destination;
-  never invent a destination to permit deletion. Never create a root decision
-  log. Delete the active notes file only after all applicable Round 9 checks
-  succeed and only when this invocation created it or resumed it under the
-  matching `v3` target marker. Retain it while emission or validation is
-  incomplete. Never delete or clobber user-owned or nonmatching notes. Do not
-  copy the notes into the emitted tree.
+  source facts in the brief. As soon as those destinations become available,
+  migrate every applicable glossary term and decision already recorded in the
+  brief into the new working sections before collecting later entries. Keep
+  only brief-specific scope and product facts in the brief. Write a
+  questionnaire only for stamps with `_config/`. Do not batch applicable
+  sections at the end. After a successful emission, move every fact into its
+  canonical stamp file. The decision log belongs in `shared/decision-log.md`
+  when the stamp has `shared/`. Use `map/_meta/decision-log.md` only when this
+  emit includes a `map/` overlay. A firstmate-home with no map gets neither
+  glossary nor decision-log sections in the active notes and no files under
+  `map/_meta/`; do not migrate brief entries into skipped sections. If resumed
+  active notes already contain either section, retain the notes after a no-map
+  emission unless every fact has moved to another approved canonical
+  destination; never invent a destination to permit deletion. Never create a
+  root decision log. Delete the active notes file only after all applicable
+  Round 9 checks succeed and only when this invocation created it or resumed
+  it under the matching `v3` target marker. Retain it while emission or
+  validation is incomplete. Never delete or clobber user-owned or nonmatching
+  notes. Do not copy the notes into the emitted tree.
 - **Do not create the target tree** (`_config/`, `stages/`, `map/`,
   `shared/`, ...) until the frontier is empty **and** the human confirms
   shared understanding.
@@ -200,7 +204,9 @@ in `map/_meta/`; keep existing operational configuration in place. Do not add
 `_config/` or schedule factory setup for those stamps.
 
 Begin glossary and decision-log sections after stamp selection only when the
-selected emission has their canonical destinations. For Firstmate-home, wait
+selected emission has their canonical destinations. When Round 4 establishes
+those destinations, immediately migrate applicable terms and decisions from
+the brief into the new sections before continuing. For Firstmate-home, wait
 until Round 5 settles whether the optional `map/` overlay will be emitted. If
 it will not, do not collect either section.
 
@@ -227,7 +233,9 @@ If a required node is false for the target, return to Round 4 and reject the
 stamp.
 
 For Firstmate-home, settle whether `map/` will be emitted before collecting
-glossary terms or decision-log entries. A no-map home skips both sections.
+glossary terms or decision-log entries. If it will, open both sections and
+immediately migrate applicable terms and decisions from the brief. A no-map
+home skips both sections and does not migrate entries into them.
 
 ## Round 6 - derived contracts
 

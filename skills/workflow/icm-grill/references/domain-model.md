@@ -6,6 +6,12 @@ once the selected emission has a canonical glossary destination. Before that
 destination is known, keep settled source facts in the brief. Reading a
 glossary is not this file.
 
+When a canonical glossary or decision-log destination becomes available,
+migrate every applicable term and decision already recorded in the brief into
+the corresponding working section before collecting later entries. Leave only
+scope and product facts that belong to the brief. Do not perform this migration
+for a firstmate-home that will not emit `map/`.
+
 During the grill, keep an applicable glossary inside the tracked active notes
 path selected in `SKILL.md`. After the human confirms and the stamp is
 emitted, move it to the stamp's canonical home:
