@@ -11,3 +11,4 @@ Shipping process - commits, issues, PRs, specs, and draft review.
 - [`do-git-worktree`](./do-git-worktree/)
 - [`do-roughdraft`](./do-roughdraft/)
 - [`do-tech-writing`](./do-tech-writing/)
+- [`icm-grill`](./icm-grill/)

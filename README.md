@@ -97,6 +97,7 @@ Shipping process - commits, issues, PRs, specs, and draft review.
 - [`do-git-worktree`](./skills/workflow/do-git-worktree/)
 - [`do-roughdraft`](./skills/workflow/do-roughdraft/)
 - [`do-tech-writing`](./skills/workflow/do-tech-writing/)
+- [`icm-grill`](./skills/workflow/icm-grill/)
 
 ### Operations
 
