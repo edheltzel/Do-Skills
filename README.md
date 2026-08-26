@@ -13,10 +13,11 @@ To keep this easy, I use [Skills.sh](https://skills.sh) for installation and upd
 npx skills add edheltzel/Do-Skills
 ```
 
-To install a specific skill (every skill name carries the `do-` prefix):
+To install a specific skill, use its exact listed name. Most carry the `do-`
+prefix; `icm-grill` is intentionally unprefixed:
 
 ```bash
-npx skills add edheltzel/Do-Skills@do-<skill-name>
+npx skills add edheltzel/Do-Skills@<skill-name>
 ```
 
 If you want to install for a specific agents, use the option flags ie: `-a

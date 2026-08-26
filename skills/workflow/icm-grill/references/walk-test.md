@@ -6,9 +6,10 @@ Run this only after the human confirmed and the stamp exists.
 
 A confirmed new run reuses the canonical `stages/*/output/` paths. Before
 stage work begins, clear prior run artifacts from every stage `output/` while
-preserving directory placeholders. Do not archive them or create per-run
-namespaces. A stage is incomplete until its current artifact is written after
-this reset; leftover output from an earlier run never proves completion.
+preserving `.gitkeep` directory placeholders. Ignore `.gitkeep` when deriving
+status. Do not archive artifacts or create per-run namespaces. A stage is
+incomplete until its current artifact is written after this reset; leftover
+output from an earlier run never proves completion.
 
 ## Walk test (every form)
 

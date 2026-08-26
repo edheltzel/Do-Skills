@@ -14,10 +14,10 @@ Interview like `grill-with-docs`. Emit one of six fleet trees. ICMTemp is a
 **designer**, not a product catalog. Do not wrap RinDig `icm-architect` and
 hope: its five generic questions are the wrong interviewer.
 
-Load [references/trees.md](references/trees.md) before recommending a stamp.
-Load [references/domain-model.md](references/domain-model.md) when a term
-settles. Load [references/walk-test.md](references/walk-test.md) only at
-confirm / emit.
+Load [references/trees.md](references/trees.md) and
+[references/domain-model.md](references/domain-model.md) before opening Round
+1 so the terminology rules shape the grill. Load
+[references/walk-test.md](references/walk-test.md) only at confirm / emit.
 
 ## Hard rules
 
@@ -26,13 +26,24 @@ confirm / emit.
 - Look up disk facts yourself. Only decisions go to the human.
 - Ask the current **frontier** only. Number every question. Give a
   recommended answer each time. Wait before the next round.
-- Persist working docs in one file, `icm-grill-notes.md`, at the target root
-  or cwd. Write the brief, glossary, stage-map or map-plan, and decision log
-  **as they land**. Write a questionnaire only for stamps with `_config/`.
-  Do not batch them at the end.
+- Persist working docs in one notes file at the target root or cwd. Prefer
+  `icm-grill-notes.md`. If that path already exists: resume it only when it
+  is a recognized incomplete grill from this skill; otherwise use a unique
+  scratch name and never overwrite the existing file. Write the brief,
+  glossary, stage-map or map-plan, and decision log **as they land**. Write
+  a questionnaire only for stamps with `_config/`. Do not batch them at the
+  end. After a successful emission, move every fact into its canonical stamp
+  file and delete only the notes file this invocation created. Never delete
+  or clobber a user-owned notes file. Do not copy the notes into the emitted
+  tree.
 - **Do not create the target tree** (`_config/`, `stages/`, `map/`,
   `shared/`, ...) until the frontier is empty **and** the human confirms
   shared understanding.
+- Preserve every existing target file by default. Before emission, show a
+  path-by-path collision plan for every file the stamp would add or modify,
+  including the exact merge or replacement proposed. A confirmed tree shape
+  is not permission to overwrite anything; obtain explicit confirmation for
+  each merge or replacement.
 - Emit **one** of the six trees. If none applies, record that conclusion and
   stop. Do not invent a seventh or fall back to the designer.
 - **Never** run `icm new` or `icm init`. ICMTemp's designer is not a stamp.
@@ -177,7 +188,13 @@ System-level only. Write a one-pass `setup-questionnaire.md` in the notes.
 ## Round 8 - confirm, then copy
 
 Show the filled target tree from [references/trees.md](references/trees.md).
-Wait for "yes, that is the shared understanding." Then emit that stamp.
+Resolve it against the current disk and show a collision plan with one row per
+target file: path, current state, proposed action (`add`, `preserve`, `merge`,
+or `replace`), and the exact content change for every merge or replacement.
+Wait for "yes, that is the shared understanding" and explicit approval of
+each merge or replacement. Preserve unapproved collisions and revise the tree
+around them; never infer overwrite permission from approval of the overall
+stamp. Then emit only the agreed actions.
 If none of the six applies, stop in Round 4 without creating a tree.
 For an emitted tree that includes `stages/`, bake this line into an existing
 file: write it to `AGENTS.md`, or to `_config/delivery.md` when that file
@@ -186,6 +203,9 @@ overwrites `stages/*/output/` in place; leftover output is not this run. Do not
 add per-run namespaces or archive dirs. For an existing emitted pipeline,
 apply that overwrite before stage work. Do not write this reset rule for a
 home, map, or any emitted tree without `stages/`.
+After the canonical files are complete, delete only the notes file this
+invocation created, then run Round 9. Keep that file if emission does not
+complete. Never delete a notes file this run did not create.
 
 ## Round 9 - walk / validate
 

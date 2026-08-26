@@ -10,7 +10,11 @@ Shared conventions for any tree that should pass the cloned ICMTemp kit:
   unique rule into `AGENTS.md` or the stamp's canonical catalog. Only then make
   `CLAUDE.md` a one-line pointer; never discard rules or create a twin.
 - Layer 1 = root `CONTEXT.md` (routing only).
-- Stages = `NN_slug` with `CONTEXT.md` + `references/` + `output/`.
+- Stages = `NN_slug` with `CONTEXT.md` + `references/` + `output/`. Emit
+  `references/.gitkeep` or `output/.gitkeep` whenever the directory would
+  otherwise be empty. These are structural placeholders, not artifacts, and
+  never count toward stage status or completion. Artifact paths shown below
+  are contracts; do not create those files until the stage produces them.
 - Headings = Inputs, Process, Outputs, Review Gate, Verify.
 - Root dirs = `_config/`, `_templates/`, `shared/`, `stages/` when it is a pipeline.
 - Do not generate the designer (`00_intake` through `05_validation`).
@@ -154,12 +158,15 @@ docs-workspace/
 
 ## 5. Brownfield map overlay
 
-**When:** an existing repo later agents must edit without slurping. Additive
-only. Never `icm init`.
+**When:** an existing repo later agents must edit without slurping. Never
+`icm init`.
 
-Acceptance: all adds, zero `src/` edits, walkable cold from `AGENTS.md` plus
-one card. Do not emit empty `processes/` or `effects/`. Do not twin
-`AGENTS.md`.
+Acceptance: the map overlay is all adds, with zero `src/` edits, and is
+walkable cold from `AGENTS.md` plus one card. The only allowed modification to
+existing root files is catalog migration: move rules unique to `CLAUDE.md`
+into `AGENTS.md`, then make `CLAUDE.md` a pointer. Do not change either file
+for any other brownfield-map purpose. Do not emit empty `processes/` or
+`effects/`, and do not twin `AGENTS.md`.
 
 This tree will **not** pass `icm validate` (no `stages/`). That is correct.
 Do not bolt a fake pipeline onto a map so the CLI goes green.
