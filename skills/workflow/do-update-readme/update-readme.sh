@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Regenerates the Available Skills section in README.md from SKILL.md frontmatters.
 # Skills live under skills/<bucket>/<skill>/SKILL.md; the section is grouped by bucket.
-# Usage: bash skills/private/do-update-readme/update-readme.sh
+# Usage: bash skills/workflow/do-update-readme/update-readme.sh
 set -euo pipefail
 
 ROOT="$(git -C "$(dirname "${BASH_SOURCE[0]}")" rev-parse --show-toplevel)"

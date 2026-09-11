@@ -16,7 +16,10 @@ npx skills update do-bro
 
 `do-bro` restates the assistant's last response in plain human language. It
 cuts jargon, inflated phrasing, and unnecessary detail without changing the
-underlying answer.
+underlying answer. It gives a little context, writes in ASD-STE100 Simplified
+Technical English, and uses the project vocabulary from CONTEXT.md. If the
+repo has more than one, it follows CONTEXT-MAP.md to the right file. If those
+files are missing, it keeps speaking plainly.
 
 The defining constraint is that it only rewrites the immediately preceding
 response. It does not add analysis, change the decision, or start a new task.
@@ -38,7 +41,8 @@ concise, and coherent.
 ## It's working if
 
 - The rewritten answer keeps the original meaning.
-- Jargon and inflated phrasing are gone.
+- Jargon is gone. The rewrite uses ASD-STE100, a little context, and
+  CONTEXT.md words when present.
 - No new claims, caveats, or recommendations appear.
 
 ## Where it fits

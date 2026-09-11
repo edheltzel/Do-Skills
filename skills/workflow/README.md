@@ -9,5 +9,6 @@ Shipping process - commits, issues, PRs, specs, and draft review.
 - [`do-git-pr-review-triage`](./do-git-pr-review-triage/)
 - [`do-git-safe-pr-workflow`](./do-git-safe-pr-workflow/)
 - [`do-git-worktree`](./do-git-worktree/)
-- [`do-roughdraft`](./do-roughdraft/)
 - [`do-tech-writing`](./do-tech-writing/)
+- [`do-tutorial-docs`](./do-tutorial-docs/)
+- [`do-update-readme`](./do-update-readme/)

@@ -77,12 +77,15 @@ Audience-facing media - pictures, diagrams, video, motion, blog, and social.
 Modifying the coding-agent harness - distilling knowledge into reusable skills.
 
 - [`do-distill-to-skill`](./skills/harness/do-distill-to-skill/)
+- [`do-writing-great-skills`](./skills/harness/do-writing-great-skills/)
 
 ### Slop Guard
 
 Catching AI slop - restating output in plain human language and stripping jargon-heavy writing.
 
 - [`do-bro`](./skills/slop-guard/do-bro/)
+- [`do-humanize`](./skills/slop-guard/do-humanize/)
+- [`do-review-ai-writing`](./skills/slop-guard/do-review-ai-writing/)
 
 ### Workflow
 
@@ -95,8 +98,9 @@ Shipping process - commits, issues, PRs, specs, and draft review.
 - [`do-git-pr-review-triage`](./skills/workflow/do-git-pr-review-triage/)
 - [`do-git-safe-pr-workflow`](./skills/workflow/do-git-safe-pr-workflow/)
 - [`do-git-worktree`](./skills/workflow/do-git-worktree/)
-- [`do-roughdraft`](./skills/workflow/do-roughdraft/)
 - [`do-tech-writing`](./skills/workflow/do-tech-writing/)
+- [`do-tutorial-docs`](./skills/workflow/do-tutorial-docs/)
+- [`do-update-readme`](./skills/workflow/do-update-readme/)
 
 ### Operations
 
@@ -113,12 +117,7 @@ Operating AI agents and driving machines - delegation, evaluation, prompt audits
 Your non-portable extras.
 
 - [`do-recipe-diagrams`](./skills/personal/do-recipe-diagrams/)
-
-### Private
-
-This repository's own tooling. Not portable.
-
-- [`do-update-readme`](./skills/private/do-update-readme/)
+- [`do-teach`](./skills/personal/do-teach/)
 
 <!-- skills-end -->
 ### Archived
@@ -166,7 +165,7 @@ description: A clear description of what this skill does and when to use it
 After adding, moving, or renaming a skill, regenerate the Available Skills section:
 
 ```bash
-bash skills/private/do-update-readme/update-readme.sh
+bash skills/workflow/do-update-readme/update-readme.sh
 ```
 
 ---
@@ -178,3 +177,10 @@ WTFPL
 ---
 
 ## Attributions
+
+[`do-writing-great-skills`](./skills/harness/do-writing-great-skills/) (Matt `writing-great-skills` at [`697d4ce`](https://github.com/mattpocock/skills/commit/697d4ce9742da558fd1ba6697c8e9775e2e302dd)) and
+[`do-teach`](./skills/personal/do-teach/) are adapted from [Matt Pocock's Skills](https://github.com/mattpocock/skills).
+His `wait-what` skill also contributes to [`do-bro`](./skills/slop-guard/do-bro/).
+The imported skills and contribution retain their MIT license; each affected skill folder includes the upstream notice.
+
+[`do-tutorial-docs`](./skills/workflow/do-tutorial-docs/), [`do-review-ai-writing`](./skills/slop-guard/do-review-ai-writing/), and [`do-humanize`](./skills/slop-guard/do-humanize/) are adapted from [Beagle](https://github.com/existential-birds/beagle) by Existential Birds, LLC under the [Apache License 2.0](https://github.com/existential-birds/beagle/blob/master/LICENSE).
