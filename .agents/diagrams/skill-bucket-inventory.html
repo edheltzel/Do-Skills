@@ -405,31 +405,31 @@
     <a href="#workflow">Workflow</a>
     <a href="#operations">Operations</a>
     <a href="#personal">Personal</a>
-    <a href="#private">Private</a>
   </nav>
 
   <div class="main">
     <h1 class="animate" style="--i:0">Skill buckets</h1>
-    <p class="subtitle animate" style="--i:1">45 skills · nine buckets · origin/master 4439137</p>
+    <p class="subtitle animate" style="--i:1">49 skills · eight buckets · current workspace snapshot 2026-09-11</p>
 
     <div class="kpi-row">
       <div class="kpi-card" style="--i:0">
-        <div class="kpi-card__value">45</div>
+        <div class="kpi-card__value">49</div>
         <div class="kpi-card__label">Skills</div>
       </div>
       <div class="kpi-card" style="--i:1">
-        <div class="kpi-card__value" style="color:var(--accent)">4</div>
+        <div class="kpi-card__value" style="color:var(--accent)">8</div>
         <div class="kpi-card__label">User</div>
       </div>
       <div class="kpi-card" style="--i:2">
-        <div class="kpi-card__value" style="color:var(--sage)">1</div>
+        <div class="kpi-card__value" style="color:var(--sage)">40</div>
         <div class="kpi-card__label">User or agent</div>
       </div>
       <div class="kpi-card" style="--i:3">
-        <div class="kpi-card__value">40</div>
+        <div class="kpi-card__value">1</div>
         <div class="kpi-card__label">Agent</div>
       </div>
     </div>
+    <p class="subtitle">From declared metadata/defaults; host behavior may vary, not usage telemetry.</p>
 
     <h2 id="core" class="sec-head">Core <span class="sec-count">9</span></h2>
     <div class="table-wrap">
@@ -440,7 +440,7 @@
               <th>Skill</th>
               <th class="wide">Description</th>
               <th class="wide">Behavior</th>
-              <th>Invoked by</th>
+              <th>Declared invocation</th>
             </tr>
           </thead>
           <tbody>
@@ -448,55 +448,55 @@
               <td><code>do-adversarial-review</code></td>
               <td class="wide">Hunt correctness bugs and regressions in a change set.</td>
               <td class="wide">Reads the diff and reports triggerable findings only.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-agent-context-layer</code></td>
               <td class="wide">Structure a repo's docs so an agent can navigate with ICM rules.</td>
               <td class="wide">Turns AGENTS/CLAUDE into a routing catalogue, not a dump.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-agent-first-repo</code></td>
               <td class="wide">Make a repository and its docs work for coding agents.</td>
               <td class="wide">Sets knowledge hierarchy, disclosure, and entropy rules.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-agents-md</code></td>
               <td class="wide">Write the root AGENTS.md coding-agent map.</td>
               <td class="wide">Produces a short command-and-boundary file, not a manual.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-architecture-md</code></td>
               <td class="wide">Generate a stable ARCHITECTURE.md codemap.</td>
               <td class="wide">Names modules, boundaries, and invariants; no stale links.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-behavioral-testing</code></td>
               <td class="wide">Test what users observe, not how code is structured.</td>
               <td class="wide">Writes or reviews tests against visible behavior.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-first-principles</code></td>
               <td class="wide">Rebuild a problem from hard constraints, not analogy.</td>
               <td class="wide">Classifies constraints vs assumptions, then reconstructs.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-red-team</code></td>
               <td class="wide">Attack an idea with parallel adversarial agents.</td>
               <td class="wide">Breaks claims, steelmans, ranks findings with fixes.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-simplify</code></td>
               <td class="wide">Clarify recently changed code without changing behavior.</td>
               <td class="wide">Edits the latest diff until intent is obvious.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
           </tbody>
         </table>
@@ -512,7 +512,7 @@
               <th>Skill</th>
               <th class="wide">Description</th>
               <th class="wide">Behavior</th>
-              <th>Invoked by</th>
+              <th>Declared invocation</th>
             </tr>
           </thead>
           <tbody>
@@ -520,91 +520,91 @@
               <td><code>do-bootstrap-design-system</code></td>
               <td class="wide">Generate DESIGN.md plus a live HTML style guide.</td>
               <td class="wide">Discovers tokens, writes the spec, verifies the page.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-cleanup-swift</code></td>
               <td class="wide">End-of-session Swift cleanup.</td>
               <td class="wide">Reviews this session's Swift files for simplify, types, platform, comments.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-cleanup-web</code></td>
               <td class="wide">End-of-session TypeScript/React/CSS cleanup.</td>
               <td class="wide">Reviews this session's web files across those same lenses.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-code-comments</code></td>
               <td class="wide">Write why/invariant comments next to code.</td>
               <td class="wide">Adds durable rationale; deletes narration and restated <code>what</code>.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-coding-standards</code></td>
               <td class="wide">Correct-by-construction TypeScript and Effect rules.</td>
               <td class="wide">Parses inputs, makes failures explicit, keeps effects in services.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-create-cli</code></td>
               <td class="wide">Scaffold a production TypeScript CLI.</td>
               <td class="wide">Emits one of three tiers: manual args, Commander, or oclif.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-design-patterns-gof</code></td>
               <td class="wide">Field guide to the 23 GoF patterns.</td>
               <td class="wide">Names the shape, tradeoffs, and when not to use it.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-design-system</code></td>
               <td class="wide">Build accessible, themeable UI components.</td>
               <td class="wide">Designs API, tokens, a11y, and interaction for reusable UI.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-effect-service-design</code></td>
               <td class="wide">Design Effect services as authority seams.</td>
               <td class="wide">Owns contract, construction, Layer, and honest test impl.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-lean-ts-patterns</code></td>
               <td class="wide">Zero-dependency TypeScript tools and libraries.</td>
               <td class="wide">Builds CLIs, fetch wrappers, loggers without extra packages.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-macos-swift-desktop</code></td>
               <td class="wide">Native macOS AppKit/SwiftUI app patterns.</td>
               <td class="wide">Implements windows, documents, menus, persistence, sandbox.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-modern-css</code></td>
               <td class="wide">Native CSS instead of JS and legacy hacks.</td>
               <td class="wide">Replaces old patterns with current layout, color, selectors.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-no-use-effect</code></td>
               <td class="wide">Stop unnecessary React <code>useEffect</code>.</td>
               <td class="wide">Steers to derived state, handlers, keys, and query APIs.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-parse-dont-validate</code></td>
               <td class="wide">Make illegal states unrepresentable at boundaries.</td>
               <td class="wide">Parses input into types instead of checking and hoping.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-typescript-refactoring</code></td>
               <td class="wide">Systematic TypeScript readability and type-safety rewrite.</td>
               <td class="wide">Assesses, prioritizes, and refactors without drive-by churn.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-ux-flow-plan</code></td>
@@ -616,7 +616,7 @@
               <td><code>do-write-typescript</code></td>
               <td class="wide">Write simple, composable, soundly typed TypeScript.</td>
               <td class="wide">Prefers small functions, unions, and readable control flow.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
           </tbody>
         </table>
@@ -632,7 +632,7 @@
               <th>Skill</th>
               <th class="wide">Description</th>
               <th class="wide">Behavior</th>
-              <th>Invoked by</th>
+              <th>Declared invocation</th>
             </tr>
           </thead>
           <tbody>
@@ -640,14 +640,14 @@
               <td><code>do-art</code></td>
               <td class="wide">Static visuals: diagrams, mermaid, infographics, comics, icons, wallpaper.</td>
               <td class="wide">Generates still images/diagrams; not locked channel thumbs or video.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <h2 id="harness" class="sec-head">Harness <span class="sec-count">1</span></h2>
+    <h2 id="harness" class="sec-head">Harness <span class="sec-count">2</span></h2>
     <div class="table-wrap">
       <div class="table-scroll">
         <table class="data-table">
@@ -656,7 +656,7 @@
               <th>Skill</th>
               <th class="wide">Description</th>
               <th class="wide">Behavior</th>
-              <th>Invoked by</th>
+              <th>Declared invocation</th>
             </tr>
           </thead>
           <tbody>
@@ -664,14 +664,20 @@
               <td><code>do-distill-to-skill</code></td>
               <td class="wide">Turn a source into a reusable agent skill.</td>
               <td class="wide">Extracts decision rules; does not package the skill folder.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-writing-great-skills</code></td>
+              <td class="wide">Reference for writing and editing skills well.</td>
+              <td class="wide">Vocabulary and principles that make a skill predictable.</td>
+              <td><span class="status status--user">User</span></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <h2 id="slop-guard" class="sec-head">Slop Guard <span class="sec-count">1</span></h2>
+    <h2 id="slop-guard" class="sec-head">Slop Guard <span class="sec-count">3</span></h2>
     <div class="table-wrap">
       <div class="table-scroll">
         <table class="data-table">
@@ -680,7 +686,7 @@
               <th>Skill</th>
               <th class="wide">Description</th>
               <th class="wide">Behavior</th>
-              <th>Invoked by</th>
+              <th>Declared invocation</th>
             </tr>
           </thead>
           <tbody>
@@ -690,12 +696,24 @@
               <td class="wide">Rewrites only the previous response; adds no new claims.</td>
               <td><span class="status status--user">User</span></td>
             </tr>
+            <tr>
+              <td><code>do-humanize</code></td>
+              <td class="wide">Rewrite AI-generated developer text to sound human.</td>
+              <td class="wide">Applies fixes after <code>do-review-ai-writing</code>; does not detect patterns itself.</td>
+              <td><span class="status status--user">User</span></td>
+            </tr>
+            <tr>
+              <td><code>do-review-ai-writing</code></td>
+              <td class="wide">Detect AI-generated writing patterns in developer text.</td>
+              <td class="wide">Reports authenticity issues; does not rewrite.</td>
+              <td><span class="status status--user">User</span></td>
+            </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <h2 id="workflow" class="sec-head">Workflow <span class="sec-count">9</span></h2>
+    <h2 id="workflow" class="sec-head">Workflow <span class="sec-count">10</span></h2>
     <div class="table-wrap">
       <div class="table-scroll">
         <table class="data-table">
@@ -704,7 +722,7 @@
               <th>Skill</th>
               <th class="wide">Description</th>
               <th class="wide">Behavior</th>
-              <th>Invoked by</th>
+              <th>Declared invocation</th>
             </tr>
           </thead>
           <tbody>
@@ -724,43 +742,49 @@
               <td><code>do-gh-pm</code></td>
               <td class="wide">Drive GitHub Projects v2 from <code>gh</code>.</td>
               <td class="wide">Creates boards, items, fields, and Epic→Feature→Task recipes.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-gh-stack</code></td>
               <td class="wide">Manage stacked PRs with gh-stack.</td>
               <td class="wide">Creates, syncs, rebases, submits, or splits stacked branches.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-git-pr-review-triage</code></td>
               <td class="wide">Triage PR review comments.</td>
               <td class="wide">Classifies feedback and drafts replies; does not apply patches.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-git-safe-pr-workflow</code></td>
               <td class="wide">Safe GitHub PR flow for low-experience Git.</td>
               <td class="wide">Syncs, resolves, undoes, and lands without wrecking <code>main</code>.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-git-worktree</code></td>
               <td class="wide">Create, list, remove worktrees under <code>~/.git-worktrees</code>.</td>
               <td class="wide">Adds or removes <code>~/.git-worktrees/&lt;repo&gt;/&lt;branch&gt;</code>.</td>
-              <td><span class="status status--agent">Agent</span></td>
-            </tr>
-            <tr>
-              <td><code>do-roughdraft</code></td>
-              <td class="wide">Open a markdown file in the roughdraft review CLI.</td>
-              <td class="wide">Starts the local editor and waits for human review.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-tech-writing</code></td>
               <td class="wide">Write terse commits, issues, PRDs, specs, and PRs.</td>
               <td class="wide">Cuts filler and leads with the point.</td>
+              <td><span class="status status--both">User or agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-tutorial-docs</code></td>
+              <td class="wide">Tutorial patterns for learning-oriented, learn-by-doing guides.</td>
+              <td class="wide">Teacher-led lessons with visible results; not how-to or reference.</td>
               <td><span class="status status--agent">Agent</span></td>
+            </tr>
+            <tr>
+              <td><code>do-update-readme</code></td>
+              <td class="wide">Regenerate this repo's Available Skills catalog.</td>
+              <td class="wide">Runs <code>skills/workflow/do-update-readme/update-readme.sh</code>.</td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
           </tbody>
         </table>
@@ -776,7 +800,7 @@
               <th>Skill</th>
               <th class="wide">Description</th>
               <th class="wide">Behavior</th>
-              <th>Invoked by</th>
+              <th>Declared invocation</th>
             </tr>
           </thead>
           <tbody>
@@ -784,38 +808,38 @@
               <td><code>do-bitter-pill</code></td>
               <td class="wide">Audit AI instruction sets for over-prompting.</td>
               <td class="wide">Classifies each rule CUT/RESOLVE/MERGE/EVALUATE/SHARPEN/MOVE/KEEP.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-browser</code></td>
               <td class="wide">Automate Chrome via chrome-devtools-axi.</td>
               <td class="wide">Opens, snapshots, clicks, fills, screenshots, inspects network.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-context-search</code></td>
               <td class="wide">Find prior project work in Recall.</td>
               <td class="wide">Searches session memory; not the public web.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-delegation</code></td>
               <td class="wide">Fan independent work across agents.</td>
               <td class="wide">Dispatches, isolates, and synthesizes parallel agent work.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
             <tr>
               <td><code>do-interceptor</code></td>
               <td class="wide">Drive real Chrome/Brave plus macOS Computer Use.</td>
               <td class="wide">Verifies deploys and UI with real sessions, not CDP spoofing.</td>
-              <td><span class="status status--agent">Agent</span></td>
+              <td><span class="status status--both">User or agent</span></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <h2 id="personal" class="sec-head">Personal <span class="sec-count">1</span></h2>
+    <h2 id="personal" class="sec-head">Personal <span class="sec-count">2</span></h2>
     <div class="table-wrap">
       <div class="table-scroll">
         <table class="data-table">
@@ -824,7 +848,7 @@
               <th>Skill</th>
               <th class="wide">Description</th>
               <th class="wide">Behavior</th>
-              <th>Invoked by</th>
+              <th>Declared invocation</th>
             </tr>
           </thead>
           <tbody>
@@ -834,39 +858,23 @@
               <td class="wide">Builds a planar process graph and writes a ≥3840px table image.</td>
               <td><span class="status status--user">User</span></td>
             </tr>
+            <tr>
+              <td><code>do-teach</code></td>
+              <td class="wide">Teach the user a new skill or concept in this workspace.</td>
+              <td class="wide">Stateful across sessions; does not dump a one-shot explanation.</td>
+              <td><span class="status status--user">User</span></td>
+            </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <h2 id="private" class="sec-head">Private <span class="sec-count">1</span></h2>
-    <div class="table-wrap">
-      <div class="table-scroll">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Skill</th>
-              <th class="wide">Description</th>
-              <th class="wide">Behavior</th>
-              <th>Invoked by</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>do-update-readme</code></td>
-              <td class="wide">Regenerate this repo's Available Skills catalog.</td>
-              <td class="wide">Runs <code>skills/workflow/do-update-readme/update-readme.sh</code>.</td>
-              <td><span class="status status--agent">Agent</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
 
     <p class="page-foot">
-      45 skills · User 4 · User or agent 1 · Agent 40<br>
-      User: <code>do-bro</code>, <code>do-commit</code>, <code>do-commit-push</code>, <code>do-recipe-diagrams</code><br>
-      User or agent: <code>do-ux-flow-plan</code>
+      49 skills · User 8 · User or agent 40 · Agent 1<br>
+      From declared metadata/defaults; host behavior may vary, not usage telemetry.<br>
+      User: <code>do-bro</code>, <code>do-commit</code>, <code>do-commit-push</code>, <code>do-humanize</code>, <code>do-recipe-diagrams</code>, <code>do-review-ai-writing</code>, <code>do-teach</code>, <code>do-writing-great-skills</code><br>
+      Agent: <code>do-tutorial-docs</code>
     </p>
   </div>
 </div>

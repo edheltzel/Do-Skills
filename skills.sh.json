@@ -75,9 +75,9 @@
         "do-git-pr-review-triage",
         "do-git-safe-pr-workflow",
         "do-git-worktree",
-        "do-roughdraft",
         "do-tech-writing",
-        "do-tutorial-docs"
+        "do-tutorial-docs",
+        "do-update-readme"
       ]
     },
     {
@@ -97,13 +97,6 @@
       "skills": [
         "do-recipe-diagrams",
         "do-teach"
-      ]
-    },
-    {
-      "title": "Private",
-      "description": "This repository's own tooling. Not portable.",
-      "skills": [
-        "do-update-readme"
       ]
     }
   ]

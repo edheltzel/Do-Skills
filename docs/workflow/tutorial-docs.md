@@ -47,7 +47,6 @@ the bundled `docs-style` reference, not as a separate skill.
 ## Where it fits
 
 A writing-pattern skill in Workflow, next to
-[tech-writing](./tech-writing.md) (the shared prose posture) and
-[roughdraft](./roughdraft.md) (the human review handoff). Detection and rewrite
+[tech-writing](./tech-writing.md) (the shared prose posture). Detection and rewrite
 of AI tone live in [review-ai-writing](../slop-guard/review-ai-writing.md) and
 [humanize](../slop-guard/humanize.md).
