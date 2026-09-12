@@ -10,7 +10,7 @@ skill's `name`, `description`, directory, or bucket, regenerate the Available
 Skills section by running the script from the repo root:
 
 ```bash
-bash skills/private/do-update-readme/update-readme.sh
+bash skills/workflow/do-update-readme/update-readme.sh
 ```
 
 It rewrites the region between `<!-- skills-start -->` and `<!-- skills-end -->`

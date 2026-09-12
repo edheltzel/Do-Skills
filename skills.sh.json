@@ -51,14 +51,17 @@
       "title": "Harness",
       "description": "Modifying the coding-agent harness - distilling knowledge into reusable skills.",
       "skills": [
-        "do-distill-to-skill"
+        "do-distill-to-skill",
+        "do-writing-great-skills"
       ]
     },
     {
       "title": "Slop Guard",
       "description": "Catching AI slop - restating output in plain human language and stripping jargon-heavy writing.",
       "skills": [
-        "do-bro"
+        "do-bro",
+        "do-humanize",
+        "do-review-ai-writing"
       ]
     },
     {
@@ -72,8 +75,9 @@
         "do-git-pr-review-triage",
         "do-git-safe-pr-workflow",
         "do-git-worktree",
-        "do-roughdraft",
         "do-tech-writing",
+        "do-tutorial-docs",
+        "do-update-readme",
         "icm-grill"
       ]
     },
@@ -92,14 +96,8 @@
       "title": "Personal",
       "description": "Your non-portable extras.",
       "skills": [
-        "do-recipe-diagrams"
-      ]
-    },
-    {
-      "title": "Private",
-      "description": "This repository's own tooling. Not portable.",
-      "skills": [
-        "do-update-readme"
+        "do-recipe-diagrams",
+        "do-teach"
       ]
     }
   ]
