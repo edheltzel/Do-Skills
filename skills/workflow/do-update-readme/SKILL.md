@@ -5,7 +5,7 @@ description: Use when adding, removing, or renaming a skill in this repository t
 
 # Update README
 
-Skills live under `skills/<bucket>/<skill>/SKILL.md`. After any change to a
+Skills live under `skills/<bucket>/<skill>/SKILL.md` or `skills/<bucket>/<tech>/<skill>/SKILL.md`. After any change to a
 skill's `name`, `description`, directory, or bucket, regenerate the Available
 Skills section by running the script from the repo root:
 

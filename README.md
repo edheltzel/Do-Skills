@@ -63,6 +63,12 @@ Code design and implementation practices, from general principles to language-, 
 - [`do-modern-css`](./skills/engineering/do-modern-css/)
 - [`do-no-use-effect`](./skills/engineering/do-no-use-effect/)
 - [`do-parse-dont-validate`](./skills/engineering/do-parse-dont-validate/)
+- [`do-review-elixir`](./skills/engineering/elixir/do-review-elixir/)
+- [`do-review-frontend`](./skills/engineering/frontend/do-review-frontend/)
+- [`do-review-go`](./skills/engineering/go/do-review-go/)
+- [`do-review-ios`](./skills/engineering/swift/do-review-ios/)
+- [`do-review-python`](./skills/engineering/python/do-review-python/)
+- [`do-review-rust`](./skills/engineering/rust/do-review-rust/)
 - [`do-typescript-refactoring`](./skills/engineering/do-typescript-refactoring/)
 - [`do-ux-flow-plan`](./skills/engineering/do-ux-flow-plan/)
 - [`do-write-typescript`](./skills/engineering/do-write-typescript/)
@@ -78,6 +84,7 @@ Audience-facing media - pictures, diagrams, video, motion, blog, and social.
 Modifying the coding-agent harness - distilling knowledge into reusable skills.
 
 - [`do-distill-to-skill`](./skills/harness/do-distill-to-skill/)
+- [`do-review-skill`](./skills/harness/do-review-skill/)
 - [`do-writing-great-skills`](./skills/harness/do-writing-great-skills/)
 
 ### Slop Guard
@@ -99,6 +106,7 @@ Workspace design and change delivery - interviews, commits, issues, PRs, specs, 
 - [`do-git-pr-review-triage`](./skills/workflow/do-git-pr-review-triage/)
 - [`do-git-safe-pr-workflow`](./skills/workflow/do-git-safe-pr-workflow/)
 - [`do-git-worktree`](./skills/workflow/do-git-worktree/)
+- [`do-improve-doc`](./skills/workflow/do-improve-doc/)
 - [`do-tech-writing`](./skills/workflow/do-tech-writing/)
 - [`do-tutorial-docs`](./skills/workflow/do-tutorial-docs/)
 - [`do-update-readme`](./skills/workflow/do-update-readme/)
@@ -186,4 +194,4 @@ WTFPL
 His `wait-what` skill also contributes to [`do-bro`](./skills/slop-guard/do-bro/).
 The imported skills and contribution retain their MIT license; each affected skill folder includes the upstream notice.
 
-[`do-tutorial-docs`](./skills/workflow/do-tutorial-docs/), [`do-review-ai-writing`](./skills/slop-guard/do-review-ai-writing/), and [`do-humanize`](./skills/slop-guard/do-humanize/) are adapted from [Beagle](https://github.com/existential-birds/beagle) by Existential Birds, LLC under the [Apache License 2.0](https://github.com/existential-birds/beagle/blob/master/LICENSE).
+[`do-tutorial-docs`](./skills/workflow/do-tutorial-docs/), [`do-improve-doc`](./skills/workflow/do-improve-doc/), [`do-review-ai-writing`](./skills/slop-guard/do-review-ai-writing/), [`do-humanize`](./skills/slop-guard/do-humanize/), [`do-review-skill`](./skills/harness/do-review-skill/), and the six `do-review-{ios,frontend,python,go,rust,elixir}` packs are adapted from [Beagle](https://github.com/existential-birds/beagle) by Existential Birds, LLC under the [Apache License 2.0](https://github.com/existential-birds/beagle/blob/master/LICENSE).

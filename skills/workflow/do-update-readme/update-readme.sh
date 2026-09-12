@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Regenerates the Available Skills section in README.md from SKILL.md frontmatters.
-# Skills live under skills/<bucket>/<skill>/SKILL.md; the section is grouped by bucket.
+# Skills live under skills/<bucket>/<skill>/SKILL.md or
+# skills/<bucket>/<tech>/<skill>/SKILL.md. Bundled copies under references/ are ignored.
 # Usage: bash skills/workflow/do-update-readme/update-readme.sh
 set -euo pipefail
 
@@ -106,10 +107,11 @@ render_bucket() {
         desc=$(printf '%s' "$result" | cut -f2-)
         [ -n "$name" ] && [ -n "$desc" ] || continue
         short=$(first_sentence "$desc")
-        reldir="skills/$bucket/$(basename "$(dirname "$skill_file")")"
+        reldir="${skill_file#"$ROOT"/}"
+        reldir="${reldir%/SKILL.md}"
         printf '%s\t%s\t%s\n' "$name" "$reldir" "$short" >> "$group_file"
     done <<EOF
-$(find "$SKILLS_DIR/$bucket" -mindepth 2 -maxdepth 2 -name SKILL.md 2>/dev/null | sort)
+$(find "$SKILLS_DIR/$bucket" -name SKILL.md ! -path '*/references/*' 2>/dev/null | sort)
 EOF
 
     [ -s "$group_file" ] || return 1
@@ -129,13 +131,14 @@ EOF
         printf '\n'
     } >> "$section_file"
 
-    # Write the bucket's own README.md. Links are relative to the bucket dir
-    # (./<skill>/) so they resolve when browsing inside the folder.
+    # Write the bucket's own README.md. Links are relative to the bucket dir.
     {
         printf '# %s\n\n' "$title"
         [ -n "$blurb" ] && printf '%s\n\n' "$blurb"
         while IFS=$'\t' read -r name reldir desc; do
-            printf '%s\n' "- [\`$name\`](./$(basename "$reldir")/)"
+            prefix="skills/$bucket/"
+            rel="${reldir#"$prefix"}"
+            printf '%s\n' "- [\`$name\`](./$rel/)"
         done < "$group_file"
     } > "$SKILLS_DIR/$bucket/README.md"
 

@@ -35,6 +35,12 @@
         "do-modern-css",
         "do-no-use-effect",
         "do-parse-dont-validate",
+        "do-review-elixir",
+        "do-review-frontend",
+        "do-review-go",
+        "do-review-ios",
+        "do-review-python",
+        "do-review-rust",
         "do-typescript-refactoring",
         "do-ux-flow-plan",
         "do-write-typescript"
@@ -52,6 +58,7 @@
       "description": "Modifying the coding-agent harness - distilling knowledge into reusable skills.",
       "skills": [
         "do-distill-to-skill",
+        "do-review-skill",
         "do-writing-great-skills"
       ]
     },
@@ -75,6 +82,7 @@
         "do-git-pr-review-triage",
         "do-git-safe-pr-workflow",
         "do-git-worktree",
+        "do-improve-doc",
         "do-tech-writing",
         "do-tutorial-docs",
         "do-update-readme",
