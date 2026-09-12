@@ -86,7 +86,7 @@ Run these in order. **Do not draft user-facing findings until every gate passes*
 
 5. **Server/client boundary check** — **Pass:** Before flagging a server-lib import as a leak, confirm the importing file is reachable from the **client graph** — i.e., it's a route module, a non-`.server` utility transitively imported by a route's default export, or a `.client.ts` file. Imports inside `loader`, `action`, `headers`, or other `.server.ts` modules are not leaks.
 
-6. **Protocol** — **Pass:** You completed the Pre-Report Verification Checklist in [review-verification-protocol](../../../beagle-core/skills/review-verification-protocol/SKILL.md) for this review.
+6. **Protocol** — **Pass:** You completed the Pre-Report Verification Checklist in [review-verification-protocol](../beagle-core-review-verification-protocol.md) for this review.
 
 ## When to Load References
 
@@ -111,7 +111,7 @@ Run these in order. **Do not draft user-facing findings until every gate passes*
 
 ## Before Submitting Findings
 
-Complete [Hard gates](#hard-gates-before-writing-findings) (especially gate 3 — hydration-context check, and gate 5 — server/client boundary check), then report only issues that still pass the [review-verification-protocol](../../../beagle-core/skills/review-verification-protocol/SKILL.md) pre-report checks. Finding format: `[FILE:LINE] ISSUE_TITLE` with a verbatim quote of the offending code and a one-line rationale tied to the specific Remix v2 contract being violated.
+Complete [Hard gates](#hard-gates-before-writing-findings) (especially gate 3 — hydration-context check, and gate 5 — server/client boundary check), then report only issues that still pass the [review-verification-protocol](../beagle-core-review-verification-protocol.md) pre-report checks. Finding format: `[FILE:LINE] ISSUE_TITLE` with a verbatim quote of the offending code and a one-line rationale tied to the specific Remix v2 contract being violated.
 
 ## Additional Documentation
 

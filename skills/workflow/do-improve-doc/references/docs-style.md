@@ -21,7 +21,7 @@ To choose, ask the two compass questions: *action or cognition? acquisition or a
 | "I'm working — let me look something up" | **Reference** |
 | "I'm reflecting — help me understand why" | **Explanation** |
 
-For the full decision procedure, the 2×2 map, the two distinctions that resolve most ambiguity (Tutorial vs. How-To, Reference vs. Explanation), and the quality model, see [references/diataxis-compass.md](references/diataxis-compass.md). The type-specific skills (`tutorial-docs`, `howto-docs`, `reference-docs`, `explanation-docs`) build on the principles in this guide once the type is chosen.
+For the full decision procedure, the 2×2 map, the two distinctions that resolve most ambiguity (Tutorial vs. How-To, Reference vs. Explanation), and the quality model, see [references/diataxis-compass.md](diataxis-compass.md). The type-specific skills (`tutorial-docs`, `howto-docs`, `reference-docs`, `explanation-docs`) build on the principles in this guide once the type is chosen.
 
 ## Voice and Tone
 
@@ -330,13 +330,13 @@ Good documentation has two layers of quality, and the second depends on the firs
 - **Functional quality** — objective and measurable: accuracy, completeness, consistency, usefulness, precision. This is the prerequisite. The principles in this guide and the type-specific skills target functional quality.
 - **Deep quality** — subjective and human-centred: it feels good to use, anticipates the reader, and fits how people actually work. You cannot reach it without functional quality first; choosing the right type (above) and writing it cleanly lays the conditions for it.
 
-See [references/diataxis-compass.md](references/diataxis-compass.md) for the full quality model and the "work by improvement" approach (improve one real piece at a time; never build empty section skeletons).
+See [references/diataxis-compass.md](diataxis-compass.md) for the full quality model and the "work by improvement" approach (improve one real piece at a time; never build empty section skeletons).
 
 ## Quick Reference Checklist
 
 When writing documentation, verify:
 
-- [ ] The document is one clear Diataxis type, not a mix (see [the compass](references/diataxis-compass.md))
+- [ ] The document is one clear Diataxis type, not a mix (see [the compass](diataxis-compass.md))
 - [ ] Using "you" instead of "the user"
 - [ ] Active voice throughout
 - [ ] No unnecessary words

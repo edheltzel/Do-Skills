@@ -8,7 +8,7 @@ user-invocable: false
 
 This skill provides patterns for writing effective explanation documents. Explanations are understanding-oriented content for readers who want to know why things work the way they do.
 
-**Dependency:** Use this skill with `docs-style` for core writing principles. To confirm explanation is the right type — rather than a tutorial, how-to, or reference — see [docs-style/references/diataxis-compass.md](../docs-style/references/diataxis-compass.md).
+**Dependency:** Use this skill with `docs-style` for core writing principles. To confirm explanation is the right type — rather than a tutorial, how-to, or reference — see [docs-style/references/diataxis-compass.md](diataxis-compass.md).
 
 ## Purpose & Audience
 
@@ -445,7 +445,7 @@ Run in order. **Do not skip ahead**; each step has an objective pass condition.
 | "What are the trade-offs of X?" | **Explanation** | Design rationale |
 | "How does X relate to Y?" | **Explanation** | Conceptual connections |
 
-For the full compass procedure and the other type distinctions, see [docs-style/references/diataxis-compass.md](../docs-style/references/diataxis-compass.md).
+For the full compass procedure and the other type distinctions, see [docs-style/references/diataxis-compass.md](diataxis-compass.md).
 
 ### Explanation Signals
 
@@ -466,8 +466,8 @@ If users need to accomplish something while reading, it's not an explanation:
 
 ## Related Skills
 
-- **[docs-style](../docs-style/SKILL.md)**: Core writing conventions and components
-- **[Diataxis compass](../docs-style/references/diataxis-compass.md)**: Type selection, the 2×2 map, and the quality model
-- **[howto-docs](../howto-docs/SKILL.md)**: How-To guide patterns for task-oriented content
-- **[reference-docs](../reference-docs/SKILL.md)**: Reference documentation patterns for lookups
-- **[tutorial-docs](../tutorial-docs/SKILL.md)**: Tutorial patterns for learning-oriented content
+- **[docs-style](docs-style.md)**: Core writing conventions and components
+- **[Diataxis compass](diataxis-compass.md)**: Type selection, the 2×2 map, and the quality model
+- **[howto-docs](howto-docs.md)**: How-To guide patterns for task-oriented content
+- **[reference-docs](reference-docs.md)**: Reference documentation patterns for lookups
+- **[tutorial-docs](../../do-tutorial-docs/SKILL.md)**: Tutorial patterns for learning-oriented content

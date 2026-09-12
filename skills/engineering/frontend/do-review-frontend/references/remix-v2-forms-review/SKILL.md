@@ -73,7 +73,7 @@ Run these in order. **Do not draft user-facing findings until every gate passes*
 
 3. **Form-method check** — **Pass:** Before flagging missing intent, missing `encType`, missing `redirect`, or missing pending state, you have confirmed the form is `method="post"` (or `put|patch|delete`). GET forms are legitimate for search/filter and trigger loaders, not actions — applying POST-form rules to them is a false positive.
 
-4. **Protocol** — **Pass:** You completed the Pre-Report Verification Checklist in [review-verification-protocol](../../../beagle-core/skills/review-verification-protocol/SKILL.md) for this review.
+4. **Protocol** — **Pass:** You completed the Pre-Report Verification Checklist in [review-verification-protocol](../beagle-core-review-verification-protocol.md) for this review.
 
 ## Additional Documentation
 
@@ -115,4 +115,4 @@ Run these in order. **Do not draft user-facing findings until every gate passes*
 
 ## Before Submitting Findings
 
-Complete [Hard gates](#hard-gates-before-writing-findings) (especially gate 4), then report only issues that still pass the [review-verification-protocol](../../../beagle-core/skills/review-verification-protocol/SKILL.md) pre-report checks.
+Complete [Hard gates](#hard-gates-before-writing-findings) (especially gate 4), then report only issues that still pass the [review-verification-protocol](../beagle-core-review-verification-protocol.md) pre-report checks.

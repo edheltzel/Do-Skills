@@ -87,7 +87,7 @@ Load each applicable skill (read its `SKILL.md`) before reviewing its domain.
 | Condition | Skill |
 |-----------|-------|
 | Test files changed | [pytest-code-review](references/pytest-code-review/SKILL.md) |
-| Pydantic-AI detected | [pydantic-ai-common-pitfalls](../../../beagle-ai/skills/pydantic-ai-common-pitfalls/SKILL.md) |
+| Pydantic-AI detected | [pydantic-ai-common-pitfalls](references/pydantic-ai-common-pitfalls/SKILL.md) |
 | SQLAlchemy detected | [sqlalchemy-code-review](references/sqlalchemy-code-review/SKILL.md) |
 | Postgres detected | [postgres-code-review](references/postgres-code-review/SKILL.md) |
 

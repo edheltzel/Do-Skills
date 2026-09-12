@@ -82,7 +82,7 @@ Run these in order. **Do not draft user-facing findings until every gate passes*
 
 3. **Meta-shape check** — **Pass:** Before flagging *anything* about `meta`, you read the actual function body and confirmed what it returns. TypeScript may have masked the shape (a v1 object can satisfy a poorly-typed `MetaFunction` alias). The check is: the return expression starts with `[` and every element is a descriptor object. If it starts with `{`, that is the v1 shape — flag as CRITICAL. If it is `[]`, that is valid (do not flag).
 
-4. **Protocol** — **Pass:** You completed the Pre-Report Verification Checklist in [review-verification-protocol](../../../beagle-core/skills/review-verification-protocol/SKILL.md) for this review.
+4. **Protocol** — **Pass:** You completed the Pre-Report Verification Checklist in [review-verification-protocol](../beagle-core-review-verification-protocol.md) for this review.
 
 ## When to Load References
 
@@ -109,4 +109,4 @@ Run these in order. **Do not draft user-facing findings until every gate passes*
 
 ## Before Submitting Findings
 
-Complete [Hard gates](#hard-gates-before-writing-findings) (especially gate 3 — meta-shape check), then report only issues that still pass the [review-verification-protocol](../../../beagle-core/skills/review-verification-protocol/SKILL.md) pre-report checks.
+Complete [Hard gates](#hard-gates-before-writing-findings) (especially gate 3 — meta-shape check), then report only issues that still pass the [review-verification-protocol](../beagle-core-review-verification-protocol.md) pre-report checks.

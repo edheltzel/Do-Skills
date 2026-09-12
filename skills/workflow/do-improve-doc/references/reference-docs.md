@@ -8,7 +8,7 @@ user-invocable: false
 
 Reference documentation is information-oriented - helping experienced users find precise technical details quickly. This skill provides patterns for writing clear, scannable reference pages.
 
-**Dependency:** Always use this skill in conjunction with `docs-style` for core writing principles. To confirm reference is the right type — rather than a tutorial, how-to, or explanation — see [docs-style/references/diataxis-compass.md](../docs-style/references/diataxis-compass.md).
+**Dependency:** Always use this skill in conjunction with `docs-style` for core writing principles. To confirm reference is the right type — rather than a tutorial, how-to, or explanation — see [docs-style/references/diataxis-compass.md](diataxis-compass.md).
 
 ## Purpose and Audience
 
@@ -360,12 +360,12 @@ After the **Gates (completion order)** above, confirm:
 | "I want to understand" | Explanation | "How our caching works" |
 | "I need to look up Y" | **Reference** | "API endpoint reference" |
 
-Reference and Explanation are the two cognition-oriented types and are easily confused: Reference *states* neutral facts to consult while working; Explanation *discusses* reasoning to read while reflecting. For the full compass procedure and distinctions, see [docs-style/references/diataxis-compass.md](../docs-style/references/diataxis-compass.md).
+Reference and Explanation are the two cognition-oriented types and are easily confused: Reference *states* neutral facts to consult while working; Explanation *discusses* reasoning to read while reflecting. For the full compass procedure and distinctions, see [docs-style/references/diataxis-compass.md](diataxis-compass.md).
 
 ## Related Skills
 
-- **[docs-style](../docs-style/SKILL.md)**: Core writing conventions and components
-- **[Diataxis compass](../docs-style/references/diataxis-compass.md)**: Type selection, the 2×2 map, and the quality model
-- **[tutorial-docs](../tutorial-docs/SKILL.md)**: Tutorial patterns for learning-oriented content
-- **[howto-docs](../howto-docs/SKILL.md)**: How-To guide patterns for task-oriented content
-- **[explanation-docs](../explanation-docs/SKILL.md)**: Conceptual documentation patterns
+- **[docs-style](docs-style.md)**: Core writing conventions and components
+- **[Diataxis compass](diataxis-compass.md)**: Type selection, the 2×2 map, and the quality model
+- **[tutorial-docs](../../do-tutorial-docs/SKILL.md)**: Tutorial patterns for learning-oriented content
+- **[howto-docs](howto-docs.md)**: How-To guide patterns for task-oriented content
+- **[explanation-docs](explanation-docs.md)**: Conceptual documentation patterns

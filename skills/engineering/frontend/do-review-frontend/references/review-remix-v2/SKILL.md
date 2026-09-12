@@ -57,7 +57,7 @@ If the package.json check returns nothing, stop and tell the user: this skill ex
 
 ## Step 3: Load Verification Protocol
 
-Load the [review-verification-protocol](../../../beagle-core/skills/review-verification-protocol/SKILL.md) skill before any substantive judgment on code. This is the canonical cross-plugin protocol; do not substitute a framework-specific copy.
+Load the [review-verification-protocol](../beagle-core-review-verification-protocol.md) skill before any substantive judgment on code. This is the canonical cross-plugin protocol; do not substitute a framework-specific copy.
 
 **Pass before Step 5:** The skill is loaded (or its checklist is open in context). Do not classify severity or write findings until this gate clears.
 
@@ -173,7 +173,7 @@ All checks must pass before approval.
 Advance in order; do not skip a **pass condition** by restating it informally.
 
 1. **Scope recorded** — **Pass when:** You have the output of the Step 1 command (or an explicit substitute path list) naming what is in scope.
-2. **Protocol + always skills loaded** — **Pass when:** [review-verification-protocol](../../../beagle-core/skills/review-verification-protocol/SKILL.md) and all six `remix-v2-*-review` skills are loaded before the first severity judgment.
+2. **Protocol + always skills loaded** — **Pass when:** [review-verification-protocol](../beagle-core-review-verification-protocol.md) and all six `remix-v2-*-review` skills are loaded before the first severity judgment.
 3. **Conditional skills audited** — **Pass when:** For each Step 2 detection row you either confirmed a match or recorded that the command returned no results.
 4. **Critical/Major evidence** — **Pass when:** Each such finding cites a `FILE:LINE` that exists in the tree and meets the Step 6 pass rule for that finding type.
 5. **Single output** — **Pass when:** The Issues section uses one continuous numbering sequence and the deliverable satisfies Step 7 single-pass completeness.

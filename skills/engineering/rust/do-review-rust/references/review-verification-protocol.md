@@ -288,7 +288,7 @@ Edition 2024 changes that affect review findings:
 
 **If edition is not specified**, Rust defaults to edition 2015. Most modern projects use 2021 or later.
 
-**Cross-reference**: The [rust-code-review](../rust-code-review/SKILL.md) and [rust-best-practices](../rust-best-practices/SKILL.md) skills provide edition-specific code review guidance and idiomatic patterns.
+**Cross-reference**: The [rust-code-review](rust-code-review/SKILL.md) and [rust-best-practices](rust-best-practices/SKILL.md) skills provide edition-specific code review guidance and idiomatic patterns.
 
 ## Macro-Specific Verification
 

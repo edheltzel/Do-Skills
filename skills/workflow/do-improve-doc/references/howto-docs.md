@@ -8,7 +8,7 @@ user-invocable: false
 
 This skill provides patterns for writing effective How-To guides in documentation. How-To guides are task-oriented content for users who have a specific goal in mind.
 
-**Dependency:** Use this skill with `docs-style` for core writing principles. To confirm a how-to is the right type — rather than a tutorial, reference, or explanation — see [docs-style/references/diataxis-compass.md](../docs-style/references/diataxis-compass.md).
+**Dependency:** Use this skill with `docs-style` for core writing principles. To confirm a how-to is the right type — rather than a tutorial, reference, or explanation — see [docs-style/references/diataxis-compass.md](diataxis-compass.md).
 
 ## Purpose & Audience
 
@@ -346,12 +346,12 @@ Before publishing, verify:
 | "I want to understand" | Explanation | "How our caching works" |
 | "I need to look up Y" | Reference | "API endpoint reference" |
 
-For the full compass procedure and the other type distinctions, see [docs-style/references/diataxis-compass.md](../docs-style/references/diataxis-compass.md).
+For the full compass procedure and the other type distinctions, see [docs-style/references/diataxis-compass.md](diataxis-compass.md).
 
 ## Related Skills
 
-- **[docs-style](../docs-style/SKILL.md)**: Core writing conventions and components
-- **[Diataxis compass](../docs-style/references/diataxis-compass.md)**: Type selection, the 2×2 map, and the quality model
-- **[tutorial-docs](../tutorial-docs/SKILL.md)**: Tutorial patterns for learning-oriented content
-- **[reference-docs](../reference-docs/SKILL.md)**: Reference documentation patterns
-- **[explanation-docs](../explanation-docs/SKILL.md)**: Conceptual documentation patterns
+- **[docs-style](docs-style.md)**: Core writing conventions and components
+- **[Diataxis compass](diataxis-compass.md)**: Type selection, the 2×2 map, and the quality model
+- **[tutorial-docs](../../do-tutorial-docs/SKILL.md)**: Tutorial patterns for learning-oriented content
+- **[reference-docs](reference-docs.md)**: Reference documentation patterns
+- **[explanation-docs](explanation-docs.md)**: Conceptual documentation patterns

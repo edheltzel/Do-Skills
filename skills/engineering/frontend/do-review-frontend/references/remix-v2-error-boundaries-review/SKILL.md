@@ -113,7 +113,7 @@ passes** for the batch you are about to report.
    finding is about v2 correctness.
 
 4. **Protocol** — **Pass:** You completed the Pre-Report Verification
-   Checklist in [review-verification-protocol](../../../beagle-core/skills/review-verification-protocol/SKILL.md)
+   Checklist in [review-verification-protocol](../beagle-core-review-verification-protocol.md)
    for this review.
 
 ## Review Questions
