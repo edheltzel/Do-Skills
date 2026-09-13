@@ -8,6 +8,24 @@ alwaysAllow: ["Bash"]
 
 Manage git worktrees stored in `~/.git-worktrees/<repo>/<branch>`, keeping them out of the user's project directories.
 
+## GitButler
+
+GitButler is in use when `command -v but` succeeds **and** `but status` exits 0. Do not run `but setup`. If either check fails, use the git worktree commands below.
+
+When GitButler is in use, do **not** `git worktree add`. Feature work is an applied lane in the primary checkout:
+
+```bash
+cd <primary-repo>
+but apply <branch>          # existing branch
+# new work: but commit -b <branch> -m "..."
+```
+
+- **Create:** apply or commit onto a lane. Tell the user the work lives in the primary checkout, not `~/.git-worktrees`.
+- **Remove:** `but unapply <branch>` (keeps the branch ref).
+- **List:** `but status`.
+- If the user insists on a second directory, warn that a linked worktree makes that ref the worktree target, so `but apply` of the same branch will fail.
+
+
 ## Determining Context
 
 Before any operation, determine the repository name:

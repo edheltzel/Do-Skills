@@ -14,7 +14,7 @@ npx skills update do-commit
 
 ## What it does
 
-`do-commit` turns the current local changes into a Conventional Commit. It first checks that the diff is understood, chooses a message that matches it, and confirms that staging contains only the intended paths.
+`do-commit` turns the current local changes into a Conventional Commit. It first checks that the diff is understood, chooses a message that matches it, and confirms that staging contains only the intended paths. If `but` is on PATH and `but status` succeeds, it commits with `but commit` instead of `git add`/`git commit`. Otherwise it keeps the git commands.
 
 Its defining boundary is local: it ends after creating the commit and does not push it to a remote.
 

@@ -12,7 +12,7 @@ Before issuing **any** verdict — confirm, reject, sever, fix, or adjudicate �
 
 > The artifact is the only source of truth. **Never** infer what you are reviewing from the branch name, the working directory, surrounding files, or recollection. If your mental model differs from the freshly read source, **the source wins.** A verdict issued without a same-turn echo of its target is invalid — emit the echo first, or do not emit the verdict.
 
-This gate exists because an LLM under contextual priming will confidently adjudicate things that are not in the file. It runs **before** the per-finding hard gates below. Skills that consume this protocol implement it concretely: [verify-llm-artifacts](https://github.com/existential-birds/beagle/blob/master/plugins/beagle-core/skills/verify-llm-artifacts/SKILL.md) (Load + ECHO + ID-lock gate), [review-llm-artifacts](https://github.com/existential-birds/beagle/blob/master/plugins/beagle-core/skills/review-llm-artifacts/SKILL.md) (echo finding before writing JSON), [llm-artifacts-detection](https://github.com/existential-birds/beagle/blob/master/plugins/beagle-core/skills/llm-artifacts-detection/SKILL.md) (anchor `FILE:LINE` from an opened buffer).
+This gate exists because an LLM under contextual priming will confidently adjudicate things that are not in the file. It runs **before** the per-finding hard gates below.
 
 ## Hard gates (sequence)
 

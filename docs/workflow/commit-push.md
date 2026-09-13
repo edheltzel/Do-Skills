@@ -14,7 +14,7 @@ npx skills update do-commit-push
 
 ## What it does
 
-`do-commit-push` creates a Conventional Commit from the current local changes, then pushes it to the remote. Before committing, it checks that the diff is understood, the message matches it, and staging contains only the intended paths.
+`do-commit-push` creates a Conventional Commit from the current local changes, then pushes it to the remote. Before committing, it checks that the diff is understood, the message matches it, and staging contains only the intended paths. If `but` is on PATH and `but status` succeeds, it uses `but commit` and `but push`. Otherwise it keeps `git add`/`git commit`/`git push`.
 
 Its defining boundary is publication: it confirms the current branch and remote before pushing, then verifies that the working tree is clean and the branch is synchronized with its upstream.
 

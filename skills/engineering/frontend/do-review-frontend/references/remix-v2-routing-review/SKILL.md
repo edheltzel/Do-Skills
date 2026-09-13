@@ -78,7 +78,7 @@ Run these in order. **Do not draft user-facing findings until every gate passes*
 
 3. **Version check** — **Pass:** Confirm the project is Remix v2 (check `package.json` for `@remix-run/react` ^2, *or* presence of v2 flat-routes filenames elsewhere in `app/routes/`). If `@remix-run/v1-route-convention` is wired in `remix.config.js`, v1 filenames (`__auth/`, `index.tsx`) are intentional — do not flag them as smells.
 
-4. **Protocol** — **Pass:** Complete the Pre-Report Verification Checklist in [review-verification-protocol](../beagle-core-review-verification-protocol.md) for this review.
+4. **Protocol** — **Pass:** Complete the Pre-Report Verification Checklist in [review-verification-protocol](../review-verification-protocol.md) for this review.
 
 ## When to Load References
 

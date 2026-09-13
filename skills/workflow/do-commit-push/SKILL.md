@@ -8,31 +8,38 @@ disable-model-invocation: true
 
 Commit all local changes following Conventional Commits format and push to remote.
 
+## GitButler
+
+GitButler is in use when `command -v but` succeeds **and** `but status` exits 0. Do not run `but setup`. If either check fails, use the git commands in this skill.
+
+When GitButler is in use:
+- Inspect with `but diff`. `git log --oneline` is fine (read-only).
+- Commit with `but commit -b <feature-branch> -m "<msg>"` (omit IDs to take all uncommitted changes). Take `<feature-branch>` from `but status`, never `gitbutler/workspace`.
+- Push with `but push <feature-branch>`. Never `git add`, `git commit`, `git push`, or `git stash`.
+
+
 ## Gates
 
 Complete **in order**. Do not run the next action until the **Pass** condition is satisfied (use command output as evidence, not memory).
 
-1. **Diff understood** — **Pass when:** Outputs from `git status`, `git diff`, and `git diff --cached` are consistent with your one-sentence description of what changed (or you recorded that there is nothing to commit).
+1. **Diff understood** — **Pass when:** `git status`/`git diff`/`git diff --cached`, **or** `but diff` if GitButler is in use, match your one-sentence description of what changed (or you recorded that there is nothing to commit).
 2. **Commit line chosen** — **Pass when:** You have a draft first line `type(scope): description` (or `type: description` if omitting scope) that matches the change set you intend to ship.
-3. **Staging matches intent** — **Pass when:** After `git add`, `git diff --cached --stat` (and spot-check `git diff --cached` if needed) shows only the paths you meant to include; adjust staging before committing if not.
-4. **Push target confirmed** — **Pass when:** Current branch and remote are the ones you intend (`git branch -vv`, `git remote -v`); then push.
-5. **Remote caught up** — **Pass when:** `git status` is clean and `git status -sb` shows the branch is up to date with its configured upstream (no unexpected unpushed commits left for this task).
+3. **Contents match intent** — **Pass when:** After `git add`, `git diff --cached --stat` shows only the paths you meant; **or** if GitButler, the IDs you will pass to `but commit` (or all uncommitted, if omitting IDs) match that set.
+4. **Push target confirmed** — **Pass when:** Current feature branch and remote are the ones you intend (`git branch -vv` / `git remote -v`, **or** `but status` if GitButler); then push.
+5. **Remote caught up** — **Pass when:** `git status -sb` shows the branch up to date with upstream, **or** `but status` shows the branch pushed, with no unexpected leftover commits for this task.
 
 ## Step 1: Gather Context
 
 Run these commands in parallel to understand the changes:
 
 ```bash
-# See all untracked and modified files
 git status
-
-# See staged and unstaged changes
 git diff
 git diff --cached
-
-# See recent commit messages for style reference
 git log --oneline -10
 ```
+
+If GitButler is in use, use `but diff` instead of the `git status`/`git diff`/`git diff --cached` trio. Keep `git log --oneline -10`.
 
 ## Step 2: Analyze Changes
 
@@ -73,7 +80,24 @@ Rules:
 
 ## Step 4: Stage, Commit, and Push
 
-Satisfy **Gates** 1–3 before `git commit`; satisfy **Gate** 4 before `git push`; satisfy **Gate** 5 after push.
+
+Satisfy **Gates** 1–3 before committing; satisfy **Gate** 4 before pushing; satisfy **Gate** 5 after push.
+
+If GitButler is in use:
+
+```bash
+but commit -b <feature-branch> -m "$(cat <<'EOF'
+type(scope): description
+
+Optional body explaining the motivation.
+
+Closes #123
+EOF
+)"
+but push <feature-branch>
+```
+
+Otherwise:
 
 ```bash
 # Stage all changes (or selectively stage)
@@ -127,4 +151,4 @@ Optionally append a co-author or footer trailer per project convention (e.g. a `
 
 ## Step 5: Verify
 
-After pushing, satisfy **Gate 5**: run `git status` and `git status -sb` and confirm a clean tree and upstream sync (or an expected ahead/behind you can explain, e.g. fork workflow).
+After pushing, satisfy **Gate 5**: `git status` and `git status -sb`, **or** `but status` if GitButler is in use. Confirm a clean tree and upstream sync (or an expected ahead/behind you can explain).

@@ -14,7 +14,7 @@ npx skills update do-gh-stack
 
 ## What it does
 
-`do-gh-stack` manages an ordered stack of branches and pull requests with the `gh stack` GitHub CLI extension. Each branch is based on the branch below it, so each pull request shows only that layer's diff to its reviewer.
+`do-gh-stack` manages an ordered stack of branches and pull requests. It includes two backends: GitButler (`but commit` with per-layer IDs, `but branch new --above`, `but pr new -t`) when `but` is on PATH and `but status` succeeds, otherwise the `gh stack` GitHub CLI extension. Do not mix them. Each branch is based on the branch below it, so each pull request shows only that layer's diff.
 
 Its defining constraint is linearity: a branch has one parent and at most one child, with foundational work at the bottom and dependent work above it.
 
@@ -26,7 +26,7 @@ Reach for it before beginning multi-part work, when editing the layer that owns 
 
 ## Prerequisites
 
-Install the `github/gh-stack` extension. Enable Git's `rerere` support, and configure `remote.pushDefault` when the repository has more than one remote.
+GitButler path needs `but`. The `gh stack` path needs the `github/gh-stack` extension, Git `rerere`, and `remote.pushDefault` when the repository has more than one remote.
 
 ## Non-interactive stack control
 
