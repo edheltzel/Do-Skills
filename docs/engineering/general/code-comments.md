@@ -63,7 +63,7 @@ history, and comment drift.
 ## Where it fits
 
 A reach-for-it-anytime standard for authoring and editing. It is the natural
-counterpart to [karpathy-guidelines](../core/karpathy-guidelines.md)' surgical-change
+counterpart to [karpathy-guidelines](../../core/karpathy-guidelines.md)' surgical-change
 posture — leave the file with fewer, better comments than you found — and it
-pairs with the code-craft skills in [`engineering/`](../engineering/), which
+pairs with the code-craft skills in [`engineering/`](../), which
 lean on clear naming so most comments never need writing.

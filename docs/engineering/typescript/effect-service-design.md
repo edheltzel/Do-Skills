@@ -33,7 +33,7 @@ audited.
 Reach for it when a capability owns meaningful effects, runtime variation, or
 reused policy and the service-versus-value decision is unclear. For the broader
 TypeScript and Effect change process, use
-[coding-standards](../engineering/coding-standards.md) instead.
+[coding-standards](../typescript/coding-standards.md) instead.
 
 ## Choosing the seam
 
@@ -62,8 +62,8 @@ substitute is more honest.
 ## Where it fits
 
 Effect Service Design is the focused companion to
-[coding-standards](../engineering/coding-standards.md) when the central design
+[coding-standards](../typescript/coding-standards.md) when the central design
 question is where effectful authority belongs. It is not a general refactoring
-pass: use [typescript-refactoring](../engineering/typescript-refactoring.md)
+pass: use [typescript-refactoring](../typescript/typescript-refactoring.md)
 when the goal is reshaping existing TypeScript code rather than deciding Effect
 service boundaries.

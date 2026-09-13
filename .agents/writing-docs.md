@@ -1,39 +1,43 @@
 # Writing docs pages
 
 Every skill in a **promoted** bucket - `core/`, `engineering/`, `content/`,
-`harness/`, `slop-guard/`, or `workflow/` - has a human-facing **docs page** at
-`docs/<bucket>/<base-slug>.md`, where `<base-slug>` is the skill's directory
-name **without** its `do-` prefix. The docs tree mirrors those six bucket
-folders under `skills/`. `operations/`, `personal/`, and `private/` are **not**
-promoted and ship no docs page.
+`harness/`, `slop-guard/`, or `workflow/` - has a human-facing **docs page**.
+Most live at `docs/<bucket>/<base-slug>.md`. Engineering pages nest under a
+tech folder: `docs/engineering/<tech>/<base-slug>.md`. `<base-slug>` is the
+skill's directory name **without** its `do-` prefix. The docs tree mirrors
+`skills/`. `operations/`, `personal/`, and `private/` are **not** promoted
+and ship no docs page.
 
 The page is not the skill and not a copy of `SKILL.md`. Its job is to orient one
 reader around one skill: what it does, when to reach for it, and where it sits
 among the others. Together the pages are a distributed map of the collection.
 
-Act whenever a promoted skill is added, renamed, moved between buckets, or has
-its behaviour changed: create or re-sync its docs page. A rename moves the file
-(`docs/<bucket>/<old>.md` → `docs/<bucket>/<new>.md`); a skill moving between
-promoted buckets moves its docs file to the matching folder. A skill moving into
-a non-promoted bucket (`operations/`, `personal/`, or `private/`) loses its
-page; one moving into a promoted bucket gains one.
+Act whenever a promoted skill is added, renamed, moved, or has its behaviour
+changed: create or re-sync its docs page. A rename moves the file; a skill
+moving between buckets or tech folders moves its docs file to the matching
+folder. A skill moving into a non-promoted bucket (`operations/`, `personal/`,
+or `private/`) loses its page; one moving into a promoted bucket gains one.
 
 ## Repo conventions
 
 This repo is **not** published to a website — pages are read on GitHub. So:
 
 - **Keep an H1** with the skill's title (GitHub renders it as the page heading).
-- **Links are repo-relative.** Link a sibling docs page as
-  `../<bucket>/<name>.md`. Link the skill's own source as the GitHub tree URL
-  (below). A relative link that resolves on GitHub is correct.
-- The **docs path is organisation only** — it mirrors the bucket, but the page
-  is about the skill, not the bucket.
+- **Links are repo-relative.** From a bucket-root page, link another bucket as
+  `../<bucket>/<name>.md`. From a nested engineering page, use
+  `../<tech>/<name>.md` for another engineering skill and
+  `../../<bucket>/<name>.md` for another bucket. Link the skill's own source as
+  the GitHub tree URL (below). A relative link that resolves on GitHub is correct.
+- The **docs path is organisation only** — it mirrors the skill folder, but the
+  page is about the skill, not the folder.
 
 The `--skill=` value and the `[Source]` URL use the skill's full **directory
 name**, including a `do-` prefix when it has one; the docs **filename** drops
 that prefix (e.g. dir `do-git-worktree` → file `git-worktree.md`,
 `--skill=do-git-worktree`, Source `.../skills/workflow/do-git-worktree`).
-Engineering skills nest under a tech folder (`.../skills/engineering/elixir/do-review-elixir`).
+Engineering nested skills insert a tech folder
+(`.../skills/engineering/elixir/do-review-elixir`, docs at
+`docs/engineering/<tech>/<base-slug>.md`).
 
 ## Page template
 
@@ -58,7 +62,8 @@ npx skills update <dir-name>
 
 [Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/<bucket>/<dir-name>)
 
-Engineering nested skills insert a tech folder: `skills/engineering/<tech>/<dir-name>`.
+Engineering nested skills: `skills/engineering/<tech>/<dir-name>` and
+`docs/engineering/<tech>/<base-slug>.md`.
 
 ## What it does
 
@@ -106,6 +111,6 @@ should see when it fires. Omit when the signals are vague.
 
 Always present. Situate the skill among the others in a sentence or two — a
 standalone you reach for anytime, a run-once setup, periodic maintenance, or a
-step that feeds another skill. Link related skills as `../<bucket>/<name>.md`.
+step that feeds another skill. Link related skills with the relative paths above.
 
 </page-template>

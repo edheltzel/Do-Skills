@@ -32,7 +32,7 @@ one-off edits, bug fixes, or active feature work.
 
 Reach for it to polish a session's output before you commit. For the
 posture-level "keep changes surgical and honest" rules that apply while you're
-still writing, use [karpathy-guidelines](../core/karpathy-guidelines.md); this
+still writing, use [karpathy-guidelines](../../core/karpathy-guidelines.md); this
 skill is the review at the end.
 
 ## Prerequisites
@@ -47,11 +47,11 @@ whole repo.
 The pass dispatches one sub-agent per review lens, each loading its own skill
 before reviewing and reporting only through that lens:
 
-- **Simplification** ([simplify](../core/simplify.md)) — dead code, needless
+- **Simplification** ([simplify](../../core/simplify.md)) — dead code, needless
   abstractions, and helpers whose names do not improve the call site.
-- **TypeScript** ([write-typescript](./write-typescript.md)) — sound types, `unknown` over
+- **TypeScript** ([write-typescript](../typescript/write-typescript.md)) — sound types, `unknown` over
   `any`, discriminated unions over `as`.
-- **Type-driven design** ([parse-dont-validate](./parse-dont-validate.md)) — push
+- **Type-driven design** ([parse-dont-validate](../typescript/parse-dont-validate.md)) — push
   checks into types; make invalid states unrepresentable.
 - **React effects** ([no-use-effect](./no-use-effect.md)) — derived state over
   effects, event handlers over sync effects, `key`-resets.
@@ -59,9 +59,9 @@ before reviewing and reporting only through that lens:
   fetching, memoization.
 - **CSS** ([modern-css](./modern-css.md)) — native CSS over JS, logical
   properties, container queries, no legacy hacks.
-- **Comment hygiene** ([code-comments](../engineering/code-comments.md)) — strip "what"
+- **Comment hygiene** ([code-comments](../general/code-comments.md)) — strip "what"
   comments and AI narration; keep "why".
-- **Correctness** ([adversarial-review](../core/adversarial-review.md)) —
+- **Correctness** ([adversarial-review](../../core/adversarial-review.md)) —
   dropped guards, edge cases, async timing, stale callers, and other regressions
   introduced by the session.
 
@@ -73,8 +73,8 @@ decide.
 
 A periodic-maintenance skill — the closing bracket on a web coding session, where
 the individual review skills it invokes are the per-topic standalones. It reaches
-across [simplify](../core/simplify.md),
-[adversarial-review](../core/adversarial-review.md),
-[write-typescript](./write-typescript.md), [parse-dont-validate](./parse-dont-validate.md),
+across [simplify](../../core/simplify.md),
+[adversarial-review](../../core/adversarial-review.md),
+[write-typescript](../typescript/write-typescript.md), [parse-dont-validate](../typescript/parse-dont-validate.md),
 [no-use-effect](./no-use-effect.md), [modern-css](./modern-css.md), and
-[code-comments](../engineering/code-comments.md) so you don't have to run each by hand.
+[code-comments](../general/code-comments.md) so you don't have to run each by hand.

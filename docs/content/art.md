@@ -31,7 +31,7 @@ visual.
 
 Reach for it when the deliverable is an audience-facing image or visual
 explanation. For reusable product UI, component tokens, interaction states, and
-accessibility, use [design-system](../engineering/design-system.md) instead.
+accessibility, use [design-system](../engineering/frontend/design-system.md) instead.
 
 ## Workflow before prompt
 

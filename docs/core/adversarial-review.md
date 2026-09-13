@@ -54,8 +54,8 @@ shapes; and one branch updated without its twin.
 ## Where it fits
 
 A read-only correctness lens for the end of a change. It complements
-[simplify](./simplify.md), [code-comments](../engineering/code-comments.md), and
-[parse-dont-validate](../engineering/parse-dont-validate.md), each of which owns
+[simplify](./simplify.md), [code-comments](../engineering/general/code-comments.md), and
+[parse-dont-validate](../engineering/typescript/parse-dont-validate.md), each of which owns
 a different concern. It also runs as the correctness lens inside
-[cleanup-web](../engineering/cleanup-web.md) and
-[cleanup-swift](../engineering/cleanup-swift.md).
+[cleanup-web](../engineering/frontend/cleanup-web.md) and
+[cleanup-swift](../engineering/swift/cleanup-swift.md).

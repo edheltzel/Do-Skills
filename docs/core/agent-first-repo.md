@@ -32,7 +32,7 @@ Reach for it when you want the whole-repo view — the documentation architectur
 the enforcement strategy that hold it together. For the two files at the top of that
 hierarchy, drop to the focused skills: [agents-md](../core/agents-md.md) for the entry-point
 file, [architecture-md](../core/architecture-md.md) for the codemap. For typing the
-boundaries this skill insists on, see [parse-dont-validate](../engineering/parse-dont-validate.md).
+boundaries this skill insists on, see [parse-dont-validate](../engineering/typescript/parse-dont-validate.md).
 
 ## The three pillars
 
