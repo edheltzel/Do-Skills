@@ -33,6 +33,7 @@ The `--skill=` value and the `[Source]` URL use the skill's full **directory
 name**, including a `do-` prefix when it has one; the docs **filename** drops
 that prefix (e.g. dir `do-git-worktree` → file `git-worktree.md`,
 `--skill=do-git-worktree`, Source `.../skills/workflow/do-git-worktree`).
+Engineering skills nest under a tech folder (`.../skills/engineering/elixir/do-review-elixir`).
 
 ## Page template
 
@@ -56,6 +57,8 @@ npx skills update <dir-name>
 ```
 
 [Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/<bucket>/<dir-name>)
+
+Engineering nested skills insert a tech folder: `skills/engineering/<tech>/<dir-name>`.
 
 ## What it does
 

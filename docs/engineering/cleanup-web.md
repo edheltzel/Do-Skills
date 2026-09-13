@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-cleanup-web
 npx skills update do-cleanup-web
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-cleanup-web)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/frontend/do-cleanup-web)
 
 ## What it does
 

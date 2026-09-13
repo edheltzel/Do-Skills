@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-code-comments
 npx skills update do-code-comments
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-code-comments)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/general/do-code-comments)
 
 ## What it does
 

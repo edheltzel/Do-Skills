@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-parse-dont-validate
 npx skills update do-parse-dont-validate
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-parse-dont-validate)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/typescript/do-parse-dont-validate)
 
 ## What it does
 

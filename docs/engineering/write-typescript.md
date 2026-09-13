@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-write-typescript
 npx skills update do-write-typescript
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-write-typescript)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/typescript/do-write-typescript)
 
 ## What it does
 

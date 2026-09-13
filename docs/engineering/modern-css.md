@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-modern-css
 npx skills update do-modern-css
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-modern-css)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/frontend/do-modern-css)
 
 ## What it does
 

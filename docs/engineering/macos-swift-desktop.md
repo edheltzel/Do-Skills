@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-macos-swift-desktop
 npx skills update do-macos-swift-desktop
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-macos-swift-desktop)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/swift/do-macos-swift-desktop)
 
 ## What it does
 

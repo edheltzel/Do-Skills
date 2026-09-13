@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-typescript-refactoring
 npx skills update do-typescript-refactoring
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-typescript-refactoring)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/typescript/do-typescript-refactoring)
 
 ## What it does
 

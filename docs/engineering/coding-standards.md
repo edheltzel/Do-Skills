@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-coding-standards
 npx skills update do-coding-standards
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-coding-standards)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/typescript/do-coding-standards)
 
 ## What it does
 

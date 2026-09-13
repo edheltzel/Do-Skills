@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-ux-flow-plan
 npx skills update do-ux-flow-plan
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-ux-flow-plan)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/frontend/do-ux-flow-plan)
 
 ## What it does
 

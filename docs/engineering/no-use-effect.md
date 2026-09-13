@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-no-use-effect
 npx skills update do-no-use-effect
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-no-use-effect)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/frontend/do-no-use-effect)
 
 ## What it does
 

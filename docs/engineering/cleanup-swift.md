@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-cleanup-swift
 npx skills update do-cleanup-swift
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-cleanup-swift)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/swift/do-cleanup-swift)
 
 ## What it does
 
