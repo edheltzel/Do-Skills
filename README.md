@@ -49,29 +49,29 @@ Foundational tools for every project and workbench - repo structure, agent maps,
 
 Code design and implementation practices, from general principles to language-, framework-, and platform-specific craft.
 
-- [`do-bootstrap-design-system`](./skills/engineering/do-bootstrap-design-system/)
-- [`do-cleanup-swift`](./skills/engineering/do-cleanup-swift/)
-- [`do-cleanup-web`](./skills/engineering/do-cleanup-web/)
-- [`do-code-comments`](./skills/engineering/do-code-comments/)
-- [`do-coding-standards`](./skills/engineering/do-coding-standards/)
-- [`do-create-cli`](./skills/engineering/do-create-cli/)
-- [`do-design-patterns-gof`](./skills/engineering/do-design-patterns-gof/)
-- [`do-design-system`](./skills/engineering/do-design-system/)
-- [`do-effect-service-design`](./skills/engineering/do-effect-service-design/)
-- [`do-lean-ts-patterns`](./skills/engineering/do-lean-ts-patterns/)
-- [`do-macos-swift-desktop`](./skills/engineering/do-macos-swift-desktop/)
-- [`do-modern-css`](./skills/engineering/do-modern-css/)
-- [`do-no-use-effect`](./skills/engineering/do-no-use-effect/)
-- [`do-parse-dont-validate`](./skills/engineering/do-parse-dont-validate/)
+- [`do-bootstrap-design-system`](./skills/engineering/frontend/do-bootstrap-design-system/)
+- [`do-cleanup-swift`](./skills/engineering/swift/do-cleanup-swift/)
+- [`do-cleanup-web`](./skills/engineering/frontend/do-cleanup-web/)
+- [`do-code-comments`](./skills/engineering/general/do-code-comments/)
+- [`do-coding-standards`](./skills/engineering/typescript/do-coding-standards/)
+- [`do-create-cli`](./skills/engineering/typescript/do-create-cli/)
+- [`do-design-patterns-gof`](./skills/engineering/general/do-design-patterns-gof/)
+- [`do-design-system`](./skills/engineering/frontend/do-design-system/)
+- [`do-effect-service-design`](./skills/engineering/typescript/do-effect-service-design/)
+- [`do-lean-ts-patterns`](./skills/engineering/typescript/do-lean-ts-patterns/)
+- [`do-macos-swift-desktop`](./skills/engineering/swift/do-macos-swift-desktop/)
+- [`do-modern-css`](./skills/engineering/frontend/do-modern-css/)
+- [`do-no-use-effect`](./skills/engineering/frontend/do-no-use-effect/)
+- [`do-parse-dont-validate`](./skills/engineering/typescript/do-parse-dont-validate/)
 - [`do-review-elixir`](./skills/engineering/elixir/do-review-elixir/)
 - [`do-review-frontend`](./skills/engineering/frontend/do-review-frontend/)
 - [`do-review-go`](./skills/engineering/go/do-review-go/)
 - [`do-review-ios`](./skills/engineering/swift/do-review-ios/)
 - [`do-review-python`](./skills/engineering/python/do-review-python/)
 - [`do-review-rust`](./skills/engineering/rust/do-review-rust/)
-- [`do-typescript-refactoring`](./skills/engineering/do-typescript-refactoring/)
-- [`do-ux-flow-plan`](./skills/engineering/do-ux-flow-plan/)
-- [`do-write-typescript`](./skills/engineering/do-write-typescript/)
+- [`do-typescript-refactoring`](./skills/engineering/typescript/do-typescript-refactoring/)
+- [`do-ux-flow-plan`](./skills/engineering/frontend/do-ux-flow-plan/)
+- [`do-write-typescript`](./skills/engineering/typescript/do-write-typescript/)
 
 ### Content
 
@@ -144,8 +144,8 @@ skill folder and its frontmatter `name:` carry the `do-` prefix, except
 `icm-grill`, which is named that way on purpose:
 
 ```
-skills/<bucket>/do-skill-name/
-└── SKILL.md
+skills/<bucket>/do-skill-name/SKILL.md
+skills/<bucket>/<tech>/do-skill-name/SKILL.md
 ```
 
 Buckets group skills by purpose and scope:

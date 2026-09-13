@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-create-cli
 npx skills update do-create-cli
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-create-cli)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/typescript/do-create-cli)
 
 ## What it does
 
