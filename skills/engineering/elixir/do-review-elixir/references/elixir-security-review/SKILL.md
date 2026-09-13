@@ -11,7 +11,7 @@ description: Reviews Elixir code for security vulnerabilities including code inj
 |------------|-----------|
 | Code.eval_string, binary_to_term | [references/code-injection.md](references/code-injection.md) |
 | String.to_atom dangers | [references/atom-exhaustion.md](references/atom-exhaustion.md) |
-| Config, environment variables | [references/secrets.md](references/secrets.md) |
+| Config, environment variables | Configuration checklist below |
 | ETS visibility, process dictionary | [references/process-exposure.md](references/process-exposure.md) |
 
 ## Review Checklist

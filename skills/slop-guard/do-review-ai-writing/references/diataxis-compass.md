@@ -1,6 +1,6 @@
 # The Diataxis Compass, Map, and Quality Model
 
-The canonical reference for choosing a documentation type and judging its quality, drawn from the [Diataxis framework](https://diataxis.fr/). This file is **self-contained**: every Beagle documentation skill links here, but it carries no dependency on the others, so it remains usable even when a single skill is installed on its own.
+The canonical reference for choosing a documentation type and judging its quality, drawn from the [Diataxis framework](https://diataxis.fr/). This file is **self-contained**: docs skills in this collection link here, but it carries no dependency on the others, so it remains usable even when a single skill is installed on its own.
 
 Use it to answer three questions:
 

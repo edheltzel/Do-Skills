@@ -24,11 +24,11 @@ Invoke the **do-humanize** skill with optional flags: `do-humanize [--dry-run] [
 
 Advance past destructive or evidence-bound steps only when each **PASS** is true (commands and artifacts—not “I checked mentally”):
 
-1. **G1 — Safe to edit files** — **PASS:** `git status --porcelain` is empty, **or** `git stash push -u -m "beagle-docs: pre-humanize backup"` exits 0.
-2. **G2 — Review input is real JSON with expected shape** — **PASS:** `.beagle/ai-writing-review.json` exists **and** the file parses as JSON with a `git_head` key and a `findings` value that is an array (possibly empty). Use the `jq -e` command in step 3, or the same checks with `json.load` in Python. If this fails, stop with a parse/validation error—do not apply fixes.
+1. **G1 — Safe to edit files** — **PASS:** `git status --porcelain` is empty, **or** its only line is `?? ai-writing-review.json`. Stop if any other path is dirty. Do not stash.
+2. **G2 — Review input is real JSON with expected shape** — **PASS:** `ai-writing-review.json` exists **and** the file parses as JSON with a `git_head` key and a `findings` value that is an array (possibly empty). Use the `jq -e` command in step 3, or the same checks with `json.load` in Python. If this fails, stop with a parse/validation error—do not apply fixes.
 3. **G3 — References before rewrites** — **PASS:** For each finding you will edit, the `references/*.md` files required by step 4 for that category/type are read in this session before you change text.
 4. **G4 — Per-file validation** — **PASS:** Every modified file passes the step 8 check for its type; otherwise run `git checkout -- "$file"` for that file and do not list it as OK in the summary.
-5. **G5 — Delete review file only on full success** — **PASS:** Run `rm .beagle/ai-writing-review.json` only when G4 holds for all files you are keeping unchanged from validation failures (aligns with step 10).
+5. **G5 — Delete review file only on full success** — **PASS:** Run `rm ai-writing-review.json` only when G4 holds for all files you are keeping unchanged from validation failures (aligns with step 10).
 
 ### 1. Parse Arguments
 
@@ -40,28 +40,25 @@ Extract flags from `$ARGUMENTS`:
 ### 2. Pre-flight Safety Checks
 
 ```bash
-# Check for uncommitted changes
 git status --porcelain
 ```
 
-If working directory is dirty, warn:
+Ignore a single untracked `ai-writing-review.json` (the prior review run). If any other porcelain line exists, stop:
+
 ```text
-Warning: You have uncommitted changes. Creating a git stash before proceeding.
-Run `git stash pop` to restore if needed.
+Working tree is dirty. Commit or discard other changes, then re-run.
+ai-writing-review.json may stay untracked.
 ```
 
-Create stash if dirty:
-```bash
-git stash push -u -m "beagle-docs: pre-humanize backup"
-```
+Do not `git stash`. Stashing `-u` would hide the review file and any dirty text you meant to fix.
 
-**G1 PASS:** Either the working tree was already clean, or the stash command exited 0.
+**G1 PASS:** porcelain is empty, or the only line is `?? ai-writing-review.json`.
 
 ### 3. Load Review Results
 
 Check for existing review file:
 ```bash
-cat .beagle/ai-writing-review.json 2>/dev/null
+cat ai-writing-review.json 2>/dev/null
 ```
 
 **If file missing:**
@@ -71,11 +68,11 @@ cat .beagle/ai-writing-review.json 2>/dev/null
 **If file exists, validate JSON and freshness (G2):**
 ```bash
 # Required shape: parseable JSON with git_head and findings array (may be empty)
-jq -e 'has("git_head") and ((.findings // []) | type == "array")' .beagle/ai-writing-review.json >/dev/null 2>&1 \
+jq -e 'has("git_head") and ((.findings // []) | type == "array")' ai-writing-review.json >/dev/null 2>&1 \
   || { echo "Invalid or incompatible ai-writing-review.json"; exit 1; }
 
 # Get stored git HEAD from JSON
-stored_head=$(jq -r '.git_head' .beagle/ai-writing-review.json)
+stored_head=$(jq -r '.git_head' ai-writing-review.json)
 current_head=$(git rev-parse HEAD)
 
 if [ "$stored_head" != "$current_head" ]; then
@@ -245,13 +242,13 @@ git diff --stat
 
 On successful completion (all validations pass):
 ```bash
-rm .beagle/ai-writing-review.json
+rm ai-writing-review.json
 ```
 
 If any validation fails, keep the file and report:
 ```text
-Review file preserved at .beagle/ai-writing-review.json
-Fix issues and re-run, or restore with: git stash pop
+Review file preserved at ai-writing-review.json
+Fix issues and re-run.
 ```
 
 ## Core Principles
@@ -277,10 +274,10 @@ Invoke the **do-humanize** skill with flags:
 ## Rules
 
 - Always load reference material before applying fixes (step 4); satisfy **G3** per finding
-- Never modify files without a clean working tree or a successful stash (**G1**)
+- Never modify files unless G1 holds (clean tree, or only `ai-writing-review.json` untracked)
 - Apply safe fixes in reverse line order to avoid offset drift
 - Never auto-fix git artifacts (commits, PRs) — report them for manual action
 - Validate every modified file before considering it done (**G4**)
 - Revert files that fail validation
 - Do not present the step 9 summary as “complete” until step 8 validation has passed for every file you are keeping
-- Remove `.beagle/ai-writing-review.json` only after full success (**G5**); if validation failed partway, keep the file and follow step 10
+- Remove `ai-writing-review.json` only after full success (**G5**); if validation failed partway, keep the file and follow step 10

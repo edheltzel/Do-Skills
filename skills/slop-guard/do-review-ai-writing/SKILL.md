@@ -42,18 +42,7 @@ find . -type f \( -name "*.md" -o -name "*.py" -o -name "*.ts" -o -name "*.tsx" 
 
 If no files found, exit with: "No files to scan. Check your branch has changes or use --all."
 
-### 4. Check for Existing LLM Artifacts Review
-
-```bash
-# Check if llm-artifacts review exists to avoid double-flagging
-if [ -f .beagle/llm-artifacts-review.json ]; then
-  echo "Found existing llm-artifacts review — will skip overlapping findings"
-fi
-```
-
-Parse existing findings from `.beagle/llm-artifacts-review.json` if present. When consolidating, skip any finding where both the file:line and pattern type match an existing llm-artifacts finding (specifically `verbose_comment` and `over_documentation` types).
-
-### 5. Classify Files by Type
+### 4. Classify Files by Type
 
 Partition files into three groups:
 
@@ -70,7 +59,7 @@ For Git artifacts, collect recent commits:
 git log --format="%H %s" $(git merge-base HEAD main)..HEAD
 ```
 
-### 6. Scan Each Artifact Group
+### 5. Scan Each Artifact Group
 
 There are three artifact groups below (Prose, Code Docs, Git). **If the agent supports subagents** and total items >= 4, dispatch one subagent per in-scope group in parallel (up to 3); **otherwise** run the same group instructions sequentially yourself — identical output either way. If `--category` is set, handle only the matching category. Every subagent (or sequential pass) reads this skill's Reference Material and the relevant `references/*.md` patterns before scanning.
 
@@ -105,25 +94,18 @@ There are three artifact groups below (Prose, Code Docs, Git). **If the agent su
 4. Use synthetic paths: `git:commit:<sha>` with line 0, `git:pr:<number>` with line 0
 5. Return findings in the structured format
 
-### 7. Consolidate Findings
+### 6. Consolidate Findings
 
 Wait for all subagents to complete, then:
 
 1. Merge all findings into a single list
 2. Remove duplicates (same file:line and type)
-3. Remove findings that overlap with `.beagle/llm-artifacts-review.json`
-4. Assign unique IDs (1, 2, 3...)
-5. Group by category for display
+3. Assign unique IDs (1, 2, 3...)
+4. Group by category for display
 
-### 8. Write JSON Report
+### 7. Write JSON Report
 
-Create `.beagle` directory if it doesn't exist:
-
-```bash
-mkdir -p .beagle
-```
-
-Write findings to `.beagle/ai-writing-review.json`:
+Write findings to `ai-writing-review.json`:
 
 ```json
 {
@@ -193,7 +175,7 @@ Write findings to `.beagle/ai-writing-review.json`:
 }
 ```
 
-### 9. Display Summary
+### 8. Display Summary
 
 ```markdown
 ## AI Writing Review
@@ -234,22 +216,21 @@ Write findings to `.beagle/ai-writing-review.json`:
 
 - Invoke the do-humanize skill to apply fixes
 - Invoke the do-humanize skill with --dry-run to preview changes first
-- Review the JSON report at `.beagle/ai-writing-review.json`
+- Review the JSON report at `ai-writing-review.json`
 ```
 
-### 10. Verification
+### 9. Verification
 
 Before completing, all of the following must **pass** (objective checks):
 
-1. **JSON file exists and parses:** `.beagle/ai-writing-review.json` is present **or** you exited at Gate 1 with no scan (then no JSON is required).
-2. **JSON validity:** If the file exists, `python3 -c "import json; json.load(open('.beagle/ai-writing-review.json'))"` exits 0.
+1. **JSON file exists and parses:** `ai-writing-review.json` is present **or** you exited at Gate 1 with no scan (then no JSON is required).
+2. **JSON validity:** If the file exists, `python3 -c "import json; json.load(open('ai-writing-review.json'))"` exits 0.
 3. **Subagent success:** If you dispatched subagents, each returned without tool/runtime failure (a failed dispatch = do not write final JSON as if complete).
 4. **Git HEAD captured:** When JSON exists, `git_head` matches `git rev-parse HEAD` (non-empty string).
-5. **No double-flagging:** If `.beagle/llm-artifacts-review.json` exists, no finding duplicates its file:line + overlapping type for the skip rules in §4.
 
 ```bash
 # Verify JSON is valid (when file exists)
-python3 -c "import json; json.load(open('.beagle/ai-writing-review.json'))" 2>/dev/null && echo "Valid JSON" || echo "Invalid JSON"
+python3 -c "import json; json.load(open('ai-writing-review.json'))" 2>/dev/null && echo "Valid JSON" || echo "Invalid JSON"
 ```
 
 If any check fails, report the error and do not proceed.
@@ -272,8 +253,6 @@ If any check fails, report the error and do not proceed.
 - If the agent supports subagents, parallelize across artifact groups when >= 4 items to scan; otherwise scan sequentially
 - Every finding MUST have file:line reference (use synthetic paths for git artifacts)
 - Do not flag false positives listed in the skill
-- Do not duplicate findings from `.beagle/llm-artifacts-review.json`
-- Create `.beagle` directory if needed
 - Write JSON report before displaying summary
 
 ## Gates (sequenced pass conditions)
@@ -281,16 +260,16 @@ If any check fails, report the error and do not proceed.
 Advance only when each **pass condition** is satisfied using artifacts (paths, exit codes, parseable output)—not an internal “I checked” claim.
 
 1. **Arguments → scope**
-   - **Pass:** You can list the concrete paths (or `git:commit:<sha>` / `git:pr:<n>`) you will scan. If that set is empty, emit the “No files to scan…” message and **do not** create `.beagle/ai-writing-review.json`.
+   - **Pass:** You can list the concrete paths (or `git:commit:<sha>` / `git:pr:<n>`) you will scan. If that set is empty, emit the “No files to scan…” message and **do not** create `ai-writing-review.json`.
 
 2. **Scope → execution**
    - **Pass:** Each of Prose, Code docs, and Git (when in scope) has either completed subagent output **or** equivalent inline work with the same structured fields per finding.
 
 3. **Consolidation → write**
-   - **Pass:** Duplicates (same file:line and type) removed; when `.beagle/llm-artifacts-review.json` exists, overlaps with it skipped per §4; `git_head` equals the output of `git rev-parse HEAD` (non-empty).
+   - **Pass:** Duplicates (same file:line and type) removed; `git_head` equals the output of `git rev-parse HEAD` (non-empty).
 
 4. **JSON → summary**
-   - **Pass:** `python3 -c "import json; json.load(open('.beagle/ai-writing-review.json'))"` exits 0.
+   - **Pass:** `python3 -c "import json; json.load(open('ai-writing-review.json'))"` exits 0.
 
 5. **Finding → verification protocol**
    - **Pass:** For each reported issue, you can cite the surrounding paragraph or function you used so the flag is evidence-backed (see [review-verification-protocol](references/review-verification-protocol.md)).
@@ -389,14 +368,6 @@ Before reporting any finding:
 2. Confirm the pattern is AI-characteristic, not just formal writing
 3. Check if the project has established conventions that match the pattern
 4. Verify the suggestion improves clarity without changing meaning
-
-### With [llm-artifacts-detection](https://github.com/existential-birds/beagle/blob/master/plugins/beagle-core/skills/llm-artifacts-detection/SKILL.md)
-
-Code-level patterns (tautological docstrings, obvious comments) overlap with `llm-artifacts-detection`'s style criteria. When both skills are loaded:
-
-- `do-review-ai-writing` focuses on **writing style** (how it reads)
-- `llm-artifacts-detection` focuses on **code artifacts** (whether it should exist at all)
-- If `.beagle/llm-artifacts-review.json` exists, skip findings already captured there
 
 ## Output Format
 

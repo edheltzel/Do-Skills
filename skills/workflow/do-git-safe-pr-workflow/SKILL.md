@@ -19,6 +19,20 @@ feature branch when syncing, and land changes with `Squash and merge`.
 Bias toward safety over elegance. Choose reversible operations, avoid rewriting shared
 history, and teach the user in small steps while you work.
 
+
+## GitButler
+
+GitButler is in use when `command -v but` succeeds **and** `but status` exits 0. Do not run `but setup`. If either check fails, use the git commands in this skill.
+
+When GitButler is in use, do not `git merge`, `git rebase`, `git stash`, `git checkout`, `git add`, `git commit`, or `git push`. Map the same safety goals onto `but`:
+
+- **Sync with latest main:** `but pull` (not merge `origin/main`).
+- **Conflicts:** `but resolve` / `but resolve finish`, oldest conflicted commit first. Do not follow `references/conflict-resolution.md` git-merge recipes.
+- **Push:** `but push <feature-branch>`.
+- **Open PR:** `but pr new <feature-branch>`.
+- **Undo unpublished work:** `but discard` / `but undo`. Pushed work still prefers revert semantics; do not rewrite shared history.
+- Recovery playbooks in `references/recovery.md` are git-path only.
+
 ## Safe Defaults
 
 - Treat `main` and `master` as shared, sensitive branches.

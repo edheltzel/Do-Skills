@@ -18,11 +18,8 @@ npx skills update do-review-ai-writing
 messages, PR descriptions) for AI-generated writing patterns and writes a JSON
 report. It does not rewrite the files.
 
-Evidence comes before a flag. Every finding must cite file:line, pass the
-bundled verification protocol, and skip overlaps already in
-`.beagle/llm-artifacts-review.json`. The report path is
-`.beagle/ai-writing-review.json`. That `.beagle/` name is the Beagle artifact
-contract. It is not renamed to `do-`.
+Evidence comes before a flag. Every finding must cite file:line and pass the
+bundled verification protocol. The report path is `ai-writing-review.json`.
 
 ## When to reach for it
 
@@ -42,7 +39,7 @@ code docs). Safe vs needs-review is classified up front so
 
 ## It's working if
 
-- `.beagle/ai-writing-review.json` parses and `git_head` matches `HEAD`, or the
+- `ai-writing-review.json` parses and `git_head` matches `HEAD`, or the
   run exited with no files to scan.
 - Each finding has file:line, a category, and a fix-safety label.
 - False positives listed in the skill (intentional formality, licenses, generated
