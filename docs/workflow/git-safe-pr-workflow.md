@@ -20,6 +20,8 @@ that keeps `main` clean without demanding fluent git. The defining constraint is
 that it biases toward safety over elegance: it prefers reversible operations,
 merges `origin/main` into your feature branch instead of rebasing it, and reaches
 for `git revert` over rewriting history whenever commits may already be pushed.
+If GitButler is in use, those writes become `but pull`, `but resolve`, and
+`but push`; the git recipes stay as the fallback.
 
 ## When to reach for it
 

@@ -1,31 +1,63 @@
 ---
 name: do-gh-stack
 description: >
-  Manages stacked PRs and splits multi-part work into reviewable branches with gh-stack.
+  Manages stacked PRs and splits multi-part work into reviewable branches.
   Use for stack creation, viewing, edits, push, submit, sync, rebase, merge, or checkout;
   when asked to split or isolate work for review; whenever a user mentions a stack,
-  branch layers, dependent PRs, or gh stack; or when a stack is checked out.
+  branch layers, dependent PRs, gh stack, or GitButler/but stacks; or when a stack is checked out.
+  Uses `but` when GitButler is in use, otherwise `gh stack`.
 metadata:
   author: github
   version: "0.1.0"
 ---
 
-# gh-stack
+# Stacked PRs
 
-`gh stack` is a [GitHub CLI](https://cli.github.com/) extension for stacked branches and pull
-requests. A stack is an ordered chain of branches rooted on a trunk, where each branch has one PR
-based on the branch below it, so a reviewer sees only that layer's diff.
-
-`gh stack` prints a stack trunk-first, left to right:
+A stack is an ordered chain of branches rooted on a trunk. Each layer has one PR based on the
+branch below it, so a reviewer sees only that layer's diff.
 
 ```
 (main) <- auth <- api <- frontend
 ```
 
 Left is the **bottom**, right is the **top**. `auth` is based on `main` and merges first;
-`frontend` merges last. `up` moves toward the top, away from trunk; `down` moves toward it.
-Foundational work belongs at the bottom, code that depends on it above. For how to choose the
-layers, read `references/stack-design.md`.
+`frontend` merges last. Foundational work belongs at the bottom, code that depends on it above.
+For how to choose the layers, read `references/stack-design.md`.
+
+Pick one backend. Do not mix them.
+
+- **But stack** when `command -v but` succeeds **and** `but status` exits 0. Do not run `but setup`.
+- **gh stack** otherwise (the rest of this skill).
+
+## But stack
+
+Do not run `gh stack`, `git add`, `git commit`, `git rebase`, or `git push`.
+
+```bash
+but status
+but diff                              # copy file/hunk IDs per layer
+but commit -b <bottom> -m "<msg>" <bottom-ids>
+but branch new <top> --above <bottom> # stack before committing top work
+but commit -b <top> -m "<msg>" <top-ids>
+but pr new <top> -t
+```
+
+Never omit IDs when more than one layer is dirty. A bare `but commit -b <bottom>` takes every uncommitted change, and the top commit then has nothing to take.
+
+If `<top>` already exists, `but move <top> --above <bottom>` instead of `but branch new`. If top files are not dirty yet, edit them after stacking, then `but diff` and commit those IDs.
+
+- **Unstack:** `but move <branch> --unstack`
+- **Sync with main:** `but pull`
+- **Conflicts:** `but resolve conflicts <branch>`, then `but resolve apply`. Never `git add`.
+- **Push without PRs:** `but push <top>`
+
+`git log` is fine (read-only). Always pass `-b`. Always pass IDs when the uncommitted tree holds more than one layer.
+
+## gh stack
+
+`gh stack` is a [GitHub CLI](https://cli.github.com/) extension for stacked branches and pull
+requests. `up` moves toward the top, away from trunk; `down` moves toward it.
+
 
 ## Setup
 
@@ -34,6 +66,7 @@ gh extension install github/gh-stack
 git config rerere.enabled true         # remember conflict resolutions
 git config remote.pushDefault origin   # required if the repo has more than one remote
 ```
+
 
 ## Non-interactive use
 

@@ -374,6 +374,6 @@ For the full compass procedure and the other type distinctions, see [diataxis-co
 
 - **[docs-style](references/docs-style.md)**: Core writing conventions and components
 - **[Diataxis compass](references/diataxis-compass.md)**: Type selection, the 2×2 map, and the quality model
-- **[howto-docs](https://github.com/existential-birds/beagle/blob/master/plugins/beagle-docs/skills/howto-docs/SKILL.md)**: How-To guide patterns for task-oriented content (Beagle source; not imported)
-- **[reference-docs](https://github.com/existential-birds/beagle/blob/master/plugins/beagle-docs/skills/reference-docs/SKILL.md)**: Reference documentation patterns (Beagle source; not imported)
-- **[explanation-docs](https://github.com/existential-birds/beagle/blob/master/plugins/beagle-docs/skills/explanation-docs/SKILL.md)**: Conceptual documentation patterns (Beagle source; not imported)
+- **[howto-docs](../do-improve-doc/references/howto-docs.md)**: How-To guide patterns for task-oriented content
+- **[reference-docs](../do-improve-doc/references/reference-docs.md)**: Reference documentation patterns
+- **[explanation-docs](../do-improve-doc/references/explanation-docs.md)**: Conceptual documentation patterns

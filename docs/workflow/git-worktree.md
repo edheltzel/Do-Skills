@@ -19,6 +19,8 @@ out several branches at once without cloning the repo again or stashing your wor
 The defining constraint is location: every worktree lands in a standardized path,
 `~/.git-worktrees/<repo>/<branch>`, never inside a project directory — so your
 working trees stay tidy and a worktree never gets mistaken for repo content.
+If GitButler is in use (`but` on PATH and `but status` succeeds), it does not
+`git worktree add`. It applies a lane in the primary checkout instead.
 
 ## When to reach for it
 

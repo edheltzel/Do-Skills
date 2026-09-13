@@ -8,29 +8,36 @@ disable-model-invocation: true
 
 Commit all local changes following Conventional Commits format.
 
+## GitButler
+
+GitButler is in use when `command -v but` succeeds **and** `but status` exits 0. Do not run `but setup`. If either check fails, use the git commands in this skill.
+
+When GitButler is in use:
+- Inspect with `but diff`. `git log --oneline` is fine (read-only).
+- Commit with `but commit -b <feature-branch> -m "<msg>"` (omit IDs to take all uncommitted changes; pass `but diff` IDs for a subset). Take `<feature-branch>` from `but status`, never `gitbutler/workspace`.
+- Never `git add`, `git commit`, `git stash`, or `git checkout`.
+
+
 ## Gates
 
 Complete **in order**. Do not run the next action until the **Pass** condition is satisfied (use command output as evidence, not memory).
 
-1. **Diff understood** — **Pass when:** Outputs from `git status`, `git diff`, and `git diff --cached` are consistent with your one-sentence description of what changed (or you recorded that there is nothing to commit).
+1. **Diff understood** — **Pass when:** `git status`/`git diff`/`git diff --cached`, **or** `but diff` if GitButler is in use, match your one-sentence description of what changed (or you recorded that there is nothing to commit).
 2. **Commit line chosen** — **Pass when:** You have a draft first line `type(scope): description` (or `type: description` if omitting scope) that matches the change set you intend to commit.
-3. **Staging matches intent** — **Pass when:** After `git add`, `git diff --cached --stat` (and spot-check `git diff --cached` if needed) shows only the paths you meant to include; adjust staging before committing if not.
+3. **Contents match intent** — **Pass when:** After `git add`, `git diff --cached --stat` shows only the paths you meant; **or** if GitButler, the IDs you will pass to `but commit` (or all uncommitted, if omitting IDs) match that set.
 
 ## Step 1: Gather Context
 
 Run these commands in parallel to understand the changes:
 
 ```bash
-# See all untracked and modified files
 git status
-
-# See staged and unstaged changes
 git diff
 git diff --cached
-
-# See recent commit messages for style reference
 git log --oneline -10
 ```
+
+If GitButler is in use, use `but diff` instead of the `git status`/`git diff`/`git diff --cached` trio. Keep `git log --oneline -10`.
 
 ## Step 2: Analyze Changes
 
@@ -72,6 +79,21 @@ Rules:
 ## Step 4: Stage and Commit
 
 Satisfy **Gates** 1–3 before committing.
+
+If GitButler is in use:
+
+```bash
+but commit -b <feature-branch> -m "$(cat <<'EOF'
+type(scope): description
+
+Optional body explaining the motivation.
+
+Closes #123
+EOF
+)"
+```
+
+Otherwise:
 
 ```bash
 # Stage all changes (or selectively stage)
