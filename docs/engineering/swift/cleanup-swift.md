@@ -30,7 +30,7 @@ explicitly *not* for one-off edits, bug fixes, or active feature work.
 
 Reach for it at the end of a Swift session, not during it. For the same
 end-of-session pass on TypeScript, React, and web code, use
-[cleanup-web](./cleanup-web.md) — this is its Swift analogue, same shape,
+[cleanup-web](../frontend/cleanup-web.md) — this is its Swift analogue, same shape,
 different review lenses.
 
 ## The parallel-lens review
@@ -40,17 +40,17 @@ Scope is strictly the files modified this session (found via `git status` /
 It then dispatches one sub-agent per review lens, all in parallel, each loading
 its own skill first and reviewing only through that lens:
 
-- **Simplification** ([simplify](../core/simplify.md)) — dead code, needless
+- **Simplification** ([simplify](../../core/simplify.md)) — dead code, needless
   abstractions, and helpers whose names do not improve the call site.
-- **Type-driven design** ([parse-dont-validate](./parse-dont-validate.md)) — push
+- **Type-driven design** ([parse-dont-validate](../typescript/parse-dont-validate.md)) — push
   checks into types; make invalid states unrepresentable.
-- **Design patterns** ([design-patterns-gof](./design-patterns-gof.md)) —
+- **Design patterns** ([design-patterns-gof](../general/design-patterns-gof.md)) —
   patterns only where they earn their weight.
 - **Platform conventions** ([macos-swift-desktop](./macos-swift-desktop.md)) —
   naming, ARC, AppKit/SwiftUI boundaries, threading, main-actor isolation.
-- **Comment hygiene** ([code-comments](../engineering/code-comments.md)) — strip "what"
+- **Comment hygiene** ([code-comments](../general/code-comments.md)) — strip "what"
   comments and AI narration; keep "why" only.
-- **Correctness** ([adversarial-review](../core/adversarial-review.md)) —
+- **Correctness** ([adversarial-review](../../core/adversarial-review.md)) —
   dropped guards, edge cases, concurrency hazards, swallowed errors, stale
   callers, and other regressions introduced by the session.
 
@@ -60,9 +60,9 @@ lenses flagged for you to decide.
 ## Where it fits
 
 A periodic-maintenance skill you run once, at the end of a session — the Swift
-sibling of [cleanup-web](./cleanup-web.md). It doesn't author code; it composes
+sibling of [cleanup-web](../frontend/cleanup-web.md). It doesn't author code; it composes
 several authoring and review skills — including
-[simplify](../core/simplify.md),
-[adversarial-review](../core/adversarial-review.md), and
+[simplify](../../core/simplify.md),
+[adversarial-review](../../core/adversarial-review.md), and
 [macos-swift-desktop](./macos-swift-desktop.md) — into review lenses and turns
 them on the diff you just produced.

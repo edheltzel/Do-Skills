@@ -31,7 +31,7 @@ or question whether an abstraction earns its keep.
 Reach for it to put a word on a design in a PR, to sanity-check indirection
 before you introduce it, or to map a codebase that leans on patterns. This is a
 vocabulary-and-judgment skill; for the surgical discipline of *changing* that
-code once you've named it, use [karpathy-guidelines](../core/karpathy-guidelines.md).
+code once you've named it, use [karpathy-guidelines](../../core/karpathy-guidelines.md).
 
 ## Name the shape, then check if you need it
 
@@ -66,7 +66,7 @@ them).
 
 A reach-for-it-anytime reference that gives design conversations a shared
 vocabulary and a brake on premature abstraction. It aligns with
-[karpathy-guidelines](../core/karpathy-guidelines.md)' simplicity-first bias, and its
+[karpathy-guidelines](../../core/karpathy-guidelines.md)' simplicity-first bias, and its
 language-native leanings echo the other craft skills in this bucket — for the
 TypeScript form of "prefer a union over a hierarchy," see
-[write-typescript](./write-typescript.md).
+[write-typescript](../typescript/write-typescript.md).

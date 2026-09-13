@@ -31,9 +31,9 @@ introduces `useEffect`, `useLayoutEffect`, or dependency-array churn.
 
 Reach for it any time an Effect is about to appear in a component. For the broader
 question of how the surrounding TypeScript should read, use
-[write-typescript](./write-typescript.md); for systematically excising Effects across a
+[write-typescript](../typescript/write-typescript.md); for systematically excising Effects across a
 component tree as a cleanup pass, pair it with
-[typescript-refactoring](./typescript-refactoring.md).
+[typescript-refactoring](../typescript/typescript-refactoring.md).
 
 ## What replaces the Effect
 
@@ -62,6 +62,6 @@ the system, and give it symmetrical cleanup behind a custom hook.
 ## Where it fits
 
 A focused React-specific standalone you reach for at authoring or review time,
-narrower than the general [write-typescript](./write-typescript.md) style skill it sits
+narrower than the general [write-typescript](../typescript/write-typescript.md) style skill it sits
 beside. It also supplies a ready-made team policy for codebases that want to ban
 or heavily restrict raw `useEffect`.

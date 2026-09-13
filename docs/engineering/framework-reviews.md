@@ -1,13 +1,13 @@
 # Framework reviews
 
-Six registered orchestrators, nested by technology:
+Index for the six stack review orchestrators. Each has its own page:
 
-- [`do-review-ios`](../../skills/engineering/swift/do-review-ios/)
-- [`do-review-frontend`](../../skills/engineering/frontend/do-review-frontend/)
-- [`do-review-python`](../../skills/engineering/python/do-review-python/)
-- [`do-review-go`](../../skills/engineering/go/do-review-go/)
-- [`do-review-rust`](../../skills/engineering/rust/do-review-rust/)
-- [`do-review-elixir`](../../skills/engineering/elixir/do-review-elixir/)
+- [review-ios](./swift/review-ios.md)
+- [review-frontend](./frontend/review-frontend.md)
+- [review-python](./python/review-python.md)
+- [review-go](./go/review-go.md)
+- [review-rust](./rust/review-rust.md)
+- [review-elixir](./elixir/review-elixir.md)
 
 Each pack keeps stack-specific review siblings and verification protocol as
 references, not extra registered skills. Load the orchestrator; it loads

@@ -31,8 +31,8 @@ TypeScript or Effect change needs the project's engineering standards.
 Reach for it when a change crosses types, errors, effects, services, schemas,
 or tests and needs a coherent end-to-end design. For a narrower boundary-first
 approach to untrusted data, use
-[parse-dont-validate](../engineering/parse-dont-validate.md); for general
-TypeScript authoring style, use [write-typescript](../engineering/write-typescript.md).
+[parse-dont-validate](../typescript/parse-dont-validate.md); for general
+TypeScript authoring style, use [write-typescript](../typescript/write-typescript.md).
 
 ## The changed-behavior loop
 
@@ -50,6 +50,6 @@ meaningful complexity into callers, not merely remove a name.
 
 This is the broad engineering baseline for TypeScript and Effect changes. It
 sets the standards that a focused service-design effort can apply to an Effect
-capability with [effect-service-design](../engineering/effect-service-design.md),
-while [typescript-refactoring](../engineering/typescript-refactoring.md) focuses
+capability with [effect-service-design](../typescript/effect-service-design.md),
+while [typescript-refactoring](../typescript/typescript-refactoring.md) focuses
 on reshaping existing TypeScript code.

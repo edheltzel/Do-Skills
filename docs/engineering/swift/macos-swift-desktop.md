@@ -58,6 +58,6 @@ defaults: `@MainActor` by default, `async`/`await` over completion handlers, the
 ## Where it fits
 
 A reach-for-it-anytime standalone for macOS desktop work — the counterpart to the
-web-focused skills in [`engineering/`](../engineering/), aimed at a platform they
+web-focused skills in [`engineering/`](../), aimed at a platform they
 don't cover. It pairs with [cleanup-swift](./cleanup-swift.md), which uses this
 skill as its platform-conventions review lens at the end of a session.

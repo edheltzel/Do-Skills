@@ -27,10 +27,10 @@ modified and a behavior-preserving cleanup would help.
 Reach for it when nesting, vague names, duplicate logic, dead branches, or
 speculative abstractions make a change harder to understand. For a wider
 TypeScript refactor that may reshape APIs or types, use
-[typescript-refactoring](../engineering/typescript-refactoring.md). For an
+[typescript-refactoring](../engineering/typescript/typescript-refactoring.md). For an
 end-of-session multi-lens review, use
-[cleanup-web](../engineering/cleanup-web.md) or
-[cleanup-swift](../engineering/cleanup-swift.md).
+[cleanup-web](../engineering/frontend/cleanup-web.md) or
+[cleanup-swift](../engineering/swift/cleanup-swift.md).
 
 ## Fewer concepts, not fewer lines
 
@@ -54,7 +54,7 @@ mechanics out of the high-level call site.
 ## Where it fits
 
 A reach-for-it-anytime cleanup lens and a building block for the cleanup skills.
-It complements [code-comments](../engineering/code-comments.md): simplify until the code
+It complements [code-comments](../engineering/general/code-comments.md): simplify until the code
 explains the mechanics, then comment only the surviving rationale. Use
 [adversarial-review](./adversarial-review.md) afterward when correctness, rather
 than clarity, is the remaining question.

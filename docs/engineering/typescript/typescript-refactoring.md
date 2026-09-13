@@ -64,5 +64,5 @@ A project-level workhorse you reach for when quality has slipped, not a
 run-once setup. It sits directly on top of [write-typescript](./write-typescript.md) (its
 target state), leans on [parse-dont-validate](./parse-dont-validate.md) at Level
 6 boundaries, and pairs with
-[karpathy-guidelines](../core/karpathy-guidelines.md) for the surgical,
+[karpathy-guidelines](../../core/karpathy-guidelines.md) for the surgical,
 scope-respecting posture the work demands.

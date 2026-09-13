@@ -58,6 +58,6 @@ any components exist, use [bootstrap-design-system](./bootstrap-design-system.md
 
 A reach-for-it-anytime standalone for component work that sits above
 [modern-css](./modern-css.md) (the CSS it's built from) and pairs with
-[write-typescript](./write-typescript.md) for prop types like discriminated unions.
+[write-typescript](../typescript/write-typescript.md) for prop types like discriminated unions.
 [bootstrap-design-system](./bootstrap-design-system.md) is the upstream step that
 writes the spec; this skill implements against it.

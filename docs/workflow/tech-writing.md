@@ -29,7 +29,7 @@ commit message, issue, PRD, spec, or PR description.
 
 Reach for it whenever you're producing technical prose and want it short and
 direct the first time. For the narrower question of what belongs in a code
-comment, use [code-comments](../engineering/code-comments.md); for the specific files
+comment, use [code-comments](../engineering/general/code-comments.md); for the specific files
 [agents-md](../core/agents-md.md) and [architecture-md](../core/architecture-md.md)
 govern, use those — this skill sets the writing posture they all share.
 
@@ -58,7 +58,7 @@ govern, use those — this skill sets the writing posture they all share.
 ## Where it fits
 
 A reach-for-it-anytime standalone for any technical prose, and the shared voice
-behind the documentation skills: [code-comments](../engineering/code-comments.md),
+behind the documentation skills: [code-comments](../engineering/general/code-comments.md),
 [agents-md](../core/agents-md.md), and
 [architecture-md](../core/architecture-md.md) each format one artifact, while this
 skill governs how the words in all of them should read.
