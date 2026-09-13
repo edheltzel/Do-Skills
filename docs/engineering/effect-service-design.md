@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-effect-service-design
 npx skills update do-effect-service-design
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-effect-service-design)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/typescript/do-effect-service-design)
 
 ## What it does
 

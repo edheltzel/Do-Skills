@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-lean-ts-patterns
 npx skills update do-lean-ts-patterns
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-lean-ts-patterns)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/typescript/do-lean-ts-patterns)
 
 ## What it does
 

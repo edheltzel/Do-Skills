@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-design-patterns-gof
 npx skills update do-design-patterns-gof
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-design-patterns-gof)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/general/do-design-patterns-gof)
 
 ## What it does
 

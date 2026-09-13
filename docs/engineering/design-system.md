@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-design-system
 npx skills update do-design-system
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-design-system)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/frontend/do-design-system)
 
 ## What it does
 

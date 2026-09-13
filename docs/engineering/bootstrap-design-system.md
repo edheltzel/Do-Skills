@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-bootstrap-design-system
 npx skills update do-bootstrap-design-system
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/do-bootstrap-design-system)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/engineering/frontend/do-bootstrap-design-system)
 
 ## What it does
 
