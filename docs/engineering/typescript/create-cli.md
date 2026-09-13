@@ -32,7 +32,7 @@ shell script with a command-line tool.
 Reach for it when the deliverable is a usable command-line interface rather than
 an application feature. For the engineering standards that guide TypeScript and
 Effect changes more broadly, use
-[coding-standards](../engineering/coding-standards.md).
+[coding-standards](../typescript/coding-standards.md).
 
 ## A CLI-first delivery
 
@@ -51,6 +51,6 @@ Commander.js tier.
 
 CreateCLI is a project-creation skill for command-line tools. It produces a
 complete CLI rather than a general TypeScript coding style; apply
-[write-typescript](../engineering/write-typescript.md) for day-to-day TypeScript authoring
-and [lean-ts-patterns](../engineering/lean-ts-patterns.md) when lightweight,
+[write-typescript](../typescript/write-typescript.md) for day-to-day TypeScript authoring
+and [lean-ts-patterns](../typescript/lean-ts-patterns.md) when lightweight,
 zero-dependency TypeScript patterns are the central concern.

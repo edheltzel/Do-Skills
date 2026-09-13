@@ -30,7 +30,7 @@ its own.
 Reach for it when planning a feature whose user journey, system behavior, and
 ownership boundaries need to be understood before proposing code changes. For a
 design-system implementation rather than a feature-flow plan, use
-[design-system](../engineering/design-system.md).
+[design-system](../frontend/design-system.md).
 
 ## Two flow trees, then anchors
 
@@ -54,7 +54,7 @@ architecture language unless framework terminology names a real boundary.
 
 UX Flow Plan is a user-invoked planning step before implementation work. It
 makes the user-visible flow and architectural ownership explicit; once the
-change is scoped, [coding-standards](../engineering/coding-standards.md) guides
+change is scoped, [coding-standards](../typescript/coding-standards.md) guides
 the TypeScript or Effect implementation, while
-[bootstrap-design-system](../engineering/bootstrap-design-system.md) addresses
+[bootstrap-design-system](../frontend/bootstrap-design-system.md) addresses
 creating a reusable design-system foundation.
