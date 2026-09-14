@@ -49,7 +49,6 @@ Foundational tools for every project and workbench - repo structure, agent maps,
 
 Code design and implementation practices, from general principles to language-, framework-, and platform-specific craft.
 
-- [`do-bootstrap-design-system`](./skills/engineering/frontend/do-bootstrap-design-system/)
 - [`do-cleanup-swift`](./skills/engineering/swift/do-cleanup-swift/)
 - [`do-cleanup-web`](./skills/engineering/frontend/do-cleanup-web/)
 - [`do-code-comments`](./skills/engineering/general/do-code-comments/)
