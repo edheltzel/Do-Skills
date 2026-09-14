@@ -49,6 +49,7 @@ Foundational tools for every project and workbench - repo structure, agent maps,
 
 Code design and implementation practices, from general principles to language-, framework-, and platform-specific craft.
 
+- [`do-astro`](./skills/engineering/frontend/do-astro/)
 - [`do-cleanup-swift`](./skills/engineering/swift/do-cleanup-swift/)
 - [`do-cleanup-web`](./skills/engineering/frontend/do-cleanup-web/)
 - [`do-code-comments`](./skills/engineering/general/do-code-comments/)
@@ -194,3 +195,5 @@ His `wait-what` skill also contributes to [`do-bro`](./skills/slop-guard/do-bro/
 The imported skills and contribution retain their MIT license; each affected skill folder includes the upstream notice.
 
 [`do-tutorial-docs`](./skills/workflow/do-tutorial-docs/), [`do-improve-doc`](./skills/workflow/do-improve-doc/), [`do-review-ai-writing`](./skills/slop-guard/do-review-ai-writing/), [`do-humanize`](./skills/slop-guard/do-humanize/), [`do-review-skill`](./skills/harness/do-review-skill/), and the six `do-review-{ios,frontend,python,go,rust,elixir}` packs are adapted from [Beagle](https://github.com/existential-birds/beagle) by Existential Birds, LLC under the [Apache License 2.0](https://github.com/existential-birds/beagle/blob/master/LICENSE).
+
+[`do-astro`](./skills/engineering/frontend/do-astro/) is adapted from [astrolicious/agent-skills](https://github.com/astrolicious/agent-skills) under MIT.

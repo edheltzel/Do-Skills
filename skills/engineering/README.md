@@ -2,6 +2,7 @@
 
 Code design and implementation practices, from general principles to language-, framework-, and platform-specific craft.
 
+- [`do-astro`](./frontend/do-astro/)
 - [`do-cleanup-swift`](./swift/do-cleanup-swift/)
 - [`do-cleanup-web`](./frontend/do-cleanup-web/)
 - [`do-code-comments`](./general/do-code-comments/)
