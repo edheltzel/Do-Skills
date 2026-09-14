@@ -14,25 +14,26 @@ npx skills update do-design-system
 
 ## What it does
 
-`design-system` steers UI components toward being accessible, themeable,
-composable, and visually consistent — covering component API design, two-layer
-design tokens, WCAG-grade accessibility, theming, and interaction patterns for
-dialogs, forms, toasts, and loading states. The defining constraint is that
-accessibility and the token scale are baselines, not features: an interactive
-component that isn't keyboard-operable, or a value that isn't drawn from the
-scale, is wrong by definition — there is no "add a11y later" path.
+`design-system` covers two jobs in one skill. Day to day it steers UI
+components toward being accessible, themeable, composable, and visually
+consistent — component APIs, two-layer tokens, WCAG-grade accessibility,
+theming, and interaction patterns. When asked, it also captures the project's
+existing brand into a portable `DESIGN.md` plus a live style-guide page.
+Accessibility and the token scale are baselines, not features: an interactive
+component that isn't keyboard-operable, or a value that isn't on the scale, is
+wrong. The spec loop discovers tokens; it does not invent missing ones.
 
 ## When to reach for it
 
-Type `/do-design-system`, or the agent reaches for it automatically when building
-buttons, dialogs, forms, cards, or any reusable component (it triggers on `.tsx`,
+Type `/do-design-system`, or the agent reaches for it when building buttons,
+dialogs, forms, cards, or any reusable component (it triggers on `.tsx`,
 `.jsx`, `.css`, and `.scss`).
 
-Reach for it when you're building or reviewing the components themselves — how
-their props are shaped, how they theme, how they behave under keyboard and screen
-reader. For the raw CSS techniques those components use, drop to
-[modern-css](./modern-css.md); to generate a project-wide `DESIGN.md` spec before
-any components exist, use [bootstrap-design-system](./bootstrap-design-system.md).
+Reach for it to build or review components — props, theming, keyboard and
+screen-reader behavior. Pass `route:`/`mood:`/`name:`/`framework:` or ask for
+`DESIGN.md` / a style guide to run the spec loop instead. That loop does not
+run just because a `.tsx` file is open. For raw CSS techniques, use
+[modern-css](./modern-css.md).
 
 ## The patterns it enforces
 
@@ -53,11 +54,12 @@ any components exist, use [bootstrap-design-system](./bootstrap-design-system.md
 - Every color, space, and radius comes from the token scale — no arbitrary values.
 - Interactive elements are `<button>`/`<a>`, operable by keyboard, with visible
   focus and correct focus handling on open/close.
+- A spec run writes `DESIGN.md` from discovered tokens only, plus a style-guide
+  page that dogfoods project primitives.
 
 ## Where it fits
 
 A reach-for-it-anytime standalone for component work that sits above
-[modern-css](./modern-css.md) (the CSS it's built from) and pairs with
-[write-typescript](../typescript/write-typescript.md) for prop types like discriminated unions.
-[bootstrap-design-system](./bootstrap-design-system.md) is the upstream step that
-writes the spec; this skill implements against it.
+[modern-css](./modern-css.md) and pairs with
+[write-typescript](../typescript/write-typescript.md) for prop types like
+discriminated unions. The spec loop is the same skill, not a second install.

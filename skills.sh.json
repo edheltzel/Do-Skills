@@ -21,7 +21,6 @@
       "title": "Engineering",
       "description": "Code design and implementation practices, from general principles to language-, framework-, and platform-specific craft.",
       "skills": [
-        "do-bootstrap-design-system",
         "do-cleanup-swift",
         "do-cleanup-web",
         "do-code-comments",

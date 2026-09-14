@@ -1,10 +1,4 @@
----
-name: do-bootstrap-design-system
-description: Generate a portable DESIGN.md source-of-truth plus a live HTML style-guide page for the current project — discover brand tokens, write the 9-section spec, build and verify a visual reference page.
-argument-hint: [optional overrides — e.g. route:/style-guide mood:"calm editorial" name:"Acme" framework:Astro]
----
-
-# Bootstrap Design System
+# Design spec (`DESIGN.md` + style guide)
 
 Generate **two artifacts** for the current project in one PR:
 
@@ -12,6 +6,8 @@ Generate **two artifacts** for the current project in one PR:
 2. **A visual style-guide page** that renders every section of `DESIGN.md` at real size using the project's own component primitives.
 
 Work the phases in order — do not skip phases.
+
+Discovery over invention: read tokens that already exist. If a token this spec needs is missing, stop and ask — do not invent one.
 
 ---
 
