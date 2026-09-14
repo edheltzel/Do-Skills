@@ -61,6 +61,5 @@ variables, and `@layer` over `!important` specificity wars.
 
 A reach-for-it-anytime standalone for day-to-day styling, and the CSS foundation
 the UI skills build on — [design-system](./design-system.md) leans on it for
-tokens and theming, [bootstrap-design-system](./bootstrap-design-system.md)
-produces a spec that assumes it, and [cleanup-web](./cleanup-web.md) runs it as
+tokens, theming, and `DESIGN.md`, and [cleanup-web](./cleanup-web.md) runs it as
 one review lens on a session's changes.

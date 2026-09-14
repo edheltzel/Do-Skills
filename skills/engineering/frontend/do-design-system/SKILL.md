@@ -1,19 +1,25 @@
 ---
 name: do-design-system
 description: >-
-  Build design system components and UI that are accessible, themeable, and
-  visually polished. Use when building buttons, dialogs, forms, cards, or any
-  reusable UI components. Covers component API design, design tokens,
-  accessibility, theming, visual design rules, and interaction patterns.
-  Triggers on: "build a component", "design system", "create a button",
-  "build a dialog", "add dark mode", "design tokens", "theme", "accessible
-  component", "UI component", "component library".
+  Build accessible, themeable UI components, and when asked, capture the
+  project's brand into DESIGN.md plus a live style-guide page. Use when
+  building buttons, dialogs, forms, cards, or any reusable UI; also when
+  standing up DESIGN.md, a style guide, or documenting existing tokens.
+  Covers component API design, design tokens, accessibility, theming, and
+  the 9-section spec workflow. Triggers on: "build a component", "design
+  system", "create a button", "DESIGN.md", "style guide", "design tokens",
+  "theme", "accessible component", "component library".
+argument-hint: "[optional spec overrides — e.g. route:/style-guide mood:\"calm editorial\" name:\"Acme\" framework:Astro]"
 globs: ["*.tsx", "*.jsx", "*.css", "*.scss"]
 ---
 
 # Design Systems
 
-Build UI components that are accessible, themeable, composable, and visually polished. This skill covers architecture and patterns. See companion skills for React performance (`vercel-react-best-practices`), composition (`vercel-composition-patterns`), CSS techniques (`modern-css`), and UI code review (`web-design-guidelines`).
+Build UI components that are accessible, themeable, composable, and visually polished.
+
+**Spec vs components.** If the user asks for `DESIGN.md`, a style guide, documenting existing tokens, or standing up the design system — or they pass `route:`/`mood:`/`name:`/`framework:` overrides — follow [references/design-spec.md](references/design-spec.md) and stop after that loop. Do not run the spec loop just because this skill loaded for a `.tsx`/`.css` edit. Component work uses the sections below. If `DESIGN.md` exists, implement against it; do not rewrite it unless asked.
+
+Companion skills: React performance (`vercel-react-best-practices`), composition (`vercel-composition-patterns`), CSS techniques (`modern-css`), UI code review (`web-design-guidelines`).
 
 ## 1. Component Architecture
 
@@ -275,6 +281,7 @@ Semantic tokens swap between themes. Don't invert colors — map them intentiona
 - **`web-design-guidelines`** — UI code review checklist (accessibility, forms, animation, performance)
 - **`typescript`** — type patterns for component props (discriminated unions, branded types)
 
+For the `DESIGN.md` + style-guide loop, see [references/design-spec.md](references/design-spec.md).
 For design token implementation, see [references/design-tokens.md](references/design-tokens.md).
 For component recipes, see [references/component-recipes.md](references/component-recipes.md).
 For accessibility patterns, see [references/accessibility-patterns.md](references/accessibility-patterns.md).

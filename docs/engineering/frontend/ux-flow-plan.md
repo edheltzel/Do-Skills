@@ -56,5 +56,5 @@ UX Flow Plan is a user-invoked planning step before implementation work. It
 makes the user-visible flow and architectural ownership explicit; once the
 change is scoped, [coding-standards](../typescript/coding-standards.md) guides
 the TypeScript or Effect implementation, while
-[bootstrap-design-system](../frontend/bootstrap-design-system.md) addresses
-creating a reusable design-system foundation.
+[design-system](./design-system.md) covers the reusable UI foundation and
+optional `DESIGN.md` spec.
