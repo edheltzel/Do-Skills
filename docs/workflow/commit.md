@@ -22,7 +22,7 @@ Its defining boundary is local: it ends after creating the commit and does not p
 
 You invoke this by typing `/do-commit` — the agent will not reach for it on its own.
 
-Reach for it when a reviewed set of local changes needs a deliberate, well-described commit. If that commit should also be published to its configured upstream, use [Commit and Push](../workflow/commit-push.md) instead.
+Reach for it when a reviewed set of local changes needs a deliberate, well-described commit. If that commit should also be published, use [Commit and Push](../workflow/commit-push.md) instead — which publishes through No Mistakes when that gate is initialized.
 
 ## The three gates
 

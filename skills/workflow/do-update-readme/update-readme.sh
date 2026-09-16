@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Regenerates the Available Skills section in README.md from SKILL.md frontmatters.
+# Regenerates nested bucket (and engineering tech) READMEs plus the short
+# bucket table in the root README.md from SKILL.md frontmatters.
 # Skills live under skills/<bucket>/<skill>/SKILL.md or
 # skills/<bucket>/<tech>/<skill>/SKILL.md. Bundled copies under references/ are ignored.
 # Usage: bash skills/workflow/do-update-readme/update-readme.sh
@@ -13,6 +14,7 @@ GROUPINGS_FILE="$ROOT/skills.sh.json"
 # Bucket render order and display titles. Descriptions come from skills.sh.json,
 # their authoritative owner. Any unlisted bucket is appended with no blurb.
 BUCKET_ORDER="core engineering content harness slop-guard workflow operations personal private"
+PROMOTED="core engineering content harness slop-guard workflow"
 
 bucket_title() {
     case "$1" in
@@ -29,6 +31,20 @@ bucket_title() {
     esac
 }
 
+tech_title() {
+    case "$1" in
+        frontend)    echo "Frontend" ;;
+        typescript)  echo "TypeScript" ;;
+        swift)       echo "Swift" ;;
+        general)     echo "General" ;;
+        rust)        echo "Rust" ;;
+        python)      echo "Python" ;;
+        go)          echo "Go" ;;
+        elixir)      echo "Elixir" ;;
+        *)           echo "$1" ;;
+    esac
+}
+
 bucket_blurb() {
     title=$(bucket_title "$1")
     node -e '
@@ -40,9 +56,12 @@ process.stdout.write(group?.description ?? "");
 ' "$GROUPINGS_FILE" "$title"
 }
 
-section_file=$(mktemp)
+is_promoted() {
+    echo "$PROMOTED" | grep -qw "$1"
+}
+
 group_file=$(mktemp)
-trap 'rm -f "$section_file" "$group_file"' EXIT
+trap 'rm -f "$group_file"' EXIT
 
 # Parse name and description from a SKILL.md file.
 # Handles inline values (quoted or unquoted) and block scalars (> and |).
@@ -94,12 +113,14 @@ first_sentence() {
     }' <<< "$1"
 }
 
-# Emit the grouped Markdown for one bucket into $section_file.
-# Args: bucket name. Returns nonzero (skips output) if the bucket has no skills.
-render_bucket() {
-    bucket="$1"
-    : > "$group_file"
+escape_cell() {
+    printf '%s' "$1" | sed 's/|/\\|/g'
+}
 
+# Fill $group_file with name<TAB>reldir<TAB>short-desc for SKILL.md files under $1.
+collect_skills() {
+    search_root="$1"
+    : > "$group_file"
     while IFS= read -r skill_file; do
         [ -n "$skill_file" ] || continue
         result=$(parse_skill "$skill_file")
@@ -111,38 +132,100 @@ render_bucket() {
         reldir="${reldir%/SKILL.md}"
         printf '%s\t%s\t%s\n' "$name" "$reldir" "$short" >> "$group_file"
     done <<EOF
-$(find "$SKILLS_DIR/$bucket" -name SKILL.md ! -path '*/references/*' 2>/dev/null | sort)
+$(find "$search_root" -name SKILL.md ! -path '*/references/*' 2>/dev/null | sort)
 EOF
-
     [ -s "$group_file" ] || return 1
     sort -f -o "$group_file" "$group_file"
+}
 
-    title=$(bucket_title "$bucket")
-    blurb=$(bucket_blurb "$bucket")
+write_skill_table() {
+    prefix="$1"
+    while IFS=$'\t' read -r name reldir desc; do
+        rel="${reldir#"$prefix"}"
+        printf '| [`%s`](./%s/) | %s |\n' "$name" "$rel" "$(escape_cell "$desc")"
+    done < "$group_file"
+}
 
-    # Append this bucket's subsection to the top-level README section.
-    # Links are repo-relative (./skills/<bucket>/<skill>/).
-    {
-        printf '### %s\n\n' "$title"
-        [ -n "$blurb" ] && printf '%s\n\n' "$blurb"
-        while IFS=$'\t' read -r name reldir desc; do
-            printf '%s\n' "- [\`$name\`](./$reldir/)"
-        done < "$group_file"
-        printf '\n'
-    } >> "$section_file"
+write_install_block() {
+    cat <<'EOF'
+## Installation
 
-    # Write the bucket's own README.md. Links are relative to the bucket dir.
+For any coding agent that supports [Agent Skills](https://agentskills.io):
+
+```bash
+npx skills add edheltzel/Do-Skills
+```
+
+Install one skill by exact name (`icm-grill` is unprefixed; the rest use `do-`):
+
+```bash
+npx skills add edheltzel/Do-Skills --skill=<skill-name>
+```
+
+EOF
+}
+
+# Write a Beagle-docs-style README at $1.
+# $2 = H1 title, $3 = blurb, $4 = skills/ path prefix to strip from links,
+# $5 = relative path from this README to repo root README.md,
+# $6 = optional docs relative path (empty to omit).
+write_readme() {
+    dest="$1"
+    title="$2"
+    blurb="$3"
+    prefix="$4"
+    catalog_rel="$5"
+    docs_rel="${6:-}"
+
     {
         printf '# %s\n\n' "$title"
         [ -n "$blurb" ] && printf '%s\n\n' "$blurb"
-        while IFS=$'\t' read -r name reldir desc; do
-            prefix="skills/$bucket/"
-            rel="${reldir#"$prefix"}"
-            printf '%s\n' "- [\`$name\`](./$rel/)"
-        done < "$group_file"
-    } > "$SKILLS_DIR/$bucket/README.md"
+        write_install_block
+        printf '## Skills\n\n'
+        printf '| Skill | Description |\n'
+        printf '|-------|-------------|\n'
+        write_skill_table "$prefix"
+        printf '\n## See Also\n\n'
+        printf -- '- [Skill catalog](%s) — every bucket in this repo\n' "$catalog_rel"
+        if [ -n "$docs_rel" ]; then
+            printf -- '- [Docs](%s) — human-facing pages for these skills\n' "$docs_rel"
+        fi
+    } > "$dest"
+}
 
-    return 0
+write_bucket_readme() {
+    bucket="$1"
+    title=$(bucket_title "$bucket")
+    blurb=$(bucket_blurb "$bucket")
+    docs_rel=""
+    if is_promoted "$bucket"; then
+        docs_rel="../../docs/${bucket}/"
+    fi
+    write_readme \
+        "$SKILLS_DIR/$bucket/README.md" \
+        "$title" \
+        "$blurb" \
+        "skills/${bucket}/" \
+        "../../README.md" \
+        "$docs_rel"
+}
+
+write_tech_readmes() {
+    bucket="engineering"
+    while IFS= read -r tech_dir; do
+        [ -n "$tech_dir" ] || continue
+        tech=$(basename "$tech_dir")
+        collect_skills "$tech_dir" || continue
+        write_readme \
+            "$tech_dir/README.md" \
+            "$(tech_title "$tech")" \
+            "Engineering skills for ${tech}." \
+            "skills/engineering/${tech}/" \
+            "../../../README.md" \
+            "../../../docs/engineering/${tech}/"
+    done <<EOF
+$(find "$SKILLS_DIR/$bucket" -mindepth 1 -maxdepth 1 -type d | sort)
+EOF
 }
 
 # Buckets in preferred order, then any others discovered on disk.
@@ -155,19 +238,34 @@ for b in $found_buckets; do
     echo "$BUCKET_ORDER" | grep -qw "$b" || ordered="$ordered $b"
 done
 
-: > "$section_file"
-total=0
-for b in $ordered; do
-    if render_bucket "$b"; then
-        total=$((total + $(wc -l < "$group_file" | tr -d ' ')))
-    fi
-done
+root_section=$(mktemp)
+trap 'rm -f "$group_file" "$root_section"' EXIT
+{
+    printf '| Bucket | Coverage |\n'
+    printf '|--------|----------|\n'
+} > "$root_section"
 
-# Replace the region between <!-- skills-start --> and <!-- skills-end --> in README.md
-awk -v section="$section_file" '
+
+total=0
+bucket_count=0
+for b in $ordered; do
+    collect_skills "$SKILLS_DIR/$b" || continue
+    count=$(wc -l < "$group_file" | tr -d ' ')
+    total=$((total + count))
+    bucket_count=$((bucket_count + 1))
+    write_bucket_readme "$b"
+    title=$(bucket_title "$b")
+    blurb=$(bucket_blurb "$b")
+    printf '| [%s](./skills/%s/) | %s |\n' "$title" "$b" "$(escape_cell "$blurb")" >> "$root_section"
+done
+printf '\n' >> "$root_section"
+
+write_tech_readmes
+
+awk -v section="$root_section" '
     /<!-- skills-start -->/ { print; print ""; while ((getline line < section) > 0) print line; skip=1; next }
     /<!-- skills-end -->/ { skip=0 }
     !skip { print }
 ' "$README" > "$README.tmp" && mv "$README.tmp" "$README"
 
-echo "✓ Updated README.md with $total skills across $(echo "$ordered" | wc -w | tr -d ' ') buckets"
+echo "✓ Updated README.md and $bucket_count bucket READMEs ($total skills)"

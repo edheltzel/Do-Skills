@@ -14,10 +14,10 @@ npx skills update do-update-readme
 
 ## What it does
 
-`do-update-readme` regenerates the Available Skills catalog from each skill's
+`do-update-readme` regenerates the skill catalogs from each skill's
 `SKILL.md` frontmatter. The defining constraint is that the generator is the
-only writer of those lists: do not hand-edit the list between
-`<!-- skills-start -->` and `<!-- skills-end -->`.
+only writer of those lists: do not hand-edit a bucket README, an engineering
+tech README, or the table between `<!-- skills-start -->` and `<!-- skills-end -->`.
 
 ## When to reach for it
 
@@ -35,14 +35,14 @@ Run from the repository root:
 bash skills/workflow/do-update-readme/update-readme.sh
 ```
 
-It rewrites the Available Skills section in the root README and the README in
-each nonempty bucket folder. Human docs pages under `docs/` are separate; this
-script does not write them. Empty buckets get no heading.
+It rewrites each nonempty bucket README (install notes, a skills table, see also),
+each `skills/engineering/<tech>/README.md`, and the short bucket table in the root README.
+Human docs pages under `docs/` are separate; this script does not write them.
 
 ## It's working if
 
-- Root README Available Skills matches the `SKILL.md` files on disk.
-- Each nonempty bucket folder has a README that lists the same skills.
+- Root README lists buckets, each linking to `skills/<bucket>/`.
+- Each nonempty bucket (and engineering tech folder) README has a skills table matching `SKILL.md` files on disk.
 
 ## Where it fits
 

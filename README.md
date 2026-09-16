@@ -25,109 +25,22 @@ claude-code ` or `-a claude-code -a pi`
 
 ## Available Skills
 
-These are broken into buckets, similar to how [Matt Pocock's Skills](https://github.com/mattpocock/skills) are structured. 
+Skills are grouped into buckets. The root table is an index; each bucket README lists the skills, the same way [Beagle](https://github.com/existential-birds/beagle) keeps plugin READMEs and a short marketplace page.
 
-I've also prefixed most of the skills with `do-` this way it is easier to identify which skills are mine... The reasoning for this is, I get all little trigger happy and select the wrong slash command/skill. Many harnesses have their own built-in commands/skills, like "/simplify", so if I have `do-simplify` I know for a fact I'm running my version.
+Most names carry a `do-` prefix so they do not collide with a harness command (`/simplify` vs `/do-simplify`). `icm-grill` is the exception.
 
 <!-- skills-start -->
 
-### Core
-
-Foundational tools for every project and workbench - repo structure, agent maps, and review lenses.
-
-- [`do-adversarial-review`](./skills/core/do-adversarial-review/)
-- [`do-agent-context-layer`](./skills/core/do-agent-context-layer/)
-- [`do-agent-first-repo`](./skills/core/do-agent-first-repo/)
-- [`do-agents-md`](./skills/core/do-agents-md/)
-- [`do-architecture-md`](./skills/core/do-architecture-md/)
-- [`do-behavioral-testing`](./skills/core/do-behavioral-testing/)
-- [`do-first-principles`](./skills/core/do-first-principles/)
-- [`do-red-team`](./skills/core/do-red-team/)
-- [`do-simplify`](./skills/core/do-simplify/)
-
-### Engineering
-
-Code design and implementation practices, from general principles to language-, framework-, and platform-specific craft.
-
-- [`do-astro`](./skills/engineering/frontend/do-astro/)
-- [`do-cleanup-swift`](./skills/engineering/swift/do-cleanup-swift/)
-- [`do-cleanup-web`](./skills/engineering/frontend/do-cleanup-web/)
-- [`do-code-comments`](./skills/engineering/general/do-code-comments/)
-- [`do-coding-standards`](./skills/engineering/typescript/do-coding-standards/)
-- [`do-create-cli`](./skills/engineering/typescript/do-create-cli/)
-- [`do-design-patterns-gof`](./skills/engineering/general/do-design-patterns-gof/)
-- [`do-design-system`](./skills/engineering/frontend/do-design-system/)
-- [`do-effect-service-design`](./skills/engineering/typescript/do-effect-service-design/)
-- [`do-lean-ts-patterns`](./skills/engineering/typescript/do-lean-ts-patterns/)
-- [`do-macos-swift-desktop`](./skills/engineering/swift/do-macos-swift-desktop/)
-- [`do-modern-css`](./skills/engineering/frontend/do-modern-css/)
-- [`do-no-use-effect`](./skills/engineering/frontend/do-no-use-effect/)
-- [`do-parse-dont-validate`](./skills/engineering/typescript/do-parse-dont-validate/)
-- [`do-review-elixir`](./skills/engineering/elixir/do-review-elixir/)
-- [`do-review-frontend`](./skills/engineering/frontend/do-review-frontend/)
-- [`do-review-go`](./skills/engineering/go/do-review-go/)
-- [`do-review-ios`](./skills/engineering/swift/do-review-ios/)
-- [`do-review-python`](./skills/engineering/python/do-review-python/)
-- [`do-review-rust`](./skills/engineering/rust/do-review-rust/)
-- [`do-typescript-refactoring`](./skills/engineering/typescript/do-typescript-refactoring/)
-- [`do-ux-flow-plan`](./skills/engineering/frontend/do-ux-flow-plan/)
-- [`do-write-typescript`](./skills/engineering/typescript/do-write-typescript/)
-
-### Content
-
-Audience-facing media - pictures, diagrams, video, motion, blog, and social.
-
-- [`do-art`](./skills/content/do-art/)
-
-### Harness
-
-Modifying the coding-agent harness - distilling knowledge into reusable skills.
-
-- [`do-distill-to-skill`](./skills/harness/do-distill-to-skill/)
-- [`do-review-skill`](./skills/harness/do-review-skill/)
-- [`do-writing-great-skills`](./skills/harness/do-writing-great-skills/)
-
-### Slop Guard
-
-Catching AI slop - restating output in plain human language and stripping jargon-heavy writing.
-
-- [`do-bro`](./skills/slop-guard/do-bro/)
-- [`do-humanize`](./skills/slop-guard/do-humanize/)
-- [`do-review-ai-writing`](./skills/slop-guard/do-review-ai-writing/)
-
-### Workflow
-
-Workspace design and change delivery - interviews, commits, issues, PRs, specs, and draft review.
-
-- [`do-commit`](./skills/workflow/do-commit/)
-- [`do-commit-push`](./skills/workflow/do-commit-push/)
-- [`do-gh-pm`](./skills/workflow/do-gh-pm/)
-- [`do-gh-stack`](./skills/workflow/do-gh-stack/)
-- [`do-git-pr-review-triage`](./skills/workflow/do-git-pr-review-triage/)
-- [`do-git-safe-pr-workflow`](./skills/workflow/do-git-safe-pr-workflow/)
-- [`do-git-worktree`](./skills/workflow/do-git-worktree/)
-- [`do-improve-doc`](./skills/workflow/do-improve-doc/)
-- [`do-tech-writing`](./skills/workflow/do-tech-writing/)
-- [`do-tutorial-docs`](./skills/workflow/do-tutorial-docs/)
-- [`do-update-readme`](./skills/workflow/do-update-readme/)
-- [`icm-grill`](./skills/workflow/icm-grill/)
-
-### Operations
-
-Operating AI agents and driving machines - delegation, evaluation, prompt audits, memory recall, and browser or computer automation.
-
-- [`do-bitter-pill`](./skills/operations/do-bitter-pill/)
-- [`do-browser`](./skills/operations/do-browser/)
-- [`do-context-search`](./skills/operations/do-context-search/)
-- [`do-delegation`](./skills/operations/do-delegation/)
-- [`do-interceptor`](./skills/operations/do-interceptor/)
-
-### Personal
-
-Your non-portable extras.
-
-- [`do-recipe-diagrams`](./skills/personal/do-recipe-diagrams/)
-- [`do-teach`](./skills/personal/do-teach/)
+| Bucket | Coverage |
+|--------|----------|
+| [Core](./skills/core/) | Foundational tools for every project and workbench - repo structure, agent maps, and review lenses. |
+| [Engineering](./skills/engineering/) | Code design and implementation practices, from general principles to language-, framework-, and platform-specific craft. |
+| [Content](./skills/content/) | Audience-facing media - pictures, diagrams, video, motion, blog, and social. |
+| [Harness](./skills/harness/) | Modifying the coding-agent harness - distilling knowledge into reusable skills. |
+| [Slop Guard](./skills/slop-guard/) | Catching AI slop - restating output in plain human language and stripping jargon-heavy writing. |
+| [Workflow](./skills/workflow/) | Workspace design and change delivery - interviews, commits, issues, PRs, specs, and draft review. |
+| [Operations](./skills/operations/) | Operating AI agents and driving machines - delegation, evaluation, prompt audits, memory recall, and browser or computer automation. |
+| [Personal](./skills/personal/) | Your non-portable extras. |
 
 <!-- skills-end -->
 ### Archived
@@ -173,7 +86,7 @@ description: A clear description of what this skill does and when to use it
 [Instructions for the agent go here]
 ```
 
-After adding, moving, or renaming a skill, regenerate the Available Skills section:
+After adding, moving, renaming, or changing a skill's behaviour or description, regenerate the Available Skills section and re-sync its docs page (`docs/`, see [`.agents/writing-docs.md`](./.agents/writing-docs.md)):
 
 ```bash
 bash skills/workflow/do-update-readme/update-readme.sh

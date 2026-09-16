@@ -1,6 +1,6 @@
 ---
 name: do-commit-push
-description: commit and push all local changes to remote repo
+description: commit and push all local changes to remote repo. If No Mistakes is initialized, publish through axi instead of origin.
 disable-model-invocation: true
 ---
 
@@ -15,7 +15,17 @@ GitButler is in use when `command -v but` succeeds **and** `but status` exits 0.
 When GitButler is in use:
 - Inspect with `but diff`. `git log --oneline` is fine (read-only).
 - Commit with `but commit -b <feature-branch> -m "<msg>"` (omit IDs to take all uncommitted changes). Take `<feature-branch>` from `but status`, never `gitbutler/workspace`.
-- Push with `but push <feature-branch>`. Never `git add`, `git commit`, `git push`, or `git stash`.
+- Push with `but push <feature-branch>` unless No Mistakes is in use. Never `git add`, `git commit`, `git push`, or `git stash`.
+
+## No Mistakes
+
+No Mistakes is in use when `command -v no-mistakes` succeeds **and** `git remote` lists `no-mistakes` (or `no-mistakes axi` shows this repo). Do not run `no-mistakes init` unless the user asked.
+
+When No Mistakes is in use:
+- GitButler still owns inspect and commit. Raw git still owns `git add` / `git commit` when GitButler is not in use.
+- After the commit, publish with `no-mistakes axi run --intent "<what the user set out to accomplish>"`. Do not `but push`, `but pr new`, `git push`, or `git push origin`.
+- The installed `/no-mistakes` skill owns the axi loop. Drive it; do not copy it here.
+- If `no-mistakes axi` reports `current_branch: gitbutler/workspace` or the default branch, stop. Tell the user the gate cannot see a real feature branch. Do not invent a push workaround.
 
 
 ## Gates
@@ -25,8 +35,8 @@ Complete **in order**. Do not run the next action until the **Pass** condition i
 1. **Diff understood** — **Pass when:** `git status`/`git diff`/`git diff --cached`, **or** `but diff` if GitButler is in use, match your one-sentence description of what changed (or you recorded that there is nothing to commit).
 2. **Commit line chosen** — **Pass when:** You have a draft first line `type(scope): description` (or `type: description` if omitting scope) that matches the change set you intend to ship.
 3. **Contents match intent** — **Pass when:** After `git add`, `git diff --cached --stat` shows only the paths you meant; **or** if GitButler, the IDs you will pass to `but commit` (or all uncommitted, if omitting IDs) match that set.
-4. **Push target confirmed** — **Pass when:** Current feature branch and remote are the ones you intend (`git branch -vv` / `git remote -v`, **or** `but status` if GitButler); then push.
-5. **Remote caught up** — **Pass when:** `git status -sb` shows the branch up to date with upstream, **or** `but status` shows the branch pushed, with no unexpected leftover commits for this task.
+4. **Push target confirmed** — **Pass when:** Current feature branch and remote are the ones you intend (`git branch -vv` / `git remote -v`, **or** `but status` if GitButler); then push. **If No Mistakes:** skip origin/push confirmation; pass when you have started `no-mistakes axi run --intent "..."` on a real feature branch (not `gitbutler/workspace` or the default branch).
+5. **Remote caught up** — **Pass when:** `git status -sb` shows the branch up to date with upstream, **or** `but status` shows the branch pushed, with no unexpected leftover commits for this task. **If No Mistakes:** pass only on axi `outcome: checks-passed` or `outcome: passed`. `passed-with-skips` is not publication proof — report the skip. A `gate:` (including `ask-user`) is blocked/pending, not a pass. Do not treat origin sync as the proof.
 
 ## Step 1: Gather Context
 
@@ -94,7 +104,6 @@ Optional body explaining the motivation.
 Closes #123
 EOF
 )"
-but push <feature-branch>
 ```
 
 Otherwise:
@@ -115,10 +124,13 @@ Optional body explaining the motivation.
 Closes #123
 EOF
 )"
-
-# Push to remote
-git push
 ```
+
+Then publish:
+
+- **No Mistakes:** `no-mistakes axi run --intent "<what the user set out to accomplish>"`. Drive gates with `/no-mistakes`. Do not `but push` or `git push`.
+- **GitButler, no gate:** `but push <feature-branch>`
+- **Otherwise:** `git push`
 
 ## Examples
 
@@ -151,4 +163,4 @@ Optionally append a co-author or footer trailer per project convention (e.g. a `
 
 ## Step 5: Verify
 
-After pushing, satisfy **Gate 5**: `git status` and `git status -sb`, **or** `but status` if GitButler is in use. Confirm a clean tree and upstream sync (or an expected ahead/behind you can explain).
+After pushing, satisfy **Gate 5**: `git status` and `git status -sb`, **or** `but status` if GitButler is in use. Confirm a clean tree and upstream sync (or an expected ahead/behind you can explain). **If No Mistakes:** the axi outcome is Gate 5. Do not `git fetch` origin to prove the push.
