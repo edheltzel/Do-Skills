@@ -59,7 +59,7 @@ Deeper playbooks live in the skill's `references/` — `conflict-resolution.md`,
 - Mistakes on shared history get reverted rather than reset away.
 - Conflict resolutions are verified against the final code, not just cleared of
   markers, and any behavior change is explained back to you.
-- In a gated repo, a PR appears only after axi `checks-passed` or `passed`, not from an early `gh pr create`.
+- In a gated repo, the pipeline opens the PR after local validation; `checks-passed` means it is ready for review and merge, not that the PR only then appears. Do not open one early with `gh pr create`.
 
 ## Where it fits
 
