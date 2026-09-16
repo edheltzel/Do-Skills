@@ -28,10 +28,25 @@ When GitButler is in use, do not `git merge`, `git rebase`, `git stash`, `git ch
 
 - **Sync with latest main:** `but pull` (not merge `origin/main`).
 - **Conflicts:** `but resolve` / `but resolve finish`, oldest conflicted commit first. Do not follow `references/conflict-resolution.md` git-merge recipes.
-- **Push:** `but push <feature-branch>`.
-- **Open PR:** `but pr new <feature-branch>`.
+- **Push:** `but push <feature-branch>` unless No Mistakes is in use.
+- **Open PR:** `but pr new <feature-branch>` unless No Mistakes is in use.
 - **Undo unpublished work:** `but discard` / `but undo`. Pushed work still prefers revert semantics; do not rewrite shared history.
 - Recovery playbooks in `references/recovery.md` are git-path only.
+
+## No Mistakes
+
+No Mistakes is in use when `command -v no-mistakes` succeeds **and** `git remote` lists `no-mistakes` (or `no-mistakes axi` shows this repo).
+
+When No Mistakes is in use, the gate owns publication:
+- **Push, open PR, or sync a live PR:** `no-mistakes axi run --intent "<what the user set out to accomplish>"`. Reattach or `axi respond` if a run is already active. Do not `but push`, `but pr new`, `git push origin`, or `gh pr create`.
+- GitButler still owns the lane, local commit, `but pull` before first publish, conflicts, and unpublished undo.
+- While a run is active: no hand-rebase, no origin push, no self-edit of findings. `ask-user` findings stop for the user.
+- If `no-mistakes axi` reports `current_branch: gitbutler/workspace` or the default branch, stop. Tell the user the gate cannot see a real feature branch.
+
+This forks three defaults:
+- Do not open a PR early. Publish after the gate is green.
+- Do not merge `origin/main` onto a live gated PR to catch up. The pipeline rebases.
+- Do not treat the pipeline's guarded force-push for CI repair as a user force-push. Still refuse `git push --force` on `main`.
 
 ## Safe Defaults
 
@@ -69,10 +84,14 @@ Use this as the default GitHub workflow for low-experience users:
 7. Merge with `Squash and merge`.
 8. Delete the feature branch after merge.
 
+If No Mistakes is in use, skip steps 3 and 6. The gate opens the PR and pushes after checks are green. For a live gated PR that is behind `main`, do not merge `origin/main` or rebase by hand.
+
 Do not teach users to routinely rebase pushed PR branches just to get the latest `main`.
 That workflow is where many novices re-introduce old code or lose work.
 
 ## Opening PRs
+
+If No Mistakes is in use, do not `gh pr create` or `but pr new`. Pass the title and body as `--intent` context. The gate opens the PR.
 
 When helping a user open a PR, treat the PR title as the likely final squash-merge commit.
 
@@ -109,6 +128,8 @@ If the repo uses GitHub squash merges, prefer the PR title as the default squash
 
 If a user asks to rebase a pushed branch, explain why that is risky and propose merging
 `origin/main` instead.
+
+If No Mistakes is in use and a PR is already gated, do not merge `origin/main` and do not rebase. Drive or reattach the pipeline.
 
 ## Conflict Resolution Rules
 
@@ -185,6 +206,7 @@ Before pushing:
 - [ ] review `status` and diff
 - [ ] confirm no accidental changes to unrelated files
 - [ ] explain any conflict resolution that changed behavior
+- [ ] if No Mistakes: `no-mistakes axi run --intent "..."` (not `git push` / `but push`)
 
 Before undoing:
 

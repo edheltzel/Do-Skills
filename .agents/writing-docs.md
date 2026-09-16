@@ -12,11 +12,7 @@ The page is not the skill and not a copy of `SKILL.md`. Its job is to orient one
 reader around one skill: what it does, when to reach for it, and where it sits
 among the others. Together the pages are a distributed map of the collection.
 
-Act whenever a promoted skill is added, renamed, moved, or has its behaviour
-changed: create or re-sync its docs page. A rename moves the file; a skill
-moving between buckets or tech folders moves its docs file to the matching
-folder. A skill moving into a non-promoted bucket (`operations/`, `personal/`,
-or `private/`) loses its page; one moving into a promoted bucket gains one.
+Act whenever a promoted skill is added, renamed, moved, or has its behaviour changed: create or re-sync its docs page. After a frontmatter `name` or `description` change, also regenerate `README.md` with `bash skills/workflow/do-update-readme/update-readme.sh`. A rename moves the file; a skill moving between buckets or tech folders moves its docs file to the matching folder. A skill moving into a non-promoted bucket (`operations/`, `personal/`, or `private/`) loses its page; one moving into a promoted bucket gains one.
 
 ## Repo conventions
 

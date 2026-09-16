@@ -173,7 +173,7 @@ description: A clear description of what this skill does and when to use it
 [Instructions for the agent go here]
 ```
 
-After adding, moving, or renaming a skill, regenerate the Available Skills section:
+After adding, moving, renaming, or changing a skill's behaviour or description, regenerate the Available Skills section and re-sync its docs page (`docs/`, see [`.agents/writing-docs.md`](./.agents/writing-docs.md)):
 
 ```bash
 bash skills/workflow/do-update-readme/update-readme.sh
