@@ -9,10 +9,7 @@
 
 # Do Skills
 
-> [!NOTE]
-> EdHeltzel's Agent Skills
-
-This is a collection of skills that I've created or found valuable for my workflow. Many are from talented people that I have unashamedly copied, borrowed, improved, and modified most to fit my use cases.
+This is a collection of skills I've created and collected. [Skills.sh](https://skills.sh) is a good way to discover and install skills, but it lacks many features. This repo is my temporary solution for installing skills on a per-project and global basis for day-to-day work and personal projects. Many are from people I've copied, borrowed, improved, and modified to fit my use cases.
 
 > [!WARNING]
 > This is a **WIP** and changes often. Just like any code/software you find, don't blindly download and run it. Review it, learn what it does to make an educated decision if you should use it.
@@ -114,3 +111,4 @@ WTFPL
 `do-writing-great-skills`, `wait-what`, `do-teach` are adapted from [Matt Pocock's Skills](https://github.com/mattpocock/skills)
 `do-bro` is an adoption from Matt Pocock and [pstack](https://github.com/cursor/plugins/tree/main/pstack)
 `do-astro` is adapted from [Astrolicious](https://github.com/astrolicious/agent-skills)
+`do-illo` is copied from [tmchow/illo-skill](https://github.com/tmchow/illo-skill)
