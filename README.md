@@ -1,9 +1,24 @@
+```
+██████╗  ██████╗    ███████╗██╗  ██╗██╗██╗     ██╗     ███████╗
+██╔══██╗██╔═══██╗   ██╔════╝██║ ██╔╝██║██║     ██║     ██╔════╝
+██║  ██║██║   ██║   ███████╗█████╔╝ ██║██║     ██║     ███████╗
+██║  ██║██║   ██║   ╚════██║██╔═██╗ ██║██║     ██║     ╚════██║
+██████╔╝╚██████╔╝██╗███████║██║  ██╗██║███████╗███████╗███████║
+╚═════╝  ╚═════╝ ╚═╝╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚══════╝
+```
+
 # Do Skills
 
->[!NOTE]
+> [!NOTE]
+> EdHeltzel's Agent Skills
+
+This is a collection of skills that I've created or found valuable for my workflow. Many are from talented people that I have unashamedly copied, borrowed, improved, and modified most to fit my use cases.
+
+> [!WARNING]
 > This is a **WIP** and changes often. Just like any code/software you find, don't blindly download and run it. Review it, learn what it does to make an educated decision if you should use it.
 
-This is a collection of skills that I've created or found valuable for my workflow. Many are from talented people that I have unashamedly copied, borrowed, improved, and modified most to fit my use cases. 
+- [E.DOTS - Dotfiles](https://github.com/edheltzel/dotfiles)
+- [NEO.ED - Neovim Config](https://github.com/edheltzel/neoed)
 
 ## Installation
 
