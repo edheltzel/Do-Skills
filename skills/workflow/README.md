@@ -10,8 +10,6 @@ For any coding agent that supports [Agent Skills](https://agentskills.io):
 npx skills add edheltzel/Do-Skills
 ```
 
-Install one skill by exact name (`icm-grill` is unprefixed; the rest use `do-`):
-
 ```bash
 npx skills add edheltzel/Do-Skills --skill=<skill-name>
 ```
@@ -31,7 +29,6 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 | [`do-tech-writing`](./do-tech-writing/) | Write clean, terse technical docs — commits, issues, PRDs, specs, and technical communication |
 | [`do-tutorial-docs`](./do-tutorial-docs/) | Tutorial patterns for documentation - learning-oriented guides that teach through guided doing. |
 | [`do-update-readme`](./do-update-readme/) | Use when adding, removing, or renaming a skill in this repository to keep nested bucket READMEs and the root catalog current. |
-| [`icm-grill`](./icm-grill/) | Grill a workspace into one of six ICM fleet trees. |
 
 ## See Also
 
