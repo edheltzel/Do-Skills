@@ -26,3 +26,4 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 ## See Also
 
 - [Skill catalog](../../README.md) — every bucket in this repo
+- [Matt Pocock's Skill](https://github.com/mattpocock/skills)

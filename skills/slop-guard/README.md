@@ -20,7 +20,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 
 | Skill | Description |
 |-------|-------------|
-| [`do-bro`](./do-bro/) | Restate the last message in plain human language, with no jargon. |
+| [`do-huh`](./do-huh/) | Restate the last message in plain human language, with no jargon. |
 | [`do-humanize`](./do-humanize/) | Rewrite AI-generated developer text to sound human — fix inflated language, filler, tautological docs, and robotic tone. |
 | [`do-review-ai-writing`](./do-review-ai-writing/) | Detect AI-generated writing patterns in developer text — docs, docstrings, commit messages, PR descriptions, and code comments. |
 
@@ -28,3 +28,4 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 
 - [Skill catalog](../../README.md) — every bucket in this repo
 - [Docs](../../docs/slop-guard/) — human-facing pages for these skills
+- [Matt Pocock's Skill](https://github.com/mattpocock/skills)
