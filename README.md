@@ -17,6 +17,10 @@ This is a collection of skills that I've created or found valuable for my workfl
 > [!WARNING]
 > This is a **WIP** and changes often. Just like any code/software you find, don't blindly download and run it. Review it, learn what it does to make an educated decision if you should use it.
 
+**Suggestions**
+
+I would suggest you take a peak at [Matt Pocock Skills](https://github.com/mattpocock/skills) and [Lauren Tan's PStack](https://github.com/cursor/plugins/tree/main/pstack)
+
 ## Installation
 
 To keep this easy, I use [Skills.sh](https://skills.sh) for installation and updates.
