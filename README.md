@@ -14,7 +14,7 @@ npx skills add edheltzel/Do-Skills
 ```
 
 To install a specific skill, use its exact listed name. Most carry the `do-`
-prefix; `icm-grill` is intentionally unprefixed:
+prefix:
 
 ```bash
 npx skills add edheltzel/Do-Skills --skill=<skill-name>
@@ -25,9 +25,9 @@ claude-code ` or `-a claude-code -a pi`
 
 ## Available Skills
 
-Skills are grouped into buckets. The root table is an index; each bucket README lists the skills, the same way [Beagle](https://github.com/existential-birds/beagle) keeps plugin READMEs and a short marketplace page.
+Skills are grouped into buckets. The root table is an index; each bucket README lists the skills as a short marketplace page.
 
-Most names carry a `do-` prefix so they do not collide with a harness command (`/simplify` vs `/do-simplify`). `icm-grill` is the exception.
+Most names carry a `do-` prefix so they do not collide with a harness command (`/simplify` vs `/do-simplify`).
 
 <!-- skills-start -->
 
@@ -43,13 +43,6 @@ Most names carry a `do-` prefix so they do not collide with a harness command (`
 | [Personal](./skills/personal/) | Your non-portable extras. |
 
 <!-- skills-end -->
-### Archived
-
-No longer using.
-
-- [`do-karpathy-guidelines`](./docs/core/karpathy-guidelines.md)
-
-
 ## Creating a Skill
 
 Each skill lives in its own folder, grouped into a bucket under `skills/`. Every
@@ -102,11 +95,6 @@ WTFPL
 
 ## Attributions
 
-[`do-writing-great-skills`](./skills/harness/do-writing-great-skills/) (Matt `writing-great-skills` at [`697d4ce`](https://github.com/mattpocock/skills/commit/697d4ce9742da558fd1ba6697c8e9775e2e302dd)) and
-[`do-teach`](./skills/personal/do-teach/) are adapted from [Matt Pocock's Skills](https://github.com/mattpocock/skills).
-His `wait-what` skill also contributes to [`do-bro`](./skills/slop-guard/do-bro/).
-The imported skills and contribution retain their MIT license; each affected skill folder includes the upstream notice.
-
-[`do-tutorial-docs`](./skills/workflow/do-tutorial-docs/), [`do-improve-doc`](./skills/workflow/do-improve-doc/), [`do-review-ai-writing`](./skills/slop-guard/do-review-ai-writing/), [`do-humanize`](./skills/slop-guard/do-humanize/), [`do-review-skill`](./skills/harness/do-review-skill/), and the six `do-review-{ios,frontend,python,go,rust,elixir}` packs are adapted from [Beagle](https://github.com/existential-birds/beagle) by Existential Birds, LLC under the [Apache License 2.0](https://github.com/existential-birds/beagle/blob/master/LICENSE).
-
-[`do-astro`](./skills/engineering/frontend/do-astro/) is adapted from [astrolicious/agent-skills](https://github.com/astrolicious/agent-skills) under MIT.
+`do-writing-great-skills`, `wait-what`, `do-teach` are adapted from [Matt Pocock's Skills](https://github.com/mattpocock/skills)
+`do-bro` is an adoption from Matt Pocock and [pstack](https://github.com/cursor/plugins/tree/main/pstack)
+`do-astro` is adapted from [Astrolicious](https://github.com/astrolicious/agent-skills)
