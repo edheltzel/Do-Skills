@@ -26,6 +26,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 | [`do-agents-md`](./do-agents-md/) | Write effective AGENTS.md files that give coding agents the context they need to work in a repository. |
 | [`do-architecture-md`](./do-architecture-md/) | Generate an ARCHITECTURE.md file for a codebase following matklad's principles. |
 | [`do-behavioral-testing`](./do-behavioral-testing/) | Behavioral testing methodology — test what users experience, not how code is structured. |
+| [`do-dox-install`](./do-dox-install/) | Install the DOX AGENTS.md hierarchy into a project, merging existing agent rules and keeping generated docs out of site builds. |
 | [`do-first-principles`](./do-first-principles/) | Physics-based reasoning framework (Musk methodology) that deconstructs a problem to irreducible fundamental truths, classifies every element as hard constraint, soft constraint, or assumption, then reconstructs the optimal solution from fundamentals alone. |
 | [`do-red-team`](./do-red-team/) | Adversarial analysis deploying parallel expert agents to stress-test ideas, strategies, and plans — decomposes into atomic claims, attacks them, then steelmans and counter-argues, producing severity-ranked findings with remediation. |
 | [`do-simplify`](./do-simplify/) | Simplify and refine recently modified code for clarity and consistency. |
