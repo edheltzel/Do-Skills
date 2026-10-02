@@ -36,6 +36,7 @@
         "do-modern-css",
         "do-no-use-effect",
         "do-parse-dont-validate",
+        "do-perf",
         "do-review-elixir",
         "do-review-frontend",
         "do-review-go",
