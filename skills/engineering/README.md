@@ -34,6 +34,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 | [`do-modern-css`](./frontend/do-modern-css/) | Teaches agents to write modern CSS using native features instead of legacy hacks, workarounds, and JavaScript. |
 | [`do-no-use-effect`](./frontend/do-no-use-effect/) | Prevent unnecessary React `useEffect` usage by steering code toward derived state, event handlers, memoization, `key`-based resets, `useSyncExternalStore`, and framework or query-library data APIs. |
 | [`do-parse-dont-validate`](./typescript/do-parse-dont-validate/) | Type-driven design principle: transform unstructured data into structured types at system boundaries, making illegal states unrepresentable. |
+| [`do-perf`](./frontend/do-perf/) | The FULL measure → find → fix → remeasure → report performance loop for Electron or web apps: a Playwright/CDP A/B harness that drives the real production build, Blink style-invalidation traces and React commit probes that name root causes at file:line, then a generated HTML report whose every figure comes from harness JSON. |
 | [`do-review-elixir`](./elixir/do-review-elixir/) | Comprehensive Elixir/Phoenix code review with optional parallel agents |
 | [`do-review-frontend`](./frontend/do-review-frontend/) | Comprehensive React/TypeScript frontend code review with per-area review skills, run in parallel where the agent supports subagents and sequentially otherwise. |
 | [`do-review-go`](./go/do-review-go/) | Comprehensive Go backend code review with optional parallel review areas. |

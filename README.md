@@ -112,3 +112,4 @@ WTFPL
 `do-bro` is an adoption from Matt Pocock and [pstack](https://github.com/cursor/plugins/tree/main/pstack)
 `do-astro` is adapted from [Astrolicious](https://github.com/astrolicious/agent-skills)
 `do-illo` is copied from [tmchow/illo-skill](https://github.com/tmchow/illo-skill)
+`do-perf` is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) `skills/enliven` (MIT)
