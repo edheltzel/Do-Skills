@@ -6,9 +6,9 @@
 // selector", which a flame graph does not. The output is a ranked list; the
 // rows at the top with an ancestor node name (#root, .app) are the expensive
 // ones, because an invalidation scheduled there re-styles the whole subtree.
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join, resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 const arg = (name, fallback) => {
@@ -28,23 +28,58 @@ const CATEGORIES = [
 ];
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const { _electron: electron } = await import("playwright-core");
+
+// A hermetic config home, so the run never inherits the developer's settings
+// and never stops on a first-run screen on a clean machine.
+function seedConfigHome() {
+  const home = mkdtempSync(join(tmpdir(), "perf-home-"));
+  for (const [rel, contents] of Object.entries(profile.configFiles ?? {})) {
+    const target = join(home, rel);
+    mkdirSync(dirname(target), { recursive: true });
+    writeFileSync(target, typeof contents === "string" ? contents : JSON.stringify(contents, null, 2));
+  }
+  return home;
+}
+
+async function launch(configHome, userData) {
+  if (profile.kind === "electron") {
+    const { _electron: electron } = await import("playwright-core");
+    const app = await electron.launch({
+      args: [join(APP, profile.electron.main)],
+      cwd: APP,
+      timeout: 60_000,
+      env: {
+        ...process.env,
+        HOME: configHome,
+        USERPROFILE: configHome,
+        LOCALAPPDATA: configHome,
+        ...(profile.env ?? {}),
+        ...(profile.electron.rendererUrlEnv
+          ? {
+              [profile.electron.rendererUrlEnv]: pathToFileURL(
+                join(APP, profile.electron.rendererHtml),
+              ).href,
+            }
+          : {}),
+        ...(profile.userDataEnv ? { [profile.userDataEnv]: userData } : {}),
+      },
+    });
+    return { app, page: await app.firstWindow(), close: () => app.close() };
+  }
+  const { chromium } = await import("playwright-core");
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+  await page.goto(profile.web.url);
+  return { app: null, page, close: () => browser.close() };
+}
+
 const userData = mkdtempSync(join(tmpdir(), "style-user-"));
-const app = await electron.launch({
-  args: [join(APP, profile.electron.main)],
-  cwd: APP,
-  timeout: 60_000,
-  env: {
-    ...process.env,
-    ...(profile.env ?? {}),
-    ...(profile.userDataEnv ? { [profile.userDataEnv]: userData } : {}),
-    ...(profile.electron.rendererUrlEnv
-      ? { [profile.electron.rendererUrlEnv]: pathToFileURL(join(APP, profile.electron.rendererHtml)).href }
-      : {}),
-  },
-});
+const configHome = seedConfigHome();
+let close = async () => {};
 try {
-  const page = await app.firstWindow();
+  const launched = await launch(configHome, userData);
+  close = launched.close;
+  const { app, page } = launched;
   page.setDefaultTimeout(30_000);
   await page.waitForLoadState("domcontentloaded");
   const ctx = { page, app, sleep, userData };
@@ -107,5 +142,7 @@ or a sibling :has(~ .x), which the engine can bound.
 
 trace: ${OUT}`);
 } finally {
-  await app.close().catch(() => {});
+  await close().catch(() => {});
+  rmSync(userData, { recursive: true, force: true });
+  rmSync(configHome, { recursive: true, force: true });
 }

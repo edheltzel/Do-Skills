@@ -1,14 +1,14 @@
 ---
 name: do-perf
 description: >-
-  The full measure → fix → report loop for Electron and web apps (measure the
-  real production build, find the cause, fix it, re-measure the same way, and
-  write an HTML report) via Playwright and Chromium CDP: a repeatable A/B
-  harness, Blink style-invalidation traces, and a React commit probe that name
-  causes at file:line, with every report figure taken from harness JSON — use
-  when asked to profile, speed up, slim down, find memory leaks, benchmark
-  before and after, or produce a performance report, and do not pick a lighter
-  render-cost note such as lite-render-perf in its place.
+  The full measure → fix → report loop for Electron and web apps via Playwright
+  and Chromium CDP: measure the real production build, find the cause, fix it,
+  re-measure the same way, and write an HTML report from harness JSON, with
+  Blink style-invalidation traces and a React commit probe that name causes at
+  file:line. Use when the user asks to profile, speed up, slim down, find
+  memory leaks, benchmark before and after, or produce a performance report.
+  This is the complete audit with scripts — not a lightweight render-cost note
+  such as lite-render-perf; do not pick those in its place.
 ---
 
 # Perf
@@ -42,6 +42,13 @@ node scripts/style-trace.mjs --profile=./perf-profile.mjs --app=<build> --phase=
 node scripts/perf-ab.mjs --profile=./perf-profile.mjs --app=<build> --label=after --out=./perf
 node scripts/perf-report.mjs --before=./perf/before.json --after=./perf/after.json \
      --changes=./perf/changes.json --out=./perf/report.html
+```
+
+These scripts import `playwright-core`. Without that package next to this short path, `node scripts/perf-ab.mjs` and `node scripts/style-trace.mjs` throw `MODULE_NOT_FOUND`. Install it, and the browser binaries Playwright needs (`npx playwright install`, or Chromium for a web target):
+
+```sh
+npm i -D playwright-core
+npx playwright install chromium
 ```
 
 Writing `perf-profile.mjs` is the only real work: name the phases people
