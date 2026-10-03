@@ -1,6 +1,6 @@
 ---
 name: do-commit-push
-description: commit and push all local changes to remote repo. If No Mistakes is initialized, publish through axi instead of origin.
+description: commit and push all local changes to remote repo, with GitButler. If No Mistakes is initialized, publish through axi instead of origin.
 disable-model-invocation: true
 ---
 
