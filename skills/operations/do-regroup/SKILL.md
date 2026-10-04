@@ -7,6 +7,8 @@ description: Use when checking status across active projects. Surfaces work that
 
 A status check-in across the projects in scope. This skill is portable. Do not assume a harness, an agent framework, a ticket prefix, or a runtime. Read the source of truth the user named (a board, issues, notes, or a repo). If they did not name one, use the project files in the current workspace and say that is the source.
 
+Read the previous regroup file in the same `regroup/` directory when one exists. The reply and the new file say what changed since that file. Do not call other services to fill a gap the named source and the previous file do not already contain. If a fact is not there, say it is not in the source.
+
 ## Statuses
 
 Mark every task with one of these:
@@ -31,6 +33,10 @@ Each task shows:
 - percent complete, only when the source states a number. If it does not, write "percent not stated". Never invent a percent.
 - one short sentence: what it is waiting on, what it is doing, or what was completed
 
+## Open decisions
+
+After the project list, add a short section for decisions the previous regroup file left open that this source still does not resolve. One decision at a time in the reply when someone must choose. If the previous file named none, say there is no open decision on record. Do not invent a decision.
+
 ## The file
 
 Always write a markdown file. The chat reply never replaces it.
@@ -45,7 +51,9 @@ The file contains, in this order:
 
 1. A title, the request date, and the source that was read.
 2. Counts of active projects, blocked tasks, and stalled tasks.
-3. Every project, then its phases, then its tasks, in the shape above.
+3. What changed since the previous regroup file, or a line that there is no earlier file.
+4. Every project, then its phases, then its tasks, in the shape above.
+5. Decisions still open from the previous file.
 
 ## The reply
 
@@ -54,6 +62,6 @@ Count active projects before writing the reply.
 - Five or fewer active projects: the reply is the full synopsis, the same substance as the file.
 - More than five active projects: the reply lists only the most recently worked-on projects, one or two lines each, and points at the markdown file. Still write the full file.
 
-Lead with the counts. In the short form, still name every blocked task and every stalled task, even when their project is not in the brief list.
+Lead with the counts, then what changed since the last file. In the short form, still name every blocked task and every stalled task, even when their project is not in the brief list.
 
 Do not start or change the work. The only file this skill writes is the new regroup file.
