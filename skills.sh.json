@@ -99,7 +99,8 @@
         "do-browser",
         "do-context-search",
         "do-delegation",
-        "do-interceptor"
+        "do-interceptor",
+        "do-regroup"
       ]
     },
     {
