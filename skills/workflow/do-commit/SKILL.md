@@ -1,7 +1,6 @@
 ---
 name: do-commit
-description: Commit all local changes following Conventional Commits format with
-GitButler
+description: Commit all local changes following Conventional Commits format with GitButler
 disable-model-invocation: true
 ---
 
