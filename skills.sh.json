@@ -3,112 +3,109 @@
   "notGrouped": "bottom",
   "groupings": [
     {
-      "title": "Core",
-      "description": "Foundational tools for every project and workbench - repo structure, agent maps, and review lenses.",
+      "title": "Global: Core",
+      "description": "Stack-agnostic foundations - review lenses, reasoning, testing, simplification, agent-legible repos, comments, design patterns, skill authoring, and AI-writing cleanup.",
       "skills": [
         "do-adversarial-review",
-        "do-agent-context-layer",
-        "do-agent-first-repo",
-        "do-agents-md",
+        "do-agent-docs",
         "do-architecture-md",
         "do-behavioral-testing",
-        "do-dox-install",
-        "do-first-principles",
-        "do-red-team",
-        "do-simplify"
-      ]
-    },
-    {
-      "title": "Engineering",
-      "description": "Code design and implementation practices, from general principles to language-, framework-, and platform-specific craft.",
-      "skills": [
-        "do-astro",
-        "do-cleanup-swift",
-        "do-cleanup-web",
         "do-code-comments",
-        "do-coding-standards",
-        "do-create-cli",
         "do-design-patterns-gof",
-        "do-design-system",
-        "do-effect-service-design",
-        "do-lean-ts-patterns",
-        "do-macos-swift-desktop",
-        "do-modern-css",
-        "do-no-use-effect",
-        "do-parse-dont-validate",
-        "do-review-elixir",
-        "do-review-frontend",
-        "do-review-go",
-        "do-review-ios",
-        "do-review-python",
-        "do-review-rust",
-        "do-typescript-refactoring",
-        "do-ux-flow-plan",
-        "do-write-typescript"
-      ]
-    },
-    {
-      "title": "Content",
-      "description": "Audience-facing media - pictures, diagrams, video, motion, blog, and social.",
-      "skills": [
-        "do-art",
-        "do-marketing"
-      ]
-    },
-    {
-      "title": "Harness",
-      "description": "Modifying the coding-agent harness - distilling knowledge into reusable skills.",
-      "skills": [
-        "do-distill-to-skill",
-        "do-review-skill",
-        "do-writing-great-skills"
-      ]
-    },
-    {
-      "title": "Slop Guard",
-      "description": "Catching AI slop - restating output in plain human language and stripping jargon-heavy writing.",
-      "skills": [
-        "do-bro",
+        "do-first-principles",
         "do-humanize",
-        "do-review-ai-writing"
+        "do-red-team",
+        "do-simplify",
+        "do-skill-craft"
       ]
     },
     {
-      "title": "Workflow",
-      "description": "Workspace design and change delivery - interviews, commits, issues, PRs, specs, and draft review.",
+      "title": "Global: Workflow",
+      "description": "Change delivery - commits, docs, GitHub projects and stacks, PR workflow and review triage, worktrees, and technical writing.",
       "skills": [
         "do-commit",
-        "do-commit-push",
+        "do-docs",
         "do-gh-pm",
         "do-gh-stack",
         "do-git-pr-review-triage",
         "do-git-safe-pr-workflow",
         "do-git-worktree",
-        "do-improve-doc",
-        "do-tech-writing",
-        "do-tutorial-docs",
-        "do-update-readme",
-        "icm-grill"
+        "do-readme-update",
+        "do-tech-writing"
       ]
     },
     {
-      "title": "Operations",
-      "description": "Operating AI agents and driving machines - delegation, evaluation, prompt audits, memory recall, and browser or computer automation.",
+      "title": "Global: Operations",
+      "description": "Operating AI agents - delegation, prompt audits, and project status check-ins.",
       "skills": [
         "do-bitter-pill",
-        "do-browser",
-        "do-context-search",
         "do-delegation",
-        "do-interceptor",
         "do-regroup"
       ]
     },
     {
-      "title": "Personal",
-      "description": "Your non-portable extras.",
+      "title": "Global: Content",
+      "description": "Audience-facing media - illustrations, diagrams, and images.",
+      "skills": [
+        "do-art",
+        "do-illo"
+      ]
+    },
+    {
+      "title": "Global: Personal",
+      "description": "Personal extras - teaching and recipe diagrams.",
       "skills": [
         "do-recipe-diagrams",
-        "do-teach"
+        "do-teach-me"
+      ]
+    },
+    {
+      "title": "Project: TypeScript",
+      "description": "TypeScript and Effect - standards, refactoring, CLIs, lean patterns, and type-driven design.",
+      "skills": [
+        "do-create-cli",
+        "do-effect-service-design",
+        "do-lean-ts-patterns",
+        "do-parse-dont-validate",
+        "do-ts-standards",
+        "do-typescript-refactoring",
+        "do-write-typescript"
+      ]
+    },
+    {
+      "title": "Project: Frontend",
+      "description": "Web frontend - Astro, CSS, React effects, design systems, UX flows, cleanup, and review.",
+      "skills": [
+        "do-astro",
+        "do-cleanup-web",
+        "do-design-system",
+        "do-modern-css",
+        "do-no-use-effect",
+        "do-review-frontend",
+        "do-ux-flow-plan"
+      ]
+    },
+    {
+      "title": "Project: Swift",
+      "description": "Swift and Apple platforms - macOS desktop apps, iOS review, and cleanup.",
+      "skills": [
+        "do-cleanup-swift",
+        "do-macos-swift-desktop",
+        "do-review-ios"
+      ]
+    },
+    {
+      "title": "Project: Backend",
+      "description": "Backend code review for Go, Python, and Rust.",
+      "skills": [
+        "do-backend"
+      ]
+    },
+    {
+      "title": "Project: Product",
+      "description": "Product marketing - positioning, SEO and GEO discovery, launches, conversion, and retention.",
+      "skills": [
+        "do-marketing"
       ]
     }
   ]

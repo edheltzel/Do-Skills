@@ -22,12 +22,17 @@ I would suggest you take a peak at [Matt Pocock Skills](https://github.com/mattp
 
 To keep this easy, I use [Skills.sh](https://skills.sh) for installation and updates.
 
+Skills are split by install scope. **Global** skills help in any repo; install them once per machine. **Project** skills only pay off when a project uses that stack; install them into the project.
+
 ```bash
-npx skills add edheltzel/Do-Skills
+# every global skill, once per machine
+npx skills add https://github.com/edheltzel/Do-Skills/tree/master/skills/global -g
+
+# one stack, from inside a project
+npx skills add https://github.com/edheltzel/Do-Skills/tree/master/skills/project/typescript
 ```
 
-To install a specific skill, use its exact listed name. Most carry the `do-`
-prefix:
+To install a specific skill, use its exact listed name. Every name carries the `do-` prefix:
 
 ```bash
 npx skills add edheltzel/Do-Skills --skill=<skill-name>
@@ -38,46 +43,54 @@ claude-code ` or `-a claude-code -a pi`
 
 ## Available Skills
 
-Skills are grouped into buckets. The root table is an index; each bucket README lists the skills as a short marketplace page.
+Skills are grouped by scope, then by group. The root table is an index; each scope and group README lists its skills.
 
-Most names carry a `do-` prefix so they do not collide with a harness command (`/simplify` vs `/do-simplify`).
+Every name carries a `do-` prefix so it does not collide with a harness command (`/simplify` vs `/do-simplify`).
 
 <!-- skills-start -->
 
-| Bucket | Coverage |
-|--------|----------|
-| [Core](./skills/core/) | Foundational tools for every project and workbench - repo structure, agent maps, and review lenses. |
-| [Engineering](./skills/engineering/) | Code design and implementation practices, from general principles to language-, framework-, and platform-specific craft. |
-| [Content](./skills/content/) | Audience-facing media - pictures, diagrams, video, motion, blog, and social. |
-| [Harness](./skills/harness/) | Modifying the coding-agent harness - distilling knowledge into reusable skills. |
-| [Slop Guard](./skills/slop-guard/) | Catching AI slop - restating output in plain human language and stripping jargon-heavy writing. |
-| [Workflow](./skills/workflow/) | Workspace design and change delivery - interviews, commits, issues, PRs, specs, and draft review. |
-| [Operations](./skills/operations/) | Operating AI agents and driving machines - delegation, evaluation, prompt audits, memory recall, and browser or computer automation. |
-| [Personal](./skills/personal/) | Your non-portable extras. |
+### [Global](./skills/global/)
+
+Useful in any repo, or none. Install once per machine with `-g`.
+
+| Group | Skills | Coverage |
+|-------|--------|----------|
+| [Core](./skills/global/core/) | 11 | Stack-agnostic foundations - review lenses, reasoning, testing, simplification, agent-legible repos, comments, design patterns, skill authoring, and AI-writing cleanup. |
+| [Workflow](./skills/global/workflow/) | 9 | Change delivery - commits, docs, GitHub projects and stacks, PR workflow and review triage, worktrees, and technical writing. |
+| [Operations](./skills/global/operations/) | 3 | Operating AI agents - delegation, prompt audits, and project status check-ins. |
+| [Content](./skills/global/content/) | 2 | Audience-facing media - illustrations, diagrams, and images. |
+| [Personal](./skills/global/personal/) | 2 | Personal extras - teaching and recipe diagrams. |
+
+### [Project](./skills/project/)
+
+Pay off only when a project uses that stack or product. Install into the project.
+
+| Group | Skills | Coverage |
+|-------|--------|----------|
+| [TypeScript](./skills/project/typescript/) | 7 | TypeScript and Effect - standards, refactoring, CLIs, lean patterns, and type-driven design. |
+| [Frontend](./skills/project/frontend/) | 7 | Web frontend - Astro, CSS, React effects, design systems, UX flows, cleanup, and review. |
+| [Swift](./skills/project/swift/) | 3 | Swift and Apple platforms - macOS desktop apps, iOS review, and cleanup. |
+| [Backend](./skills/project/backend/) | 1 | Backend code review for Go, Python, and Rust. |
+| [Product](./skills/project/product/) | 1 | Product marketing - positioning, SEO and GEO discovery, launches, conversion, and retention. |
 
 <!-- skills-end -->
 ## Creating a Skill
 
-Each skill lives in its own folder, grouped into a bucket under `skills/`. Every
-skill folder and its frontmatter `name:` carry the `do-` prefix, except
-`icm-grill`, which is named that way on purpose:
+Each skill lives in its own folder under a scope and a group. Every
+skill folder and its frontmatter `name:` carry the `do-` prefix:
 
 ```
-skills/<bucket>/do-skill-name/SKILL.md
-skills/<bucket>/<tech>/do-skill-name/SKILL.md
+skills/<scope>/<group>/do-skill-name/SKILL.md
 ```
 
-Buckets group skills by purpose and scope:
+The skills CLI only finds skills up to three folders below `skills/`, so do not nest deeper.
 
-- `core/` - foundational tools for every project and workbench: repo structure, agent maps, review lenses
-- `engineering/` - code design and implementation craft, from general principles to stack-specific
-- `content/` - audience-facing media: pictures, diagrams, video, motion, blog, social
-- `harness/` - modifying the coding-agent harness: distilling knowledge into reusable skills
-- `slop-guard/` - catching AI slop: restating output in plain language and stripping jargon-heavy writing
-- `workflow/` - see its generated description under [Available Skills](#available-skills)
-- `operations/` - operating AI agents and driving machines: delegation, evaluation, prompt audits, recall, and automation
-- `personal/` - your non-portable extras
-- `private/` - this repository's own tooling, not portable
+Pick the scope first:
+
+- `global/` - useful in any repo, or none: methodology, writing, git and GitHub, agent operations, setup you run before a project has skills, personal tools
+- `project/` - assumes a specific language, framework, platform, or product the project must use
+
+Then the group. Global groups: `core`, `workflow`, `operations`, `content`, `personal`. Project groups are the stack or product: `typescript`, `frontend`, `swift`, `backend`, `product`. Group descriptions live in [`skills.sh.json`](./skills.sh.json).
 
 The `SKILL.md` file contains YAML frontmatter and markdown instructions:
 
@@ -92,10 +105,10 @@ description: A clear description of what this skill does and when to use it
 [Instructions for the agent go here]
 ```
 
-After adding, moving, renaming, or changing a skill's behaviour or description, regenerate the Available Skills section and re-sync its docs page (`docs/`, see [`.agents/writing-docs.md`](./.agents/writing-docs.md)):
+After adding, moving, renaming, or changing a skill's behaviour or description, regenerate the catalog and re-sync its docs page (`docs/`, see [`.agents/writing-docs.md`](.agents/writing-docs.md)):
 
 ```bash
-bash skills/workflow/do-update-readme/update-readme.sh
+bash skills/global/workflow/do-readme-update/update-readme.sh
 ```
 
 ---
@@ -108,8 +121,7 @@ WTFPL
 
 ## Attributions
 
-`do-writing-great-skills`, `wait-what`, `do-teach` are adapted from [Matt Pocock's Skills](https://github.com/mattpocock/skills)
-`do-bro` is an adoption from Matt Pocock and [pstack](https://github.com/cursor/plugins/tree/main/pstack)
+`do-teach-me` and the writing principles in `do-skill-craft` (from `writing-great-skills`) are adapted from [Matt Pocock's Skills](https://github.com/mattpocock/skills)
 `do-astro` is adapted from [Astrolicious](https://github.com/astrolicious/agent-skills)
 `do-illo` is copied from [tmchow/illo-skill](https://github.com/tmchow/illo-skill)
 `do-marketing` is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) marketing (MIT)
