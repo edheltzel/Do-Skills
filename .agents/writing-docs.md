@@ -1,39 +1,33 @@
 # Writing docs pages
 
-Every skill in a **promoted** bucket - `core/`, `engineering/`, `content/`,
-`harness/`, `slop-guard/`, or `workflow/` - has a human-facing **docs page**.
-Most live at `docs/<bucket>/<base-slug>.md`. Engineering pages nest under a
-tech folder: `docs/engineering/<tech>/<base-slug>.md`. `<base-slug>` is the
-skill's directory name **without** its `do-` prefix. The docs tree mirrors
-`skills/`. `operations/`, `personal/`, and `private/` are **not** promoted
-and ship no docs page.
+Every skill in a **promoted** group has a human-facing **docs page** at
+`docs/<scope>/<group>/<base-slug>.md`, mirroring `skills/<scope>/<group>/`.
+`<base-slug>` is the skill's directory name **without** its `do-` prefix. All
+groups are promoted except `global/operations/` and `global/personal/`, which
+ship no docs page.
 
 The page is not the skill and not a copy of `SKILL.md`. Its job is to orient one
 reader around one skill: what it does, when to reach for it, and where it sits
 among the others. Together the pages are a distributed map of the collection.
 
-Act whenever a promoted skill is added, renamed, moved, or has its behaviour changed: create or re-sync its docs page. After a frontmatter `name` or `description` change, also regenerate `README.md` with `bash skills/workflow/do-update-readme/update-readme.sh`. A rename moves the file; a skill moving between buckets or tech folders moves its docs file to the matching folder. A skill moving into a non-promoted bucket (`operations/`, `personal/`, or `private/`) loses its page; one moving into a promoted bucket gains one.
+Act whenever a promoted skill is added, renamed, moved, or has its behaviour changed: create or re-sync its docs page. After a frontmatter `name` or `description` change, also regenerate `README.md` with `bash skills/global/workflow/do-readme-update/update-readme.sh`. A rename moves the file; a skill moving between groups or scopes moves its docs file to the matching folder. A skill moving into a non-promoted group loses its page; one moving into a promoted group gains one.
 
 ## Repo conventions
 
 This repo is **not** published to a website — pages are read on GitHub. So:
 
 - **Keep an H1** with the skill's title (GitHub renders it as the page heading).
-- **Links are repo-relative.** From a bucket-root page, link another bucket as
-  `../<bucket>/<name>.md`. From a nested engineering page, use
-  `../<tech>/<name>.md` for another engineering skill and
-  `../../<bucket>/<name>.md` for another bucket. Link the skill's own source as
-  the GitHub tree URL (below). A relative link that resolves on GitHub is correct.
+- **Links are repo-relative.** Within a group, link `./<name>.md`. To another
+  group in the same scope, `../<group>/<name>.md`. To the other scope,
+  `../../<scope>/<group>/<name>.md`. Link the skill's own source as the GitHub
+  tree URL (below). A relative link that resolves on GitHub is correct.
 - The **docs path is organisation only** — it mirrors the skill folder, but the
   page is about the skill, not the folder.
 
 The `--skill=` value and the `[Source]` URL use the skill's full **directory
 name**, including a `do-` prefix when it has one; the docs **filename** drops
 that prefix (e.g. dir `do-git-worktree` → file `git-worktree.md`,
-`--skill=do-git-worktree`, Source `.../skills/workflow/do-git-worktree`).
-Engineering nested skills insert a tech folder
-(`.../skills/engineering/elixir/do-review-elixir`, docs at
-`docs/engineering/<tech>/<base-slug>.md`).
+`--skill=do-git-worktree`, Source `.../skills/global/workflow/do-git-worktree`).
 
 ## Page template
 
@@ -56,10 +50,7 @@ npx skills add edheltzel/Do-Skills --skill=<dir-name>
 npx skills update <dir-name>
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/<bucket>/<dir-name>)
-
-Engineering nested skills: `skills/engineering/<tech>/<dir-name>` and
-`docs/engineering/<tech>/<base-slug>.md`.
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/<scope>/<group>/<dir-name>)
 
 ## What it does
 
@@ -80,7 +71,7 @@ How and when you reach for the skill — two beats:
   `do-` prefix when it has one.
 - **Trigger boundary.** "Reach for this when …". Where it's confusable with a
   sibling, add the other half — "for <X> instead, use
-  [<sibling>](../<bucket>/<sibling>.md)."
+  [<sibling>](../<group>/<sibling>.md)."
 
 ## Prerequisites
 
