@@ -1,13 +1,20 @@
 ---
 name: do-regroup
-description: Use when checking status across active projects. Surfaces work that is active, blocked, or stalled, grouped by project, then phase, then task, and always writes a dated markdown archive.
+description: Use when checking status across active projects. Surfaces work that is active, blocked, or stalled, grouped by project, then phase, then task, and always writes a dated markdown archive. Triggers include "regroup", "all projects", "just this project", "only this project", "just <project>".
 ---
 
 # Regroup
 
 A status check-in across the projects in scope. This skill is portable. Do not assume a harness, an agent framework, a ticket prefix, or a runtime. Read the source of truth the user named (a board, issues, notes, or a repo). If they did not name one, use the project files in the current workspace and say that is the source.
 
-Read the previous regroup file in the same `regroup/` directory when one exists. The reply and the new file say what changed since that file. Do not call other services to fill a gap the named source and the previous file do not already contain. If a fact is not there, say it is not in the source.
+Read the previous regroup file of the same mode (and, for one project, the same project) in the `regroup/` directory when one exists. The all-projects reply and file say what changed since that file. Do not call other services to fill a gap the named source and the previous file do not already contain. If a fact is not there, say it is not in the source.
+
+## Modes
+
+Pick the mode from the words in the request. If the request names no mode, run all projects.
+
+- **All projects** (default). Triggers: "regroup", "all projects", "everything", "status check-in". Run the full check-in in the sections from Statuses through The reply.
+- **One project.** Triggers: "just this project", "only this project", "this project", "just <name>", "only <name>". "This project" is the project in the current workspace. A name means that project. Run the one-project brief below and skip the full check-in.
 
 ## Statuses
 
@@ -65,3 +72,15 @@ Count active projects before writing the reply.
 Lead with the counts, then what changed since the last file. In the short form, still name every blocked task and every stalled task, even when their project is not in the brief list.
 
 Do not start or change the work. The only file this skill writes is the new regroup file.
+
+## One-project brief
+
+Keep it simple and clear. The reply has exactly three sections, plain bullets, one line per task. No phase tree, no counts, no percents.
+
+1. **Last completed.** The most recently done task or tasks, with the date when the source has one.
+2. **Up next.** One to three tasks the source explicitly marks as next (a priority, a "next" label, a plan step, an in-progress flag). Display order alone is not a priority. If the source gives no cue, write "Up next not specified" and keep those tasks under Remaining. If one is blocked, say what it waits on.
+3. **Remaining.** Every other open task, marked "blocked", "not started", or "backlogged" when it is. If nothing is left, say "nothing remaining".
+
+If the source does not say what finished last or what comes next, say that instead of guessing.
+
+Still write the file, with the same no-overwrite rule. Filename: `YYYY-MM-DD-regroup-<project-slug>.md` in the same `regroup/` directory. It holds a title, the request date, the source that was read, and the same three sections.

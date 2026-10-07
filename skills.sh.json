@@ -45,10 +45,11 @@
     },
     {
       "title": "Global: Content",
-      "description": "Audience-facing media - illustrations, diagrams, and images.",
+      "description": "Audience-facing media - illustrations, diagrams, images, and visual explanations.",
       "skills": [
         "do-art",
-        "do-illo"
+        "do-illo",
+        "do-show-me"
       ]
     },
     {
