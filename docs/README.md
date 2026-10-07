@@ -10,10 +10,11 @@ Only **promoted** groups have docs pages:
 - [`global/core/`](./global/core/) - stack-agnostic foundations
 - [`global/workflow/`](./global/workflow/) - commits, docs, GitHub, PRs, technical writing
 - [`global/content/`](./global/content/) - illustrations, diagrams, images
-- [`project/typescript/`](./project/typescript/) - TypeScript and Effect
+- [`project/typescript/`](./project/typescript/) - language-wide TypeScript, shared by the other TS groups
 - [`project/frontend/`](./project/frontend/) - web frontend
+- [`project/backend/`](./project/backend/) - Effect services; Go, Python, Rust review
+- [`project/tooling/`](./project/tooling/) - CLIs and zero-dependency TS tools
 - [`project/swift/`](./project/swift/) - Swift and Apple platforms
-- [`project/backend/`](./project/backend/) - Go, Python, Rust review
 - [`project/product/`](./project/product/) - product marketing
 
 `global/operations/` and `global/personal/` are not promoted and have no docs pages.

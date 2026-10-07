@@ -28,8 +28,9 @@ Skills are split by install scope. **Global** skills help in any repo; install t
 # every global skill, once per machine
 npx skills add https://github.com/edheltzel/Do-Skills/tree/master/skills/global -g
 
-# one stack, from inside a project
+# one stack, from inside a project (TypeScript projects add the shared typescript group)
 npx skills add https://github.com/edheltzel/Do-Skills/tree/master/skills/project/typescript
+npx skills add https://github.com/edheltzel/Do-Skills/tree/master/skills/project/frontend
 ```
 
 To install a specific skill, use its exact listed name. Every name carries the `do-` prefix:
@@ -67,10 +68,11 @@ Pay off only when a project uses that stack or product. Install into the project
 
 | Group | Skills | Coverage |
 |-------|--------|----------|
-| [TypeScript](./skills/project/typescript/) | 7 | TypeScript and Effect - standards, refactoring, CLIs, lean patterns, and type-driven design. |
+| [TypeScript](./skills/project/typescript/) | 4 | Language-wide TypeScript - standards, refactoring, and type-driven design. Install alongside frontend, backend, or tooling. |
 | [Frontend](./skills/project/frontend/) | 7 | Web frontend - Astro, CSS, React effects, design systems, UX flows, cleanup, and review. |
+| [Backend](./skills/project/backend/) | 2 | Backend services and review - Effect service design, and code review for Go, Python, and Rust. |
+| [Tooling](./skills/project/tooling/) | 2 | CLIs and lightweight tools - TypeScript CLI scaffolding and zero-dependency patterns. |
 | [Swift](./skills/project/swift/) | 3 | Swift and Apple platforms - macOS desktop apps, iOS review, and cleanup. |
-| [Backend](./skills/project/backend/) | 1 | Backend code review for Go, Python, and Rust. |
 | [Product](./skills/project/product/) | 1 | Product marketing - positioning, SEO and GEO discovery, launches, conversion, and retention. |
 
 <!-- skills-end -->
@@ -90,7 +92,7 @@ Pick the scope first:
 - `global/` - useful in any repo, or none: methodology, writing, git and GitHub, agent operations, setup you run before a project has skills, personal tools
 - `project/` - assumes a specific language, framework, platform, or product the project must use
 
-Then the group. Global groups: `core`, `workflow`, `operations`, `content`, `personal`. Project groups are the stack or product: `typescript`, `frontend`, `swift`, `backend`, `product`. Group descriptions live in [`skills.sh.json`](./skills.sh.json).
+Then the group. Global groups: `core`, `workflow`, `operations`, `content`, `personal`. Project groups are the stack or product: `typescript` (language-wide, installed alongside the TS groups), `frontend`, `backend`, `tooling`, `swift`, `product`. Group descriptions live in [`skills.sh.json`](./skills.sh.json).
 
 The `SKILL.md` file contains YAML frontmatter and markdown instructions:
 
