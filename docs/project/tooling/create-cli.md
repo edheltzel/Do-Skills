@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-create-cli
 npx skills update do-create-cli
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/project/typescript/do-create-cli)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/project/tooling/do-create-cli)
 
 ## What it does
 
@@ -32,7 +32,7 @@ shell script with a command-line tool.
 Reach for it when the deliverable is a usable command-line interface rather than
 an application feature. For the engineering standards that guide TypeScript and
 Effect changes more broadly, use
-[coding-standards](./ts-standards.md).
+[coding-standards](../typescript/ts-standards.md).
 
 ## A CLI-first delivery
 
@@ -51,6 +51,6 @@ Commander.js tier.
 
 CreateCLI is a project-creation skill for command-line tools. It produces a
 complete CLI rather than a general TypeScript coding style; apply
-[write-typescript](./write-typescript.md) for day-to-day TypeScript authoring
+[write-typescript](../typescript/write-typescript.md) for day-to-day TypeScript authoring
 and [lean-ts-patterns](./lean-ts-patterns.md) when lightweight,
 zero-dependency TypeScript patterns are the central concern.

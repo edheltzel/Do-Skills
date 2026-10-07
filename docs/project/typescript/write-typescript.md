@@ -32,7 +32,7 @@ first time. For systematically reshaping an existing codebase — extracting typ
 tightening signatures, improving navigability — use
 [typescript-refactoring](./typescript-refactoring.md). For keeping bundles and
 libraries lightweight and dependency-free, use
-[lean-ts-patterns](./lean-ts-patterns.md). For pushing validation to the type
+[lean-ts-patterns](../tooling/lean-ts-patterns.md). For pushing validation to the type
 system so illegal states can't be represented, use
 [parse-dont-validate](./parse-dont-validate.md).
 
@@ -64,6 +64,6 @@ Deeper material lives in the skill's `references/` — `modern-features.md`,
 A reach-for-it-anytime standalone for day-to-day TypeScript authoring, and the
 baseline the other TypeScript skills build on:
 [typescript-refactoring](./typescript-refactoring.md) reshapes toward this style,
-[lean-ts-patterns](./lean-ts-patterns.md) applies it to zero-dependency tooling,
+[lean-ts-patterns](../tooling/lean-ts-patterns.md) applies it to zero-dependency tooling,
 and [parse-dont-validate](./parse-dont-validate.md) is the type-driven principle
 it leans on at system boundaries.

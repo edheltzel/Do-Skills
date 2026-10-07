@@ -50,6 +50,6 @@ meaningful complexity into callers, not merely remove a name.
 
 This is the broad engineering baseline for TypeScript and Effect changes. It
 sets the standards that a focused service-design effort can apply to an Effect
-capability with [effect-service-design](./effect-service-design.md),
+capability with [effect-service-design](../backend/effect-service-design.md),
 while [typescript-refactoring](./typescript-refactoring.md) focuses
 on reshaping existing TypeScript code.

@@ -1,6 +1,6 @@
 # TypeScript
 
-TypeScript and Effect - standards, refactoring, CLIs, lean patterns, and type-driven design.
+Language-wide TypeScript - standards, refactoring, and type-driven design. Install alongside frontend, backend, or tooling.
 
 ## Installation
 
@@ -20,9 +20,6 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 
 | Skill | Description |
 |-------|-------------|
-| [`do-create-cli`](./do-create-cli/) | Generates production-ready TypeScript CLIs via a 3-tier template system (manual arg parsing, Commander.js, oclif), each shipping full implementation, docs, package.json, strict config, JSON output, and exit-code compliance. |
-| [`do-effect-service-design`](./do-effect-service-design/) | Design Effect services. |
-| [`do-lean-ts-patterns`](./do-lean-ts-patterns/) | Patterns for building lightweight, zero-dependency TypeScript tools and libraries. |
 | [`do-parse-dont-validate`](./do-parse-dont-validate/) | Type-driven design principle: transform unstructured data into structured types at system boundaries, making illegal states unrepresentable. |
 | [`do-ts-standards`](./do-ts-standards/) | Correct-by-construction TypeScript and Effect standards. |
 | [`do-typescript-refactoring`](./do-typescript-refactoring/) | Systematically refactor TypeScript codebases for readability, type safety, and AI-friendliness. |

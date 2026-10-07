@@ -61,11 +61,8 @@
     },
     {
       "title": "Project: TypeScript",
-      "description": "TypeScript and Effect - standards, refactoring, CLIs, lean patterns, and type-driven design.",
+      "description": "Language-wide TypeScript - standards, refactoring, and type-driven design. Install alongside frontend, backend, or tooling.",
       "skills": [
-        "do-create-cli",
-        "do-effect-service-design",
-        "do-lean-ts-patterns",
         "do-parse-dont-validate",
         "do-ts-standards",
         "do-typescript-refactoring",
@@ -86,19 +83,28 @@
       ]
     },
     {
+      "title": "Project: Backend",
+      "description": "Backend services and review - Effect service design, and code review for Go, Python, and Rust.",
+      "skills": [
+        "do-backend",
+        "do-effect-service-design"
+      ]
+    },
+    {
+      "title": "Project: Tooling",
+      "description": "CLIs and lightweight tools - TypeScript CLI scaffolding and zero-dependency patterns.",
+      "skills": [
+        "do-create-cli",
+        "do-lean-ts-patterns"
+      ]
+    },
+    {
       "title": "Project: Swift",
       "description": "Swift and Apple platforms - macOS desktop apps, iOS review, and cleanup.",
       "skills": [
         "do-cleanup-swift",
         "do-macos-swift-desktop",
         "do-review-ios"
-      ]
-    },
-    {
-      "title": "Project: Backend",
-      "description": "Backend code review for Go, Python, and Rust.",
-      "skills": [
-        "do-backend"
       ]
     },
     {
