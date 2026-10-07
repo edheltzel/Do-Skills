@@ -305,7 +305,7 @@ bun run <skill-dir>/Tools/Generate.ts \
   --output /path/to/comic.png
 ```
 
-**Model Recommendation:** nano-banana-pro or flux (both handle sequential panels well)
+**Model Recommendation:** nano-banana-pro or grok (both handle sequential panels well)
 
 **Immediately Open:**
 ```bash

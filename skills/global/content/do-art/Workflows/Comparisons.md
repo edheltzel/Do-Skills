@@ -279,7 +279,7 @@ bun run <skill-dir>/Tools/Generate.ts \
   --output /path/to/comparison.png
 ```
 
-**Model Recommendation:** nano-banana-pro or flux (both work well for split compositions)
+**Model Recommendation:** nano-banana-pro or grok (both work well for split compositions)
 
 **Immediately Open:**
 ```bash

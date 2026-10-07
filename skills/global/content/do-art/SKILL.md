@@ -1,7 +1,7 @@
 ---
 name: do-art
 version: 1.5.8
-description: "Static visual content across 20+ formats - diagrams, mermaid, infographics, D3 dashboards, comics, icons, wallpaper - via Flux, Nano Banana Pro, and GPT-Image-2. USE WHEN art, illustration, diagram, flowchart, infographic, header image, blog social thumbnail, visualize, generate image, mermaid, architecture diagram, comic, icon, blog art, framework diagram, D3 chart, remove background, wallpaper. NOT FOR locked house-style YouTube/channel/video thumbnails, video or animation (use Hyperframes or Remotion), or web UI design and integrated frontend layout."
+description: "Static visual content across 20+ formats - diagrams, mermaid, infographics, D3 dashboards, comics, icons, wallpaper - via Grok Imagine (xAI), GPT-Image-2 (OpenAI), and Nano Banana / Nano Banana Pro (Gemini). USE WHEN art, illustration, diagram, flowchart, infographic, header image, blog social thumbnail, visualize, generate image, mermaid, architecture diagram, comic, icon, blog art, framework diagram, D3 chart, remove background, wallpaper. NOT FOR locked house-style YouTube/channel/video thumbnails, video or animation (use Hyperframes or Remotion), or web UI design and integrated frontend layout."
 effort: medium
 ---
 
@@ -11,9 +11,18 @@ effort: medium
 
 `<preview>` is `$ART_OUTPUT_DIR` if set, otherwise `~/Downloads` when that directory exists, otherwise `./art-output`. Generate there, review, then copy into the project. Do not write straight into a project's image tree.
 
+## Before generating: check API keys
+
+Run `bun <skill-dir>/Tools/Generate.ts --check-keys` once per session, before writing a prompt. It lists which keys are set: xAI (`XAI_API_KEY`), OpenAI (`OPENAI_API_KEY`), Google Gemini (`GEMINI_API_KEY` or `GOOGLE_API_KEY`), OpenRouter (`OPENROUTER_API_KEY`), and how each model will run (direct, via OpenRouter, or unavailable). An OpenRouter key alone covers all four models.
+
+- **Exit 2 (no key at all):** stop. Tell the user that image generation needs at least one of those keys, show the list the command printed (where to get each key, and that keys load from the environment, `./.env`, or `${XDG_CONFIG_HOME:-~/.config}/do-art/.env`), and wait. Do not compose prompts or try other tools.
+- **Some keys missing:** proceed, and tell the user which providers are unavailable when it changes the result (for example, `compare` will skip them, or the workflow's preferred model will fall back).
+
+`Generate.ts` enforces the same rules: a model whose own key is missing runs through OpenRouter when `OPENROUTER_API_KEY` is set, otherwise falls back to another model that can run; either way it prints a warning (relay it to the user). With no usable key it exits 2 and nothing is generated. Reference images go only to Gemini models (direct or via OpenRouter).
+
 ## What It Does
 
-Generates static visual content across 20+ formats - blog headers, technical and architecture diagrams, frameworks, taxonomies, timelines, comparisons, stat cards, comics, icons, wallpapers, D3 charts, Mermaid diagrams - using Flux, Nano Banana Pro (Gemini 3 Pro), and GPT-Image-2. Every request routes through a named workflow that encodes the technique and palette, output stages to <preview> for review first, and blog headers ship both a transparent inline version and an opaque social thumbnail.
+Generates static visual content across 20+ formats - blog headers, technical and architecture diagrams, frameworks, taxonomies, timelines, comparisons, stat cards, comics, icons, wallpapers, D3 charts, Mermaid diagrams - using Grok Imagine, GPT-Image-2, Nano Banana, and Nano Banana Pro. Every request routes through a named workflow that encodes the technique and palette, output stages to <preview> for review first, and blog headers ship both a transparent inline version and an opaque social thumbnail.
 
 ## The Problem
 
@@ -176,35 +185,40 @@ Route to the appropriate workflow based on the request.
 
 ## Image Generation
 
-**Default model:** nano-banana-pro (Gemini 3 Pro)
+**Default model:** `auto` (set `ART_MODEL` to change it). `auto` uses the first model that can run, in this order: `grok`, `gpt-image-2`, `nano-banana-pro`. Workflows usually name a model explicitly.
 
-### Model-Specific Size Requirements
+### Models and keys
 
-Each model accepts different `--size` formats. Using the wrong format causes validation errors.
+| `--model` | Provider and API model | Key | Strengths |
+| --- | --- | --- | --- |
+| `grok` | xAI `grok-imagine-image-2.0` | `XAI_API_KEY` | Fast, cheap, good default for illustration and comics. Max 2k. No 4:5 or 5:4 (uses its own `auto` ratio). |
+| `gpt-image-2` | OpenAI `gpt-image-2` | `OPENAI_API_KEY` | Strongest text rendering: stat cards, frameworks, taxonomies, timelines. `--quality low/medium/high/auto`. |
+| `nano-banana` | Google `gemini-nano-banana-2.1` | `GEMINI_API_KEY` or `GOOGLE_API_KEY` | Fast drafts, 1K-4K. Accepts `--reference-image`. |
+| `nano-banana-pro` | Google `gemini-3-pro-image` | `GEMINI_API_KEY` or `GOOGLE_API_KEY` | Best composition fidelity for editorial work, 1K-4K. Best `--reference-image` model (up to 14). |
+| `compare` | Every model that can run | any | Same brief on each (one flagship per provider); pick the winner. |
+| `auto` | First model that can run | any | Default. |
 
-| Model | `--size` format | Valid values | Default |
-| ------- | ---------------- | -------------- | --------- |
-| `flux` | Aspect ratio | `1:1`, `16:9`, `3:2`, `2:3`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `21:9` | `16:9` |
-| `nano-banana` | Aspect ratio | `1:1`, `16:9`, `3:2`, `2:3`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `21:9` | `16:9` |
-| `nano-banana-pro` | Resolution tier | `1K`, `2K`, `4K` (also accepts `--aspect-ratio` separately) | `2K` |
-| `gpt-image-2` | Pixel dimensions | `1024x1024`, `1536x1024`, `1024x1536`, `2048x2048`, `auto` (also accepts `--quality` low/medium/high/auto) | `1024x1024` |
+**OpenRouter (`OPENROUTER_API_KEY`)** is a route, not a separate model: when a model's own key is missing, `Generate.ts` sends the same model to OpenRouter's image API (`x-ai/grok-imagine-image-2.0`, `openai/gpt-image-2`, `google/gemini-nano-banana-2.1`, `google/gemini-3-pro-image`). A direct key always wins over OpenRouter.
 
-**`gpt-image-1` is DEPRECATED** per OpenAI docs and is rejected by `Generate.ts` with a clear error message. There is no `gpt-image-1.5` or `gpt-image-2.5` - earlier versions of this skill referenced those as fallbacks; they do not exist. The OpenAI image lineup as of 2026-05-04 is exactly: `gpt-image-2` (current) and `gpt-image-1` (deprecated).
+`gpt-image-1` is deprecated and rejected. `flux` and Midjourney were removed.
+
+### Size flags (same for every model)
+
+- `--aspect-ratio`: `1:1`, `16:9`, `3:2`, `2:3`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `21:9` (default `16:9`).
+- `--size`: resolution `1K`/`2K`/`4K` (default `2K`). It also accepts an aspect ratio, or an exact gpt-image-2 size (`1024x1024`, `1536x1024`, `1024x1536`, `2048x2048`, `auto`) when you need one.
+- Each provider maps these itself: Grok caps at 2k; gpt-image-2 picks the nearest pixel size (`1024x1024`/`2048x2048` square, `1536x1024` landscape, `1024x1536` portrait).
 
 ### Model Selection - when to pick which
 
-Three first-class models are wired into `Generate.ts`. PREFERENCES.md (if present) pins the user's default; in absence of a pin, pick by job:
+PREFERENCES.md (if present) pins the user's default; in absence of a pin, pick by job, then let fallback handle a missing key:
 
 | Job | Recommended model | Why |
 | ----- | ------------------- | ----- |
-| Editorial illustration / blog header (default) | `nano-banana-pro` | Best composition fidelity for the user's editorial aesthetic; PREFERENCES.md typically pins it. |
-| Text-heavy work - stat cards, framework diagrams, taxonomies, timelines, aphorism cards | `gpt-image-2` | Currently #1 across all Image Arena leaderboards (Arena.ai, 2026-05-04) - text-to-image margin +242 Elo, single-image edit +125, multi-image edit +90. Strongest text rendering on the market right now. |
-| Editorial / blog / essay header (the DEFAULT - competing head-to-head) | `compare` (runs both `gpt-image-2` + `nano-banana-pro` in parallel on the same brief) | The two flagship models compete to make the best image; pick the winner. This is the default for any editorial header - the models have orthogonal strengths, so generating from only one leaves half the option space unexplored. See `Workflows/Essay.md`. |
-| Stylistic variety / non-photoreal / iteration speed | `flux` or `nano-banana` | Different aesthetic register; `flux` is crisper for technical illustration. |
-
-Arena leaderboard sweeps measure aesthetic preference at scale, not editorial style fit. They are a strong quality signal, not a default-override; respect PREFERENCES.md when it exists.
-
-**Note:** `nano-banana-pro` uses `--size` for resolution quality and a separate `--aspect-ratio` flag for aspect ratio (defaults to `16:9`).
+| Editorial illustration / blog header | `nano-banana-pro` | Best composition fidelity for editorial aesthetics. |
+| Text-heavy work - stat cards, framework diagrams, taxonomies, timelines, aphorism cards | `gpt-image-2` | Strongest text rendering. |
+| Editorial / blog / essay header, competing head-to-head | `compare` | Each keyed provider renders the same brief; pick the winner. See `Workflows/Essay.md`. |
+| Stylistic variety, comics, iteration speed, low cost | `grok` or `nano-banana` | Different aesthetic register, fast drafts. |
+| Character or style consistency from reference photos | `nano-banana-pro` | Only Gemini models take `--reference-image`. |
 
 ### Preview folder, then the project
 
@@ -232,11 +246,12 @@ cp <preview>/blog-header-concept-thumb.png <project>/public/images/
 
 ### Multiple Reference Images (Character/Style Consistency)
 
-For improved character or style consistency, use multiple `--reference-image` flags:
+For improved character or style consistency, use multiple `--reference-image` flags (Gemini models only):
 
 ```bash
 # Multiple reference images for better likeness
 bun run <skill-dir>/Tools/Generate.ts \
+  --workflow=<WorkflowName> \
   --model nano-banana-pro \
   --prompt "Person from references at a party..." \
   --reference-image face1.jpg \
@@ -253,7 +268,7 @@ bun run <skill-dir>/Tools/Generate.ts \
 - Up to 6 object reference images
 - Maximum 14 total reference images per request
 
-**API keys:** process environment first. Optional files, only if present: `.env` in the current working directory, then `${XDG_CONFIG_HOME:-~/.config}/do-art/.env`. Neither file is required.
+**API keys:** process environment first. Optional files, only if present: `.env` in the current working directory, then `${XDG_CONFIG_HOME:-~/.config}/do-art/.env`. Neither file is required. `Generate.ts --check-keys` shows what it found.
 
 ## Examples
 
@@ -290,7 +305,7 @@ User: "visualize humans vs AI decision-making"
 
 - **Write to <preview> first, not straight into a project directory.** Review before copying. Pushing an unseen image into a repo is how bad headers ship.
 - **Verify image dimensions match target use case before claiming done.** Social media previews, blog headers, and thumbnails have different size requirements. A header that works on the blog may break OG/social previews.
-- **nano-banana-pro uses `--size` for resolution (1K/2K/4K) and SEPARATE `--aspect-ratio` flag.** Don't pass aspect ratio values to `--size`.
+- **Relay key warnings.** If `Generate.ts` prints a fallback warning or exits 2, tell the user which key is missing and which provider ran instead (or that nothing ran). Never report success from a run that fell back without saying so.
 - **Reference images: max 5 human, 6 object, 14 total per request** (Gemini API limit).
 - **After generating, use Read tool to visually confirm the image before reporting success.** "Generated successfully" means nothing if you haven't looked at it.
 - **When asked to use a specific image URL or file, use EXACTLY that asset.** Don't substitute similar images. Past rating-1 failures from using wrong image assets.

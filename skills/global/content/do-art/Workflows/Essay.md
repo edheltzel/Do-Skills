@@ -516,10 +516,10 @@ seamless warm sepia paper that blends into a cream blog page.
 
 **Single-generation is NOT the default for blog header essays.** Single-shot generation is acceptable for low-stakes diagrams, schematics, or technical illustrations where the visual answer is mechanical. Editorial essay headers are not those — they are creative judgment calls where one model's interpretation routinely beats the other and you cannot predict which in advance.
 
-**Default protocol for any blog header (Essay workflow): generate N candidates from BOTH models in parallel, then auto-select via the Concept Fidelity Gate (Step 8).**
+**Default protocol for any blog header (Essay workflow): generate N candidates from every keyed provider in parallel (`--model compare`), then auto-select via the Concept Fidelity Gate (Step 8).**
 
-- **N defaults to 4 total** (2 OpenAI gpt-image-2 + 2 Google nano-banana-pro), each with a distinct compositional angle on the same thesis brief.
-- **Bump to 6 (3+3) or 8 (4+4)** when the thesis is multi-part, the metaphor is non-obvious, or the previous round failed the gate.
+- **N defaults to 2 per keyed provider** (gpt-image-2, nano-banana-pro, and grok when their keys are set), each with a distinct compositional angle on the same thesis brief. With only one key, generate 4 from that provider and say the others were skipped.
+- **Bump to 3 or 4 per provider** when the thesis is multi-part, the metaphor is non-obvious, or the previous round failed the gate.
 - **Spawn all candidates as parallel background jobs** (`run_in_background: true`) — the wall-clock cost of 4 parallel is roughly the same as 1 sequential.
 - **All outputs go to `<preview>/`** with descriptive suffixes (`{slug}-candidate-{n}-{model}-{angle}.png`).
 - **Then run the Concept Fidelity Gate (Step 8)** on each. Score every candidate against the thesis brief. Auto-select the highest-fidelity winner.
@@ -527,9 +527,9 @@ seamless warm sepia paper that blends into a cream blog page.
 
 **Why this is the default, not an option:**
 
-- The two models have orthogonal strengths and orthogonal failure modes. Generating from only one model leaves 50%+ of the option space unexplored on every run.
+- The providers have orthogonal strengths and orthogonal failure modes. Generating from only one leaves much of the option space unexplored on every run.
 - Concept fidelity scoring against a written thesis is fast (read each image and check 4 questions). It costs less than regenerating after the user rejects a single image.
-- Blog headers default to several options from both models, then a pick. That is the workflow, not a special request.
+- Blog headers default to several options from every keyed provider, then a pick. That is the workflow, not a special request.
 
 **When to generate from one model:**
 
@@ -552,7 +552,8 @@ seamless warm sepia paper that blends into a cream blog page.
 |-----------|------|-------------|
 | "fast", "quick", "draft" | `--model nano-banana` | Faster iteration, slightly lower quality |
 | (default), "best", "high quality" | `--model nano-banana-pro` | Best quality + text rendering (recommended) |
-| "flux", "stylistic variety" | `--model flux` | Different aesthetic, stylistic variety |
+| "grok", "stylistic variety", "cheap" | `--model grok` | Different aesthetic, fast and low cost |
+| "compare", "options" | `--model compare` | Same brief on every keyed provider |
 
 #### Size Selection
 
@@ -727,7 +728,7 @@ bun <skill-dir>/Tools/RemoveBg.ts image1.png image2.png image3.png
 
 | Model | Command | When to Use |
 |-------|---------|-------------|
-| **flux** | `--model flux --size 1:1 --remove-bg` | Maximum quality, more detail |
+| **grok** | `--model grok --aspect-ratio 1:1 --remove-bg` | Different aesthetic, fast |
 | **gpt-image-2** | `--model gpt-image-2 --size 1024x1024 --remove-bg` | Different interpretation |
 
 ### Immediately Open

@@ -234,7 +234,7 @@ bun run <skill-dir>/Tools/Generate.ts \
   --output /path/to/aphorism.png
 ```
 
-**Model Recommendation:** nano-banana-pro (default, best for editorial typography on charcoal aesthetic) or `gpt-image-2` (currently #1 on Image Arena leaderboards as of 2026-05-04 — strongest pure text fidelity if the quote needs crisp, legible serif/sans rendering at small sizes) or flux (stylistic variety).
+**Model Recommendation:** nano-banana-pro (default, best for editorial typography on charcoal aesthetic) or `gpt-image-2` (strongest pure text fidelity if the quote needs crisp, legible serif/sans rendering at small sizes) or `grok` (stylistic variety).
 
 **Immediately Open:**
 ```bash

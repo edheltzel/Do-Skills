@@ -42,7 +42,7 @@ Every technical-diagram prompt MUST repeat the following directives (multiple ti
 - Hand-drawn imperfection is OK but strokes MUST be **BOLD and DELIBERATE**, never thin and uncertain
 - Explicitly **reject** the words "light", "faint", "pastel", "thin", "sketchy", "rough" from the prompt — they bias the model toward washed-out output
 
-When a diagram comes back bleached, thin, or pastel: regenerate immediately with stronger directives. For stubborn cases, switch to `--model flux` — Flux tends to produce crisper, more finished technical illustration than nano-banana-pro.
+When a diagram comes back bleached, thin, or pastel: regenerate immediately with stronger directives. For stubborn cases, switch to `--model gpt-image-2` (crisper linework and labels) or `--model grok` (a different interpretation).
 
 ### Title/Subtitle Rule
 
@@ -187,7 +187,7 @@ All the art components, labels, and such should mostly look hand-drawn, similar 
 |-----------|------|-------------|
 | "fast", "quick", "draft" | `--model nano-banana` | Faster iteration, slightly lower quality |
 | (default), "best", "high quality" | `--model nano-banana-pro` | Best quality + text rendering (recommended) |
-| "flux", "stylistic variety" | `--model flux` | Different aesthetic, stylistic variety |
+| "grok", "stylistic variety" | `--model grok` | Different aesthetic, fast and low cost |
 
 ### Size Selection
 
