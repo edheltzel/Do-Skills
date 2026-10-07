@@ -8,7 +8,7 @@ purpose: Migrate CLI from Tier 1 (manual) to Tier 2 (Commander.js)
 **Migrate from manual parsing to Commander.js when CLI grows complex.**
 ## 🎯 PURPOSE
 
-Convert Tier 1 CLI (llcli-style) to Tier 2 (Commander.js) when complexity demands it.
+Convert a Tier 1 CLI (manual parsing) to Tier 2 (Commander.js) when complexity demands it.
 
 ---
 
@@ -30,7 +30,7 @@ Convert Tier 1 CLI (llcli-style) to Tier 2 (Commander.js) when complexity demand
 ### 1. Install Commander.js
 
 ```bash
-cd ~/.agents/tools/[cli-name]/
+cd "${CLI_DIR:-.}"
 bun add commander
 ```
 

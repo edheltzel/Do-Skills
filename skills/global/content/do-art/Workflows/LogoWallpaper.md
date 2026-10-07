@@ -1,7 +1,7 @@
-# Create <brand> wallpaper
+# Logo wallpaper
 
-**Generate branded wallpapers with embedded logo concepts for Kitty terminal and macOS desktop.**
-Creates **4K 16:9 wallpapers** that integrate <brand> logos as organic design elements — emblazoned, embossed, or woven into the composition.
+**Generate 4K 16:9 wallpapers that embed a logo as a design element, not a pasted overlay.**
+Integration styles: emblazoned, embossed, or woven.
 
 ---
 
@@ -10,25 +10,20 @@ Creates **4K 16:9 wallpapers** that integrate <brand> logos as organic design el
 Generate cohesive wallpapers that:
 - Match the existing <brand> wallpaper aesthetic (dark tech, circuits, geometric patterns)
 - Embed logo shapes/concepts as integral design elements (not just overlaid)
-- Work for both Kitty terminal backgrounds (with 0.85 tint) and macOS desktop
+- Work as a terminal or desktop background (dark field so a tint still reads)
 - Maintain the blue/purple/teal color palette
 
 ---
 
-## Prerequisites
+## Inputs
 
-**Logos Directory:** `~/Developer/Logos/`
-Place logo files (PNG, SVG) here. The workflow will use these as reference for shape/concept integration.
+Ask for these. Do not assume a directory.
 
-**Wallpaper Output:** `~/Developer/Wallpaper/`
-Generated wallpapers are saved here and immediately available via `k -w <name>`.
+1. **Logo path** (PNG or SVG). Required. Used as `--reference-image`.
+2. **Reference images** (optional). Existing wallpapers or style frames the user wants matched. Describe the look in words if they have none: dark field, blue/purple/teal circuits or geometry.
+3. **Output folder.** Default `<preview>` (`$ART_OUTPUT_DIR`, else `~/Downloads` if that directory exists, else `./art-output`).
+4. **Output name**, style direction, and integration style.
 
-**Reference Wallpapers:** `~/Developer/Wallpaper/`
-Existing wallpapers to match aesthetic:
-- `blue-lines.png` - Abstract flowing lines
-- `blue-purple-circuits.png` - Circuit board pattern
-- `blue-purple-squares.png` - Geometric squares
-- `circuit-board.png` - Dense circuit traces
 
 ---
 
@@ -37,7 +32,7 @@ Existing wallpapers to match aesthetic:
 ### Step 1: Gather Input
 
 **Required from user:**
-1. **Logo selection** — Which logo from `~/Developer/Logos/` to embed
+1. **Logo path** — the file the user provided
 2. **Style direction** — Circuit, geometric, abstract, flowing, etc.
 3. **Integration style** — How logo appears:
    - **Emblazoned** — Logo shape as glowing focal point
@@ -59,19 +54,21 @@ Read the selected logo file to understand:
 - Aspect ratio and proportions
 
 ```bash
-# List available logos
-ls ~/Developer/Logos/
+# Confirm the logo file the user gave
+ls <logo-path>
 
-# View selected logo
-open ~/Developer/Logos/<logo-name>.png
+# View it (macOS: open, Linux: xdg-open)
+(command -v open >/dev/null && open <logo-path>) || xdg-open <logo-path>
 ```
 
 ### Step 3: Load Reference Wallpaper
 
 View an existing wallpaper to match the aesthetic:
 
+View a reference image the user supplied, if any:
+
 ```bash
-open ~/Developer/Wallpaper/blue-purple-circuits.png
+(command -v open >/dev/null && open <reference-path>) || xdg-open <reference-path>
 ```
 
 **Key aesthetic elements to maintain:**
@@ -122,14 +119,14 @@ CRITICAL:
 ### Step 5: Generate Wallpaper
 
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=LogoWallpaper \
   --model nano-banana-pro \
   --prompt "[CONSTRUCTED_PROMPT]" \
   --size 4K \
   --aspect-ratio 16:9 \
-  --reference-image ~/Developer/Logos/<selected-logo>.png \
-  --output ~/Developer/Wallpaper/<output-name>.png
+  --reference-image <logo-path> \
+  --output <output-dir>/<output-name>.png
 ```
 
 **Parameters:**
@@ -141,7 +138,7 @@ bun run ~/.agents/skills/do-art/Tools/Generate.ts \
 
 **Open the generated wallpaper:**
 ```bash
-open ~/Developer/Wallpaper/<output-name>.png
+(command -v open >/dev/null && open <output-dir>/<output-name>.png) || xdg-open <output-dir>/<output-name>.png
 ```
 
 **Validation checklist:**
@@ -156,15 +153,9 @@ open ~/Developer/Wallpaper/<output-name>.png
 - Try different integration style
 - Regenerate with refined prompt
 
-### Step 7: Apply Wallpaper
+### Step 7: Hand off
 
-Once validated, apply immediately:
-
-```bash
-k -w <output-name>
-```
-
-This sets both Kitty terminal and macOS desktop backgrounds.
+Copy the file to wherever the user wants it. Do not assume a wallpaper setter. Ask before applying it to a desktop or terminal.
 
 ---
 
@@ -309,9 +300,9 @@ CRITICAL: Logo as design origin point, not pasted overlay. High contrast for tin
 | Model | nano-banana-pro |
 | Size | 4K |
 | Aspect Ratio | 16:9 |
-| Output Directory | ~/Developer/Wallpaper/ |
-| Logo Source | ~/Developer/Logos/ |
-| Apply Command | `k -w <name>` |
+| Output Directory | user input, else <preview> |
+| Logo Source | user-supplied path |
+| Apply | ask; no default setter |
 
 **Color Palette:**
 - Background: #0a0a0f to #1a1a2e

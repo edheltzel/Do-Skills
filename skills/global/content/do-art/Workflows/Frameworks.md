@@ -1,6 +1,6 @@
 # Visual Mental Models & Frameworks Workflow
 
-**Hand-drawn frameworks, mental models, and conceptual diagrams using UL aesthetic.**
+**Hand-drawn frameworks, mental models, and conceptual diagrams using editorial aesthetic.**
 Creates **VISUAL FRAMEWORKS** — signature mental models illustrated as memorable diagrams with editorial hand-drawn style.
 
 ---
@@ -26,7 +26,7 @@ Visual frameworks illustrate mental models, thinking frameworks, and conceptual 
 ### Core Characteristics
 1. **Clear structure** — Framework shape is recognizable (2x2, Venn, pyramid, etc.)
 2. **Hand-drawn organic** — Imperfect lines, wobbly circles, human touch
-3. **Editorial aesthetic** — Flat colors, black linework, UL palette
+3. **Editorial aesthetic** — Flat colors, black linework, editorial palette
 4. **Labels integrated** — Typography part of visual design
 5. **Conceptual clarity** — Framework immediately understandable
 6. **Memorable visual** — Becomes THE reference image for this framework
@@ -240,7 +240,7 @@ CRITICAL REQUIREMENTS:
 - Editorial illustration aesthetic maintained
 - Conceptually clear and memorable
 
-Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
+Do not add a signature or other text in the prompt. If ART_SIGNATURE is set, stamp it after generation.
 ```
 
 ---
@@ -262,7 +262,7 @@ Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
 ### Step 5: Execute Generation
 
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=Frameworks \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \
@@ -288,7 +288,7 @@ open /path/to/framework.png
 - [ ] **Hand-drawn aesthetic** — Imperfect lines, organic shapes, human quality
 - [ ] **Strategic color** — Purple on optimal zone, teal on contrast, not everywhere
 - [ ] **Conceptually memorable** — This becomes THE reference image for framework
-- [ ] **Editorial style** — Maintains UL flat color, black linework aesthetic
+- [ ] **Editorial style** — Maintains flat color, black linework aesthetic
 
 #### Must NOT Have
 - [ ] Perfect digital geometry (too clean)

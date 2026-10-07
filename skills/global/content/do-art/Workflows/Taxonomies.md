@@ -1,6 +1,6 @@
 # Visual Taxonomies & Classification Grids Workflow
 
-**Hand-drawn classification systems, taxonomies, and reference grids using UL aesthetic.**
+**Hand-drawn classification systems, taxonomies, and reference grids using editorial aesthetic.**
 Creates **VISUAL TAXONOMIES** — organized classification systems like periodic tables, capability matrices, or framework grids with editorial hand-drawn style.
 
 ---
@@ -29,14 +29,14 @@ Visual taxonomies organize concepts into structured classification systems. Unli
 3. **Consistent typography** — 3-tier system (Advocate titles, Concourse labels, italic annotations)
 4. **Category organization** — Clear groupings with visual hierarchy
 5. **Color coding** — Strategic use of purple/teal to show categories
-6. **Editorial aesthetic** — Maintains UL flat color, black linework style
+6. **Editorial aesthetic** — Maintains flat color, black linework style
 7. **Scannable layout** — Easy to reference and navigate
 
 ---
 
 ## Color System for Taxonomies
 
-**Same UL palette, organized usage:**
+**Same editorial palette, organized usage:**
 
 ### Structure
 ```
@@ -231,7 +231,7 @@ CRITICAL REQUIREMENTS:
 - Scannable and reference-friendly layout
 - Strategic color coding for categories
 
-Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
+Do not add a signature or other text in the prompt. If ART_SIGNATURE is set, stamp it after generation.
 ```
 
 ---
@@ -254,7 +254,7 @@ Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
 ### Step 5: Execute Generation
 
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=Taxonomies \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \
@@ -283,7 +283,7 @@ open /path/to/taxonomy.png
 - [ ] **Strategic color** — Purple/teal differentiate categories, not overwhelming
 - [ ] **Scannable** — Easy to find and reference specific items
 - [ ] **Hierarchical clarity** — Title > Categories > Items is obvious
-- [ ] **Flat aesthetic** — No gradients, maintains UL editorial style
+- [ ] **Flat aesthetic** — No gradients, maintains editorial style
 
 #### Must NOT Have
 - [ ] Perfect straight grid lines

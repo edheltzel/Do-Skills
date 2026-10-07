@@ -1,29 +1,40 @@
 ---
 name: do-readme-update
-description: Use when adding, removing, renaming, or moving a skill in the Do-Skills repository to keep the scope and group READMEs and the root catalog current.
+description: Bring a repository's README back in line with the code. Use when a README is stale or wrong, after adding, removing, or renaming commands, scripts, flags, packages, config, env vars, or install steps, or when asked to update, refresh, sync, or fix a README.
 ---
 
 # README Update
 
-This skill works only in the Do-Skills repository. Skills live under `skills/<scope>/<group>/<skill>/SKILL.md`, with scope `global` or `project`. After any change to a skill's `name`, `description`, directory, scope, or group, regenerate the catalogs from the repo root:
+Make every claim in the README match the repo as it is now. Edit only what drifted; keep the author's structure, headings, and voice.
 
-```bash
-bash skills/global/workflow/do-readme-update/update-readme.sh
-```
+## 1. Find the README and anything that generates it
 
-It rewrites:
-- each `skills/<scope>/<group>/README.md` (install command, skills table, see also)
-- each `skills/<scope>/README.md` (scope install command, group table)
-- the Global and Project tables between `<!-- skills-start -->` and `<!-- skills-end -->` in the root `README.md`
+- The root `README.md`, plus nested package or workspace READMEs when the change touched them.
+- Generated regions: marker comments (`<!-- ... start -->` / `<!-- ... end -->`), a header saying the file is generated, or a generator: `scripts/*readme*`, a `package.json` script, a Makefile, justfile, or Taskfile target, or docs tooling. Project `AGENTS.md` or `CONTRIBUTING.md` may name the command.
+- Never hand-edit a generated region. Run its generator, then edit only the hand-written parts.
 
-Do not hand-edit those generated files or regions. Skill descriptions come from `SKILL.md` frontmatter; group blurbs from the `"<Scope>: <Group>"` entries in [`skills.sh.json`](../../../../skills.sh.json). A new group needs a `skills.sh.json` entry and a line in the script's `GROUP_ORDER_*` and `group_title`.
+## 2. Collect the truth from the repo
 
-## When to run
+Read sources, not memory or the README itself:
 
-- After adding a new skill directory
-- After editing the `name` or `description` field in any `SKILL.md`
-- After renaming, moving between groups or scopes, or deleting a skill directory
+- **Install and setup:** manifests (`package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `Gemfile`, ...), the lockfile's package manager, runtime versions (`.nvmrc`, `.tool-versions`, `engines`, `rust-toolchain`).
+- **Commands:** manifest scripts, Makefile/justfile/Taskfile targets, CLI `--help` output.
+- **Config:** `.env.example`, config files and schemas, flags.
+- **Structure:** the top-level directories the README describes.
+- **What changed:** `git log --oneline $(git log -1 --format=%H -- README.md)..HEAD` and that range's diff show everything since the README was last touched.
 
-## Script
+## 3. Compare claims against the truth
 
-The generator is [`update-readme.sh`](./update-readme.sh) next to this file. It resolves the repo root with `git rev-parse --show-toplevel`, so it runs from anywhere in the tree.
+Go section by section. List each claim that is now wrong (command, flag, path, version, step, example output), missing (a user-visible change with no mention), or dead (describes something removed). Check that every relative link and path resolves.
+
+## 4. Edit
+
+- Fix wrong claims, add missing user-visible ones, remove dead ones.
+- Copy commands from the manifest; do not paraphrase them.
+- Add a section only when a user-visible feature has no home. Leave license, attributions, and badges alone unless they are wrong.
+
+## 5. Verify
+
+- Run each command you added or changed when it is safe: local, non-destructive (`--help`, install, build, test). Never run deploy, publish, or release commands to check a README.
+- Re-check links.
+- Report what changed and anything you could not verify.

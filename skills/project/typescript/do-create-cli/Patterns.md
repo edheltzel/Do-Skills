@@ -1,6 +1,6 @@
 # Common CLI Patterns
 
-**Reusable patterns for TypeScript CLIs based on llcli and production CLIs.**
+**Reusable patterns for TypeScript CLIs.**
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### 1. Configuration Loading
 
-**Pattern from llcli:**
+**Process environment first, then optional files:**
 
 ```typescript
 interface Config {
@@ -22,21 +22,27 @@ const DEFAULTS = {
   limit: 20,
 } as const;
 
+const CLI_NAME = 'mycli';
+
+function readDotEnv(path: string, key: string): string | undefined {
+  if (!existsSync(path)) return;
+  return readFileSync(path, 'utf-8')
+    .split('\n')
+    .find(line => line.startsWith(`${key}=`))
+    ?.slice(key.length + 1)
+    .trim();
+}
+
 function loadConfig(): Config {
-  const envPath = join(homedir(), '.agents', '.env');
-  let fileValue: string | undefined;
-
-  if (existsSync(envPath)) {
-    fileValue = readFileSync(envPath, 'utf-8')
-      .split('\n')
-      .find(line => line.startsWith('API_KEY='))
-      ?.slice('API_KEY='.length)
-      .trim();
-  }
-
-  const apiKey = process.env.API_KEY || fileValue;
+  const key = 'API_KEY';
+  const configHome = process.env.XDG_CONFIG_HOME || join(homedir(), '.config');
+  const fileEnv = join(configHome, CLI_NAME, '.env');
+  const apiKey =
+    process.env[key] ||
+    readDotEnv(join(process.cwd(), '.env'), key) ||
+    readDotEnv(fileEnv, key);
   if (!apiKey) {
-    console.error('Error: API_KEY is not set in the environment or ~/.agents/.env');
+    console.error(`Error: ${key} is not set. Export it, or add ${key}=... to ./.env or ${fileEnv}`);
     process.exit(1);
   }
 
@@ -49,7 +55,7 @@ function loadConfig(): Config {
 
 **Key principles:**
 
-- Prefer the process environment, with `~/.agents/.env` as the current user-level fallback
+- Process environment first, then optional `./.env`, then optional `${XDG_CONFIG_HOME:-~/.config}/<cli-name>/.env` (or `config.json` in that directory)
 - Clear error messages with resolution steps
 - Defaults for optional config
 - Type-safe Config interface
@@ -236,7 +242,7 @@ OUTPUT:
   Exit code: 0 = success, 1 = error
 
 CONFIGURATION:
-  API Key: environment or ~/.agents/.env (API_KEY=your_key)
+  API Key: process environment, ./.env, or $XDG_CONFIG_HOME/mycli/.env (default ~/.config/mycli/.env)
   Base URL: ${DEFAULTS.baseUrl}
 
 PHILOSOPHY:
@@ -247,7 +253,7 @@ PHILOSOPHY:
   - Documented: This help + README
   - Testable: Predictable behavior
 
-For full documentation: ~/.agents/tools/${CLI_NAME}/README.md
+For full documentation: README.md next to this CLI
 Version: ${VERSION}
 `);
 }
@@ -469,7 +475,7 @@ describe('CLI', () => {
 
 When building a CLI, use these patterns:
 
-- [ ] Configuration loading (environment first, then ~/.agents/.env)
+- [ ] Configuration loading (process environment, then ./.env, then ${XDG_CONFIG_HOME:-~/.config}/<cli-name>/.env)
 - [ ] API client with error handling
 - [ ] One function per command
 - [ ] Manual argument parsing (Tier 1) or Commander (Tier 2)
@@ -482,4 +488,4 @@ When building a CLI, use these patterns:
 
 ---
 
-**All patterns battle-tested in llcli and production CLIs.**
+**Use these patterns in every generated CLI.**

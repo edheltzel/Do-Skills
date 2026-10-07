@@ -1,8 +1,8 @@
-# UL Art Image Generation Workflow
+# Essay Image Workflow
 
 **Charcoal Architectural Sketch TECHNIQUE — Applied to CONTENT-RELEVANT subjects.**
 
-**Should feel like:** the image he would have art-directed himself on a good day.
+**Should feel like:** a piece art-directed with care.
 Uses architectural sketching STYLE (gestural lines, hatching, charcoal) to depict whatever the content is actually ABOUT — NOT defaulting to buildings.
 
 ---
@@ -46,13 +46,9 @@ INPUT CONTENT
 - **DEEP PURPLE (#4A148C)** — technology, AI, capital, cold power (MANDATORY)
 - --thumbnail flag for blog headers
 
-**🚨 NO TEXT IN IMAGES — EXACTLY ONE EXCEPTION: the "${DA_NAME:-Atlas}" signature.**
-- ✅ **The "${DA_NAME:-Atlas}" signature IS REQUIRED** — every blog-header image MUST be signed "${DA_NAME:-Atlas}", bottom-right corner, added PROGRAMMATICALLY in Step 7 (never prompted into the model — models hallucinate garbled text). This is the SOLE permitted mark. (Principal directive 2026-06-20: re-required after the 2026-05-02 removal; it must always be there.)
-- 🚨 The signature is a **human handwriting** style, NOT formal calligraphy. Use `SignPainter-HouseScript` — cursive human-signature hand, small (~3% of width), semi-transparent charcoal, tucked into the composition (2026-07-09 directive: more cursive, smaller, part of the image). Formal calligraphy faces Snell-Roundhand / Apple-Chancery / Savoye remain WRONG (2026-06-20: "It's a human like signature not fucking caligraphy").
-- ❌ No OTHER text: no watermarks, no labels, no annotations, no captions, no logos, no titles, no subtitles
-- ❌ No readable text of any kind beyond the "${DA_NAME:-Atlas}" signature — even the model hallucinating partial words counts as failure
-- The image carries the meaning visually. All text other than the ${DA_NAME:-Atlas} signature belongs in the post body, not on the canvas.
-- The model MUST NOT bake any text in. The ONLY text on the final image is the Step-7 programmatic "${DA_NAME:-Atlas}" signature.
+**No text in the image.** The model must not bake words, labels, captions, logos, or a signature into the pixels. Models garble text.
+
+A signature is opt-in. Set `ART_SIGNATURE` to the string to stamp. When it is unset, `Generate.ts` adds no text. `--no-signature` skips the stamp even if the env var is set. Never put the signature in the prompt. Optional font: `ART_SIGNATURE_FONT`. Otherwise ImageMagick picks. The stamp, when requested, is small, semi-transparent, and tucked into the bottom-right.
 
 **🚨 BOTH SIENNA AND PURPLE MUST BE PRESENT IN EVERY IMAGE.**
 - Sienna on human/warm elements
@@ -138,7 +134,7 @@ Or use the slash command:
 **Read the aesthetic file and select the appropriate emotional vocabulary.**
 
 ```bash
-Read ~/.agents/skills/do-art/SKILL.md
+Read <skill-dir>/SKILL.md
 ```
 
 **Match the contVent to one of these emotional registers:**
@@ -410,11 +406,11 @@ COLOR — CHARCOAL DOMINANT, COLORS AS ACCENTS ONLY:
 - Colors are the ESSENCE of elements (purple = cold capital, sienna = human warmth)
 - Every bit of color belongs to a form — no random color floating in space
 
-DO NOT include any signature text in the prompt — AI models hallucinate garbled text instead of clean signatures. The KAI signature will be added programmatically in the Optimize step using ImageMagick.
+DO NOT include any signature text in the prompt. Models garble it. If ART_SIGNATURE is set, Generate.ts stamps it later. Otherwise the image has no added text.
 NO other text.
 ```
 
-### 🚨 STEP 5A: BEST-IMAGE DELIBERATION (MANDATORY — principal directive 2026-07-09)
+### Step 5A: Best-image deliberation (do this before the prompt)
 
 **Before writing any prompt, stop and think deeply about what the BEST POSSIBLE image for THIS essay would be.** Not "what subjects should appear" — what image would make the argument land hardest. The 2026-07-09 Claude Tag session proved the gap: subject-list prompts ("a desk with a laptop, an AI figure, a colleague") produced flat tableaus that got rejected twice; a composition reasoned from the essay's actual argument (a chat window as thin facade, a robot workshop behind it passing work up) produced immediately-accepted images. Same models, same technique block — the difference was the deliberation.
 
@@ -525,22 +521,22 @@ seamless warm sepia paper that blends into a cream blog page.
 - **N defaults to 4 total** (2 OpenAI gpt-image-2 + 2 Google nano-banana-pro), each with a distinct compositional angle on the same thesis brief.
 - **Bump to 6 (3+3) or 8 (4+4)** when the thesis is multi-part, the metaphor is non-obvious, or the previous round failed the gate.
 - **Spawn all candidates as parallel background jobs** (`run_in_background: true`) — the wall-clock cost of 4 parallel is roughly the same as 1 sequential.
-- **All outputs go to `~/Downloads/`** with descriptive suffixes (`{slug}-candidate-{n}-{model}-{angle}.png`).
+- **All outputs go to `<preview>/`** with descriptive suffixes (`{slug}-candidate-{n}-{model}-{angle}.png`).
 - **Then run the Concept Fidelity Gate (Step 8)** on each. Score every candidate against the thesis brief. Auto-select the highest-fidelity winner.
-- **The winner moves through optimize → mv → git add. Losers stay in `~/Downloads/` as disposable.**
+- **The winner moves through optimize → mv → git add. Losers stay in `<preview>/` as disposable.**
 
 **Why this is the default, not an option:**
 
 - The two models have orthogonal strengths and orthogonal failure modes. Generating from only one model leaves 50%+ of the option space unexplored on every run.
-- Concept fidelity scoring against a written thesis is fast (you Read each image and check 4 questions). It costs less than re-spending an entire turn after the principal rejects a single image.
-- the principal has explicitly directed this pattern: *"I want you to change the workflow so that it makes n number of options with both Nano Banana and OpenAI and selects the best."* This is not negotiable for blog headers.
+- Concept fidelity scoring against a written thesis is fast (read each image and check 4 questions). It costs less than regenerating after the user rejects a single image.
+- Blog headers default to several options from both models, then a pick. That is the workflow, not a special request.
 
-**When to break the default and generate single-model:**
+**When to generate from one model:**
 
-- the principal explicitly names a model (e.g. *"use Nano Banana Pro for this one"*) — honor the directive.
-- The previous round selected a clear leader and the principal is asking for a tight variation on it.
+- The user names a model. Honor that.
+- The previous round selected a clear leader and the user wants a tight variation.
 - The image type is not editorial (diagram, schematic, dashboard, technical illustration).
-- Total candidate count from prior rounds in this same task already exceeds 8 — you're approaching the 4-turn cap; don't burn more compute, surface to the principal instead.
+- Total candidate count from prior rounds in this same task already exceeds 8. Stop and ask the user instead of burning more compute.
 
 ---
 
@@ -586,57 +582,48 @@ seamless warm sepia paper that blends into a cream blog page.
 
 ### Default Model: nano-banana-pro
 
-### 🚨 CRITICAL: Always Output to Downloads First — `~/Downloads/` IS THE WORKING DIRECTORY
+### Preview folder first
 
-**`~/Downloads/` is the canonical working directory for ALL Art-skill image generation. EVERY `--output` path MUST start with `~/Downloads/`. ZERO exceptions.**
-
-This applies to:
-- Single-shot generations (`--output ~/Downloads/{name}.png`)
-- Multi-candidate comparisons across models (`--output ~/Downloads/{name}-candidate-{n}-{model}.png`)
-- Thumbnail generation (`--thumbnail` flag — both `.png` and `-thumb.png` land in `~/Downloads/`)
-- Background-removal intermediates
-- Optimization intermediates (`cwebp` / `magick` outputs while iterating)
-
-**NEVER point `--output` directly at your blog/site's `public/images/` directory, the public/ tree of any project, or any git-tracked path.** Doing so bypasses the visual inspection gate and risks staging a bad image into git before any human or AI has actually seen it.
+`<preview>` is `$ART_OUTPUT_DIR` if set, otherwise `~/Downloads` when that directory exists, otherwise `./art-output`. Write generations, candidates, thumbs, and optimize intermediates there. Do not point `--output` at a project's `public/` tree or any git-tracked path. Review first, then copy the winner.
 
 The strict pipeline:
 
 ```bash
-# 1. GENERATE → ALWAYS to ~/Downloads/
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+# 1. GENERATE → ALWAYS to <preview>/
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=Essay \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \
   --size 2K \
   --aspect-ratio 1:1 \
   --thumbnail \
-  --output ~/Downloads/[descriptive-name].png
+  --output <preview>/[descriptive-name].png
 
 # 2. INSPECT → MANDATORY visual gate via the Read tool
 #    (see Step 8 — you literally cannot validate the image without this)
-#    Read("~/Downloads/[descriptive-name].png")
+#    Read("<preview>/[descriptive-name].png")
 #    nano-banana-pro often returns JPEG even for --output .png:
-#    Read("~/Downloads/[descriptive-name].jpg")
+#    Read("<preview>/[descriptive-name].jpg")
 
-# 3. OPTIMIZE → still in ~/Downloads/
-cwebp -q 78 ~/Downloads/[name].png -o ~/Downloads/[name].webp
-magick ~/Downloads/[name].png -resize 512x512 -colors 128 ~/Downloads/[name]-thumb.png
+# 3. OPTIMIZE → still in <preview>/
+cwebp -q 78 <preview>/[name].png -o <preview>/[name].webp
+magick <preview>/[name].png -resize 512x512 -colors 128 <preview>/[name]-thumb.png
 
 # 4. MOVE → only after visual gate passes, only the chosen winner
-mv ~/Downloads/[name].{png,webp,thumb.png} ~/your-site/public/images/
+mv <preview>/[name].{png,webp,thumb.png} <project>/public/images/
 
 # 5. STAGE → git add the moved files
 cd ~/your-site && git add public/images/[name].*
 ```
 
-**If you generate multiple candidates for comparison, all of them stay in `~/Downloads/`. Only the winner moves through steps 4–5. The losers stay in `~/Downloads/` (they're disposable; the principal's Downloads folder is the staging area, not a permanent archive).**
+**Candidates stay in `<preview>`. Only the winner is copied into the project. Losers are disposable.**
 
 ### Construct Command Based on Intent
 
 Based on user's request and the mapping tables above, construct the CLI command:
 
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=Essay \
   --model [SELECTED_MODEL from table] \
   --prompt "[PROMPT from Step 5]" \
@@ -657,20 +644,20 @@ The `--thumbnail` flag generates TWO versions:
 2. `output-thumb.png` — With `#EAE9DF` background (for thumbnails, social previews, OpenGraph)
 
 ```bash
-# Example: Generates both my-header.png AND my-header-thumb.png in ~/Downloads/
-# 🚨 --output MUST point to ~/Downloads/ — NEVER directly into cms/public/images/
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+# Example: Generates both my-header.png AND my-header-thumb.png in <preview>/
+# 🚨 --output MUST point to <preview>/ — NEVER directly into cms/public/images/
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=Essay \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \
   --size 2K \
   --aspect-ratio 1:1 \
   --thumbnail \
-  --output ~/Downloads/my-header.png
+  --output <preview>/my-header.png
 
 # After visual inspection passes (Step 8), move into your site's public tree:
-mv ~/Downloads/my-header.png ~/Downloads/my-header-thumb.png \
-   ~/your-site/public/images/
+mv <preview>/my-header.png <preview>/my-header-thumb.png \
+   <project>/public/images/
 ```
 
 **Why two versions?**
@@ -706,10 +693,10 @@ For non-blog images that only need transparency, or to remove backgrounds after 
 
 ```bash
 # Use the Images Skill for background removal
-bun ~/.agents/skills/do-art/Tools/RemoveBg.ts /path/to/output.png
+bun <skill-dir>/Tools/RemoveBg.ts /path/to/output.png
 
 # Or batch process multiple images
-bun ~/.agents/skills/do-art/Tools/RemoveBg.ts image1.png image2.png image3.png
+bun <skill-dir>/Tools/RemoveBg.ts image1.png image2.png image3.png
 ```
 
 
@@ -761,16 +748,16 @@ open /path/to/output.png
 
 ```bash
 # Stage A — magick -trim removes uniform-color/transparent borders to the bbox of opaque pixels.
-magick ~/Downloads/[name].png -trim +repage ~/Downloads/[name]-trimmed.png
+magick <preview>/[name].png -trim +repage <preview>/[name]-trimmed.png
 
 # Stage B — resize the trimmed result to 1024 wide (preserve native aspect — DO NOT pad to square).
-magick ~/Downloads/[name]-trimmed.png -resize 1024x ~/Downloads/[name]-resized.png
+magick <preview>/[name]-trimmed.png -resize 1024x <preview>/[name]-resized.png
 
 # Stage C — verify margins are now ≤ 2% on every edge (sanity check; any model whitespace inside
 # the bbox stays, but cropping has eliminated background bleed).
-bun ~/.agents/skills/do-art/Tools/FillFrame.ts \
-  ~/Downloads/[name]-resized.png \
-  ~/Downloads/[name]-resized.png \
+bun <skill-dir>/Tools/FillFrame.ts \
+  <preview>/[name]-resized.png \
+  <preview>/[name]-resized.png \
   --report-only \
   --max-margin 2 \
   --bg-color auto
@@ -778,8 +765,8 @@ bun ~/.agents/skills/do-art/Tools/FillFrame.ts \
 # If Stage C reports margins > 2%, the model produced an image with internal whitespace inside
 # the figure area — REGENERATE with a tighter composition prompt instead of padding it more.
 
-mv ~/Downloads/[name]-resized.png ~/Downloads/[name].png
-rm ~/Downloads/[name]-trimmed.png
+mv <preview>/[name]-resized.png <preview>/[name].png
+rm <preview>/[name]-trimmed.png
 ```
 
 **Skip conditions: NONE for the trim.** The trim is non-negotiable — every image goes through it. Aspect-ratio padding to force-square is FORBIDDEN; the rendered post does not need square images, and faking a square crops blank space INTO the file which renders as a visible layout gap.
@@ -792,47 +779,46 @@ Generated images at 2K resolution (2048x2048) are 6-8MB each - far too large for
 
 ### Optimization Process
 
-**For ALL blog header images, automatically execute these commands. The ONLY text stamped is the required "${DA_NAME:-Atlas}" signature (Step 7.1) — no watermark, no other annotation.**
+**For blog header images, run the optimize commands below. Stamp text only when `ART_SIGNATURE` is set. No watermark, no other annotation.**
 
-🚨 **FIX 2 — TRUE ALPHA BEFORE INLINE (white-box bug, 2026-06-20).** The inline blog image MUST have a real alpha channel so the cream page (`#EAE9DF`) shows through. nano-banana-pro returns an OPAQUE JPEG. Flattening that opaque JPEG on `#EAE9DF` is a **NO-OP** (there's no alpha to fill), so the model's baked near-white ground survives and renders as a **white rectangle on the cream page** — exactly the bug ${PRINCIPAL_NAME} hit ("it has a fucking white background"). The fix: cut to true alpha FIRST with rembg, THEN derive the WebP. Substantial sienna/purple/solid-figure charcoal survives rembg fine — the "rembg eats thin linework" gotcha applies to thin-line *diagrams*, not solid-figure essay headers.
+🚨 **FIX 2 — TRUE ALPHA BEFORE INLINE (white-box bug, 2026-06-20).** The inline blog image MUST have a real alpha channel so the cream page (`#EAE9DF`) shows through. nano-banana-pro returns an OPAQUE JPEG. Flattening that opaque JPEG on `#EAE9DF` is a **NO-OP** (there's no alpha to fill), so the model's baked near-white ground survives and renders as a white rectangle on the cream page. The fix: cut to true alpha FIRST with rembg, THEN derive the WebP. Substantial sienna/purple/solid-figure charcoal survives rembg fine — the "rembg eats thin linework" gotcha applies to thin-line *diagrams*, not solid-figure essay headers.
 
 ```bash
 # Step 7.0 (above) has already trimmed the image to its bbox.
 
 # 7.0.5 — CUT TO TRUE ALPHA (mandatory; the model output is an opaque JPEG)
-bun ~/.agents/skills/do-art/Tools/RemoveBg.ts "~/Downloads/[name].jpg"   # → ~/Downloads/[name].png with real alpha
-magick "~/Downloads/[name].png" -trim +repage -resize 1024x "~/Downloads/[name].png"
+bun <skill-dir>/Tools/RemoveBg.ts "<preview>/[name].jpg"   # → <preview>/[name].png with real alpha
+magick "<preview>/[name].png" -trim +repage -resize 1024x "<preview>/[name].png"
 
-# 7.1 — "${DA_NAME:-Atlas}" SIGNATURE (human handwriting, NOT calligraphy)
-#   🟢 AUTO-STAMPED BY Generate.ts (2026-06-26): any `--workflow=Essay` or `--thumbnail`
-#   run now stamps "${DA_NAME:-Atlas}" itself (bottom-right, SignPainter-HouseScript cursive, ~3% width,
-#   slight rotation — small, integrated; 2026-07-09 directive), before the thumbnail
-#   is derived, so it lands on BOTH the transparent PNG and the sepia thumb. You do NOT
-#   run this command after a normal Generate.ts run — doing so DOUBLE-stamps.
-#   This manual command is ONLY for: (a) a hand-built image that never went through
-#   Generate.ts, or (b) re-stamping after rembg ate the signature. Opt out at generation
-#   with `--no-signature`. Snell-Roundhand/Apple-Chancery/Savoye are calligraphy → REJECTED (2026-06-20).
-magick "~/Downloads/[name].png" -gravity SouthEast \
-  -font "SignPainter-HouseScript" -pointsize 31 -fill "rgba(55,45,38,0.55)" \
-  -annotate 352x352+44+30 "${DA_NAME:-Atlas}" "~/Downloads/[name].png"
+# 7.1 — SIGNATURE, only when ART_SIGNATURE is set.
+#   Generate.ts stamps it when the env var is non-empty, before the thumbnail
+#   is derived, so it lands on both files. Do not run this after a normal
+#   Generate.ts run or you double-stamp. Manual stamp is only for a hand-built
+#   image, or a re-stamp after rembg ate the mark. --no-signature skips it.
+#   Set ART_SIGNATURE_FONT to force a face. Otherwise ImageMagick picks.
+if [ -n "$ART_SIGNATURE" ]; then
+  magick "<preview>/[name].png" -gravity SouthEast \
+    ${ART_SIGNATURE_FONT:+-font "$ART_SIGNATURE_FONT"} -pointsize 31 -fill "rgba(55,45,38,0.55)" \
+    -annotate 352x352+44+30 "$ART_SIGNATURE" "<preview>/[name].png"
+fi
 
 # 1. Convert the signed transparent PNG to WebP for inline blog display
-cwebp -q 86 -alpha_q 100 "~/Downloads/[name].png" -o "~/Downloads/[name].webp"
+cwebp -q 86 -alpha_q 100 "<preview>/[name].png" -o "<preview>/[name].webp"
 
 # 1a. VERIFY the inline WebP kept its alpha — MUST print srgba (NOT srgb).
 #     srgb here = opaque = the white-box bug. Re-cut with RemoveBg if so.
-identify -format "%[channels]\n" "~/Downloads/[name].webp"   # expect: srgba
+identify -format "%[channels]\n" "<preview>/[name].webp"   # expect: srgba
 
 # 2. Build the optimized social-media thumbnail (sepia-flattened, max 512 wide).
 #    Social platforms don't honor transparency; the signature is already baked in.
-magick "~/Downloads/[name].png" -background "#EAE9DF" -flatten -resize 512x -quality 80 \
-  "~/Downloads/[name]-thumb-optimized.png"
+magick "<preview>/[name].png" -background "#EAE9DF" -flatten -resize 512x -quality 80 \
+  "<preview>/[name]-thumb-optimized.png"
 
 # 3. Check final file sizes
-ls -lh ~/Downloads/[name].webp ~/Downloads/[name]-thumb-optimized.png
+ls -lh <preview>/[name].webp <preview>/[name]-thumb-optimized.png
 ```
 
-**🚨 The Step 7.1 `-annotate` "${DA_NAME:-Atlas}" signature is REQUIRED and is the ONLY sanctioned `-annotate` use. History: the signature was removed 2026-05-02, then explicitly RE-REQUIRED by ${PRINCIPAL_NAME} on 2026-06-20 ("essay images need to always be signed by ${DA_NAME:-Atlas}"). It must be the cursive signature hand (`SignPainter-HouseScript`, small, integrated — 2026-07-09), never formal calligraphy (Snell/Chancery/Savoye were rejected). Do NOT `-annotate` anything else onto the canvas — no watermark, no titles, no labels (the rare per-request figure labels are a separate, explicitly-asked-for case, color-coded to the figures).**
+**The only sanctioned `-annotate` is the optional `ART_SIGNATURE` stamp. Do not annotate anything else. Figure labels only when the user asked for them.**
 
 **Expected Results:**
 - Main WebP image: ~150-500KB (from ~7.5MB PNG)
@@ -875,7 +861,7 @@ thumbnail: https://example.com/images/[name]-thumb-optimized.png
 **If WebP is over 500KB:**
 ```bash
 # Lower quality further
-cwebp -q 65 "~/Downloads/[name]-1024.png" -o "~/Downloads/[name].webp"
+cwebp -q 65 "<preview>/[name]-1024.png" -o "<preview>/[name].webp"
 ```
 
 **If thumbnail is over 600KB:**
@@ -899,7 +885,7 @@ brew install webp
 ### Integration Notes
 
 - **This step is AUTOMATIC** - do not ask the user if optimization should be done
-- **Happens in ~/Downloads/** before files are copied to final destination
+- **Happens in <preview>/** before files are copied to final destination
 - **Original high-res files are preserved** as archives
 - **Validation (Step 8) checks the optimized files**, not the originals
 
@@ -922,7 +908,7 @@ brew install webp
 
 **🚨🚨🚨 AI INSPECTION GATE — MANDATORY 🚨🚨🚨**
 
-`open` launches the macOS Preview app on the principal's machine. **You cannot see what `open` shows.** That is a verification for the principal, not for you. To verify the image yourself you MUST load it into your own context with the Read tool:
+Opening the file in a desktop viewer is for the user. You cannot see that window. To verify the image, load it with the Read tool:
 
 ```
 Read("/path/to/generated-image.png")
@@ -934,10 +920,10 @@ The Read tool renders the image inline and gives you actual vision of the pixels
 
 **Hard rule: if you have not called `Read` on the image file in this turn, you have not inspected the image. Do not proceed to the checklist. Do not write the post. Do not say "looks good." Call Read first.**
 
-Optionally also run `open` for the principal:
+Optionally show the file to the user (macOS `open`, Linux `xdg-open`):
 
 ```bash
-open /path/to/generated-image.png
+(command -v open >/dev/null && open /path/to/generated-image.png) || xdg-open /path/to/generated-image.png
 ```
 
 ### 🚨🚨🚨 CONCEPT FIDELITY GATE (MANDATORY — RUN BEFORE THE CHECKLIST) 🚨🚨🚨
@@ -963,12 +949,12 @@ This is the gate that catches "beautiful but wrong" images — where every visua
 
 **🚨 4-TURN ITERATION CAP — HARD STOP**
 
-If 4 generation rounds (≈4 candidates × 4 rounds = up to 16 images) still haven't produced a candidate that clears the Concept Fidelity Gate, **STOP**. Do not keep grinding. Surface the situation to the principal:
+If 4 generation rounds still have not cleared the Concept Fidelity Gate, stop. Tell the user:
 
 - What thesis brief you've been using
 - The 4 prompts you tried, with the failure mode of each round
 - Which concepts kept failing to land
-- A proposed pivot: different thesis brief? different model? different metaphor entirely? skip the image and use the UL sepia logo default?
+- A proposed pivot: different thesis brief, different model, different metaphor, or skip the image and ask how to proceed.
 
 The cap exists because compute spent on 16+ failed generations is compute that should have been a 5-minute conversation about whether the visual brief is actually achievable. After 4 rounds of failure, the prompt isn't the problem — the brief is.
 
@@ -978,11 +964,10 @@ The cap exists because compute spent on 16+ failed generations is compute that s
 
 **STOP. Look at the image. Answer these questions honestly:**
 
-**0. SIGNATURE CHECK (REQUIRED — not optional):**
-- Is the "${DA_NAME:-Atlas}" signature present in the BOTTOM RIGHT CORNER? It MUST be (Step 7.1, every blog header).
-- Is it the cursive signature hand (SignPainter-HouseScript), small and integrated, NOT formal calligraphy? Snell/Chancery/Savoye script faces are WRONG (rejected 2026-06-20).
-- Not bottom center. Not near the subject. BOTTOM RIGHT CORNER.
-- If missing, calligraphic, wrong location, or garbled → re-run Step 7.1 (it's a programmatic stamp, so just re-stamp; no regen needed).
+**0. SIGNATURE CHECK (only when `ART_SIGNATURE` is set):**
+- The stamp should be the env-var string, small, bottom-right, not baked by the model.
+- If it is missing or garbled, re-stamp. Do not regenerate for a missing stamp.
+- If `ART_SIGNATURE` is unset, the image should have no added text. A stray signature is a fail.
 
 **0.5. PROMPT LITERAL INTERPRETATION CHECK:**
 - Did the model take prompt instructions literally? (e.g., writing literal prompt text instead of a signature)
@@ -1026,8 +1011,8 @@ The cap exists because compute spent on 16+ failed generations is compute that s
 ### Validation Checklist
 
 **🚨 MANDATORY ELEMENTS (if ANY are missing, REGENERATE):**
-- [ ] **"${DA_NAME:-Atlas}" SIGNATURE PRESENT** — cursive signature hand (SignPainter-HouseScript), small, bottom-right, added programmatically in Step 7.1. Its absence is a FAIL (required since 2026-06-20).
-- [ ] **NO OTHER TEXT** — beyond the "${DA_NAME:-Atlas}" signature (and any per-request figure labels ${PRINCIPAL_NAME} explicitly asked for): zero watermarks, zero stray labels, zero hallucinated letters. Model-baked text → REGENERATE.
+- [ ] **Signature only if requested.** If `ART_SIGNATURE` is set, the stamp is present and bottom-right. If unset, no added text.
+- [ ] **No other text.** Zero watermarks, stray labels, or hallucinated letters, except figure labels the user explicitly asked for. Model-baked text means regenerate.
 - [ ] **INLINE IS TRANSPARENT (srgba)** — `identify -format "%[channels]" [name].webp` prints `srgba`. `srgb` = opaque = the white-box-on-cream bug → re-cut with RemoveBg.
 - [ ] **PROBLEM TYPE VISIBLE** — the problem type (sorting, double standard, etc.) is immediately obvious
 - [ ] **Subject matches CONTENT** — drew what the piece is ABOUT, not defaulted to architecture
@@ -1074,7 +1059,7 @@ The cap exists because compute spent on 16+ failed generations is compute that s
 - [ ] **FULL FRAME** — verified by FillFrame.ts exit-code-0 in Step 7.0 (NOT a manual eyeball check)
 - [ ] **SUBJECTS LARGE** — dominant, filling the available space
 - [ ] **NO BACKGROUND FILL** — floats in empty/transparent space (but subjects are LARGE)
-- [ ] **KAI SIGNATURE** — small cursive charcoal in BOTTOM RIGHT CORNER
+- [ ] **Signature only if ART_SIGNATURE is set** — otherwise no added text
 - [ ] **MARGIN CHECK** — FillFrame.ts hard-gate in Step 7.0 must have passed (max-margin ≤ 5%). If it failed, you should have already regenerated, not reached this checklist.
 
 **QUALITY (all required):**
@@ -1141,7 +1126,7 @@ The cap exists because compute spent on 16+ failed generations is compute that s
 | What's lost | Melancholy | 40:60 | Fading, dissolving, trailing off |
 | Community | Connection | 90:10 | Warm, intimate, multiple figures |
 
-### The UL Look Checklist
+### The editorial look checklist
 
 Before submitting any image:
 - ✅ **Subject matches CONTENT** — drew what the piece is ABOUT (not defaulting to architecture)

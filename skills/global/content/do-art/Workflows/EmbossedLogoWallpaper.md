@@ -15,11 +15,13 @@ Generate wallpapers that:
 
 ---
 
-## Prerequisites
+## Inputs
 
-**Logo Source:** `~/Developer/Logos/ul-blue.png`
-**Style References:** `~/Developer/Wallpaper/` (blue-purple-circuits.png, circuit-board.png)
-**Output Directory:** `~/Developer/Wallpaper/`
+Ask for these. Do not assume a directory.
+
+1. **Logo path** (PNG). Required reference for the embossed shape.
+2. **Style references** (optional). Images the user wants matched. If they have none, match a dark, dense, blue/purple circuit or geometric field.
+3. **Output folder.** Default `<preview>` (`$ART_OUTPUT_DIR`, else `~/Downloads` if that directory exists, else `./art-output`).
 
 ---
 
@@ -55,7 +57,7 @@ Generate wallpapers that:
 - ✅ CORRECT: Visual content fills entire canvas, logo small in bottom left WITHIN the design
 
 **5. Missing Reference Images**
-- ❌ Not using ul-blue.png as reference for logo shape
+- Not passing the user's logo file as --reference-image
 - ❌ Not checking existing wallpapers for quality benchmark
 - ✅ CORRECT: Always use --reference-image with the logo file
 
@@ -73,12 +75,11 @@ Ask about:
 ### Step 2: Load References
 
 ```bash
-# Verify logo exists
-ls ~/Developer/Logos/ul-blue.png
+# Confirm the logo the user gave
+ls <logo-path>
 
-# View style reference wallpapers
-open ~/Developer/Wallpaper/circuit-board.png
-open ~/Developer/Wallpaper/blue-purple-circuits.png
+# View reference images they supplied, if any
+(command -v open >/dev/null && open <reference-path>) || xdg-open <reference-path>
 ```
 
 **Study reference wallpapers for:**
@@ -130,14 +131,14 @@ open ~/Developer/Wallpaper/blue-purple-circuits.png
 ### Step 4: Generate
 
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=EmbossedLogoWallpaper \
   --model nano-banana-pro \
   --prompt "[CONSTRUCTED_PROMPT]" \
   --size 4K \
   --aspect-ratio 16:9 \
-  --reference-image ~/Developer/Logos/ul-blue.png \
-  --output ~/Developer/Wallpaper/<output-name>.png
+  --reference-image <logo-path> \
+  --output <output-dir>/<output-name>.png
 ```
 
 ### Step 5: Validate (CRITICAL)
@@ -145,7 +146,7 @@ bun run ~/.agents/skills/do-art/Tools/Generate.ts \
 Open the generated image and check EVERY item:
 
 ```bash
-open -a "Dia" ~/Developer/Wallpaper/<output-name>.png
+(command -v open >/dev/null && open <output-dir>/<output-name>.png) || xdg-open <output-dir>/<output-name>.png
 ```
 
 **Validation Checklist:**
@@ -179,12 +180,10 @@ Common fixes:
 ### Step 7: Save and Apply
 
 ```bash
-# Verify saved
-ls -la ~/Developer/Wallpaper/<output-name>.png
-
-# Apply to Kitty + macOS
-k -w <output-name>
+ls -la <output-dir>/<output-name>.png
 ```
+
+Hand the file to the user. Ask before applying it to a desktop or terminal. There is no default setter.
 
 ---
 
@@ -250,8 +249,8 @@ CRITICAL:
 | Model | nano-banana-pro |
 | Size | 4K |
 | Aspect Ratio | 16:9 |
-| Logo Reference | ~/Developer/Logos/ul-blue.png |
-| Output Directory | ~/Developer/Wallpaper/ |
+| Logo Reference | user-supplied path |
+| Output Directory | user input, else <preview> |
 | Logo Size | 3-5% of image width |
 | Logo Position | Bottom left, WITHIN design |
 

@@ -1,46 +1,45 @@
 #!/usr/bin/env bun
 /**
- * ThumbnailText.ts — deterministic compositor for Ed's (@unsupervised-learning)
- * YouTube thumbnail house style. Built from the documented design system in
- * live pixel samples of the real Main / Sponsored thumbnails (the spec's border/bg values were
- * stale — pixels win).
+ * ThumbnailText.ts - deterministic YouTube thumbnail compositor.
  *
- * The real house style (NOT a generated cinematic scene — that reads MORE like AI):
- *   - solid deep-navy field (#1A2744), optionally a real supporting visual (diagram / screenshot /
- *     terminal) darkened behind the text on the text side.
- *   - clean rembg face cutout on the opposite third (solo), or two framed stills (interview).
- *   - 4-line type hierarchy in the house palette: kicker (white) / title (periwinkle or orange,
- *     extra-bold) / subtitle (white or periwinkle) / tag (purple), uppercase, with a thin accent
- *     underline rule under the headline.
- *   - the "TI:" node-mark logo top-right.
- *   - a SEMANTIC colored border: blue #316AE9 = core content, green #306F1D = sponsored.
+ * Navy field (#1A2744), optional supporting art, rembg face cutout, measured type.
+ * Semantic border: blue #316AE9 core, green #306F1D sponsored.
+ * Logo is opt-in via --logo or ART_LOGO. No logo when unset.
+ * Font: --font, else ART_THUMBNAIL_FONT, else DejaVu-Sans-Bold.
  *
- * Fixes vs the legacy ComposeThumbnail.ts: measured auto-fit text (no trim-then-guess), absolute-Y
- * stacking, overlay border (no resize-squash), real-photo face (no uncanny generation).
- *
- * Solo:      bun ThumbnailText.ts --title "PERSONAL AI" --subtitle "INFRASTRUCTURE" \
- *              --kicker "A DEEP DIVE ON MY" --tag "v2 (December 2025)" --face headshot.png \
- *              --art diagram.png --variant core --output ~/Downloads/thumb.png
- * Interview: bun ThumbnailText.ts --mode interview --kicker "A CONVERSATION WITH" \
- *              --title "GRANT LEE" --subtitle "ON BUILDING GAMMA" --face host.png --face2 guest.png \
- *              --name1 "Ed" --name2 "Grant Lee" --variant sponsored --output out.png
- *
- * Emits JSON: { output, thumb320, dims, mode, titlePt, contrastRatio, overflowed }
+ * Solo: bun ThumbnailText.ts --title "HOW AGENTS WORK" --face headshot.png --variant core --output out.png
+ * Interview: bun ThumbnailText.ts --mode interview --title "A CONVERSATION" --face host.png --face2 guest.png --name1 "Host" --name2 "Guest" --output out.png
  */
 import { execFileSync } from "node:child_process";
-import { existsSync, rmSync } from "node:fs";
-import { homedir } from "node:os";
-import { join, parse } from "node:path";
+import { existsSync, mkdirSync, rmSync } from "node:fs";
+import { homedir, tmpdir } from "node:os";
+import { join, parse, resolve } from "node:path";
+
+function previewDir(): string {
+  const fromEnv = process.env.ART_OUTPUT_DIR;
+  if (fromEnv) {
+    mkdirSync(fromEnv, { recursive: true });
+    return fromEnv;
+  }
+  const home = process.env.HOME;
+  if (home) {
+    const downloads = join(home, "Downloads");
+    if (existsSync(downloads)) return downloads;
+  }
+  const local = resolve("art-output");
+  mkdirSync(local, { recursive: true });
+  return local;
+}
+
 
 const W = 1280;
 const H = 720;
 
-// House palette (from SPECIFICATIONS.md COLOR PALETTE + live samples).
+// House palette.
 const NAVY = "#1A2744";
 const PERIWINKLE = "#6B8DD6";
 const WHITE = "#FFFFFF";
 const VARIANT_BORDER: Record<string, string> = { core: "#316AE9", sponsored: "#306F1D" };
-const BRAND_LOGO = join(homedir(), ".agents", "Assets", "brand", "ti-logo-white.png");
 
 function arg(name: string, def?: string): string | undefined {
   const i = process.argv.indexOf(`--${name}`);
@@ -143,22 +142,22 @@ function main(): void {
   const accent = arg("accent", PERIWINKLE)!;
   const subColor = arg("subtitle-color", WHITE)!;
   const faceSide = (arg("face-side", "right") as "right" | "left");
-  const font = arg("font", "Hermes-Maia-6-Caps")!; // principal-specified thumbnail font (2026-06-28): "Hermes Maia 6 caps". File: ~/Library/Fonts/Hermes Maia 6 Caps Regular.otf. (Was Anton-Regular; overridden by explicit principal directive.)
-  const output = arg("output", join(homedir(), "Downloads", "sm-thumb.png"))!;
+  const font = arg("font", process.env.ART_THUMBNAIL_FONT || "DejaVu-Sans-Bold")!;
+  const output = arg("output", join(previewDir(), "sm-thumb.png"))!;
   const variant = (arg("variant", "core") as "core" | "sponsored");
   const borderArg = arg("border");
   const cutMode = arg("cut", "auto")!;
   const noBorder = flag("no-border");
   const noLogo = flag("no-logo");
   const noRule = flag("no-rule");
-  const logoPath = arg("logo", BRAND_LOGO)!;
+  const logoPath = arg("logo") || process.env.ART_LOGO;
 
   if (!title) {
     console.error("ERROR: --title is required");
     process.exit(1);
   }
 
-  const tmp = join(homedir(), "Downloads", `.smt-${process.pid}`);
+  const tmp = join(tmpdir(), `.smt-${process.pid}`);
   const cleanup: string[] = [];
   const base = `${tmp}-base.png`;
   cleanup.push(base);
@@ -219,7 +218,7 @@ function main(): void {
       }
     });
   } else if (mode === "overlay") {
-    // ---- OVERLAY (new STANDARD, refined 2026-06-28 per principal): the WHOLE background is a
+    // ---- OVERLAY: the WHOLE background is a
     //   custom topic art image (--bg, cover-fit). The serious face is LARGE, raised so the head
     //   sits near the TOP, and pulled toward center. The title sits HIGH in the TOP-LEFT inside
     //   a solid navy panel with an accent left bar + underline — a real text background with
@@ -228,7 +227,7 @@ function main(): void {
 
     // 1. big serious face. CRITICAL: trim the cutout to the subject FIRST — the raw headshot has
     //    headroom + shoulders slack, so scaling without trimming leaves the head small and
-    //    mid-frame (the 2026-06-28 "you didn't make my face bigger/higher" miss). Trim → the head
+    //    mid-frame. Trim so the head
     //    fills the box; scale by HEIGHT (width was the binding cap before); over-tall so the head
     //    reaches the very top; centered-right so the top-left text stays clear.
     if (face && face !== "none" && existsSync(face)) {
@@ -244,7 +243,7 @@ function main(): void {
       magick([base, faceR, "-gravity", faceSide === "right" ? "SouthEast" : "SouthWest", "-geometry", "-52+0", "-composite", base]);
     }
 
-    // 2. title HIGH in the TOP-LEFT — CLEAN: NO background panel, NO subtitle (principal
+    // 2. title HIGH in the TOP-LEFT. No background panel, no subtitle.
     //    2026-06-28: "don't like that background on the text, and you shouldn't have that subtext
     //    either"). Just the big white stacked title over the art, legible via a strengthened drop
     //    shadow only (no box). Multi-word titles auto-split into balanced stacked lines.
@@ -277,7 +276,7 @@ function main(): void {
     titlePt = fit.titlePt;
     overflowed = fit.overflowed;
 
-    const textStyle = arg("text-style", "shadow")!; // boxed | accent | shadow — principal locked SHADOW (2026-06-29)
+    const textStyle = arg("text-style", "shadow")!; // boxed | accent | shadow. Default shadow.
     const lineHs = lines.map((l) => Math.round(lineHeight(l.text, font, Math.round(titlePt * l.scale))));
     const gap = Math.round(titlePt * 0.16); // space between boxes so each is INDIVIDUAL
     const boxPadX = Math.round(titlePt * 0.2);
@@ -294,7 +293,7 @@ function main(): void {
         // PER-LETTER soft shadow (2026-06-29: "each individual letter needs the background, like a
         //   shadow background, not for the word"). A blurred dark copy of THIS line's glyphs
         //   (bordered so the blur has room) composited as a halo + a slight drop — each letter
-        //   carries its own shadow, NO boxes. Crisp white fill on top keeps the Hermes letterforms
+        //   carries its own shadow, NO boxes. Crisp white fill on top keeps the letterforms
         //   sharp (only the shadow is blurred, not the fill).
         const sh = `${tmp}-sh-${i}.png`;
         cleanup.push(sh);
@@ -305,7 +304,7 @@ function main(): void {
         drawLine(base, l, font, pt, zoneX, cursorY, "NorthWest");
       } else {
         // INDIVIDUAL background hugging THIS line's letters (not one block). boxed=near-black,
-        //   accent=brand blue. Crisp white text → the Hermes Maia 6 Caps letterforms read clean.
+        //   accent=brand blue. Crisp white text → the letterforms read clean.
         const fillc = textStyle === "accent" ? accent : "rgba(9,11,16,0.92)";
         const bx0 = zoneX - boxPadX, by0 = Math.round(cursorY) - boxPadTop;
         const bx1 = zoneX + lw + boxPadX, by1 = Math.round(cursorY) + lh + boxPadBot;
@@ -320,8 +319,7 @@ function main(): void {
     //   (white condensed title + subtitle + accent underline), a BIG face bottom-anchored on
     //   the face side with the head rising to just under the band, the plate/diagram showing in
     //   the body, node-logo top-right. The prior layout (small left text column + small low
-    //   face, all-accent title) did NOT match the real @unsupervised-learning solo control
-    //   (5-Levels) — principal called it out. ----
+    //   face, all-accent title) did not match the solo control. ----
     const marginX = 56;
     const bandH = Math.round(H * 0.32); // ≈230 navy title band, full width
 
@@ -383,7 +381,7 @@ function main(): void {
   //    Drawn BEFORE the logo so the logo sits cleanly inside the frame, not clipped by it.
   let bWidth = 0;
   if (!noBorder) {
-    let b = 30; // thicker outer outline (2026-06-29 principal: "make the blue outline thicker")
+    let b = 30;
     let bc: string = VARIANT_BORDER[variant] ?? "#316AE9";
     if (borderArg) {
       const [bw = "30", bcOverride] = borderArg.split(",");
@@ -395,8 +393,8 @@ function main(): void {
     magick([base, "-fill", bc, "-draw", `rectangle 0,0 ${W},${b}`, "-draw", `rectangle 0,${H - b} ${W},${H}`, "-draw", `rectangle 0,0 ${b},${H}`, "-draw", `rectangle ${W - b},0 ${W},${H}`, base]);
   }
 
-  // 5. logo top-right, cleared inside the border (the extracted "TI:" mark).
-  if (!noLogo && existsSync(logoPath)) {
+  // 5. optional logo top-right, inside the border. Skipped when no logo path is set.
+  if (!noLogo && logoPath && existsSync(logoPath)) {
     const logo = `${tmp}-logo.png`;
     cleanup.push(logo);
     magick([logoPath, "-resize", "x46", logo]);

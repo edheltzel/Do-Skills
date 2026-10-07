@@ -10,7 +10,7 @@ The page is not the skill and not a copy of `SKILL.md`. Its job is to orient one
 reader around one skill: what it does, when to reach for it, and where it sits
 among the others. Together the pages are a distributed map of the collection.
 
-Act whenever a promoted skill is added, renamed, moved, or has its behaviour changed: create or re-sync its docs page. After a frontmatter `name` or `description` change, also regenerate `README.md` with `bash skills/global/workflow/do-readme-update/update-readme.sh`. A rename moves the file; a skill moving between groups or scopes moves its docs file to the matching folder. A skill moving into a non-promoted group loses its page; one moving into a promoted group gains one.
+Act whenever a promoted skill is added, renamed, moved, or has its behaviour changed: create or re-sync its docs page. After a frontmatter `name` or `description` change, also regenerate `README.md` with `bash scripts/update-readme.sh`. A rename moves the file; a skill moving between groups or scopes moves its docs file to the matching folder. A skill moving into a non-promoted group loses its page; one moving into a promoted group gains one.
 
 ## Repo conventions
 

@@ -25,10 +25,8 @@ Add one or more commands to an existing CLI without breaking existing functional
 ### 1. Locate Existing CLI
 
 ```bash
-# Find CLI location
-ls -la ~/.agents/tools/[cli-name]/
-# or
-ls -la ~/Developer/[project]/
+# Directory the user named, or the current working directory
+ls -la "${CLI_DIR:-.}"
 ```
 
 ### 2. Read Current Structure

@@ -1,6 +1,5 @@
 #!/usr/bin/env bun
-// Normalize env path vars Claude Code may inject unexpanded — literal $HOME/${HOME}
-// in PROJECTS_DIR resolves to a shadow dir (#1404 / PR #1451, author jbmml).
+// Expand a literal $HOME a harness may inject into PROJECTS_DIR.
 for (const __k of ["PROJECTS_DIR"]) {
   const __v = process.env[__k];
   if (__v && /^\$\{?HOME\}?(\/|$)/.test(__v)) process.env[__k] = __v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
@@ -11,20 +10,19 @@ for (const __k of ["PROJECTS_DIR"]) {
  * generate-midjourney-image - Midjourney Image Generation CLI
  *
  * Generate images using Midjourney via Discord bot integration.
- * Follows llcli pattern for deterministic, composable CLI design.
- *
  * Usage:
  *   generate-midjourney-image --prompt "..." --aspect-ratio 16:9 --output /tmp/image.png
  *
- * @see ~/.agents/skills/do-art/SKILL.md
+ * @see <skill-dir>/SKILL.md
  */
 
-import { DiscordBotClient } from '../lib/discord-bot.js';
-import { MidjourneyClient, MidjourneyError } from '../lib/midjourney-client.js';
+import { DiscordBotClient } from '../Lib/discord-bot.js';
+import { MidjourneyClient, MidjourneyError } from '../Lib/midjourney-client.js';
 import { readFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
+import { homedir } from 'node:os';
+import { join, resolve } from 'node:path';
 
-// Normalize env path vars that Claude Code injects without shell expansion (shadow-dir env injection)
+// Expand a literal $HOME a harness may leave in PROJECTS_DIR
 for (const k of ["PROJECTS_DIR"]) {
   const v = process.env[k];
   if (v && /^\$\{?HOME\}?(\/|$)/.test(v)) process.env[k] = v.replace(/^\$\{?HOME\}?/, process.env.HOME ?? "~");
@@ -36,33 +34,34 @@ for (const k of ["PROJECTS_DIR"]) {
 // ============================================================================
 
 /**
- * Load environment variables from ~/.env
- * This ensures API keys are available regardless of how the CLI is invoked
+ * Optional env files. Process environment wins. Never required.
+ * Order: ./.env, then ${XDG_CONFIG_HOME:-~/.config}/do-art/.env
  */
 async function loadEnv(): Promise<void> {
-  const envPath = resolve(process.env.HOME!, '.env');
-  try {
-    const envContent = await readFile(envPath, 'utf-8');
-    for (const line of envContent.split('\n')) {
+  const xdg = process.env.XDG_CONFIG_HOME || join(homedir(), ".config");
+  const candidates = [resolve(".env"), join(xdg, "do-art", ".env")];
+  for (const envPath of candidates) {
+    let envContent: string;
+    try {
+      envContent = await readFile(envPath, "utf-8");
+    } catch {
+      continue;
+    }
+    for (const line of envContent.split("\n")) {
       const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith('#')) continue;
-      const eqIndex = trimmed.indexOf('=');
+      if (!trimmed || trimmed.startsWith("#")) continue;
+      const eqIndex = trimmed.indexOf("=");
       if (eqIndex === -1) continue;
       const key = trimmed.slice(0, eqIndex).trim();
       let value = trimmed.slice(eqIndex + 1).trim();
-      // Remove surrounding quotes if present
       if ((value.startsWith('"') && value.endsWith('"')) ||
           (value.startsWith("'") && value.endsWith("'"))) {
         value = value.slice(1, -1);
       }
-      // Only set if not already defined (allow overrides from shell)
-      if (!process.env[key]) {
-        process.env[key] = value;
-      }
+      if (!process.env[key]) process.env[key] = value;
     }
-  } catch (error) {
-    // Silently continue if .env doesn't exist - rely on shell env vars
   }
+
 }
 
 // ============================================================================
@@ -282,7 +281,7 @@ function parseArgs(args: string[]): CLIArgs {
 
 async function main() {
   try {
-    // Load API keys from ~/.env
+    // Load optional env files
     await loadEnv();
 
     // Parse arguments
@@ -294,13 +293,13 @@ async function main() {
 
     if (!botToken) {
       throw new CLIError(
-        'Missing DISCORD_BOT_TOKEN environment variable. Add it to ~/.env'
+        'Missing DISCORD_BOT_TOKEN. Set it in the environment, ./.env, or ${XDG_CONFIG_HOME:-~/.config}/do-art/.env'
       );
     }
 
     if (!channelId) {
       throw new CLIError(
-        'Missing MIDJOURNEY_CHANNEL_ID environment variable. Add it to ~/.env'
+        'Missing MIDJOURNEY_CHANNEL_ID. Set it in the environment, ./.env, or ${XDG_CONFIG_HOME:-~/.config}/do-art/.env'
       );
     }
 

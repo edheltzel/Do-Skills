@@ -2,26 +2,24 @@
 /**
  * PickExpression.ts — map content sentiment to a REAL expression-labeled headshot.
  *
- * The expression-matching requirement ("a face shot with an expression matching the
- * content") is a SELECTION problem over real photos, not a face-generation problem.
- * Ed already has 12 expression-labeled real headshots; using a real photo guarantees
- * photorealism and kills the "obviously-rendered Ed" slop tell on a channel whose
- * audience knows his real face.
+ * Map content sentiment to a real expression-labeled headshot.
+ * Pass --dir or set ART_HEADSHOT_DIR. There is no default folder.
  *
  * Usage:
- *   bun PickExpression.ts --sentiment skeptical
- *   bun PickExpression.ts --topic "Why this new AI hype is nonsense"
- *   bun PickExpression.ts --list
+ *   bun PickExpression.ts --dir ./headshots --sentiment skeptical
+ *   bun PickExpression.ts --dir ./headshots --topic "why this hype is nonsense"
+ *   bun PickExpression.ts --dir ./headshots --list
  *
  * Emits JSON: { sentiment, file, path, exists, alternatives }
  * Override the auto-pick anytime by passing --sentiment explicitly, or read the file
  * directly in the workflow if a more specific expression fits.
  */
 import { existsSync, readdirSync } from "node:fs";
-import { homedir } from "node:os";
 import { join } from "node:path";
 
-const DIR = join(homedir(), ".agents", "Assets", "headshots");
+function headshotDir(): string {
+  return arg("dir") || process.env.ART_HEADSHOT_DIR || "";
+}
 
 // sentiment -> headshot filename (without .png), with topic keywords that route to it.
 const MAP: Array<{ sentiment: string; file: string; keywords: string[] }> = [
@@ -41,15 +39,20 @@ function arg(name: string): string | undefined {
   return i >= 0 && i + 1 < process.argv.length ? process.argv[i + 1] : undefined;
 }
 
-function resolveFile(base: string): { file: string; path: string; exists: boolean } {
-  const path = join(DIR, `${base}.png`);
+function resolveFile(dir: string, base: string): { file: string; path: string; exists: boolean } {
+  const path = join(dir, `${base}.png`);
   return { file: `${base}.png`, path, exists: existsSync(path) };
 }
 
 function main(): void {
+  const dir = headshotDir();
+  if (!dir) {
+    console.error("Pass --dir or set ART_HEADSHOT_DIR. No default headshot folder.");
+    process.exit(2);
+  }
   if (process.argv.includes("--list")) {
-    const onDisk = existsSync(DIR) ? readdirSync(DIR).filter((f) => f.endsWith(".png")) : [];
-    console.log(JSON.stringify({ dir: DIR, map: MAP.map((m) => ({ sentiment: m.sentiment, file: `${m.file}.png` })), onDisk }, null, 2));
+    const onDisk = existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith(".png")) : [];
+    console.log(JSON.stringify({ dir, map: MAP.map((m) => ({ sentiment: m.sentiment, file: `${m.file}.png` })), onDisk }, null, 2));
     return;
   }
 
@@ -69,7 +72,7 @@ function main(): void {
 
   const pick = chosen ?? MAP[0]!; // default: neutral / headshot-clean
 
-  const r = resolveFile(pick.file);
+  const r = resolveFile(dir, pick.file);
   const alternatives = MAP.filter((m) => m.sentiment !== pick.sentiment).map((m) => ({ sentiment: m.sentiment, file: `${m.file}.png` }));
   console.log(JSON.stringify({ sentiment: pick.sentiment, file: r.file, path: r.path, exists: r.exists, alternatives }, null, 2));
   if (!r.exists) process.exit(2);

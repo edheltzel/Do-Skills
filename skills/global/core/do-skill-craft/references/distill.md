@@ -218,7 +218,7 @@ applies here, then point to the companion skill for depth.
 ```markdown
 Parse data at system boundaries into precise types — don't let raw/untyped data
 flow deep into business logic. For the full treatment of branded types, smart
-constructors, and the shotgun parsing anti-pattern, see the `parse-dont-validate` skill.
+constructors, and the shotgun parsing anti-pattern, see the `do-parse-dont-validate` skill.
 ```
 
 ## Source-Specific Tips

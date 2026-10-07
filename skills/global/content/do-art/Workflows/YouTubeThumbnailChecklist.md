@@ -8,7 +8,7 @@
 ### Phase 1: Reference Analysis
 
 ```
-□ Opened BOTH example thumbnails AND SPECIFICATIONS.md
+□ Opened the reference thumbnail the user supplied (skip this phase if they did not)
 □ Viewing example thumbnail in Preview/Finder at 100% size
 □ Identified which example thumbnail most closely matches this use case
 □ Screenshot or note exact colors from example using Digital Color Meter
@@ -101,7 +101,7 @@
 □ All sizes confirmed from measurement
 □ Kerning/letter-spacing values match example
 □ Layer order correct (background → art → headshot → text → border → logo)
-□ Output path is ~/Downloads/
+□ Output path is <preview>/
 □ Output filename includes timestamp
 ```
 
@@ -153,11 +153,9 @@
 ### Phase 4: Logo Validation
 
 ```
-□ Logo is present
-□ Logo matches example style (TI: mark, not UL logo)
-□ Logo size matches example (measure in pixels)
-□ Logo position matches example (measure from edges)
-□ Logo color correct for thumbnail type
+□ Logo is present only if the user passed --logo or ART_LOGO. If unset, no logo is correct
+□ When a logo was passed, size and position match the reference
+□ Logo color fits the thumbnail type
 ```
 
 ### Phase 5: Typography Validation
@@ -360,9 +358,9 @@ AFTER FIX → RERUN ENTIRE POST-GENERATION CHECKLIST
    - ✅ Measure exact Y positions from example
 
 9. **Wrong Logo**
-   - ❌ Using UL logo instead of TI: mark
-   - ❌ Wrong logo size or position
-   - ✅ Check example for exact logo style and placement
+   - Stamping a logo the user did not provide
+   - Wrong size or position when a logo was provided
+   - Match the reference only if they gave one
 
 10. **Insufficient Validation**
     - ❌ Calling thumbnail "done" without side-by-side comparison

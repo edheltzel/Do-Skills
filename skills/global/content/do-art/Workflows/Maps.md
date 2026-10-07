@@ -1,6 +1,6 @@
 # Conceptual Maps & Landscapes Workflow
 
-**Hand-drawn conceptual maps showing idea territories and domain landscapes using UL aesthetic.**
+**Hand-drawn conceptual maps showing idea territories and domain landscapes using editorial aesthetic.**
 Creates **CONCEPTUAL MAPS** — illustrated maps of idea territories, not geographic locations, with editorial hand-drawn style.
 
 ---
@@ -29,7 +29,7 @@ Conceptual maps visualize abstract territories, domains, and relationships as il
 3. **Hand-drawn** — Imperfect coastlines, wobbly borders, human quality
 4. **Metaphorical geography** — Physical features represent conceptual relationships
 5. **Labeled territories** — Clear naming of domains/concepts
-6. **Editorial style** — Flat colors, black linework, UL aesthetic
+6. **Editorial style** — Flat colors, black linework, editorial aesthetic
 7. **Navigable** — Helps understand the "lay of the land" in a field
 
 ---
@@ -294,7 +294,7 @@ CRITICAL REQUIREMENTS:
 - Navigable and understandable as conceptual geography
 - Editorial illustration aesthetic maintained
 
-Optional: Sign small in bottom corner in charcoal (#2D2D2D).
+Do not add a signature or other text in the prompt. If ART_SIGNATURE is set, stamp it after generation.
 ```
 
 ---
@@ -315,7 +315,7 @@ Optional: Sign small in bottom corner in charcoal (#2D2D2D).
 ### Step 5: Execute Generation
 
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=Maps \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \
@@ -342,7 +342,7 @@ open /path/to/conceptual-map.png
 - [ ] **Hand-drawn** — Wobbly coastlines, imperfect borders, human quality
 - [ ] **Strategic color** — Purple/teal on key territories (subtle fills)
 - [ ] **Navigable** — Helps understand relationships between concepts
-- [ ] **Editorial aesthetic** — Maintains UL flat color, black linework
+- [ ] **Editorial aesthetic** — Maintains flat color, black linework
 
 #### Must NOT Have
 - [ ] Perfect digital map (too clean)

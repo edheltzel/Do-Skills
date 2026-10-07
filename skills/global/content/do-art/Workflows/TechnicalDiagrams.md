@@ -49,13 +49,12 @@ When a diagram comes back bleached, thin, or pastel: regenerate immediately with
 The workflow template below includes a title + subtitle block. **Override this when the diagram is being used as a blog header where the page already has the title.** For blog headers specifically, remove the title and subtitle from the prompt entirely — the image is visual only. For standalone diagrams (slides, presentations, social images), include title + subtitle as the template specifies.
 
 
-# Example image
-# Ignore for now
-# ~/.agents/skills/do-art/WorkflowExamples/TechnicalDiagrams/example.png
-
 ---
 
-## Typography System (Butterick Fonts)
+## Typography System
+
+These are prompt descriptions of a look, not fonts the machine must have installed.
+
 
 **Three font families with specific visual characteristics:**
 
@@ -217,7 +216,7 @@ All the art components, labels, and such should mostly look hand-drawn, similar 
 ### Generate Command
 
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=TechnicalDiagrams \
   --model [SELECTED_MODEL] \
   --prompt "[PROMPT]" \

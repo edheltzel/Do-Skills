@@ -114,13 +114,13 @@ Topic context: [EXTRACTED TOPIC]
 ### Generate Command
 
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=AdHocYouTubeThumbnail \
   --model nano-banana-pro \
   --prompt "[BACKGROUND PROMPT]" \
   --size 2K \
   --aspect-ratio 16:9 \
-  --output ~/Downloads/yt-bg-$(date +%Y%m%d-%H%M%S).png
+  --output <preview>/yt-bg-$(date +%Y%m%d-%H%M%S).png
 ```
 
 ---
@@ -198,14 +198,14 @@ Rembrandt lighting pattern. Looking at camera. Ultra-tight crop on face only.
 ```bash
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 
-bun ~/.agents/skills/<your-headshot-skill>/Tools/Headshot.ts \
+bun <headshot-skill-dir>/Tools/Headshot.ts \
   --prompt "[FACE-ONLY HEADSHOT PROMPT]" \
-  --reference ~/.agents/skills/<your-headshot-skill>/Examples/reference.png \
-  --reference ~/.agents/skills/<your-headshot-skill>/Examples/studio-style.png \
-  --reference ~/.agents/skills/<your-headshot-skill>/Examples/clean-smile.png \
+  --reference <headshot-skill-dir>/Examples/reference.png \
+  --reference <headshot-skill-dir>/Examples/studio-style.png \
+  --reference <headshot-skill-dir>/Examples/clean-smile.png \
   --size 2K \
   --aspect-ratio 1:1 \
-  --output ~/Downloads/yt-headshot-${TIMESTAMP}.png
+  --output <preview>/yt-headshot-${TIMESTAMP}.png
 ```
 
 **Note:** Using 1:1 aspect ratio forces tighter face crop. ComposeThumbnail will also auto-crop to remove any remaining body.
@@ -213,7 +213,7 @@ bun ~/.agents/skills/<your-headshot-skill>/Tools/Headshot.ts \
 ### Remove Background
 
 ```bash
-bun ~/.agents/skills/do-art/Tools/RemoveBg.ts ~/Downloads/yt-headshot-${TIMESTAMP}.png
+bun <skill-dir>/Tools/RemoveBg.ts <preview>/yt-headshot-${TIMESTAMP}.png
 ```
 
 ---
@@ -225,14 +225,14 @@ bun ~/.agents/skills/do-art/Tools/RemoveBg.ts ~/Downloads/yt-headshot-${TIMESTAM
 ### Compose Command
 
 ```bash
-bun ~/.agents/skills/do-art/Tools/ComposeThumbnail.ts \
-  --background ~/Downloads/yt-bg-${TIMESTAMP}.png \
-  --headshot ~/Downloads/yt-headshot-${TIMESTAMP}.png \
+bun <skill-dir>/Tools/ComposeThumbnail.ts \
+  --background <preview>/yt-bg-${TIMESTAMP}.png \
+  --headshot <preview>/yt-headshot-${TIMESTAMP}.png \
   --title "[TITLE]" \
   --subtitle "[SUBTITLE]" \
   --title-color [cyan|purple|magenta|white|etc] \
   --position [left|center|right] \
-  --output ~/Downloads/yt-thumbnail-${TIMESTAMP}.png
+  --output <preview>/yt-thumbnail-${TIMESTAMP}.png
 ```
 
 ### Position Logic
@@ -278,15 +278,15 @@ bun ~/.agents/skills/do-art/Tools/ComposeThumbnail.ts \
 
 ```bash
 # 1. Verify dimensions
-magick identify -format "%wx%h" ~/Downloads/yt-thumbnail-${TIMESTAMP}.png
+magick identify -format "%wx%h" <preview>/yt-thumbnail-${TIMESTAMP}.png
 # Expected: 1280x720
 
 # 2. Open for visual inspection at full size
-open ~/Downloads/yt-thumbnail-${TIMESTAMP}.png
+open <preview>/yt-thumbnail-${TIMESTAMP}.png
 # Confirm: Face only (no body), text fills space, cyan color visible
 
 # 3. 🚨 MANDATORY: Test at YouTube thumbnail size
-magick ~/Downloads/yt-thumbnail-${TIMESTAMP}.png -resize 320x180 /tmp/yt-preview.png
+magick <preview>/yt-thumbnail-${TIMESTAMP}.png -resize 320x180 /tmp/yt-preview.png
 open /tmp/yt-preview.png
 # Confirm: Title READABLE, face RECOGNIZABLE, colors POP
 # If you can't read the title at 320x180 → FAIL
@@ -342,4 +342,4 @@ Dark base:        #1a1b26
 - Every generation is visibly different
 
 ### Output Location
-All outputs: `~/Downloads/yt-thumbnail-{timestamp}.png`
+All outputs: `<preview>/yt-thumbnail-{timestamp}.png`

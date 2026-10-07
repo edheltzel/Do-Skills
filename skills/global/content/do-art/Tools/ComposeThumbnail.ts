@@ -14,8 +14,25 @@
  */
 
 import { spawn } from "node:child_process";
-import { existsSync, unlinkSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { existsSync, mkdirSync, unlinkSync } from "node:fs";
+import { join, resolve, dirname } from "node:path";
+
+function previewDir(): string {
+  const fromEnv = process.env.ART_OUTPUT_DIR;
+  if (fromEnv) {
+    mkdirSync(fromEnv, { recursive: true });
+    return fromEnv;
+  }
+  const home = process.env.HOME;
+  if (home) {
+    const downloads = join(home, "Downloads");
+    if (existsSync(downloads)) return downloads;
+  }
+  const local = resolve("art-output");
+  mkdirSync(local, { recursive: true });
+  return local;
+}
+
 
 // ============================================================================
 // Types
@@ -44,7 +61,6 @@ const DEFAULTS = {
   borderColor: "#bb9af7",       // Tokyo Night Vivid Purple
   font: "Helvetica-Bold",       // System font that actually exists
   headshotPosition: "left" as const,
-  output: `${process.env.HOME}/Downloads/yt-thumbnail-${Date.now()}.png`,
 };
 
 const LAYOUT = {
@@ -105,7 +121,7 @@ function printHelp(): void {
 ComposeThumbnail - YouTube Thumbnail Composition CLI
 
 USAGE:
-  bun ~/.agents/skills/do-art/Tools/ComposeThumbnail.ts [OPTIONS]
+  bun <skill-dir>/Tools/ComposeThumbnail.ts [OPTIONS]
 
 REQUIRED:
   --background <path>     Background image (dramatic tech art)
@@ -114,7 +130,7 @@ REQUIRED:
   --subtitle <text>       Subtitle text (max 12 words, auto-capitalized)
 
 OPTIONAL:
-  --output <path>         Output path (default: ~/Downloads/yt-thumbnail-{timestamp}.png)
+  --output <path>         Output path (default: <preview>/yt-thumbnail-{timestamp}.png)
   --position <pos>        Headshot position: left, center, right (default: left)
   --font <name>           Font name (default: Helvetica-Bold)
   --title-color <hex>     Title color (default: #FFFFFF)
@@ -123,13 +139,13 @@ OPTIONAL:
   --help, -h              Show this help message
 
 EXAMPLE:
-  bun ~/.agents/skills/do-art/Tools/ComposeThumbnail.ts \\
-    --background ~/Downloads/tech-background.png \\
-    --headshot ~/Downloads/headshot-nobg.png \\
+  bun <skill-dir>/Tools/ComposeThumbnail.ts \\
+    --background <preview>/tech-background.png \\
+    --headshot <preview>/headshot-nobg.png \\
     --title "AI AGENTS KILLING SOFTWARE" \\
     --subtitle "WHY TRADITIONAL DEVELOPMENT IS DEAD" \\
     --position left \\
-    --output ~/Downloads/thumbnail.png
+    --output <preview>/thumbnail.png
 
 LAYOUT:
   Canvas:     1280x720 px
@@ -215,7 +231,7 @@ function parseArgs(args: string[]): CLIArgs {
     headshot: resolve(result.headshot),
     title: result.title.toUpperCase(),
     subtitle: result.subtitle.toUpperCase(),
-    output: result.output ? resolve(result.output) : DEFAULTS.output,
+    output: result.output ? resolve(result.output) : join(previewDir(), `yt-thumbnail-${Date.now()}.png`),
     titleColor: result.titleColor || DEFAULTS.titleColor,
     subtitleColor: result.subtitleColor || DEFAULTS.subtitleColor,
     borderColor: result.borderColor || DEFAULTS.borderColor,

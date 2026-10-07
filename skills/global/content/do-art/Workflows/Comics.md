@@ -1,7 +1,7 @@
 # Hand-Drawn Comics Workflow
 
-**Comic strips in UL editorial illustration style, NOT cartoonish.**
-Creates **EDITORIAL COMICS** — 3-4 panel storytelling with sophisticated hand-drawn aesthetic, maintaining UL flat color and black linework.
+**Comic strips in editorial illustration style, NOT cartoonish.**
+Creates **EDITORIAL COMICS** — 3-4 panel storytelling with sophisticated hand-drawn aesthetic, maintaining flat color and black linework.
 
 ---
 
@@ -25,7 +25,7 @@ Editorial comics use sequential panels to explain concepts, tell stories, or ill
 
 ### Core Characteristics
 1. **Multi-panel** — 3-4 panels telling sequential story
-2. **Editorial style** — Maintains UL flat color, black linework aesthetic
+2. **Editorial style** — Maintains flat color, black linework aesthetic
 3. **Simplified figures** — Characters stylized, not realistic or cutesy
 4. **Hand-drawn** — Imperfect linework, gestural quality
 5. **Narrative flow** — Panels build on each other to make a point
@@ -179,7 +179,7 @@ BACKGROUND: Light Cream (#F5E6D3) OR varied light tones per panel
 
 AESTHETIC:
 - Hand-drawn editorial style (NOT cartoonish or cute)
-- Flat color, black linework, UL palette
+- Flat color, black linework, editorial palette
 - Simplified but sophisticated character design
 - Variable stroke weight (thicker for outlines, thinner for details)
 - Gestural imperfect linework
@@ -271,10 +271,10 @@ CRITICAL REQUIREMENTS:
 - Minimal dialogue (visual storytelling prioritized)
 - Strategic purple/teal accents (not overwhelming color)
 - No gradients, flat colors only
-- Maintains UL aesthetic (black linework, flat color, imperfect)
+- Maintains editorial aesthetic (black linework, flat color, imperfect)
 - Smart insight or humor (sophisticated, not silly)
 
-Optional: Sign small in bottom right corner of final panel in charcoal (#2D2D2D).
+Do not add a signature or other text in the prompt. If ART_SIGNATURE is set, stamp it after generation.
 ```
 
 ---
@@ -296,7 +296,7 @@ Optional: Sign small in bottom right corner of final panel in charcoal (#2D2D2D)
 ### Step 5: Execute Generation
 
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=Comics \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \
@@ -324,7 +324,7 @@ open /path/to/comic.png
 - [ ] **Hand-drawn quality** — Imperfect linework, gestural
 - [ ] **Minimal backgrounds** — Simple, not busy
 - [ ] **Smart insight** — Punchline or point lands effectively
-- [ ] **UL aesthetic maintained** — Flat color, black linework
+- [ ] **editorial aesthetic maintained** — Flat color, black linework
 
 #### Character Validation (Planeform Aesthetic)
 - [ ] **Angular construction** — Bodies built from planes, NOT round forms
@@ -417,7 +417,7 @@ open /path/to/comic.png
 **Key Principle:**
 - **Sophisticated, not silly** — New Yorker style, editorial intelligence
 - **Visual storytelling** — Minimal dialogue, panels tell the story
-- **UL aesthetic** — Flat color, hand-drawn, imperfect
+- **editorial aesthetic** — Flat color, hand-drawn, imperfect
 
 ---
 

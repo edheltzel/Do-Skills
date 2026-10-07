@@ -1,31 +1,31 @@
 # Execute — run an existing plan against the board
 
-Lifecycle for implementing an **already-written** plan (a `.agents/atlas/plans/*.md` file or a project plan) while keeping the board in sync. Adapted from `execute.md`. **Runner-agnostic** — a dispatched worker or the operator directly can follow it. **Plan-aware:** it *consumes* an existing plan; it never derives one. (Deriving the plan is the planning phase, not this recipe's.)
+Lifecycle for implementing an **already-written** plan (a plan file in the repo or a project plan) while keeping the board in sync. Adapted from `execute.md`. **Runner-agnostic** — a dispatched worker or the operator directly can follow it. **Plan-aware:** it *consumes* an existing plan; it never derives one. (Deriving the plan is the planning phase, not this recipe's.)
 
 ## 0. Link to the issue + move to In Progress
 
 ```bash
 gh issue view NUMBER --repo OWNER/REPO            # read the issue + its AC
 
-# move the board item to In Progress (IDs from ProjectSetup.md)
+# move the board item to In Progress (IDs from `gh project field-list PROJECT_NUM --owner OWNER --format json`)
 ITEM_ID=$(gh project item-list PROJECT_NUM --owner OWNER --format json \
   --jq '.items[] | select(.content.number == NUMBER) | .id')
 gh project item-edit --project-id PROJECT_ID --id "$ITEM_ID" \
   --field-id STATUS_FIELD_ID --single-select-option-id IN_PROGRESS_OPTION_ID
 ```
 
-## 1. Pre-flight checks (bun, not npm)
+## 1. Pre-flight checks
+
+Use the package manager the repo's lockfile names (`bun.lock` -> bun, `pnpm-lock.yaml` -> pnpm, `package-lock.json` -> npm, and so on). Skip the dependency check for repos without one.
 
 ```bash
 git status --porcelain        # working tree should be clean
-bun pm ls 2>/dev/null | head  # deps present (skip for non-JS repos)
-test -f .env.local || test -f .env || echo "MISSING: env file"
 git branch --show-current
 ```
 
 - Dirty tree → stop and ask: stash, commit, or abort.
-- Missing deps → `bun install` and continue.
-- Missing env → stop and ask.
+- Missing deps → run the repo's install command and continue.
+- Env file the plan or README requires is missing → stop and ask.
 
 ## 2. Execute tasks in order
 
@@ -55,7 +55,7 @@ gh issue comment NUMBER --repo OWNER/REPO \
 
 ## 5. Hand off to commit
 
-Confirm: all plan tasks done, all validations pass, issue updated. The actual commit/close is a separate step (the repo's commit flow / `/commit`). Closing the issue happens with the commit, not here.
+Confirm: all plan tasks done, all validations pass, issue updated. The actual commit/close is a separate step (the repo's commit flow, or `do-commit` if installed). Closing the issue happens with the commit, not here.
 
 ## Anti-scope
 

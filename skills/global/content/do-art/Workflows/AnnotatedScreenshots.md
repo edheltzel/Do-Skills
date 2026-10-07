@@ -1,6 +1,6 @@
 # Annotated Screenshots Workflow
 
-**Real screenshots with hand-drawn editorial annotations, arrows, and highlights using UL aesthetic.**
+**Real screenshots with hand-drawn editorial annotations, arrows, and highlights using editorial aesthetic.**
 Creates **ANNOTATED SCREENSHOTS** — actual UI screenshots or code snippets with hand-drawn purple/teal commentary overlays.
 
 ---
@@ -28,7 +28,7 @@ Annotated screenshots combine real artifacts (UI, code, data) with hand-drawn ed
 3. **Typography mix** — Real UI text + hand-lettered annotations
 4. **Color accents** — Purple/teal for annotations against real screenshot
 5. **Editorial voice** — Annotations sound like smart commentary
-6. **Editorial style** — Maintains UL imperfect, gestural linework for overlays
+6. **Editorial style** — Maintains imperfect, gestural linework for overlays
 7. **Functional clarity** — Annotations enhance understanding, not just decoration
 
 ---
@@ -212,7 +212,7 @@ CRITICAL REQUIREMENTS:
 - Strategic color (not every annotation needs color)
 - No gradients on annotations
 
-Optional: Sign small in bottom corner in charcoal (#2D2D2D).
+Do not add a signature or other text in the prompt. If ART_SIGNATURE is set, stamp it after generation.
 ```
 
 ### Alternative: Composite Workflow
@@ -247,7 +247,7 @@ If generating combined image is difficult:
 
 **Option A: Generate combined (if model supports):**
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=AnnotatedScreenshots \
   --model nano-banana-pro \
   --reference-image /path/to/screenshot.png \

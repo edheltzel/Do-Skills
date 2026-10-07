@@ -5,14 +5,14 @@ purpose: Generate complete, production-ready TypeScript CLI from requirements
 
 # Create CLI Workflow
 
-**Generate production-quality TypeScript command-line interfaces following llcli pattern and CLI-First Architecture.**
+**Generate production-quality TypeScript command-line interfaces with manual parsing (Tier 1) and CLI-First Architecture.**
 ## 🎯 PURPOSE
 
 This workflow generates a complete, immediately usable TypeScript CLI tool with:
 
 - Full type safety and error handling
 - Comprehensive documentation (README + QUICKSTART)
-- Clean architecture (following llcli pattern)
+- Clean architecture (Tier 1 manual parsing unless the decision tree says otherwise)
 - Production-ready code
 - Quality validation gates
 
@@ -26,7 +26,7 @@ Activate this workflow when user requests:
 - "Build a command-line interface"
 - "Make a CLI that does X"
 - "Generate a CLI tool"
-- "I need something like llcli but for Y"
+- "I need a small typed CLI for Y"
 
 ---
 
@@ -49,7 +49,7 @@ START: User describes CLI requirements
 ├─ Does it need complex nested options? ────── YES → Tier 2 (Commander.js)
 │                                             NO  ↓
 │
-└─ Use Tier 1 (llcli-style) ← DEFAULT
+└─ Use Tier 1 (manual parsing) ← DEFAULT
    ↑
    └─ 80% of CLIs end up here
 ```
@@ -82,7 +82,8 @@ START: User describes CLI requirements
 
 **Extract from user request:**
 
-- CLI name (kebab-case, e.g., `ghcli`, `md2html`)
+- CLI name (kebab-case, e.g., `gh-api`, `md-convert`)
+- Output directory (path the user gave; default `./<cli-name>/` in the current working directory)
 - Purpose (one-sentence description)
 - Commands needed (list each command with arguments)
 - API/service being wrapped (if applicable)
@@ -96,7 +97,7 @@ START: User describes CLI requirements
 - "What API or service does this wrap?"
 - "What are the main commands you need?"
 - "How should it authenticate?"
-- "Where should the CLI be installed?" (personal bin, project-specific, etc.)
+- "Where should the CLI be created?" (default: a new folder in the current working directory)
 
 **Example extraction:**
 
@@ -105,6 +106,7 @@ User: "Create a CLI for the GitHub API"
 
 Extracted:
 - Name: ghcli
+- Output directory: ./ghcli/
 - Purpose: GitHub API Command-Line Interface
 - Commands: repos (list), issues (create, list), search
 - API: api.github.com
@@ -180,7 +182,7 @@ interface Config {
 
 ### Step 4: Generate Configuration Section
 
-**Pattern from llcli:**
+**Process environment first. Optional files: `./.env`, then `${XDG_CONFIG_HOME:-~/.config}/<cli-name>/.env` (or `config.json` in that directory). Do not read a harness config directory or a dotenv in the home directory.**
 
 ```typescript
 // ============================================================================
@@ -194,25 +196,26 @@ const DEFAULTS = {
 } as const;
 
 /**
- * Load configuration from environment
+ * Load configuration from the environment, then optional dotenv files
  */
 function loadConfig(): Config {
-  const envPath = process.env.CLAUDE_CONFIG_DIR
-    ? join(process.env.CLAUDE_CONFIG_DIR, '.env')
-    : join(homedir(), '.agents', '.env');
-  let fileValue: string | undefined;
-
-  if (existsSync(envPath)) {
-    fileValue = readFileSync(envPath, 'utf-8')
-      .split('\n')
-      .find(line => line.startsWith('{{ENV_VAR_NAME}}='))
-      ?.slice('{{ENV_VAR_NAME}}='.length)
-      .trim();
-  }
+  // requires: existsSync, readFileSync from 'node:fs'; homedir from 'node:os'; join from 'node:path'
+  const configHome = process.env.XDG_CONFIG_HOME || join(homedir(), '.config');
+  const fileEnv = join(configHome, '{{CLI_NAME}}', '.env');
+  const fileValue = [join(process.cwd(), '.env'), fileEnv]
+    .filter(existsSync)
+    .map(path =>
+      readFileSync(path, 'utf-8')
+        .split('\n')
+        .find(line => line.startsWith('{{ENV_VAR_NAME}}='))
+        ?.slice('{{ENV_VAR_NAME}}='.length)
+        .trim(),
+    )
+    .find(value => value);
 
   const apiKey = process.env.{{ENV_VAR_NAME}} || fileValue;
   if (!apiKey) {
-    console.error('Error: {{ENV_VAR_NAME}} is not set in the environment or ~/.agents/.env');
+    console.error('Error: {{ENV_VAR_NAME}} is not set. Export it, or add it to ./.env or ' + fileEnv);
     process.exit(1);
   }
 
@@ -319,7 +322,7 @@ async function {{commandName}}(
 
 ### Step 6: Generate Help Documentation
 
-**Comprehensive help text following llcli pattern:**
+**Help text the user can act on:**
 
 ```typescript
 // ============================================================================
@@ -366,7 +369,7 @@ PHILOSOPHY:
   - Documented: Full help and examples
   - Testable: Predictable behavior
 
-For more information, see ~/.agents/tools/{{CLI_NAME}}/README.md
+For more information, see README.md in this directory
 
 Version: 1.0.0
 `);
@@ -437,7 +440,7 @@ main().catch((error) => {
 
 ### Step 8: Generate Documentation Files
 
-**README.md structure (following llcli):**
+**README.md structure:**
 
 ```markdown
 # {{CLI_NAME}} - {{CLI_DESCRIPTION}}
@@ -533,7 +536,7 @@ main().catch((error) => {
 
 ## Full Documentation
 
-See: ~/.agents/tools/{{CLI_NAME}}/README.md
+See: README.md
 ```
 
 ---
@@ -585,7 +588,8 @@ See: ~/.agents/tools/{{CLI_NAME}}/README.md
 **.env.example:**
 
 ```bash
-# {{CLI_NAME}} Configuration
+# {{CLI_NAME}} configuration
+# Process environment wins. Optional file: ./.env or ${XDG_CONFIG_HOME:-~/.config}/{{CLI_NAME}}/.env
 {{ENV_VAR_NAME}}=your_{{TOKEN_TYPE}}_here
 ```
 
@@ -601,10 +605,12 @@ See: ~/.agents/tools/{{CLI_NAME}}/README.md
 4. ✅ README is comprehensive
 5. ✅ File permissions set (chmod +x)
 
+Write files to `{{OUTPUT_DIR}}`: the path the user gave, otherwise `./{{CLI_NAME}}/` in the current working directory.
+
 **Validation Commands:**
 
 ```bash
-cd ~/.agents/tools/{{CLI_NAME}}/
+cd {{OUTPUT_DIR}}
 chmod +x {{CLI_NAME}}.ts
 ./{{CLI_NAME}}.ts --help
 ./{{CLI_NAME}}.ts --version
@@ -613,7 +619,7 @@ chmod +x {{CLI_NAME}}.ts
 **Report to user:**
 
 ```
-✅ CLI Created: ~/.agents/tools/{{CLI_NAME}}/
+✅ CLI Created: {{OUTPUT_DIR}}/
 
 Files generated:
 - {{CLI_NAME}}.ts ({{LINE_COUNT}} lines)
@@ -624,11 +630,11 @@ Files generated:
 - QUICKSTART.md
 
 Next steps:
-1. Configure: export {{ENV_VAR_NAME}} or add it to ~/.agents/.env
+1. Configure: export {{ENV_VAR_NAME}}, or add it to ./.env or ${XDG_CONFIG_HOME:-~/.config}/{{CLI_NAME}}/.env
 2. Test: ./{{CLI_NAME}}.ts --help
 3. Use: ./{{CLI_NAME}}.ts {{EXAMPLE_COMMAND}}
 
-Documentation: ~/.agents/tools/{{CLI_NAME}}/README.md
+Documentation: {{OUTPUT_DIR}}/README.md
 ```
 
 ---
@@ -641,10 +647,10 @@ Documentation: ~/.agents/tools/{{CLI_NAME}}/README.md
 **Generated Output:**
 
 ```
-✅ CLI Created: ~/.agents/tools/notioncli/
+✅ CLI Created: ./notioncli/
 
 Files generated:
-- notioncli.ts (342 lines)
+- notioncli.ts
 - package.json
 - tsconfig.json
 - .env.example (NOTION_API_KEY)
@@ -658,12 +664,12 @@ Commands available:
 - notioncli --help                       # Show full help
 
 Next steps:
-1. Export NOTION_API_KEY=your_key or add it to ~/.agents/.env
+1. Export NOTION_API_KEY=your_key, or add it to ./.env or ${XDG_CONFIG_HOME:-~/.config}/notioncli/.env
 2. Test: notioncli databases
-3. Read: ~/.agents/tools/notioncli/README.md
+3. Read: ./notioncli/README.md
 
-The CLI follows llcli pattern with type safety, error handling,
-and comprehensive documentation.
+The CLI uses Tier 1 manual parsing, with type safety, error handling,
+and documentation.
 ```
 
 ---
@@ -672,13 +678,11 @@ and comprehensive documentation.
 
 **After creating CLI:**
 
-- `add-command.md` - Add more commands to existing CLI
-- `add-testing.md` - Generate test suite
-- `setup-distribution.md` - Setup npm publishing or binary distribution
+- [AddCommand.md](AddCommand.md) - Add more commands to an existing CLI
 
 **Escalation:**
 
-- `upgrade-tier.md` - Migrate from Tier 1 → Tier 2 if CLI grows complex
+- [UpgradeTier.md](UpgradeTier.md) - Migrate from Tier 1 to Tier 2 if the CLI grows
 
 ---
 
@@ -765,9 +769,9 @@ Show real usage examples, not just flag descriptions.
 
 Run `--help` and version command before reporting success.
 
-### 8. **Follow llcli Pattern**
+### 8. **Follow the Tier 1 shape**
 
-Use proven structure from ~/.agents/tools/llcli/ as reference.
+One file, typed config, manual argv parsing, JSON on stdout, help text that matches the commands.
 
 ---
 
@@ -821,13 +825,13 @@ Before reporting CLI as complete, verify:
 - [ ] JSON output valid (test with `| jq empty`)
 - [ ] Configuration loaded from expected location
 - [ ] CLI name is kebab-case
-- [ ] Follows llcli structure pattern
+- [ ] Follows the Tier 1 shape (or Tier 2 if the decision tree said so)
 
 ### Workflow Integration
 
 - [ ] If this CLI will be called by workflows, document the intent-to-flag mapping pattern
-- [ ] Flag names match standard conventions (see CliFirstArchitecture.md)
+- [ ] Flag names are consistent in --help, README, and command handlers
 
 ---
 
-**This workflow generates production-ready CLIs that work immediately, following the proven llcli pattern and CLI-First Architecture principles.**
+**This workflow generates a CLI that runs immediately, using manual parsing and CLI-First Architecture.**
