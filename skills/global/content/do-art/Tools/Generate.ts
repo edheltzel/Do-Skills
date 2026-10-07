@@ -692,7 +692,7 @@ function enhancePromptForTransparency(prompt: string): string {
 // Background Removal
 // ============================================================================
 
-import { exec } from "node:child_process";
+import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 
 // Expand a literal $HOME a harness may leave in PROJECTS_DIR
@@ -702,7 +702,8 @@ for (const k of ["PROJECTS_DIR"]) {
 }
 
 
-const execAsync = promisify(exec);
+// Argument arrays, never a shell string: paths and env values reach ImageMagick verbatim.
+const execFileAsync = promisify(execFile);
 
 // ============================================================================
 // Background Operations
@@ -717,10 +718,8 @@ async function addBackgroundColor(inputPath: string, outputPath: string, hexColo
 
   // Use ImageMagick to composite the transparent image onto a colored background
   // -background sets the fill color, -flatten composites onto that background
-  const command = `magick "${inputPath}" -background "${hexColor}" -flatten "${outputPath}"`;
-
   try {
-    await execAsync(command);
+    await execFileAsync("magick", [inputPath, "-background", hexColor, "-flatten", outputPath]);
     console.log(`✅ Thumbnail saved to ${outputPath}`);
   } catch (error) {
     throw new CLIError(`Failed to add background color: ${error instanceof Error ? error.message : String(error)}`);
@@ -731,7 +730,7 @@ async function addBackgroundColor(inputPath: string, outputPath: string, hexColo
 async function stampSignature(imagePath: string, name: string): Promise<void> {
   let pointsize = 31;
   try {
-    const { stdout } = await execAsync(`identify -format "%w" "${imagePath}"`);
+    const { stdout } = await execFileAsync("identify", ["-format", "%w", imagePath]);
     const width = parseInt(stdout.trim(), 10);
     if (Number.isFinite(width) && width > 0) {
       pointsize = Math.max(20, Math.round(width * 0.03));
@@ -740,16 +739,21 @@ async function stampSignature(imagePath: string, name: string): Promise<void> {
     // fall back to 31pt
   }
 
-  const font = process.env.ART_SIGNATURE_FONT?.replace(/"/g, "");
-  const safeName = name.replace(/"/g, "");
-  const fontArg = font ? `-font "${font}" ` : "";
-  const command =
-    `magick "${imagePath}" -gravity SouthEast ` +
-    `${fontArg}-pointsize ${pointsize} -fill "rgba(55,45,38,0.55)" ` +
-    `-annotate 352x352+44+30 "${safeName}" "${imagePath}"`;
+  const font = process.env.ART_SIGNATURE_FONT;
+  // ImageMagick reads `-annotate @file` as a file path; escape a leading @ so the text stays literal.
+  const text = name.startsWith("@") ? `\\${name}` : name;
+  const args = [
+    imagePath,
+    "-gravity", "SouthEast",
+    ...(font ? ["-font", font] : []),
+    "-pointsize", String(pointsize),
+    "-fill", "rgba(55,45,38,0.55)",
+    "-annotate", "352x352+44+30", text,
+    imagePath,
+  ];
 
   try {
-    await execAsync(command);
+    await execFileAsync("magick", args);
     console.log("Signature stamped");
   } catch (error) {
     throw new CLIError(
