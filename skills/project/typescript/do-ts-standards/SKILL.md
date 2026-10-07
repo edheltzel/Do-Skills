@@ -1,9 +1,9 @@
 ---
 name: do-ts-standards
-description: Correct-by-construction TypeScript and Effect standards. Use for TypeScript engineering, Effect code, or when another skill needs the user's coding standards.
+description: Correct-by-construction TypeScript standards. Use for TypeScript engineering, or when another skill needs the user's coding standards.
 ---
 
-# TypeScript and Effect Coding Standards
+# TypeScript Coding Standards
 
 Build **correct by construction**: parse data into meaningful types, make expected failures explicit, keep effects behind cohesive services, and test through real interfaces.
 
@@ -44,8 +44,7 @@ Trace each caller-visible operation from input through every decision and effect
 
 Read every applicable reference completely before designing the change:
 
-- [`references/effect.md`](references/effect.md) — whenever Effect code changes; follow its branch pointers before editing.
-- [`references/effect-alchemy.md`](references/effect-alchemy.md) — when an Alchemy Worker, Durable Object, Workflow, binding-backed service, or two-phase runtime composition changes.
+- For Effect code, also use the `do-backend` skill (its Effect guide).
 - [`references/errors.md`](references/errors.md) — when behavior can fail or absence may be ordinary.
 - [`references/sensitive-data-and-observability.md`](references/sensitive-data-and-observability.md) — when behavior handles secrets, personal data, logging, tracing, metrics, or error reporting.
 - [`references/parsing-and-schemas.md`](references/parsing-and-schemas.md) — when data crosses an external/serialized edge, a schema changes, or protocol/persistence representations are designed.

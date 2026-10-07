@@ -2,11 +2,11 @@
 
 Use this reference when changing an Alchemy Worker, Durable Object, Workflow, binding-backed service, or other two-phase Effectful Constructor.
 
-Also apply [`effect-services.md`](effect-services.md) for service and Layer ownership, [`configuration-and-resources.md`](configuration-and-resources.md) for lifetimes, and [`modules-services-and-adapters.md`](modules-services-and-adapters.md) for composition-root boundaries.
+Also apply [`services.md`](services.md) for service and Layer ownership. Apply the `do-ts-standards` skill for lifetimes and composition-root boundaries.
 
 ## Verify the pinned Alchemy model
 
-Read the pinned Alchemy documentation and source before choosing a composition shape. In particular, verify the Effectful Constructor, init/runtime phases, Layers, bindings, and the relevant runtime class. Prefer the repository's vendored Alchemy checkout over remembered APIs.
+Read the pinned Alchemy documentation and source before choosing a composition shape. In particular, verify the Effectful Constructor, init and runtime phases, Layers, bindings, and the relevant runtime class. Prefer the repository's vendored Alchemy checkout over remembered APIs.
 
 ## Compose through the outer Effect
 
@@ -19,23 +19,23 @@ Provide infrastructure-backed application Layers to the outer Effect, then yield
 
 ```ts
 Effect.gen(function* () {
-  const dependency = yield* ApplicationDependency;
+  const dependency = yield* ApplicationDependency
 
   return {
     fetch: requestHandler(dependency),
-  };
-}).pipe(Effect.provide(applicationDependencyLayer));
+  }
+}).pipe(Effect.provide(applicationDependencyLayer))
 ```
 
-Do not bypass an existing Layer by yielding its exported `makeApplicationDependency` construction Effect directly from the composition root. The Layer is the implementation choice and preserves dependency wiring, acquisition semantics, memoization, and substitution.
+Do not bypass an existing Layer by yielding its exported `make` construction Effect directly from the composition root. The Layer is the implementation choice and preserves dependency wiring, acquisition semantics, memoization, and substitution.
 
 When an inner runtime Layer needs an outer-initialized service, bridge the captured value with `Layer.succeed`:
 
 ```ts
-const dependency = yield* ApplicationDependency;
+const dependency = yield* ApplicationDependency
 const handlersLayer = handlersLayerWithoutDependencies.pipe(
   Layer.provide(Layer.succeed(ApplicationDependency, dependency)),
-);
+)
 ```
 
 This value bridge is distinct from providing the infrastructure-backed Layer to the inner runtime Layer. Providing that Layer only inside the returned runtime Effect may incorrectly defer deploy-time binding registration or require init-only Alchemy services where they are unavailable.

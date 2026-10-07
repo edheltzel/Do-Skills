@@ -57,7 +57,7 @@ Plain functions, immutable value classes, and static-style classes are all valid
 
 An Application Service owns one cohesive application operation or capability. Use one when behavior coordinates authorization, domain decisions, persistence, external calls, transactions, messages, time, IDs, telemetry, or multiple entrypoints.
 
-Design a meaningful service from its explicit interface first. In plain TypeScript, use a service interface and implementation class. When an Effect service, tag, `make`, Layer, or dependency requirement changes, read and apply [`effect-services.md`](effect-services.md). Reserve service interfaces for helpers that own an application capability.
+Design a meaningful service from its explicit interface first. In plain TypeScript, use a service interface and implementation class. When an Effect service, tag, `make`, Layer, or dependency requirement changes, also use the `do-backend` skill (its Effect guide). Reserve service interfaces for helpers that own an application capability.
 
 An Application Service:
 

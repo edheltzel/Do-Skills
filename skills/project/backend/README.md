@@ -1,6 +1,6 @@
 # Backend
 
-Backend services and review - Effect service design, and code review for Go, Python, and Rust.
+Backend engineering - Effect (TypeScript) services and code, and review for Effect, Go, Python, and Rust.
 
 ## Installation
 
@@ -20,8 +20,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 
 | Skill | Description |
 |-------|-------------|
-| [`do-backend`](./do-backend/) | Backend code review for Go, Python, and Rust. |
-| [`do-effect-service-design`](./do-effect-service-design/) | Design Effect services. |
+| [`do-backend`](./do-backend/) | Backend engineering for Effect (TypeScript), Go, Python, and Rust - write, design, and review Effect services and code, and review Go, Python, and Rust changes. |
 
 ## See Also
 

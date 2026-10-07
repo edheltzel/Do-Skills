@@ -84,10 +84,9 @@
     },
     {
       "title": "Project: Backend",
-      "description": "Backend services and review - Effect service design, and code review for Go, Python, and Rust.",
+      "description": "Backend engineering - Effect (TypeScript) services and code, and review for Effect, Go, Python, and Rust.",
       "skills": [
-        "do-backend",
-        "do-effect-service-design"
+        "do-backend"
       ]
     },
     {

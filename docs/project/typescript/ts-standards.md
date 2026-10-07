@@ -1,4 +1,4 @@
-# TypeScript and Effect Coding Standards
+# TypeScript Coding Standards
 
 Quickstart:
 
@@ -14,10 +14,9 @@ npx skills update do-ts-standards
 
 ## What it does
 
-This skill provides a correct-by-construction method for changing TypeScript and
-Effect code: establish local rules, trace caller-visible behavior, design public
-types and services, implement the complete change, then verify through public
-interfaces.
+This skill provides a correct-by-construction method for changing TypeScript:
+establish local rules, trace caller-visible behavior, design public types and
+services, implement the complete change, then verify through public interfaces.
 
 Its defining constraint is that expected failures are explicit values and
 external data is parsed into meaningful application or domain types before it
@@ -26,12 +25,12 @@ reaches inner code.
 ## When to reach for it
 
 Type `/do-ts-standards`, or the agent reaches for it automatically when a
-TypeScript or Effect change needs the project's engineering standards.
+TypeScript change needs the project's engineering standards.
 
-Reach for it when a change crosses types, errors, effects, services, schemas,
-or tests and needs a coherent end-to-end design. For a narrower boundary-first
-approach to untrusted data, use
-[parse-dont-validate](./parse-dont-validate.md); for general
+Reach for it when a change crosses types, errors, services, schemas, or tests
+and needs a coherent end-to-end design. For Effect code, use
+[backend](../backend/backend.md) (its Effect guide). For a narrower boundary-first approach to
+untrusted data, use [parse-dont-validate](./parse-dont-validate.md); for general
 TypeScript authoring style, use [write-typescript](./write-typescript.md).
 
 ## The changed-behavior loop
@@ -48,8 +47,6 @@ meaningful complexity into callers, not merely remove a name.
 
 ## Where it fits
 
-This is the broad engineering baseline for TypeScript and Effect changes. It
-sets the standards that a focused service-design effort can apply to an Effect
-capability with [effect-service-design](../backend/effect-service-design.md),
-while [typescript-refactoring](./typescript-refactoring.md) focuses
-on reshaping existing TypeScript code.
+This is the broad engineering baseline for TypeScript changes. Effect code also
+uses [backend](../backend/backend.md) (its Effect guide). [typescript-refactoring](./typescript-refactoring.md)
+focuses on reshaping existing TypeScript code.

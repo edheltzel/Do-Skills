@@ -2,7 +2,7 @@
 
 At startup or the earliest composition boundary, read environment and runtime configuration once, parse it into typed values, and pass those values inward.
 
-Apply [`errors.md`](errors.md) to configuration failures and [`sensitive-data-and-observability.md`](sensitive-data-and-observability.md) to credentials and other sensitive configuration. For Effect configuration, resources, time, or randomness, apply [`effect.md`](effect.md) and every matching branch.
+Apply [`errors.md`](errors.md) to configuration failures and [`sensitive-data-and-observability.md`](sensitive-data-and-observability.md) to credentials and other sensitive configuration. For Effect configuration, resources, time, or randomness, also use the `do-backend` skill (its Effect guide).
 
 Entrypoints/bootstrap own top-level side effects and each resource's acquisition, lifetime, and release. Keep every other module's imports inert: start servers, open connections, read environment variables, register handlers, and perform top-level I/O only in true entrypoints.
 

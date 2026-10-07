@@ -55,7 +55,7 @@ Expected failures use custom tagged errors, generally extending:
 
 - `Error`;
 - `TaggedError` from `better-result`;
-- `Schema.TaggedErrorClass` in Effect codebases.
+- `Schema.TaggedError` in Effect codebases; use the `do-backend` skill (its Effect guide) for the constructor.
 
 A custom error includes:
 

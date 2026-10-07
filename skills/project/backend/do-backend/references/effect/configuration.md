@@ -1,8 +1,8 @@
 # Effect configuration
 
-This reference covers Effect `Config` recipes, providers, and config-backed Layers. For configuration ownership, startup failure handling, and resource lifecycle, also apply [`configuration-and-resources.md`](configuration-and-resources.md).
+This reference covers Effect `Config` recipes, providers, and config-backed Layers. For configuration ownership, startup failure handling, and resource lifecycle, also apply the `do-ts-standards` skill.
 
-Install environment-backed providers at the composition root, then read typed runtime configuration through Effect `Config` recipes.
+Install environment-backed providers at the composition root, then read typed runtime configuration through Effect `Config` recipes. Constructors are `Config.String`, `Config.Boolean`, and `Config.Redacted`. The v3 names `Config.string`, `Config.boolean`, and `Config.redacted` do not exist.
 
 ```ts
 export const dataDirectoryConfig = Config.schema(
@@ -13,9 +13,9 @@ export const dataDirectoryConfig = Config.schema(
 export const layerFromEnvironment = Layer.effect(
   Configuration.Service,
   Effect.gen(function* () {
-    const apiKey = yield* Config.redacted("API_KEY")
-    const optionalModel = yield* Config.option(Config.string("MODEL"))
-    const enabled = yield* Config.boolean("FEATURE_ENABLED").pipe(
+    const apiKey = yield* Config.Redacted("API_KEY")
+    const optionalModel = yield* Config.option(Config.String("MODEL"))
+    const enabled = yield* Config.Boolean("FEATURE_ENABLED").pipe(
       Config.withDefault(false),
     )
 
@@ -24,12 +24,12 @@ export const layerFromEnvironment = Layer.effect(
 )
 ```
 
-## Config Recipes
+## Config recipes
 
 - `Config<T>` is yieldable and reads the current `ConfigProvider` reference.
 - The default provider is `ConfigProvider.fromEnv()`.
-- Use `Config.redacted(...)` for credentials.
-- Use `Config.schema(...)` or `Config.mapOrFail(...)` for refined values.
+- Use `Config.Redacted(...)` for credentials.
+- Use `Config.schema(...)` for refined values. Use `Config.mapEffect(...)` when a parsed value needs an effectful check. The failure must be `ConfigError`. `Config.mapOrFail` does not exist.
 - Use `Config.option(...)` for semantic absence.
 - Use `Config.withDefault(...)` for missing-data defaults only; malformed values still fail.
 - `Config.orElse(...)` catches any config parse failure; use it when every such failure should select the fallback.
@@ -43,9 +43,9 @@ export const layerFromEnvironment = Layer.effect(
 - Use `ConfigProvider.constantCase` when camelCase schema keys should read `SCREAMING_SNAKE_CASE` env vars.
 - Use `ConfigProvider.nested(...)` to scope a provider under a prefix.
 
-For tests that supply configuration, follow [`effect-testing.md#config-in-tests`](effect-testing.md#config-in-tests).
+For tests that supply configuration, follow [`testing.md`](testing.md#configuration).
 
-## Layer Config Helpers
+## Layer config helpers
 
 A `layerConfig(options: Config.Wrap<Options>)` helper earns its place when callers need to compose runtime `Config` recipes. Keep `layer(options)` as the concrete constructor for callers that already have decoded options.
 
@@ -66,4 +66,4 @@ Expose only the constructor forms required by actual callers.
 
 ## Completion check
 
-Every runtime value is decoded through a typed `Config` recipe; credentials use `Config.redacted`; defaults distinguish missing values from malformed values; every `Config.orElse` fallback intentionally covers all parse failures; provider replacement, fallback, and precedence are explicit; every `layerConfig` has a caller that composes `Config` recipes; and configuration tests follow the linked testing strategy.
+Every runtime value is decoded through a typed `Config` recipe; credentials use `Config.Redacted`; defaults distinguish missing values from malformed values; every `Config.orElse` fallback intentionally covers all parse failures; provider replacement, fallback, and precedence are explicit; every `layerConfig` has a caller that composes `Config` recipes; and configuration tests follow the linked testing strategy.
