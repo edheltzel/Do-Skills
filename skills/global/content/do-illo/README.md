@@ -318,15 +318,17 @@ stray titles, fresh metaphor every time), and aspect ratios cover article
 - Image models approximate exact colors; the skill eyedrops and re-rolls
   off-target palettes.
 
-## In this repo
+## Upstream repo
 
-The skill lives in this directory (`skills/illo/`). Installers copy it
-verbatim, so only what every install should ship belongs here. Docs-only
-images live in [`_assets/illo/`](../../../_assets/illo/) at the repo root
-(linked by raw URL). Proven explainer renders used on the repo README are in
-[`docs/examples/`](../../../docs/examples/). Plugin manifests sit at the repo
-root (`.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`,
-`.grok-plugin/`, `gemini-extension.json`).
+This is a vendored copy of the skill from
+[tmchow/illo-skill](https://github.com/tmchow/illo-skill), where it lives at
+`skills/illo/`. Installers copy it verbatim, so only what every install should
+ship belongs here. Docs-only images live upstream in
+[`_assets/illo/`](https://github.com/tmchow/illo-skill/tree/main/_assets/illo)
+(linked by raw URL). Proven explainer renders are in upstream
+[`docs/examples/`](https://github.com/tmchow/illo-skill/tree/main/docs/examples).
+Plugin manifests sit at the upstream repo root (`.claude-plugin/`,
+`.codex-plugin/`, `.cursor-plugin/`, `.grok-plugin/`, `gemini-extension.json`).
 
 ## License & credit
 
