@@ -29,7 +29,7 @@ TypeScript change needs the project's engineering standards.
 
 Reach for it when a change crosses types, errors, services, schemas, or tests
 and needs a coherent end-to-end design. For Effect code, use
-[effect](../backend/effect.md). For a narrower boundary-first approach to
+[backend](../backend/backend.md) (its Effect guide). For a narrower boundary-first approach to
 untrusted data, use [parse-dont-validate](./parse-dont-validate.md); for general
 TypeScript authoring style, use [write-typescript](./write-typescript.md).
 
@@ -48,5 +48,5 @@ meaningful complexity into callers, not merely remove a name.
 ## Where it fits
 
 This is the broad engineering baseline for TypeScript changes. Effect code also
-uses [effect](../backend/effect.md). [typescript-refactoring](./typescript-refactoring.md)
+uses [backend](../backend/backend.md) (its Effect guide). [typescript-refactoring](./typescript-refactoring.md)
 focuses on reshaping existing TypeScript code.

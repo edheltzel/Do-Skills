@@ -44,7 +44,7 @@ Trace each caller-visible operation from input through every decision and effect
 
 Read every applicable reference completely before designing the change:
 
-- For Effect code, also use the `do-effect` skill.
+- For Effect code, also use the `do-backend` skill (its Effect guide).
 - [`references/errors.md`](references/errors.md) — when behavior can fail or absence may be ordinary.
 - [`references/sensitive-data-and-observability.md`](references/sensitive-data-and-observability.md) — when behavior handles secrets, personal data, logging, tracing, metrics, or error reporting.
 - [`references/parsing-and-schemas.md`](references/parsing-and-schemas.md) — when data crosses an external/serialized edge, a schema changes, or protocol/persistence representations are designed.
