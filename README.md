@@ -59,7 +59,7 @@ Useful in any repo, or none. Install once per machine with `-g`.
 | [Core](./skills/global/core/) | 11 | Stack-agnostic foundations - review lenses, reasoning, testing, simplification, agent-legible repos, comments, design patterns, skill authoring, and AI-writing cleanup. |
 | [Workflow](./skills/global/workflow/) | 9 | Change delivery - commits, docs, GitHub projects and stacks, PR workflow and review triage, worktrees, and technical writing. |
 | [Operations](./skills/global/operations/) | 3 | Operating AI agents - delegation, prompt audits, and project status check-ins. |
-| [Content](./skills/global/content/) | 2 | Audience-facing media - illustrations, diagrams, and images. |
+| [Content](./skills/global/content/) | 3 | Audience-facing media - illustrations, diagrams, images, and visual explanations. |
 | [Personal](./skills/global/personal/) | 1 | Personal extras you want everywhere - teaching. |
 
 ### [Project](./skills/project/)
