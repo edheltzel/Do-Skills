@@ -3,8 +3,8 @@
 Every skill in a **promoted** group has a human-facing **docs page** at
 `docs/<scope>/<group>/<base-slug>.md`, mirroring `skills/<scope>/<group>/`.
 `<base-slug>` is the skill's directory name **without** its `do-` prefix. All
-groups are promoted except `global/operations/` and `global/personal/`, which
-ship no docs page.
+groups are promoted except `global/operations/`, `global/personal/`, and
+`project/personal/`, which ship no docs page.
 
 The page is not the skill and not a copy of `SKILL.md`. Its job is to orient one
 reader around one skill: what it does, when to reach for it, and where it sits
