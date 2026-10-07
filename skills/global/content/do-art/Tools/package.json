@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@google/genai": "^1.40.0",
-    "openai": "^6.18.0",
-    "replicate": "^1.4.0"
+    "openai": "^6.18.0"
   }
 }

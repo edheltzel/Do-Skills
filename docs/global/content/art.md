@@ -34,6 +34,24 @@ Reach for it when the deliverable is an audience-facing image or visual
 explanation. For reusable product UI, component tokens, interaction states, and
 accessibility, use [design-system](../../project/frontend/design-system.md) instead.
 
+## Prerequisites
+
+At least one image API key. `do-art` generates with three providers and uses
+whichever have a key:
+
+| Provider | Models | Key |
+| --- | --- | --- |
+| xAI | `grok` (Grok Imagine) | `XAI_API_KEY` |
+| OpenAI | `gpt-image-2` | `OPENAI_API_KEY` |
+| Google Gemini | `nano-banana`, `nano-banana-pro` | `GEMINI_API_KEY` or `GOOGLE_API_KEY` |
+
+Keys load from the environment, then `./.env`, then
+`${XDG_CONFIG_HOME:-~/.config}/do-art/.env`. Run
+`bun <skill-dir>/Tools/Generate.ts --check-keys` to see what it found. If the
+requested model has no key, it falls back to a provider that does and says so;
+with no key at all it stops and tells you which keys to set. ImageMagick and,
+for transparent headers, `rembg` are also used.
+
 ## Workflow before prompt
 
 Choose the workflow that matches the request before writing the prompt: essay

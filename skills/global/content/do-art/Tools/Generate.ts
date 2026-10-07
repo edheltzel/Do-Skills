@@ -9,15 +9,18 @@ for (const __k of ["PROJECTS_DIR"]) {
 /**
  * generate - image generation CLI
  *
- * Generate images using Flux 1.1 Pro, Nano Banana, Nano Banana Pro, or GPT-image-2.
+ * Generate images with xAI Grok Imagine, OpenAI gpt-image-2, or Google
+ * Gemini (Nano Banana, Nano Banana Pro). Picks a provider that has an API key,
+ * falls back to another one when the requested provider has none, and stops
+ * with setup instructions when no provider has a key.
  *
  * Usage:
- *   bun Generate.ts --model nano-banana-pro --prompt "..." --size 16:9 --output <preview>/image.png
+ *   bun Generate.ts --workflow=<name> --model nano-banana-pro --prompt "..." --aspect-ratio 16:9
+ *   bun Generate.ts --check-keys
  *
  * @see <skill-dir>/SKILL.md
  */
 
-import Replicate from "replicate";
 import OpenAI from "openai";
 import { GoogleGenAI } from "@google/genai";
 import { accessSync, constants, existsSync, mkdirSync } from "node:fs";
@@ -73,26 +76,109 @@ async function loadEnv(): Promise<void> {
 }
 
 // ============================================================================
-// Types
+// Providers, Models, and API Keys
 // ============================================================================
 
-type Model = "flux" | "nano-banana" | "nano-banana-pro" | "gpt-image-2" | "compare";
-type ReplicateSize = "1:1" | "16:9" | "3:2" | "2:3" | "3:4" | "4:3" | "4:5" | "5:4" | "9:16" | "21:9";
+type Provider = "xai" | "openai" | "google";
+type ImageModel = "grok" | "gpt-image-2" | "nano-banana" | "nano-banana-pro";
+type Model = ImageModel | "auto" | "compare";
+type AspectRatio = "1:1" | "16:9" | "3:2" | "2:3" | "3:4" | "4:3" | "4:5" | "5:4" | "9:16" | "21:9";
 type OpenAISize2 = "1024x1024" | "1536x1024" | "1024x1536" | "2048x2048" | "auto";
-type GeminiSize = "1K" | "2K" | "4K";
+type Resolution = "1K" | "2K" | "4K";
 type Quality = "low" | "medium" | "high" | "auto";
-type Size = ReplicateSize | OpenAISize2 | GeminiSize;
+
+const PROVIDERS: Record<Provider, { label: string; envVars: string[]; keyUrl: string }> = {
+  xai: { label: "xAI (Grok Imagine)", envVars: ["XAI_API_KEY"], keyUrl: "https://console.x.ai" },
+  openai: { label: "OpenAI (ChatGPT images)", envVars: ["OPENAI_API_KEY", "OPENAI_API_KEY_OPTIN"], keyUrl: "https://platform.openai.com/api-keys" },
+  google: { label: "Google Gemini (Nano Banana)", envVars: ["GEMINI_API_KEY", "GOOGLE_API_KEY"], keyUrl: "https://aistudio.google.com/apikey" },
+};
+
+const MODELS: Record<ImageModel, { provider: Provider; apiModel: string; label: string }> = {
+  "grok": { provider: "xai", apiModel: "grok-imagine-image-2.0", label: "Grok Imagine" },
+  "gpt-image-2": { provider: "openai", apiModel: "gpt-image-2", label: "gpt-image-2" },
+  "nano-banana": { provider: "google", apiModel: "gemini-nano-banana-2.1", label: "Nano Banana 2.1" },
+  "nano-banana-pro": { provider: "google", apiModel: "gemini-3-pro-image", label: "Nano Banana Pro" },
+};
+
+// Order tried by --model auto and by fallback when the requested provider has no key.
+const FALLBACK_ORDER: ImageModel[] = ["grok", "gpt-image-2", "nano-banana-pro"];
+const IMAGE_MODELS = Object.keys(MODELS) as ImageModel[];
+
+function apiKey(provider: Provider): string | undefined {
+  for (const name of PROVIDERS[provider].envVars) {
+    const value = process.env[name]?.trim();
+    if (value) return value;
+  }
+  return undefined;
+}
+
+function keySetupHelp(): string {
+  const lines = Object.values(PROVIDERS).map(
+    (p) => `  ${p.label.padEnd(30)} ${p.envVars.join(" or ").padEnd(40)} ${p.keyUrl}`
+  );
+  return [
+    "Set at least one of these API keys:",
+    ...lines,
+    "Keys load from the process environment, then ./.env, then ${XDG_CONFIG_HOME:-~/.config}/do-art/.env",
+  ].join("\n");
+}
+
+/**
+ * Pick the model that will actually run. A requested model whose provider has
+ * no key falls back, with a notice, to the first keyed model in FALLBACK_ORDER.
+ * Reference images need Gemini, so they never fall back to another provider.
+ */
+function resolveModel(requested: ImageModel | "auto", needsGemini: boolean): ImageModel {
+  if (requested !== "auto" && apiKey(MODELS[requested].provider)) return requested;
+
+  const candidates = needsGemini
+    ? (["nano-banana-pro", "nano-banana"] as ImageModel[])
+    : FALLBACK_ORDER;
+  const fallback = candidates.find((m) => apiKey(MODELS[m].provider));
+
+  if (!fallback) {
+    const why = needsGemini
+      ? "--reference-image needs Google Gemini, and no Gemini key is set."
+      : requested === "auto"
+        ? "No image provider has an API key."
+        : `${MODELS[requested].label} needs ${PROVIDERS[MODELS[requested].provider].envVars.join(" or ")}, and no other provider has a key to fall back to.`;
+    throw new MissingKeyError(`${why}\n\n${keySetupHelp()}`);
+  }
+
+  if (requested !== "auto") {
+    const missing = PROVIDERS[MODELS[requested].provider].envVars.join(" or ");
+    console.warn(`⚠️ ${missing} is not set, so ${requested} cannot run. Falling back to ${fallback} (${PROVIDERS[MODELS[fallback].provider].label}).`);
+  }
+  return fallback;
+}
+
+function printKeyStatus(): void {
+  let available = 0;
+  for (const [id, p] of Object.entries(PROVIDERS) as [Provider, (typeof PROVIDERS)[Provider]][]) {
+    const found = p.envVars.find((name) => process.env[name]?.trim());
+    const models = IMAGE_MODELS.filter((m) => MODELS[m].provider === id).join(", ");
+    if (found) available++;
+    console.log(`${found ? "✅" : "❌"} ${p.label.padEnd(30)} ${found ? `${found} set` : `missing ${p.envVars.join(" or ")}`}  (${models})`);
+  }
+  if (available === 0) {
+    console.log(`\n${keySetupHelp()}`);
+    process.exit(2);
+  }
+  const auto = FALLBACK_ORDER.find((m) => apiKey(MODELS[m].provider));
+  console.log(`\n--model auto would use: ${auto}`);
+}
 
 interface CLIArgs {
   model: Model;
   prompt: string;
-  size: Size;
+  aspectRatio: AspectRatio;
+  resolution: Resolution;
+  openaiSize?: OpenAISize2; // explicit gpt-image-2 pixel size from --size
   output: string;
   creativeVariations?: number;
-  aspectRatio?: ReplicateSize; // For Gemini models and compare mode (nano-banana side)
-  quality?: Quality; // For gpt-image-2 only
+  quality?: Quality; // gpt-image-2 only
   transparent?: boolean; // Enable transparent background
-  referenceImages?: string[]; // Reference image paths (Nano Banana Pro only) - up to 14 total
+  referenceImages?: string[]; // Reference image paths (Gemini only) - up to 14 total
   removeBg?: boolean; // Remove background after generation using local rembg
   addBg?: string; // Add background color (hex) to transparent image
   thumbnail?: boolean; // Generate additional thumbnail with #EAE9DF background for social previews
@@ -105,10 +191,12 @@ interface CLIArgs {
 // Configuration
 // ============================================================================
 
-const DEFAULTS = {
-  model: "flux" as Model,
-  size: "16:9" as Size,
-};
+function defaultModel(): Model {
+  const fromEnv = process.env.ART_MODEL?.trim();
+  if (!fromEnv) return "auto";
+  if (fromEnv === "auto" || fromEnv === "compare" || (IMAGE_MODELS as string[]).includes(fromEnv)) return fromEnv as Model;
+  throw new CLIError(`Invalid ART_MODEL: ${fromEnv}. Must be: auto, compare, ${IMAGE_MODELS.join(", ")}`);
+}
 
 function previewDir(): string {
   const fromEnv = process.env.ART_OUTPUT_DIR;
@@ -126,14 +214,19 @@ function previewDir(): string {
   return local;
 }
 
-
-const REPLICATE_SIZES: ReplicateSize[] = ["1:1", "16:9", "3:2", "2:3", "3:4", "4:3", "4:5", "5:4", "9:16", "21:9"];
+const ASPECT_RATIOS: AspectRatio[] = ["1:1", "16:9", "3:2", "2:3", "3:4", "4:3", "4:5", "5:4", "9:16", "21:9"];
+// Grok Imagine does not offer 4:5 or 5:4; those fall back to its "auto" ratio.
+const GROK_ASPECT_RATIOS: AspectRatio[] = ["1:1", "16:9", "3:2", "2:3", "3:4", "4:3", "9:16", "21:9"];
 const OPENAI_V2_SIZES: OpenAISize2[] = ["1024x1024", "1536x1024", "1024x1536", "2048x2048", "auto"];
-const GEMINI_SIZES: GeminiSize[] = ["1K", "2K", "4K"];
+const RESOLUTIONS: Resolution[] = ["1K", "2K", "4K"];
 const QUALITY_VALUES: Quality[] = ["low", "medium", "high", "auto"];
 
-// Aspect ratio mapping for Gemini (used with image size like 2K)
-const GEMINI_ASPECT_RATIOS: ReplicateSize[] = ["1:1", "2:3", "3:2", "3:4", "4:3", "4:5", "5:4", "9:16", "16:9", "21:9"];
+/** gpt-image-2 takes pixel sizes; derive one from the shared aspect ratio and resolution. */
+function openaiSizeFor(aspect: AspectRatio, resolution: Resolution): OpenAISize2 {
+  const [w, h] = aspect.split(":").map(Number) as [number, number];
+  if (w === h) return resolution === "1K" ? "1024x1024" : "2048x2048";
+  return w > h ? "1536x1024" : "1024x1536";
+}
 
 // ============================================================================
 // Error Handling
@@ -143,6 +236,14 @@ class CLIError extends Error {
   constructor(message: string, public exitCode: number = 1) {
     super(message);
     this.name = "CLIError";
+  }
+}
+
+/** Exit code 2: no provider can run this request because no usable API key is set. */
+class MissingKeyError extends CLIError {
+  constructor(message: string) {
+    super(message, 2);
+    this.name = "MissingKeyError";
   }
 }
 
@@ -233,109 +334,68 @@ function showHelp(): void {
   console.log(`
 generate - image generation CLI
 
-Generate images using Flux 1.1 Pro, Nano Banana, Nano Banana Pro, or GPT-image-2.
-GPT-image-2 is OpenAI's current flagship (released Apr 21 2026 — currently #1 on every
-Image Arena leaderboard with a +242 Elo margin in text-to-image). GPT-image-1 is deprecated
-and rejected at the parser with guidance toward gpt-image-2.
+Generate images with xAI Grok Imagine, OpenAI gpt-image-2, or Google Gemini
+(Nano Banana, Nano Banana Pro). Uses whichever provider has an API key; when the
+requested provider has none, falls back to another and says so.
 
 USAGE:
-  generate --model <model> --prompt "<prompt>" [OPTIONS]
+  generate --workflow=<name> --prompt "<prompt>" [--model <model>] [OPTIONS]
+  generate --check-keys        Show which providers have keys, then exit
 
 REQUIRED:
-  --model <model>      Model to use: flux, nano-banana, nano-banana-pro, gpt-image-2, compare
-                       "compare" runs gpt-image-2 + nano-banana-pro head-to-head (the two flagship models)
   --prompt <text>      Image generation prompt (quote if contains spaces)
+  --workflow=<name>    The Art workflow that built this call (or --freeform-confirmed)
+
+MODELS (--model, default: auto, or ART_MODEL):
+  auto                 First provider with a key, in this order: grok, gpt-image-2, nano-banana-pro
+  grok                 xAI grok-imagine-image-2.0                     needs XAI_API_KEY
+  gpt-image-2          OpenAI gpt-image-2                             needs OPENAI_API_KEY
+  nano-banana          Google gemini-nano-banana-2.1 (fast, cheap)    needs GEMINI_API_KEY or GOOGLE_API_KEY
+  nano-banana-pro      Google gemini-3-pro-image (best text, refs)    needs GEMINI_API_KEY or GOOGLE_API_KEY
+  compare              Same prompt on every provider that has a key, side by side
 
 OPTIONS:
-  --size <size>              Image size/aspect ratio (default varies by model)
-                             Replicate (flux, nano-banana): 1:1, 16:9, 3:2, 2:3, 3:4, 4:3, 4:5, 5:4, 9:16, 21:9
-                             OpenAI gpt-image-2: 1024x1024, 1536x1024, 1024x1536, 2048x2048, auto
-                             Gemini (nano-banana-pro): 1K, 2K, 4K (resolution); aspect ratio inferred or 16:9
-                             compare mode: pass gpt-image-2 size here; nano-banana-pro side runs at 2K with --aspect-ratio
-  --aspect-ratio <ratio>     Aspect ratio for Gemini nano-banana-pro AND the compare-mode nano-banana-pro side
-                             Options: 1:1, 2:3, 3:2, 3:4, 4:3, 4:5, 5:4, 9:16, 16:9, 21:9 (default 16:9)
-  --quality <level>          Quality for gpt-image-2 only: low, medium, high, auto (default: high)
+  --aspect-ratio <ratio>     1:1, 16:9, 3:2, 2:3, 3:4, 4:3, 4:5, 5:4, 9:16, 21:9 (default 16:9)
+                             Grok has no 4:5 or 5:4 and uses its own "auto" ratio for those
+  --size <size>              Resolution 1K, 2K, 4K (default 2K), an aspect ratio, or an exact
+                             gpt-image-2 size (1024x1024, 1536x1024, 1024x1536, 2048x2048, auto).
+                             Grok tops out at 2k; gpt-image-2 maps resolution to its nearest size.
+  --quality <level>          gpt-image-2 only: low, medium, high, auto (default: high)
   --output <path>            Output file (default: <preview>/art.png)
-  --reference-image <path>   Reference image for style/character consistency (Nano Banana Pro only)
-                             Can specify MULTIPLE times for improved consistency
-                             Accepts: PNG, JPEG, WebP images
-                             API Limits: Up to 5 human refs, 6 object refs, 14 total max
-  --transparent              Enable transparent background (adds transparency instructions to prompt)
-                             Note: Not all models support transparency natively; may require post-processing
-  --remove-bg                Remove background after generation using local rembg
-                             Creates true transparency by removing the generated background
-  --add-bg <hex>             Add background color to a transparent image (e.g., "#EAE9DF")
-                             Useful for creating thumbnails/social previews from transparent images
-  --thumbnail                Generate BOTH transparent AND thumbnail versions for blog headers
-                             Creates: output.png (transparent) + output-thumb.png (#EAE9DF background)
-                             Automatically enables --remove-bg
+  --reference-image <path>   Style/character reference (Gemini models only; repeatable, max 14)
+  --transparent              Add transparency instructions to the prompt
+  --remove-bg                Remove the background with local rembg (true alpha)
+  --add-bg <hex>             Flatten a transparent image onto a color (e.g. "#EAE9DF")
+  --thumbnail                Write output.png (transparent) + output-thumb.png (#EAE9DF); implies --remove-bg
   --no-signature             Skip the ART_SIGNATURE stamp
   --signature                Stamp ART_SIGNATURE if set. No default text when unset
-  --creative-variations <n>  Generate N variations (appends -v1, -v2, etc. to output filename)
-                             Use with the be-creative skill for true prompt diversity
-                             CLI mode: generates N images with same prompt (tests model variability)
+  --creative-variations <n>  Generate N images from the same prompt (-v1, -v2, ...)
+  --freeform-confirmed       Skip the workflow requirement (logged)
   --help, -h                 Show this help message
 
 EXAMPLES:
-  # Generate blog header with Nano Banana Pro (16:9, 2K quality)
-  generate --model nano-banana-pro --prompt "Abstract editorial illustration..." --size 2K --aspect-ratio 16:9
-
-  # Generate high-res 4K image with Nano Banana Pro
-  generate --model nano-banana-pro --prompt "Editorial cover..." --size 4K --aspect-ratio 3:2
-
-  # Generate blog header with original Nano Banana (16:9)
-  generate --model nano-banana --prompt "Abstract editorial illustration..." --size 16:9
-
-  # Generate square image with Flux
-  generate --model flux --prompt "Minimal geometric art..." --size 1:1 --output /tmp/header.png
-
-  # Generate text-heavy editorial cover with gpt-image-2 (current OpenAI flagship)
-  generate --model gpt-image-2 --prompt "Editorial cover with crisp serif title..." --size 1024x1536 --quality high
-
-  # Generate at full 2K (2048x2048) with high quality
-  generate --model gpt-image-2 --prompt "Editorial cover..." --size 2048x2048 --quality high
-
-  # Compare mode: 3 images from gpt-image-2 + 3 from nano-banana side-by-side
-  generate --model compare --prompt "Abstract illustration..." \\
-    --creative-variations 3 --size 1024x1024 --aspect-ratio 1:1 \\
-    --output /tmp/shootout.png
-  # Outputs: /tmp/shootout-gpt2-{1,2,3}.png + /tmp/shootout-nano-{1,2,3}.png
-
-  # Generate 3 creative variations (for testing model variability)
-  generate --model nano-banana-pro --prompt "..." --creative-variations 3 --output /tmp/essay.png
-  # Outputs: /tmp/essay-v1.png, /tmp/essay-v2.png, /tmp/essay-v3.png
-  # Note: gpt-image-2 supports batch n natively — single API call returns all variations
-
-  # Single reference image for style guidance (Nano Banana Pro only)
-  generate --model nano-banana-pro --prompt "Tokyo Night themed illustration..." \\
-    --reference-image /tmp/style-reference.png --size 2K --aspect-ratio 16:9
-
-  # MULTIPLE reference images for character consistency (Nano Banana Pro only)
-  generate --model nano-banana-pro --prompt "Person from references at a party..." \\
-    --reference-image face1.jpg --reference-image face2.jpg --reference-image face3.jpg \\
-    --size 2K --aspect-ratio 16:9
-
-NOTE: For true creative diversity with different prompts, use the creative workflow which
-integrates the be-creative skill. CLI creative mode generates multiple images with the SAME prompt.
-
-MULTI-REFERENCE LIMITS (Gemini API):
-  - Up to 5 human reference images for character consistency
-  - Up to 6 object reference images
-  - Maximum 14 total reference images per request
+  generate --workflow=Essay --model nano-banana-pro --prompt "Abstract editorial illustration..." --size 2K --aspect-ratio 16:9
+  generate --workflow=Stats --model gpt-image-2 --prompt "Stat card with crisp serif numerals..." --size 1024x1536 --quality high
+  generate --workflow=Comics --model grok --prompt "Three-panel ink comic..." --aspect-ratio 3:2
+  generate --workflow=Essay --model compare --prompt "..." --creative-variations 2 --output <preview>/shootout.png
+  generate --workflow=Essay --model nano-banana-pro --prompt "Person from references at a party..." \\
+    --reference-image face1.jpg --reference-image face2.jpg --size 2K --aspect-ratio 16:9
 
 ENVIRONMENT VARIABLES:
-  REPLICATE_API_TOKEN  Required for flux and nano-banana models
-  OPENAI_API_KEY       Required for gpt-image-2 model (and compare mode)
-  GOOGLE_API_KEY       Required for nano-banana-pro model
+  XAI_API_KEY                     xAI key for grok (https://console.x.ai)
+  OPENAI_API_KEY                  OpenAI key for gpt-image-2 (OPENAI_API_KEY_OPTIN also accepted)
+  GEMINI_API_KEY / GOOGLE_API_KEY Google key for nano-banana and nano-banana-pro (https://aistudio.google.com/apikey)
+  ART_MODEL            Default --model (auto when unset)
   REMBG_BIN            Optional rembg path. Else PATH, else ~/.local/bin/rembg
   ART_OUTPUT_DIR       Preview folder. Else ~/Downloads if it exists, else ./art-output
   ART_SIGNATURE        Optional signature text. Unset means no stamp
   ART_SIGNATURE_FONT   Optional ImageMagick font for the stamp
   Keys load from the process environment, then ./.env, then \${XDG_CONFIG_HOME:-~/.config}/do-art/.env
 
-ERROR CODES:
+EXIT CODES:
   0  Success
   1  General error (invalid arguments, API error, file write error)
+  2  No usable API key: nothing ran. The message lists which keys to set.
 
 MORE INFO:
   Documentation: <skill-dir>/SKILL.md
@@ -453,9 +513,10 @@ function parseArgs(argv: string[]): CLIArgs {
   }
 
   const parsed: Partial<CLIArgs> = {
-    model: DEFAULTS.model,
+    model: defaultModel(),
     output: join(previewDir(), "art.png"),
   };
+  let sizeArg: string | undefined;
 
   // Collect reference images into array
   const referenceImages: string[] = [];
@@ -512,24 +573,17 @@ function parseArgs(argv: string[]): CLIArgs {
 
     switch (key) {
       case "model":
-        if (
-          value !== "flux" &&
-          value !== "nano-banana" &&
-          value !== "nano-banana-pro" &&
-          value !== "gpt-image-2" &&
-          value !== "compare"
-        ) {
+        if (value !== "auto" && value !== "compare" && !(IMAGE_MODELS as string[]).includes(value)) {
           if (value === "gpt-image-1") {
-            throw new CLIError(
-              `gpt-image-1 is DEPRECATED per OpenAI docs. Use --model gpt-image-2 instead (current OpenAI image model, released Apr 21 2026, #1 on Artificial Analysis Image Arena).`
-            );
+            throw new CLIError("gpt-image-1 is deprecated. Use --model gpt-image-2.");
           }
-          throw new CLIError(
-            `Invalid model: ${value}. Must be: flux, nano-banana, nano-banana-pro, gpt-image-2, or compare`
-          );
+          if (value === "flux" || value === "midjourney") {
+            throw new CLIError(`${value} was removed. Use grok, gpt-image-2, nano-banana, or nano-banana-pro.`);
+          }
+          throw new CLIError(`Invalid model: ${value}. Must be: auto, compare, ${IMAGE_MODELS.join(", ")}`);
         }
-        parsed.model = value;
-        i++; // Skip next arg (value)
+        parsed.model = value as Model;
+        i++;
         break;
       case "quality":
         if (!QUALITY_VALUES.includes(value as Quality)) {
@@ -543,12 +597,15 @@ function parseArgs(argv: string[]): CLIArgs {
         i++; // Skip next arg (value)
         break;
       case "size":
-        parsed.size = value as Size;
-        i++; // Skip next arg (value)
+        sizeArg = value;
+        i++;
         break;
       case "aspect-ratio":
-        parsed.aspectRatio = value as ReplicateSize;
-        i++; // Skip next arg (value)
+        if (!ASPECT_RATIOS.includes(value as AspectRatio)) {
+          throw new CLIError(`Invalid aspect-ratio: ${value}. Must be: ${ASPECT_RATIOS.join(", ")}`);
+        }
+        parsed.aspectRatio = value as AspectRatio;
+        i++;
         break;
       case "output":
         parsed.output = value;
@@ -600,6 +657,22 @@ function parseArgs(argv: string[]): CLIArgs {
     throw new CLIError("Missing required argument: --model");
   }
 
+  // --size is overloaded for backward compatibility: a resolution tier, an
+  // aspect ratio, or an exact gpt-image-2 pixel size.
+  if (sizeArg !== undefined) {
+    const upper = sizeArg.toUpperCase();
+    if (RESOLUTIONS.includes(upper as Resolution)) parsed.resolution = upper as Resolution;
+    else if (OPENAI_V2_SIZES.includes(sizeArg as OpenAISize2)) parsed.openaiSize = sizeArg as OpenAISize2;
+    else if (ASPECT_RATIOS.includes(sizeArg as AspectRatio)) parsed.aspectRatio ??= sizeArg as AspectRatio;
+    else {
+      throw new CLIError(
+        `Invalid size: ${sizeArg}. Use a resolution (${RESOLUTIONS.join(", ")}), an aspect ratio (${ASPECT_RATIOS.join(", ")}), or a gpt-image-2 size (${OPENAI_V2_SIZES.join(", ")})`
+      );
+    }
+  }
+  parsed.aspectRatio ??= "16:9";
+  parsed.resolution ??= "2K";
+
   // ──────────────────────────────────────────────────────────────────────
   // WORKFLOW DISCIPLINE GATE (the load-bearing line — see ISA
   // 20260430-180000_art-skill-freeform-enforcement)
@@ -611,69 +684,14 @@ function parseArgs(argv: string[]): CLIArgs {
   // ──────────────────────────────────────────────────────────────────────
   enforceWorkflowDiscipline(parsed);
 
-  // Validate reference-image is only used with nano-banana-pro
-  if (parsed.referenceImages && parsed.referenceImages.length > 0 && parsed.model !== "nano-banana-pro") {
-    throw new CLIError("--reference-image is only supported with --model nano-banana-pro");
+  const refs = parsed.referenceImages?.length ?? 0;
+  if (refs > 0 && (parsed.model === "grok" || parsed.model === "gpt-image-2" || parsed.model === "compare")) {
+    throw new CLIError("--reference-image only works with the Gemini models: nano-banana, nano-banana-pro, or auto");
   }
 
   // Validate reference image count (API limits: 5 human, 6 object, 14 total max)
-  if (parsed.referenceImages && parsed.referenceImages.length > 14) {
-    throw new CLIError(`Too many reference images: ${parsed.referenceImages.length}. Maximum is 14 total (5 human, 6 object)`);
-  }
-
-  // Quality is only valid for gpt-image-2
-  if (parsed.quality && parsed.model !== "gpt-image-2" && parsed.model !== "compare") {
-    throw new CLIError(`--quality is only supported with --model gpt-image-2 (or compare)`);
-  }
-
-  // Set model-appropriate default size if not explicitly provided
-  if (!parsed.size) {
-    switch (parsed.model) {
-      case "gpt-image-2":
-        parsed.size = "1024x1024";
-        break;
-      case "nano-banana-pro":
-        parsed.size = "2K";
-        break;
-      case "compare":
-        // compare mode: --size feeds the gpt-image-2 side; nano-banana-pro side uses --aspect-ratio at 2K
-        parsed.size = "1024x1024";
-        break;
-      default: // flux, nano-banana
-        parsed.size = "16:9";
-        break;
-    }
-  }
-
-  // Validate size based on model
-  if (parsed.model === "gpt-image-2") {
-    if (!OPENAI_V2_SIZES.includes(parsed.size as OpenAISize2)) {
-      throw new CLIError(`Invalid size for gpt-image-2: ${parsed.size}. Must be: ${OPENAI_V2_SIZES.join(", ")}`);
-    }
-  } else if (parsed.model === "compare") {
-    if (!OPENAI_V2_SIZES.includes(parsed.size as OpenAISize2)) {
-      throw new CLIError(`Invalid size for compare (gpt-image-2 side): ${parsed.size}. Must be: ${OPENAI_V2_SIZES.join(", ")}`);
-    }
-    if (parsed.aspectRatio && !GEMINI_ASPECT_RATIOS.includes(parsed.aspectRatio as ReplicateSize)) {
-      throw new CLIError(`Invalid aspect-ratio for compare (nano-banana-pro side): ${parsed.aspectRatio}. Must be: ${GEMINI_ASPECT_RATIOS.join(", ")}`);
-    }
-    if (!parsed.aspectRatio) parsed.aspectRatio = "1:1";
-  } else if (parsed.model === "nano-banana-pro") {
-    if (!GEMINI_SIZES.includes(parsed.size as GeminiSize)) {
-      throw new CLIError(`Invalid size for nano-banana-pro: ${parsed.size}. Must be: ${GEMINI_SIZES.join(", ")}`);
-    }
-    // Validate aspect ratio if provided
-    if (parsed.aspectRatio && !GEMINI_ASPECT_RATIOS.includes(parsed.aspectRatio)) {
-      throw new CLIError(`Invalid aspect-ratio for nano-banana-pro: ${parsed.aspectRatio}. Must be: ${GEMINI_ASPECT_RATIOS.join(", ")}`);
-    }
-    // Default to 16:9 if not specified
-    if (!parsed.aspectRatio) {
-      parsed.aspectRatio = "16:9";
-    }
-  } else {
-    if (!REPLICATE_SIZES.includes(parsed.size as ReplicateSize)) {
-      throw new CLIError(`Invalid size for ${parsed.model}: ${parsed.size}. Must be: ${REPLICATE_SIZES.join(", ")}`);
-    }
+  if (refs > 14) {
+    throw new CLIError(`Too many reference images: ${refs}. Maximum is 14 total (5 human, 6 object)`);
   }
 
   return parsed as CLIArgs;
@@ -841,217 +859,124 @@ async function removeBackground(imagePath: string): Promise<string> {
 // Image Generation
 // ============================================================================
 
-async function generateWithFlux(prompt: string, size: ReplicateSize, output: string): Promise<string> {
-  const token = process.env.REPLICATE_API_TOKEN;
-  if (!token) {
-    throw new CLIError("Missing environment variable: REPLICATE_API_TOKEN");
-  }
-
-  const replicate = new Replicate({ auth: token });
-
-  console.log("🎨 Generating with Flux 1.1 Pro...");
-
-  const result = await replicate.run("black-forest-labs/flux-1.1-pro", {
-    input: {
-      prompt,
-      aspect_ratio: size,
-      output_format: "png",
-      output_quality: 95,
-      prompt_upsampling: false,
-    },
-  });
-
-  // Replicate SDK may return a FileOutput object with a url() method or toString()
-  let imageData: Buffer;
-  if (result && typeof (result as any).blob === "function") {
-    // FileOutput (Replicate SDK v1+) — has blob() method
-    const blob = await (result as any).blob();
-    imageData = Buffer.from(await blob.arrayBuffer());
-  } else if (result && typeof (result as any).url === "function") {
-    const url = (result as any).url().href ?? (result as any).url();
-    const resp = await fetch(url);
-    imageData = Buffer.from(await resp.arrayBuffer());
-  } else if (result && typeof (result as any).arrayBuffer === "function") {
-    imageData = Buffer.from(await (result as any).arrayBuffer());
-  } else if (typeof result === "string" && (result as string).startsWith("http")) {
-    const resp = await fetch(result as string);
-    imageData = Buffer.from(await resp.arrayBuffer());
-  } else {
-    imageData = result as Buffer;
-  }
-
-  const finalPath = await saveImage(imageData, output);
-  console.log(`✅ Image saved to ${finalPath}`);
-  return finalPath;
+/** Output path for image i of n: the base path for one image, base-v<i> for several. */
+function variantPath(outputBase: string, i: number, n: number): string {
+  return n === 1 ? outputBase : outputBase.replace(/(\.[^.]+)?$/, (ext) => `-v${i}${ext || ".png"}`);
 }
 
-async function generateWithNanoBanana(prompt: string, size: ReplicateSize, output: string): Promise<string> {
-  const token = process.env.REPLICATE_API_TOKEN;
-  if (!token) {
-    throw new CLIError("Missing environment variable: REPLICATE_API_TOKEN");
-  }
-
-  const replicate = new Replicate({ auth: token });
-
-  console.log("🍌 Generating with Nano Banana...");
-
-  const result = await replicate.run("google/nano-banana", {
-    input: {
-      prompt,
-      aspect_ratio: size,
-      output_format: "png",
-    },
-  });
-
-  // Handle FileOutput from Replicate SDK v1+
-  let imageData: Buffer;
-  if (result && typeof (result as any).blob === "function") {
-    const blob = await (result as any).blob();
-    imageData = Buffer.from(await blob.arrayBuffer());
-  } else if (result && typeof (result as any).url === "function") {
-    const url = (result as any).url().href ?? (result as any).url();
-    const resp = await fetch(url);
-    imageData = Buffer.from(await resp.arrayBuffer());
-  } else if (typeof result === "string" && (result as string).startsWith("http")) {
-    const resp = await fetch(result as string);
-    imageData = Buffer.from(await resp.arrayBuffer());
-  } else {
-    imageData = result as Buffer;
-  }
-  const finalPath = await saveImage(imageData, output);
-  console.log(`✅ Image saved to ${finalPath}`);
-  return finalPath;
+/** Request body for gpt-image-2 and Grok Imagine. Both speak the OpenAI images API. */
+interface ImageRequest {
+  model: string;
+  prompt: string;
+  n: number;
+  size?: OpenAISize2;
+  quality?: Quality;
+  aspect_ratio?: AspectRatio | "auto"; // xAI only
+  resolution?: "1k" | "2k"; // xAI only
+  response_format?: "b64_json";
 }
 
-async function generateWithGPTImage2(
+async function generateOpenAICompatible(
+  model: "grok" | "gpt-image-2",
   prompt: string,
-  size: OpenAISize2,
-  quality: Quality,
+  args: CLIArgs,
   n: number,
   outputBase: string
 ): Promise<string[]> {
-  // Live OpenAI key may be stored under OPENAI_API_KEY_OPTIN (opt-in data-sharing key); fall back to it.
-  const apiKey = process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY_OPTIN;
-  if (!apiKey) {
-    throw new CLIError("Missing environment variable: OPENAI_API_KEY (or OPENAI_API_KEY_OPTIN)");
+  const { provider, apiModel, label } = MODELS[model];
+  const client = new OpenAI({
+    apiKey: apiKey(provider)!,
+    baseURL: provider === "xai" ? process.env.XAI_BASE_URL || "https://api.x.ai/v1" : process.env.OPENAI_BASE_URL,
+  });
+
+  const body: ImageRequest = { model: apiModel, prompt, n };
+  if (model === "gpt-image-2") {
+    body.size = args.openaiSize ?? openaiSizeFor(args.aspectRatio, args.resolution);
+    body.quality = args.quality ?? "high";
+  } else {
+    const supported = GROK_ASPECT_RATIOS.includes(args.aspectRatio);
+    if (!supported) console.warn(`⚠️ Grok has no ${args.aspectRatio}; using its "auto" ratio.`);
+    body.aspect_ratio = supported ? args.aspectRatio : "auto";
+    body.resolution = args.resolution === "1K" ? "1k" : "2k";
+    body.response_format = "b64_json";
   }
 
-  const openai = new OpenAI({ apiKey });
+  const detail = [body.size, body.quality, body.aspect_ratio, body.resolution].filter(Boolean).join(" ");
+  console.log(`🎨 Generating ${n} image(s) with ${label} (${apiModel}) ${detail}...`);
 
-  console.log(`🧠 Generating with gpt-image-2 (ChatGPT Images 2.0) — size=${size} quality=${quality} n=${n}...`);
-
-  const response = await openai.images.generate({
-    model: "gpt-image-2",
-    prompt,
-    size,
-    quality,
-    n,
-  } as any);
-
-  const data = (response as any).data;
-  if (!Array.isArray(data) || data.length === 0) {
-    throw new CLIError("No image data returned from OpenAI gpt-image-2 API");
+  // The SDK's types predate gpt-image-2's 2048x2048 size and xAI's aspect_ratio/resolution;
+  // the API accepts them, so widen once here.
+  const response = await client.images.generate(body as unknown as OpenAI.ImageGenerateParamsNonStreaming);
+  const data = response.data ?? [];
+  if (data.length === 0) {
+    throw new CLIError(`No image data returned from ${label}`);
   }
 
   const paths: string[] = [];
-  for (let i = 0; i < data.length; i++) {
-    const item = data[i];
+  for (const [i, item] of data.entries()) {
     let buffer: Buffer;
     if (item.b64_json) {
       buffer = Buffer.from(item.b64_json, "base64");
     } else if (item.url) {
       const resp = await fetch(item.url);
+      if (!resp.ok) throw new CLIError(`${label} image ${i + 1} download failed: HTTP ${resp.status}`);
       buffer = Buffer.from(await resp.arrayBuffer());
     } else {
-      throw new CLIError(`gpt-image-2 returned image ${i + 1} with neither b64_json nor url`);
+      throw new CLIError(`${label} returned image ${i + 1} with neither b64_json nor url`);
     }
-    const target = data.length === 1 ? outputBase : outputBase.replace(/\.[^.]+$/, `-${i + 1}.png`);
-    const finalPath = await saveImage(buffer, target);
-    console.log(`✅ gpt-image-2 image saved to ${finalPath}`);
+    const finalPath = await saveImage(buffer, variantPath(outputBase, i + 1, data.length));
+    console.log(`✅ ${label} image saved to ${finalPath}`);
     paths.push(finalPath);
   }
   return paths;
 }
 
-async function generateWithNanoBananaPro(
+async function generateGeminiImage(
+  model: "nano-banana" | "nano-banana-pro",
   prompt: string,
-  size: GeminiSize,
-  aspectRatio: ReplicateSize,
-  output: string,
-  referenceImages?: string[]
+  args: CLIArgs,
+  output: string
 ): Promise<string> {
-  const apiKey = process.env.GOOGLE_API_KEY;
-  if (!apiKey) {
-    throw new CLIError("Missing environment variable: GOOGLE_API_KEY");
-  }
+  const { apiModel, label } = MODELS[model];
+  const baseUrl = process.env.GEMINI_BASE_URL;
+  const ai = new GoogleGenAI({ apiKey: apiKey("google")!, ...(baseUrl ? { httpOptions: { baseUrl } } : {}) });
+  const refs = args.referenceImages ?? [];
+  console.log(`🍌 Generating with ${label} (${apiModel}) at ${args.resolution} ${args.aspectRatio}${refs.length ? ` with ${refs.length} reference image(s)` : ""}...`);
 
-  const ai = new GoogleGenAI({ apiKey });
-
-  if (referenceImages && referenceImages.length > 0) {
-    console.log(`🍌✨ Generating with Nano Banana Pro (Gemini 3 Pro) at ${size} ${aspectRatio} with ${referenceImages.length} reference image(s)...`);
-  } else {
-    console.log(`🍌✨ Generating with Nano Banana Pro (Gemini 3 Pro) at ${size} ${aspectRatio}...`);
-  }
-
-  // Prepare content parts
   const parts: Array<{ text?: string; inlineData?: { mimeType: string; data: string } }> = [];
-
-  // Add all reference images if provided
-  if (referenceImages && referenceImages.length > 0) {
-    for (const referenceImage of referenceImages) {
-      // Read image file
-      const imageBuffer = await readFile(referenceImage);
-      const imageBase64 = imageBuffer.toString("base64");
-
-      // Detect MIME type from actual file content (magic bytes), not just extension
-      const mimeType = await detectMimeType(referenceImage);
-
-      parts.push({
-        inlineData: {
-          mimeType,
-          data: imageBase64,
-        },
-      });
-    }
+  for (const ref of refs) {
+    const imageBuffer = await readFile(ref);
+    parts.push({ inlineData: { mimeType: await detectMimeType(ref), data: imageBuffer.toString("base64") } });
   }
-
-  // Add text prompt
   parts.push({ text: prompt });
 
   const response = await ai.models.generateContent({
-    model: "gemini-3-pro-image-preview",
+    model: apiModel,
     contents: [{ parts }],
     config: {
       responseModalities: ["TEXT", "IMAGE"],
-      imageConfig: {
-        aspectRatio: aspectRatio,
-        imageSize: size,
-      },
+      imageConfig: { aspectRatio: args.aspectRatio, imageSize: args.resolution },
     },
   });
 
-  // Extract image data from response
-  let imageData: string | undefined;
-
-  if (response.candidates && response.candidates.length > 0) {
-    const parts = response.candidates[0]?.content?.parts ?? [];
-    for (const part of parts) {
-      // Check if this part contains inline image data
-      if (part.inlineData && part.inlineData.data) {
-        imageData = part.inlineData.data;
-        break;
-      }
-    }
-  }
-
+  const imageData = response.candidates?.[0]?.content?.parts?.find((p) => p.inlineData?.data)?.inlineData?.data;
   if (!imageData) {
-    throw new CLIError("No image data returned from Gemini API");
+    throw new CLIError(`No image data returned from ${label}`);
   }
 
-  const imageBuffer = Buffer.from(imageData, "base64");
-  const finalPath = await saveImage(imageBuffer, output);
-  console.log(`✅ Image saved to ${finalPath}`);
+  const finalPath = await saveImage(Buffer.from(imageData, "base64"), output);
+  console.log(`✅ ${label} image saved to ${finalPath}`);
   return finalPath;
+}
+
+/** Run one model for n images. Grok and gpt-image-2 batch natively; Gemini fans out. */
+async function generateImages(model: ImageModel, prompt: string, args: CLIArgs, n: number, outputBase: string): Promise<string[]> {
+  if (model === "grok" || model === "gpt-image-2") {
+    return generateOpenAICompatible(model, prompt, args, n, outputBase);
+  }
+  return Promise.all(
+    Array.from({ length: n }, (_, i) => generateGeminiImage(model, prompt, args, variantPath(outputBase, i + 1, n)))
+  );
 }
 
 // ============================================================================
@@ -1062,6 +987,11 @@ async function main(): Promise<void> {
   try {
     // Load optional env files
     await loadEnv();
+
+    if (process.argv.includes("--check-keys")) {
+      printKeyStatus();
+      return;
+    }
 
     const args = parseArgs(process.argv);
 
@@ -1076,125 +1006,47 @@ async function main(): Promise<void> {
     }
 
     const n = args.creativeVariations && args.creativeVariations > 1 ? args.creativeVariations : 1;
-    const quality: Quality = args.quality ?? "high";
 
-    // Compare mode: generate N images with gpt-image-2 + N with nano-banana-pro, head-to-head.
-    // This is the canonical dual-provider competition — the two flagship models render the same
-    // brief and the best wins. gpt side consumes --size (OpenAI pixels); pro side uses --aspect-ratio.
+    // Compare mode: the same prompt on every provider that has a key, one flagship each.
     if (args.model === "compare") {
-      console.log(`⚖️  Compare Mode: ${n} image(s) from gpt-image-2 + ${n} from nano-banana-pro (total ${n * 2})`);
+      const keyed = FALLBACK_ORDER.filter((m) => apiKey(MODELS[m].provider));
+      const skipped = FALLBACK_ORDER.filter((m) => !keyed.includes(m));
+      if (keyed.length === 0) {
+        throw new MissingKeyError(`Compare mode needs at least one image provider key.\n\n${keySetupHelp()}`);
+      }
+      for (const m of skipped) {
+        console.warn(`⚠️ Skipping ${m}: ${PROVIDERS[MODELS[m].provider].envVars.join(" or ")} is not set.`);
+      }
+      if (keyed.length === 1) console.warn(`⚠️ Only ${keyed[0]} has a key, so compare runs a single provider.`);
+
+      console.log(`⚖️  Compare Mode: ${n} image(s) each from ${keyed.join(", ")}`);
       const basePath = args.output.replace(/\.[^.]+$/, "");
-      const gptBase = `${basePath}-gpt2.png`;
-      const nanoBase = `${basePath}-nbp.png`;
-      const nanoProSize: GeminiSize = "2K"; // compare consumes --size for the gpt side; pin pro side at 2K
-
-      const gptPromise = generateWithGPTImage2(
-        finalPrompt,
-        args.size as OpenAISize2,
-        quality,
-        n,
-        gptBase
-      ).catch((err) => {
-        console.error(`❌ gpt-image-2 side failed: ${err instanceof Error ? err.message : err}`);
-        return [] as string[];
-      });
-
-      const nanoPromises: Promise<string>[] = [];
-      for (let i = 1; i <= n; i++) {
-        const nanoOutput = n === 1 ? nanoBase : `${basePath}-nbp-${i}.png`;
-        nanoPromises.push(
-          generateWithNanoBananaPro(finalPrompt, nanoProSize, args.aspectRatio!, nanoOutput, args.referenceImages).catch((err) => {
-            console.error(`❌ nano-banana-pro variation ${i} failed: ${err instanceof Error ? err.message : err}`);
-            return "";
+      const results = await Promise.all(
+        keyed.map((m) =>
+          generateImages(m, finalPrompt, args, n, `${basePath}-${m}.png`).catch((err) => {
+            console.error(`❌ ${m} failed: ${err instanceof Error ? err.message : err}`);
+            return [] as string[];
           })
-        );
-      }
-
-      const [gptPaths, nanoPathsRaw] = await Promise.all([gptPromise, Promise.all(nanoPromises)]);
-      const nanoPaths = nanoPathsRaw.filter(Boolean);
-      console.log(`\n✅ Compare complete — gpt-image-2: ${gptPaths.length}/${n}, nano-banana-pro: ${nanoPaths.length}/${n}`);
-      console.log(`   gpt-image-2: ${gptPaths.join(", ") || "(none)"}`);
-      console.log(`   nano-banana-pro: ${nanoPaths.join(", ") || "(none)"}`);
+        )
+      );
+      console.log(`\n✅ Compare complete`);
+      keyed.forEach((m, i) => console.log(`   ${m}: ${results[i]!.length}/${n} ${results[i]!.join(", ")}`));
       return;
     }
 
-    // Single-model multi-image (creative-variations) path
+    const model = resolveModel(args.model, (args.referenceImages?.length ?? 0) > 0);
+
+    // Creative variations: N images from the same prompt.
     if (n > 1) {
-      console.log(`🎨 Creative Mode: Generating ${n} variations with ${args.model}...`);
-      console.log(`💡 Note: CLI mode uses same prompt for all variations (tests model variability)`);
-      console.log(`   For true creative diversity, use the creative workflow with be-creative skill\n`);
-
-      const basePath = args.output.replace(/\.[^.]+$/, "");
-
-      // gpt-image-2 supports batch n natively — single API call
-      if (args.model === "gpt-image-2") {
-        const paths = await generateWithGPTImage2(
-          finalPrompt,
-          args.size as OpenAISize2,
-          quality,
-          n,
-          `${basePath}.png`
-        );
-        console.log(`\n✅ Generated ${paths.length} variation(s)`);
-        console.log(`   Files: ${paths.join(", ")}`);
-        return;
-      }
-
-      // Other models: fan out in parallel
-      const promises: Promise<string>[] = [];
-      for (let i = 1; i <= n; i++) {
-        const varOutput = `${basePath}-v${i}.png`;
-        console.log(`Variation ${i}/${n}: ${varOutput}`);
-
-        if (args.model === "flux") {
-          promises.push(generateWithFlux(finalPrompt, args.size as ReplicateSize, varOutput));
-        } else if (args.model === "nano-banana") {
-          promises.push(generateWithNanoBanana(finalPrompt, args.size as ReplicateSize, varOutput));
-        } else if (args.model === "nano-banana-pro") {
-          promises.push(
-            generateWithNanoBananaPro(
-              finalPrompt,
-              args.size as GeminiSize,
-              args.aspectRatio!,
-              varOutput,
-              args.referenceImages
-            )
-          );
-        }
-      }
-
-      const actualPaths = await Promise.all(promises);
-      console.log(`\n✅ Generated ${n} variations`);
-      console.log(`   Files: ${actualPaths.join(", ")}`);
+      console.log(`🎨 Creative Mode: Generating ${n} variations with ${model}...`);
+      const paths = await generateImages(model, finalPrompt, args, n, args.output);
+      console.log(`\n✅ Generated ${paths.length} variation(s)`);
+      console.log(`   Files: ${paths.join(", ")}`);
       return;
     }
 
-    // Standard single image generation — track actual output path (may differ if format corrected)
-    let actualOutput: string = args.output;
-    if (args.model === "flux") {
-      actualOutput = await generateWithFlux(finalPrompt, args.size as ReplicateSize, args.output);
-    } else if (args.model === "nano-banana") {
-      actualOutput = await generateWithNanoBanana(finalPrompt, args.size as ReplicateSize, args.output);
-    } else if (args.model === "nano-banana-pro") {
-      actualOutput = await generateWithNanoBananaPro(
-        finalPrompt,
-        args.size as GeminiSize,
-        args.aspectRatio!,
-        args.output,
-        args.referenceImages
-      );
-    } else if (args.model === "gpt-image-2") {
-      const paths = await generateWithGPTImage2(
-        finalPrompt,
-        args.size as OpenAISize2,
-        quality,
-        1,
-        args.output
-      );
-      // Non-null: called with n=1 and generateWithGPTImage2 throws on empty data,
-      // so it always returns at least one path.
-      actualOutput = paths[0]!;
-    }
+    // Single image. The saved path may differ from --output if the format was corrected.
+    let actualOutput = (await generateImages(model, finalPrompt, args, 1, args.output))[0]!;
 
     // Remove background if requested (use actual output path)
     // May return a renamed path (e.g., .jpg → .png) since rembg returns PNG.

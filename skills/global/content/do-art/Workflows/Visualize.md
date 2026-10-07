@@ -562,7 +562,7 @@ Do not add a signature or other text in the prompt. If ART_SIGNATURE is set, sta
 |-----------|------|-------------|
 | "fast", "quick", "draft" | `--model nano-banana` | Faster iteration, slightly lower quality |
 | (default), "best", "high quality" | `--model nano-banana-pro` | Best quality + text rendering (recommended) |
-| "flux", "stylistic variety" | `--model flux` | Different aesthetic, stylistic variety |
+| "grok", "stylistic variety" | `--model grok` | Different aesthetic, fast and low cost |
 
 | User Says | Flag | Resolution |
 |-----------|------|------------|

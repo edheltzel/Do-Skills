@@ -324,7 +324,7 @@ bun run <skill-dir>/Tools/Generate.ts \
   --output /path/to/conceptual-map.png
 ```
 
-**Model Recommendation:** nano-banana-pro (best for territory labels) or flux (stylistic variety)
+**Model Recommendation:** nano-banana-pro (best for territory labels) or grok (stylistic variety)
 
 **Immediately Open:**
 ```bash
