@@ -17,7 +17,7 @@ Only **promoted** groups have docs pages:
 - [`project/swift/`](./project/swift/) - Swift and Apple platforms
 - [`project/product/`](./project/product/) - product marketing
 
-`global/operations/` and `global/personal/` are not promoted and have no docs pages.
+`global/operations/`, `global/personal/`, and `project/personal/` are not promoted and have no docs pages.
 Group descriptions live in [`skills.sh.json`](../skills.sh.json).
 
 To add or update a page, follow [`.agents/writing-docs.md`](../.agents/writing-docs.md).

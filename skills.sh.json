@@ -53,9 +53,8 @@
     },
     {
       "title": "Global: Personal",
-      "description": "Personal extras - teaching and recipe diagrams.",
+      "description": "Personal extras you want everywhere - teaching.",
       "skills": [
-        "do-recipe-diagrams",
         "do-teach-me"
       ]
     },
@@ -112,6 +111,13 @@
       "description": "Product marketing - positioning, SEO and GEO discovery, launches, conversion, and retention.",
       "skills": [
         "do-marketing"
+      ]
+    },
+    {
+      "title": "Project: Personal",
+      "description": "Personal extras for specific projects - recipe diagrams.",
+      "skills": [
+        "do-recipe-diagrams"
       ]
     }
   ]

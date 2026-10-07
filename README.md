@@ -60,7 +60,7 @@ Useful in any repo, or none. Install once per machine with `-g`.
 | [Workflow](./skills/global/workflow/) | 9 | Change delivery - commits, docs, GitHub projects and stacks, PR workflow and review triage, worktrees, and technical writing. |
 | [Operations](./skills/global/operations/) | 3 | Operating AI agents - delegation, prompt audits, and project status check-ins. |
 | [Content](./skills/global/content/) | 2 | Audience-facing media - illustrations, diagrams, and images. |
-| [Personal](./skills/global/personal/) | 2 | Personal extras - teaching and recipe diagrams. |
+| [Personal](./skills/global/personal/) | 1 | Personal extras you want everywhere - teaching. |
 
 ### [Project](./skills/project/)
 
@@ -74,6 +74,7 @@ Pay off only when a project uses that stack or product. Install into the project
 | [Tooling](./skills/project/tooling/) | 2 | CLIs and lightweight tools - TypeScript CLI scaffolding and zero-dependency patterns. |
 | [Swift](./skills/project/swift/) | 3 | Swift and Apple platforms - macOS desktop apps, iOS review, and cleanup. |
 | [Product](./skills/project/product/) | 1 | Product marketing - positioning, SEO and GEO discovery, launches, conversion, and retention. |
+| [Personal](./skills/project/personal/) | 1 | Personal extras for specific projects - recipe diagrams. |
 
 <!-- skills-end -->
 ## Creating a Skill
@@ -92,7 +93,7 @@ Pick the scope first:
 - `global/` - useful in any repo, or none: methodology, writing, git and GitHub, agent operations, setup you run before a project has skills, personal tools
 - `project/` - assumes a specific language, framework, platform, or product the project must use
 
-Then the group. Global groups: `core`, `workflow`, `operations`, `content`, `personal`. Project groups are the stack or product: `typescript` (language-wide, installed alongside the TS groups), `frontend`, `backend`, `tooling`, `swift`, `product`. Group descriptions live in [`skills.sh.json`](./skills.sh.json).
+Then the group. Global groups: `core`, `workflow`, `operations`, `content`, `personal`. Project groups are the stack or product: `typescript` (language-wide, installed alongside the TS groups), `frontend`, `backend`, `tooling`, `swift`, `product`, `personal`. `personal` exists in both scopes: personal tools you want everywhere go in `global/personal`, ones you only use in certain projects go in `project/personal`. Group descriptions live in [`skills.sh.json`](./skills.sh.json).
 
 The `SKILL.md` file contains YAML frontmatter and markdown instructions:
 

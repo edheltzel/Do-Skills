@@ -16,7 +16,7 @@ npx skills add https://github.com/edheltzel/Do-Skills/tree/master/skills/global 
 | [Workflow](./workflow/) | 9 | Change delivery - commits, docs, GitHub projects and stacks, PR workflow and review triage, worktrees, and technical writing. |
 | [Operations](./operations/) | 3 | Operating AI agents - delegation, prompt audits, and project status check-ins. |
 | [Content](./content/) | 2 | Audience-facing media - illustrations, diagrams, and images. |
-| [Personal](./personal/) | 2 | Personal extras - teaching and recipe diagrams. |
+| [Personal](./personal/) | 1 | Personal extras you want everywhere - teaching. |
 
 ## See Also
 
