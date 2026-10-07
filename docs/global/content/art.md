@@ -36,21 +36,23 @@ accessibility, use [design-system](../../project/frontend/design-system.md) inst
 
 ## Prerequisites
 
-At least one image API key. `do-art` generates with three providers and uses
-whichever have a key:
+At least one image API key. `do-art` generates with three providers, plus
+OpenRouter as a gateway to all of them, and uses whichever have a key:
 
 | Provider | Models | Key |
 | --- | --- | --- |
 | xAI | `grok` (Grok Imagine) | `XAI_API_KEY` |
 | OpenAI | `gpt-image-2` | `OPENAI_API_KEY` |
 | Google Gemini | `nano-banana`, `nano-banana-pro` | `GEMINI_API_KEY` or `GOOGLE_API_KEY` |
+| OpenRouter | any of the above, when its own key is missing | `OPENROUTER_API_KEY` |
 
 Keys load from the environment, then `./.env`, then
 `${XDG_CONFIG_HOME:-~/.config}/do-art/.env`. Run
-`bun <skill-dir>/Tools/Generate.ts --check-keys` to see what it found. If the
-requested model has no key, it falls back to a provider that does and says so;
-with no key at all it stops and tells you which keys to set. ImageMagick and,
-for transparent headers, `rembg` are also used.
+`bun <skill-dir>/Tools/Generate.ts --check-keys` to see what it found and how
+each model will run. A model without its own key runs through OpenRouter if
+that key is set, otherwise another model runs instead, and it says so. With no
+key at all it stops and tells you which keys to set. ImageMagick and, for
+transparent headers, `rembg` are also used.
 
 ## Workflow before prompt
 

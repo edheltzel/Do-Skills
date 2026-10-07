@@ -79,9 +79,10 @@ async function loadEnv(): Promise<void> {
 // Providers, Models, and API Keys
 // ============================================================================
 
-type Provider = "xai" | "openai" | "google";
+type Provider = "xai" | "openai" | "google" | "openrouter";
 type ImageModel = "grok" | "gpt-image-2" | "nano-banana" | "nano-banana-pro";
 type Model = ImageModel | "auto" | "compare";
+type Route = "direct" | "openrouter";
 type AspectRatio = "1:1" | "16:9" | "3:2" | "2:3" | "3:4" | "4:3" | "4:5" | "5:4" | "9:16" | "21:9";
 type OpenAISize2 = "1024x1024" | "1536x1024" | "1024x1536" | "2048x2048" | "auto";
 type Resolution = "1K" | "2K" | "4K";
@@ -91,16 +92,18 @@ const PROVIDERS: Record<Provider, { label: string; envVars: string[]; keyUrl: st
   xai: { label: "xAI (Grok Imagine)", envVars: ["XAI_API_KEY"], keyUrl: "https://console.x.ai" },
   openai: { label: "OpenAI (ChatGPT images)", envVars: ["OPENAI_API_KEY", "OPENAI_API_KEY_OPTIN"], keyUrl: "https://platform.openai.com/api-keys" },
   google: { label: "Google Gemini (Nano Banana)", envVars: ["GEMINI_API_KEY", "GOOGLE_API_KEY"], keyUrl: "https://aistudio.google.com/apikey" },
+  openrouter: { label: "OpenRouter (all four models)", envVars: ["OPENROUTER_API_KEY"], keyUrl: "https://openrouter.ai/keys" },
 };
 
-const MODELS: Record<ImageModel, { provider: Provider; apiModel: string; label: string }> = {
-  "grok": { provider: "xai", apiModel: "grok-imagine-image-2.0", label: "Grok Imagine" },
-  "gpt-image-2": { provider: "openai", apiModel: "gpt-image-2", label: "gpt-image-2" },
-  "nano-banana": { provider: "google", apiModel: "gemini-nano-banana-2.1", label: "Nano Banana 2.1" },
-  "nano-banana-pro": { provider: "google", apiModel: "gemini-3-pro-image", label: "Nano Banana Pro" },
+// openRouterModel: the same model's slug on OpenRouter's /images API, used when the direct key is missing.
+const MODELS: Record<ImageModel, { provider: Exclude<Provider, "openrouter">; apiModel: string; openRouterModel: string; label: string }> = {
+  "grok": { provider: "xai", apiModel: "grok-imagine-image-2.0", openRouterModel: "x-ai/grok-imagine-image-2.0", label: "Grok Imagine" },
+  "gpt-image-2": { provider: "openai", apiModel: "gpt-image-2", openRouterModel: "openai/gpt-image-2", label: "gpt-image-2" },
+  "nano-banana": { provider: "google", apiModel: "gemini-nano-banana-2.1", openRouterModel: "google/gemini-nano-banana-2.1", label: "Nano Banana 2.1" },
+  "nano-banana-pro": { provider: "google", apiModel: "gemini-3-pro-image", openRouterModel: "google/gemini-3-pro-image", label: "Nano Banana Pro" },
 };
 
-// Order tried by --model auto and by fallback when the requested provider has no key.
+// Order tried by --model auto and by fallback when the requested model has no route.
 const FALLBACK_ORDER: ImageModel[] = ["grok", "gpt-image-2", "nano-banana-pro"];
 const IMAGE_MODELS = Object.keys(MODELS) as ImageModel[];
 
@@ -112,59 +115,76 @@ function apiKey(provider: Provider): string | undefined {
   return undefined;
 }
 
+/** How a model can run: its own provider's key first, then OpenRouter, else not at all. */
+function routeFor(model: ImageModel): Route | undefined {
+  if (apiKey(MODELS[model].provider)) return "direct";
+  if (apiKey("openrouter")) return "openrouter";
+  return undefined;
+}
+
 function keySetupHelp(): string {
   const lines = Object.values(PROVIDERS).map(
     (p) => `  ${p.label.padEnd(30)} ${p.envVars.join(" or ").padEnd(40)} ${p.keyUrl}`
   );
   return [
-    "Set at least one of these API keys:",
+    "Set at least one of these API keys (OPENROUTER_API_KEY alone covers every model):",
     ...lines,
     "Keys load from the process environment, then ./.env, then ${XDG_CONFIG_HOME:-~/.config}/do-art/.env",
   ].join("\n");
 }
 
 /**
- * Pick the model that will actually run. A requested model whose provider has
- * no key falls back, with a notice, to the first keyed model in FALLBACK_ORDER.
- * Reference images need Gemini, so they never fall back to another provider.
+ * Pick the model and route that will actually run. A requested model without
+ * its own key runs through OpenRouter when that key is set; otherwise it falls
+ * back, with a notice, to the first routable model in FALLBACK_ORDER.
+ * Reference images go to Gemini models only.
  */
-function resolveModel(requested: ImageModel | "auto", needsGemini: boolean): ImageModel {
-  if (requested !== "auto" && apiKey(MODELS[requested].provider)) return requested;
+function resolveModel(requested: ImageModel | "auto", needsGemini: boolean): { model: ImageModel; route: Route } {
+  if (requested !== "auto") {
+    const route = routeFor(requested);
+    if (route) {
+      if (route === "openrouter") {
+        console.warn(`⚠️ ${PROVIDERS[MODELS[requested].provider].envVars.join(" or ")} is not set; running ${requested} through OpenRouter.`);
+      }
+      return { model: requested, route };
+    }
+  }
 
-  const candidates = needsGemini
-    ? (["nano-banana-pro", "nano-banana"] as ImageModel[])
-    : FALLBACK_ORDER;
-  const fallback = candidates.find((m) => apiKey(MODELS[m].provider));
+  const candidates = needsGemini ? (["nano-banana-pro", "nano-banana"] as ImageModel[]) : FALLBACK_ORDER;
+  const fallback = candidates.find((m) => routeFor(m));
 
   if (!fallback) {
     const why = needsGemini
-      ? "--reference-image needs Google Gemini, and no Gemini key is set."
+      ? "--reference-image needs a Gemini model, and neither a Gemini key nor OPENROUTER_API_KEY is set."
       : requested === "auto"
         ? "No image provider has an API key."
-        : `${MODELS[requested].label} needs ${PROVIDERS[MODELS[requested].provider].envVars.join(" or ")}, and no other provider has a key to fall back to.`;
+        : `${MODELS[requested].label} needs ${PROVIDERS[MODELS[requested].provider].envVars.join(" or ")} or OPENROUTER_API_KEY, and no other provider has a key to fall back to.`;
     throw new MissingKeyError(`${why}\n\n${keySetupHelp()}`);
   }
 
+  const route = routeFor(fallback)!;
   if (requested !== "auto") {
     const missing = PROVIDERS[MODELS[requested].provider].envVars.join(" or ");
-    console.warn(`⚠️ ${missing} is not set, so ${requested} cannot run. Falling back to ${fallback} (${PROVIDERS[MODELS[fallback].provider].label}).`);
+    console.warn(`⚠️ ${missing} is not set, so ${requested} cannot run. Falling back to ${fallback} (${route === "openrouter" ? "via OpenRouter" : PROVIDERS[MODELS[fallback].provider].label}).`);
   }
-  return fallback;
+  return { model: fallback, route };
 }
 
 function printKeyStatus(): void {
-  let available = 0;
-  for (const [id, p] of Object.entries(PROVIDERS) as [Provider, (typeof PROVIDERS)[Provider]][]) {
+  for (const p of Object.values(PROVIDERS)) {
     const found = p.envVars.find((name) => process.env[name]?.trim());
-    const models = IMAGE_MODELS.filter((m) => MODELS[m].provider === id).join(", ");
-    if (found) available++;
-    console.log(`${found ? "✅" : "❌"} ${p.label.padEnd(30)} ${found ? `${found} set` : `missing ${p.envVars.join(" or ")}`}  (${models})`);
+    console.log(`${found ? "✅" : "❌"} ${p.label.padEnd(30)} ${found ? `${found} set` : `missing ${p.envVars.join(" or ")}`}`);
   }
-  if (available === 0) {
+  console.log("");
+  for (const m of IMAGE_MODELS) {
+    const route = routeFor(m);
+    console.log(`  ${m.padEnd(16)} ${route === "direct" ? "direct" : route === "openrouter" ? "via OpenRouter" : "unavailable"}`);
+  }
+  const auto = FALLBACK_ORDER.find((m) => routeFor(m));
+  if (!auto) {
     console.log(`\n${keySetupHelp()}`);
     process.exit(2);
   }
-  const auto = FALLBACK_ORDER.find((m) => apiKey(MODELS[m].provider));
   console.log(`\n--model auto would use: ${auto}`);
 }
 
@@ -347,12 +367,15 @@ REQUIRED:
   --workflow=<name>    The Art workflow that built this call (or --freeform-confirmed)
 
 MODELS (--model, default: auto, or ART_MODEL):
-  auto                 First provider with a key, in this order: grok, gpt-image-2, nano-banana-pro
+  auto                 First model that can run, in this order: grok, gpt-image-2, nano-banana-pro
   grok                 xAI grok-imagine-image-2.0                     needs XAI_API_KEY
   gpt-image-2          OpenAI gpt-image-2                             needs OPENAI_API_KEY
   nano-banana          Google gemini-nano-banana-2.1 (fast, cheap)    needs GEMINI_API_KEY or GOOGLE_API_KEY
   nano-banana-pro      Google gemini-3-pro-image (best text, refs)    needs GEMINI_API_KEY or GOOGLE_API_KEY
-  compare              Same prompt on every provider that has a key, side by side
+  compare              Same prompt on every model that can run, side by side
+
+  OPENROUTER_API_KEY runs any of the four models through OpenRouter when that
+  model's own key is missing. One OpenRouter key covers everything.
 
 OPTIONS:
   --aspect-ratio <ratio>     1:1, 16:9, 3:2, 2:3, 3:4, 4:3, 4:5, 5:4, 9:16, 21:9 (default 16:9)
@@ -385,6 +408,7 @@ ENVIRONMENT VARIABLES:
   XAI_API_KEY                     xAI key for grok (https://console.x.ai)
   OPENAI_API_KEY                  OpenAI key for gpt-image-2 (OPENAI_API_KEY_OPTIN also accepted)
   GEMINI_API_KEY / GOOGLE_API_KEY Google key for nano-banana and nano-banana-pro (https://aistudio.google.com/apikey)
+  OPENROUTER_API_KEY              Runs any model via OpenRouter when its own key is missing (https://openrouter.ai/keys)
   ART_MODEL            Default --model (auto when unset)
   REMBG_BIN            Optional rembg path. Else PATH, else ~/.local/bin/rembg
   ART_OUTPUT_DIR       Preview folder. Else ~/Downloads if it exists, else ./art-output
@@ -969,8 +993,57 @@ async function generateGeminiImage(
   return finalPath;
 }
 
-/** Run one model for n images. Grok and gpt-image-2 batch natively; Gemini fans out. */
-async function generateImages(model: ImageModel, prompt: string, args: CLIArgs, n: number, outputBase: string): Promise<string[]> {
+/** One OpenRouter /images call for any of the four models. References go as data URLs. */
+async function generateOpenRouter(model: ImageModel, prompt: string, args: CLIArgs, n: number, outputBase: string): Promise<string[]> {
+  const { openRouterModel, label } = MODELS[model];
+  const body: Record<string, unknown> = { model: openRouterModel, prompt, n };
+  if (model === "gpt-image-2") {
+    // OpenRouter rejects a pixel size combined with resolution or aspect_ratio; gpt-image-2 takes the size alone.
+    body.size = args.openaiSize ?? openaiSizeFor(args.aspectRatio, args.resolution);
+    body.quality = args.quality ?? "high";
+  } else {
+    body.aspect_ratio = args.aspectRatio;
+    body.resolution = args.resolution;
+  }
+  const refs = args.referenceImages ?? [];
+  if (refs.length > 0) {
+    body.input_references = await Promise.all(
+      refs.map(async (ref) => ({
+        type: "image_url",
+        image_url: { url: `data:${await detectMimeType(ref)};base64,${(await readFile(ref)).toString("base64")}` },
+      }))
+    );
+  }
+
+  console.log(`🔀 Generating ${n} image(s) with ${label} via OpenRouter (${openRouterModel})...`);
+  const base = process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1";
+  const resp = await fetch(`${base}/images`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${apiKey("openrouter")}`, "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!resp.ok) {
+    throw new CLIError(`OpenRouter ${openRouterModel} failed: HTTP ${resp.status} ${(await resp.text()).slice(0, 300)}`);
+  }
+  const json: unknown = await resp.json();
+  const data = json && typeof json === "object" && "data" in json && Array.isArray(json.data) ? json.data : [];
+  const images = data.flatMap((item: unknown) =>
+    item && typeof item === "object" && "b64_json" in item && typeof item.b64_json === "string" ? [item.b64_json] : []
+  );
+  if (images.length === 0) throw new CLIError(`No image data returned from OpenRouter ${openRouterModel}`);
+
+  const paths: string[] = [];
+  for (const [i, b64] of images.entries()) {
+    const finalPath = await saveImage(Buffer.from(b64, "base64"), variantPath(outputBase, i + 1, images.length));
+    console.log(`✅ ${label} (OpenRouter) image saved to ${finalPath}`);
+    paths.push(finalPath);
+  }
+  return paths;
+}
+
+/** Run one model for n images. OpenRouter, Grok, and gpt-image-2 batch natively; direct Gemini fans out. */
+async function generateImages(model: ImageModel, route: Route, prompt: string, args: CLIArgs, n: number, outputBase: string): Promise<string[]> {
+  if (route === "openrouter") return generateOpenRouter(model, prompt, args, n, outputBase);
   if (model === "grok" || model === "gpt-image-2") {
     return generateOpenAICompatible(model, prompt, args, n, outputBase);
   }
@@ -1007,46 +1080,48 @@ async function main(): Promise<void> {
 
     const n = args.creativeVariations && args.creativeVariations > 1 ? args.creativeVariations : 1;
 
-    // Compare mode: the same prompt on every provider that has a key, one flagship each.
+    // Compare mode: the same prompt on every model that has a route (own key or OpenRouter), one flagship each.
     if (args.model === "compare") {
-      const keyed = FALLBACK_ORDER.filter((m) => apiKey(MODELS[m].provider));
-      const skipped = FALLBACK_ORDER.filter((m) => !keyed.includes(m));
-      if (keyed.length === 0) {
+      const runnable = FALLBACK_ORDER.flatMap((m) => {
+        const route = routeFor(m);
+        return route ? [{ model: m, route }] : [];
+      });
+      if (runnable.length === 0) {
         throw new MissingKeyError(`Compare mode needs at least one image provider key.\n\n${keySetupHelp()}`);
       }
-      for (const m of skipped) {
-        console.warn(`⚠️ Skipping ${m}: ${PROVIDERS[MODELS[m].provider].envVars.join(" or ")} is not set.`);
+      for (const m of FALLBACK_ORDER.filter((m) => !routeFor(m))) {
+        console.warn(`⚠️ Skipping ${m}: ${PROVIDERS[MODELS[m].provider].envVars.join(" or ")} is not set (nor OPENROUTER_API_KEY).`);
       }
-      if (keyed.length === 1) console.warn(`⚠️ Only ${keyed[0]} has a key, so compare runs a single provider.`);
+      if (runnable.length === 1) console.warn(`⚠️ Only ${runnable[0]!.model} has a key, so compare runs a single provider.`);
 
-      console.log(`⚖️  Compare Mode: ${n} image(s) each from ${keyed.join(", ")}`);
+      console.log(`⚖️  Compare Mode: ${n} image(s) each from ${runnable.map((r) => (r.route === "openrouter" ? `${r.model} (OpenRouter)` : r.model)).join(", ")}`);
       const basePath = args.output.replace(/\.[^.]+$/, "");
       const results = await Promise.all(
-        keyed.map((m) =>
-          generateImages(m, finalPrompt, args, n, `${basePath}-${m}.png`).catch((err) => {
-            console.error(`❌ ${m} failed: ${err instanceof Error ? err.message : err}`);
+        runnable.map(({ model, route }) =>
+          generateImages(model, route, finalPrompt, args, n, `${basePath}-${model}.png`).catch((err) => {
+            console.error(`❌ ${model} failed: ${err instanceof Error ? err.message : err}`);
             return [] as string[];
           })
         )
       );
       console.log(`\n✅ Compare complete`);
-      keyed.forEach((m, i) => console.log(`   ${m}: ${results[i]!.length}/${n} ${results[i]!.join(", ")}`));
+      runnable.forEach(({ model }, i) => console.log(`   ${model}: ${results[i]!.length}/${n} ${results[i]!.join(", ")}`));
       return;
     }
 
-    const model = resolveModel(args.model, (args.referenceImages?.length ?? 0) > 0);
+    const { model, route } = resolveModel(args.model, (args.referenceImages?.length ?? 0) > 0);
 
     // Creative variations: N images from the same prompt.
     if (n > 1) {
       console.log(`🎨 Creative Mode: Generating ${n} variations with ${model}...`);
-      const paths = await generateImages(model, finalPrompt, args, n, args.output);
+      const paths = await generateImages(model, route, finalPrompt, args, n, args.output);
       console.log(`\n✅ Generated ${paths.length} variation(s)`);
       console.log(`   Files: ${paths.join(", ")}`);
       return;
     }
 
     // Single image. The saved path may differ from --output if the format was corrected.
-    let actualOutput = (await generateImages(model, finalPrompt, args, 1, args.output))[0]!;
+    let actualOutput = (await generateImages(model, route, finalPrompt, args, 1, args.output))[0]!;
 
     // Remove background if requested (use actual output path)
     // May return a renamed path (e.g., .jpg → .png) since rembg returns PNG.

@@ -13,12 +13,12 @@ effort: medium
 
 ## Before generating: check API keys
 
-Run `bun <skill-dir>/Tools/Generate.ts --check-keys` once per session, before writing a prompt. It lists which providers have a key: xAI (`XAI_API_KEY`), OpenAI (`OPENAI_API_KEY`), Google Gemini (`GEMINI_API_KEY` or `GOOGLE_API_KEY`).
+Run `bun <skill-dir>/Tools/Generate.ts --check-keys` once per session, before writing a prompt. It lists which keys are set: xAI (`XAI_API_KEY`), OpenAI (`OPENAI_API_KEY`), Google Gemini (`GEMINI_API_KEY` or `GOOGLE_API_KEY`), OpenRouter (`OPENROUTER_API_KEY`), and how each model will run (direct, via OpenRouter, or unavailable). An OpenRouter key alone covers all four models.
 
 - **Exit 2 (no key at all):** stop. Tell the user that image generation needs at least one of those keys, show the list the command printed (where to get each key, and that keys load from the environment, `./.env`, or `${XDG_CONFIG_HOME:-~/.config}/do-art/.env`), and wait. Do not compose prompts or try other tools.
 - **Some keys missing:** proceed, and tell the user which providers are unavailable when it changes the result (for example, `compare` will skip them, or the workflow's preferred model will fall back).
 
-`Generate.ts` enforces the same rules: a requested model without a key falls back to a keyed provider and prints a warning (relay it to the user); with no usable key it exits 2 and nothing is generated. Reference images need Gemini and never fall back.
+`Generate.ts` enforces the same rules: a model whose own key is missing runs through OpenRouter when `OPENROUTER_API_KEY` is set, otherwise falls back to another model that can run; either way it prints a warning (relay it to the user). With no usable key it exits 2 and nothing is generated. Reference images go only to Gemini models (direct or via OpenRouter).
 
 ## What It Does
 
@@ -185,7 +185,7 @@ Route to the appropriate workflow based on the request.
 
 ## Image Generation
 
-**Default model:** `auto` (set `ART_MODEL` to change it). `auto` uses the first provider with a key, in this order: `grok`, `gpt-image-2`, `nano-banana-pro`. Workflows usually name a model explicitly.
+**Default model:** `auto` (set `ART_MODEL` to change it). `auto` uses the first model that can run, in this order: `grok`, `gpt-image-2`, `nano-banana-pro`. Workflows usually name a model explicitly.
 
 ### Models and keys
 
@@ -195,8 +195,10 @@ Route to the appropriate workflow based on the request.
 | `gpt-image-2` | OpenAI `gpt-image-2` | `OPENAI_API_KEY` | Strongest text rendering: stat cards, frameworks, taxonomies, timelines. `--quality low/medium/high/auto`. |
 | `nano-banana` | Google `gemini-nano-banana-2.1` | `GEMINI_API_KEY` or `GOOGLE_API_KEY` | Fast drafts, 1K-4K. Accepts `--reference-image`. |
 | `nano-banana-pro` | Google `gemini-3-pro-image` | `GEMINI_API_KEY` or `GOOGLE_API_KEY` | Best composition fidelity for editorial work, 1K-4K. Best `--reference-image` model (up to 14). |
-| `compare` | Every provider with a key | any | Same brief on each keyed provider (one flagship each); pick the winner. |
-| `auto` | First keyed provider | any | Default. |
+| `compare` | Every model that can run | any | Same brief on each (one flagship per provider); pick the winner. |
+| `auto` | First model that can run | any | Default. |
+
+**OpenRouter (`OPENROUTER_API_KEY`)** is a route, not a separate model: when a model's own key is missing, `Generate.ts` sends the same model to OpenRouter's image API (`x-ai/grok-imagine-image-2.0`, `openai/gpt-image-2`, `google/gemini-nano-banana-2.1`, `google/gemini-3-pro-image`). A direct key always wins over OpenRouter.
 
 `gpt-image-1` is deprecated and rejected. `flux` and Midjourney were removed.
 
