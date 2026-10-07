@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 
 /**
- * UL Abstract Illustration Prompt Generator
+ * Abstract illustration prompt generator
  *
  * ⚠️ DEPRECATED - THIS TOOL USES OLD CHARACTER-BASED SYSTEM
  * ⚠️ NEEDS COMPLETE REWRITE FOR ABSTRACT SHAPES/IMPRESSIONS ONLY
@@ -25,7 +25,7 @@ import { resolve } from "node:path";
 // ============================================================================
 
 type CompositionType = "observation" | "horizon" | "dialogue" | "workshop" | "aura";
-type CharacterFocus = "maya" | "kai" | "both";
+type CharacterFocus = "maya" | "theo" | "both";
 type TokyoNightColor =
   | "Electric Blue"
   | "Vivid Purple"
@@ -78,7 +78,7 @@ const COLOR_HEX_MAP: Record<TokyoNightColor, string> = {
 
 const CHARACTER_DESCRIPTIONS = {
   maya: `Maya is a young, highly curious girl with a round head, simple short hair, and big round glasses (her signature feature). She has a stick-figure body with thin limbs and a slightly oversized head, with minimal facial features (dots for eyes, simple line for mouth when needed).`,
-  kai: `Theo is a young boy with a slightly oval head, a soft messy hair tuft on top (his signature feature), and NO glasses. He wears a simple t-shirt and shorts or pants. He has a stick-figure body with thin limbs and a slightly oversized head, with minimal facial features.`,
+  theo: `Theo is a young boy with a slightly oval head, a soft messy hair tuft on top (his signature feature), and NO glasses. He wears a simple t-shirt and shorts or pants. He has a stick-figure body with thin limbs and a slightly oversized head, with minimal facial features.`,
   both: `Two recurring child characters: Maya and Theo. Maya is a young, highly curious girl with a round head, simple short hair, and big round glasses. Theo is a young boy with a slightly oval head, a soft messy hair tuft, and a simple t-shirt and shorts or pants. Both have stick-figure bodies with thin limbs and slightly oversized heads, with minimal facial features.`,
 };
 
@@ -183,7 +183,7 @@ function selectCharacter(
   if (override) return override;
 
   if (compositionType === "dialogue") return "both";
-  if (compositionType === "workshop") return "kai";
+  if (compositionType === "workshop") return "theo";
   if (compositionType === "observation") return "maya";
 
   return "both"; // Default
@@ -260,10 +260,10 @@ function buildVisualMetaphor(
       metaphor = `Maya and Theo positioned with space between them, interacting with a shared element or concept in the center, representing different perspectives on ${analysis.theme}`;
       break;
     case "workshop":
-      metaphor = `${characterFocus === "kai" ? "Theo" : "Both Maya and Theo"} actively building or creating, with elements spreading horizontally showing the process of making something related to ${analysis.theme}`;
+      metaphor = `${characterFocus === "theo" ? "Theo" : "Both Maya and Theo"} actively building or creating, with elements spreading horizontally showing the process of making something related to ${analysis.theme}`;
       break;
     case "aura":
-      metaphor = `${characterFocus === "maya" ? "Maya" : characterFocus === "kai" ? "Theo" : "The character"} surrounded by a soft, translucent aura bubble containing tiny symbolic icons representing aspects of ${analysis.theme}`;
+      metaphor = `${characterFocus === "maya" ? "Maya" : characterFocus === "theo" ? "Theo" : "The character"} surrounded by a soft, translucent aura bubble containing tiny symbolic icons representing aspects of ${analysis.theme}`;
       break;
   }
 
@@ -380,7 +380,7 @@ function main() {
     console.error("  --type           essay-illustration | blog-header (default: essay-illustration)");
     console.error("  --format         text | json (default: text)");
     console.error("  --composition    observation | horizon | dialogue | workshop | aura");
-    console.error("  --character      maya | kai | both");
+    console.error("  --character      maya | theo | both");
     console.error('  --colors         "Electric Blue,Neon Green" (comma-separated)');
     console.error('  --motifs         "agents,networks" (comma-separated)');
     process.exit(1);

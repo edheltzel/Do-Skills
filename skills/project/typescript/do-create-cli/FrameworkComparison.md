@@ -21,7 +21,7 @@
 
 | Framework | Stars | Bundle Size | TypeScript | Best For | Tier |
 |-----------|-------|-------------|------------|----------|----------|
-| **Manual Parsing** | N/A | 0 KB | Native | Simple CLIs (llcli) | Tier 1 ⭐ DEFAULT |
+| **Manual Parsing** | N/A | 0 KB | Native | Simple CLIs | Tier 1 ⭐ DEFAULT |
 | **Commander.js** | 25K+ | ~100 KB | Built-in | General CLIs | Tier 2 |
 | **oclif** | 12K+ | 22+ MB | First-class | Enterprise plugins | Tier 3 (ref only) |
 | **cleye** | N/A | Small | Schema inference | Modern TS CLIs | Alternative |
@@ -30,7 +30,7 @@
 
 ---
 
-## 1️⃣ TIER 1: Manual Parsing (llcli Pattern)
+## 1️⃣ TIER 1: Manual Parsing
 
 ### Pattern
 
@@ -82,7 +82,7 @@ main().catch(error => {
 - ✅ Type-safe with TypeScript interfaces
 - ✅ 300-400 lines total (easy to understand)
 - ✅ Fast development (no framework learning curve)
-- ✅ Proven pattern (llcli is production-ready)
+- ✅ Proven for API wrappers and file tools
 - ✅ Perfect for Bun runtime
 - ✅ Deterministic behavior
 
@@ -101,10 +101,9 @@ main().catch(error => {
 - ✅ JSON output only
 - ✅ Fast development priority
 
-### Reference Implementation
-**Location:** `~/.agents/tools/llcli/llcli.ts` (327 lines)
-**Commands:** today, date, search
-**Pattern:** Exactly what this tier generates
+### What this tier generates
+
+One TypeScript file: manual argv parsing, typed config, help text, JSON on stdout. Example commands for an API wrapper: list, get, search. The file lives in the directory the user asked for (default: a new folder in the current working directory).
 
 ---
 
@@ -342,7 +341,7 @@ runMain(convert);
 - [ ] No subcommand grouping needed
 - [ ] Zero dependencies preferred
 - [ ] Fast development critical
-- [ ] Following llcli pattern
+- [ ] Manual parsing is enough
 
 **→ 80% of CLIs should use Tier 1**
 
@@ -370,17 +369,16 @@ runMain(convert);
 
 ---
 
-## 🎯 llcli Pattern Analysis
+## 🎯 Manual Parsing Analysis
 
 ### Why Manual Parsing Works
 
-**llcli demonstrates:**
-1. **327 lines total** - Complete CLI with docs
-2. **Zero dependencies** - No node_modules needed
-3. **Type-safe** - Full TypeScript interfaces
-4. **Production-ready** - Error handling, help, validation
-5. **Composable** - JSON output pipes everywhere
-6. **Documented** - README explains philosophy
+A Tier 1 CLI is one TypeScript file:
+1. **Zero dependencies** - No node_modules needed
+2. **Type-safe** - Full TypeScript interfaces
+3. **Production-ready** - Error handling, help, validation
+4. **Composable** - JSON output pipes everywhere
+5. **Documented** - README explains the design
 
 **Key Insight:** For API wrappers and simple tools, manual parsing is SUPERIOR to frameworks because:
 - Complete control over behavior
@@ -389,7 +387,7 @@ runMain(convert);
 - Faster to develop (no API to learn)
 - Deterministic (no framework updates breaking things)
 
-### When llcli Pattern Breaks Down
+### When Manual Parsing Breaks Down
 
 **Indicators to escalate:**
 - 15+ commands making switch statement unwieldy
@@ -413,7 +411,7 @@ Every dependency is debt. Justify it.
 Manual parsing with TypeScript beats framework without types.
 
 ### 4. **Help Text Quality Matters**
-Auto-generated help is convenient but often poor quality. Manual help (like llcli) is better.
+Auto-generated help is convenient but often poor quality. Hand-written help is better.
 
 ### 5. **Composability > Features**
 JSON output + pipes > built-in table rendering.
@@ -422,7 +420,7 @@ JSON output + pipes > built-in table rendering.
 Run `--help` before declaring framework choice successful.
 
 ### 7. **Read Real Code**
-Study llcli, not just framework docs.
+Read a small hand-written CLI, not just framework docs.
 
 ### 8. **Benchmark Size**
 Check dist/ folder size. Tier 1 CLIs are <100 KB.
@@ -461,7 +459,7 @@ Check dist/ folder size. Tier 1 CLIs are <100 KB.
 
 **For this create-cli skill:**
 
-1. **Default:** Tier 1 (Manual Parsing / llcli pattern)
+1. **Default:** Tier 1 (manual parsing)
 2. **Escalation:** Tier 2 (Commander.js) when decision tree indicates
 3. **Reference:** Tier 3 (oclif) for documentation only
 
@@ -470,7 +468,6 @@ Check dist/ folder size. Tier 1 CLIs are <100 KB.
 ---
 
 **Sources:**
-- llcli production implementation (~/.agents/tools/llcli/)
 - Commander.js 12.x documentation
 - oclif core documentation
 - Perplexity research (32 sub-queries on CLI frameworks)

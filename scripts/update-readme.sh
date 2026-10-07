@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Regenerates scope and group READMEs plus the catalog tables in the root
-# README.md from SKILL.md frontmatters.
+# Do-Skills catalog generator. Regenerates scope and group READMEs plus the
+# catalog tables in the root README.md from SKILL.md frontmatters.
 # Skills live under skills/<scope>/<group>/<skill>/SKILL.md, scope = global|project.
 # Bundled copies under references/ are ignored.
-# Usage: bash skills/global/workflow/do-readme-update/update-readme.sh
+# Usage: bash scripts/update-readme.sh
 set -euo pipefail
 
 ROOT="$(git -C "$(dirname "${BASH_SOURCE[0]}")" rev-parse --show-toplevel)"

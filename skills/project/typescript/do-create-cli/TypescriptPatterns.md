@@ -527,7 +527,7 @@ const config = res.data;
 import { z } from 'zod';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config(); // cwd ./.env only; do not point this at a home directory
 
 const EnvSchema = z.object({
   PORT: z.coerce.number().int().min(1).max(65535).default(3000),
@@ -649,9 +649,9 @@ await main().catch(async (err) => {
 
 ---
 
-## 6️⃣ RECOMMENDED PATTERNS FOR KAI CLIS
+## 6️⃣ RECOMMENDED PATTERNS
 
-### For Tier 1 (llcli-style):
+### For Tier 1 (manual parsing):
 
 ```typescript
 #!/usr/bin/env bun
@@ -678,8 +678,8 @@ class CLIError extends Error {
 }
 
 function loadConfig(): Config {
-  // ... load from ~/.env
-  throw new CLIError('API_KEY not found', 'ERR_NO_API_KEY');
+  // process.env first, then ./.env, then $XDG_CONFIG_HOME/<cli-name>/.env (default ~/.config/<cli-name>/.env)
+  throw new CLIError('API_KEY not set in the environment, ./.env, or the XDG config dir', 'ERR_NO_API_KEY');
 }
 
 async function main() {

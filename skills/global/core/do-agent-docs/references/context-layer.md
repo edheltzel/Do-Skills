@@ -3,8 +3,7 @@
 Structure the documentation and context of a code repository so an agent can build an accurate
 mental model of the project fast, then load only what the current task needs. This is the
 **Interpretable Context Methodology (ICM)** by Jake Van Clief (also published as the Model
-Workspace Protocol; source of record: `~/Developer/AI/Standards/ICM`, `_core/CONVENTIONS.md`)
-applied to the context layer of a code repo.
+Workspace Protocol) applied to the context layer of a code repo.
 
 Think of the repo's docs as a library the agent walks. The entry file is the catalogue: small,
 stable, it points at everything and stores almost nothing. Content lives on the shelves. The

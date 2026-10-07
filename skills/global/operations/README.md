@@ -21,7 +21,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 | Skill | Description |
 |-------|-------------|
 | [`do-bitter-pill`](./do-bitter-pill/) | Audits AI instruction sets for over-prompting. |
-| [`do-delegation`](./do-delegation/) | Routes independent work through current Agent dispatch, background execution, role briefs, worktree isolation, and coordinator-managed synthesis. |
+| [`do-delegation`](./do-delegation/) | Routes independent work through the harness's subagent tool: background execution, role briefs, worktree isolation, and coordinator-managed synthesis. |
 | [`do-regroup`](./do-regroup/) | Use when checking status across active projects. |
 
 ## See Also

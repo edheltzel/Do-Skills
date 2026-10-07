@@ -13,7 +13,7 @@ globs: ["*.ts", "*.tsx", "*.mts", "*.cts"]
 
 # TypeScript Refactoring
 
-Refactoring is changing structure without changing behavior. Assess before changing. Small steps, verified continuously. The `typescript` skill defines what good TypeScript looks like — this skill defines how to get there from messy code.
+Refactoring is changing structure without changing behavior. Assess before changing. Small steps, verified continuously. The `do-write-typescript` skill defines what good TypeScript looks like — this skill defines how to get there from messy code.
 
 ## 1. The Iron Rules
 
@@ -161,9 +161,8 @@ AI agents read code to understand it, then generate new code that fits. These pa
 
 ## Companion Skills
 
-- **`typescript`** — the target state. What good TypeScript looks like. Reference this for specific patterns (discriminated unions, branded types, factory functions, etc.)
+- **`do-write-typescript`** — the target state. What good TypeScript looks like. Reference this for specific patterns (discriminated unions, branded types, factory functions, etc.)
 - **`do-agent-docs`** — repo-level improvements. AGENTS.md, documentation structure, mechanical enforcement of architecture. For ARCHITECTURE.md, `do-architecture-md`.
-- **`systematic-debugging`** — when refactoring reveals bugs. Follow root-cause investigation, don't patch symptoms.
 
 For the full smell catalog, see [references/smell-catalog.md](references/smell-catalog.md).
 For step-by-step transformation recipes, see [references/transformation-playbook.md](references/transformation-playbook.md).

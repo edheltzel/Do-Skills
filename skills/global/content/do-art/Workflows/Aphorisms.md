@@ -211,7 +211,7 @@ CRITICAL REQUIREMENTS:
 - No gradients, flat colors only
 - Shareable social media quality
 
-Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
+Do not add a signature or other text in the prompt. If ART_SIGNATURE is set, stamp it after generation.
 ```
 
 ---
@@ -225,7 +225,7 @@ Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
 ### Step 5: Execute Generation
 
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=Aphorisms \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \

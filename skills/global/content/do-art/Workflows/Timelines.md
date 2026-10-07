@@ -1,6 +1,6 @@
 # Conceptual Timelines & Progressions Workflow
 
-**Hand-drawn timelines showing evolution, trends, and transformations using UL aesthetic.**
+**Hand-drawn timelines showing evolution, trends, and transformations using editorial aesthetic.**
 Creates **ILLUSTRATED TIMELINES** — chronological progressions with visual metaphors for each stage, combining narrative arc with temporal information.
 
 ---
@@ -29,7 +29,7 @@ Conceptual timelines show change over time through illustrated progression. Unli
 3. **Hand-drawn timeline** — Organic line connecting events (not ruler-straight)
 4. **Typography hierarchy** — 3-tier system for dates, labels, annotations
 5. **Narrative arc** — Shows transformation, not just chronology
-6. **Editorial style** — Maintains UL flat color, black linework aesthetic
+6. **Editorial style** — Maintains flat color, black linework aesthetic
 7. **Scannable progression** — Easy to follow the flow of time
 
 ---
@@ -228,7 +228,7 @@ CRITICAL REQUIREMENTS:
 - Maintains editorial illustration aesthetic
 - Easy to scan and follow progression
 
-Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
+Do not add a signature or other text in the prompt. If ART_SIGNATURE is set, stamp it after generation.
 ```
 
 ---
@@ -249,7 +249,7 @@ Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
 ### Step 5: Execute Generation
 
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=Timelines \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \

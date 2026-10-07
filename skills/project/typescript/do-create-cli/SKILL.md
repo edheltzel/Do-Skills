@@ -7,6 +7,8 @@ effort: medium
 
 # CreateCLI
 
+`<skill-dir>` below is the folder containing this SKILL.md.
+
 ## What It Does
 
 Generates production-ready TypeScript CLIs. Every CLI ships with full implementation, README and QUICKSTART, a Bun package.json, strict tsconfig, JSON output, and correct exit codes. A three-tier template system picks the right complexity: Tier 1 manual arg parsing with zero deps (most cases), Tier 2 Commander.js for subcommands, Tier 3 oclif as a reference for enterprise scale.
@@ -62,7 +64,7 @@ Activate when you see these patterns:
 - ✅ "Build a command-line tool to process CSV files"
 - ✅ "Make a CLI for my database migrations"
 - ✅ "Generate a CLI that wraps this API"
-- ✅ "I need a tool like llcli but for Notion API"
+- ✅ "I need a small typed CLI for the Notion API"
 
 ---
 
@@ -70,7 +72,7 @@ Activate when you see these patterns:
 
 ### Three-Tier Template System
 
-**Tier 1: llcli-Style (DEFAULT - 80% of use cases)**
+**Tier 1: Manual parsing (DEFAULT - 80% of use cases)**
 - Manual argument parsing (process.argv)
 - Zero framework dependencies
 - Bun + TypeScript
@@ -142,15 +144,13 @@ Generated CLIs follow these standards:
 - ✅ **Package Manager:** Bun (NOT npm/yarn/pnpm)
 - ✅ **Testing:** Vitest (when tests added)
 - ✅ **Output:** Deterministic JSON (composable)
-- ✅ **Documentation:** README + QUICKSTART (llcli pattern)
+- ✅ **Documentation:** README + QUICKSTART
 
-### Repository Placement
+### Output location
 
-Generated CLIs go to:
-- `~/.agents/tools/[cli-name]/` - Personal CLIs (like llcli)
-- `~/Developer/[project-name]/` - Project-specific CLIs
+Create the CLI where the user asks. If they do not name a directory, create `./<cli-name>/` in the current working directory.
 
-**SAFETY:** Always verify repository location before git operations
+Do not assume a home tools directory or a personal projects folder. Confirm the directory before any git operation.
 
 ### CLI-First Architecture Principles
 
@@ -174,7 +174,7 @@ Every generated CLI follows:
 
 ### Reference Documentation
 - `FrameworkComparison.md` - Manual vs Commander vs oclif (with research)
-- `Patterns.md` - Common CLI patterns (from llcli analysis)
+- `Patterns.md` - Common CLI patterns
 - `TypescriptPatterns.md` - Type safety patterns (from tsx, vite, bun research)
 
 ---
@@ -186,10 +186,10 @@ Every generated CLI follows:
 **User Request:**
 "Create a CLI for the GitHub API that can list repos, create issues, and search code"
 
-**Generated Structure:**
+**Generated structure** (new folder in the working directory, unless the user names another path):
 ```
-~/.agents/tools/ghcli/
-├── ghcli.ts              # 350 lines, complete implementation
+./ghcli/
+├── ghcli.ts
 ├── package.json          # Bun + TypeScript
 ├── tsconfig.json         # Strict mode
 ├── .env.example          # GITHUB_TOKEN=your_token
@@ -200,7 +200,7 @@ Every generated CLI follows:
 **Usage:**
 ```bash
 ghcli repos --user exampleuser
-ghcli issues create --repo pai --title "Bug fix"
+ghcli issues create --repo owner/repo --title "Bug fix"
 ghcli search "typescript CLI"
 ghcli --help
 ```
@@ -214,7 +214,7 @@ ghcli --help
 
 **Generated Structure:**
 ```
-~/.agents/tools/md2html/
+./md2html/
 ├── md2html.ts
 ├── package.json
 ├── README.md
@@ -237,7 +237,7 @@ md2html extract-frontmatter post.md
 
 **Generated Structure:**
 ```
-~/.agents/tools/data-cli/
+./data-cli/
 ├── data-cli.ts           # Commander.js with subcommands
 ├── package.json
 ├── README.md
@@ -303,20 +303,19 @@ Developers repeatedly create CLIs for APIs and tools. Each time:
 
 **This skill automates steps 1-7.**
 
-### The llcli Pattern
+### The Tier 1 pattern
 
-The `llcli` CLI (Limitless.ai API) proves this pattern works:
-- 327 lines of TypeScript
-- Zero dependencies (no framework)
-- Complete error handling
-- Comprehensive documentation
-- Production-ready immediately
+Manual parsing is the default because a small CLI does not need a framework:
+- Zero dependencies
+- Typed interfaces and error handling
+- Help text and a README written for the commands that exist
+- JSON on stdout, errors on stderr
 
-**This skill replicates that success.**
+Escalate only when the decision tree says so.
 
 ### Design Principles
 
-1. **Start Simple** - Default to Tier 1 (llcli-style)
+1. **Start Simple** - Default to Tier 1 (manual parsing)
 2. **Escalate When Needed** - Tier 2 only when justified
 3. **Complete, Not Scaffold** - Every CLI is production-ready
 4. **Documentation First** - README explains "why" not just "how"
@@ -324,18 +323,10 @@ The `llcli` CLI (Limitless.ai API) proves this pattern works:
 
 ---
 
-## 🔗 RELATED SKILLS
-
-- **development** - For complex feature development (not CLI-specific)
-- **mcp** - For web scraping CLIs (proxy or scraper-API wrappers)
-- **lifelog** - Example of skill using llcli
-
----
-
-**This skill turns "I need a CLI for X" into production-ready tools in minutes, following proven patterns from llcli and CLI-First Architecture.**
+**This skill turns "I need a CLI for X" into a typed, documented CLI, using manual parsing and CLI-First Architecture.**
 
 ## Gotchas
 
-- **Always use bun, never npm/npx.** Zero exceptions per system prompt.
+- **Default to bun.** Use npm or npx only if the user asks.
 - **TypeScript only.** Never generate Python CLIs unless the user explicitly approves.
 - **3-tier system:** Start with the simplest tier that fits. Don't over-engineer a Tier 3 CLI when Tier 1 suffices.

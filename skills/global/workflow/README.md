@@ -27,7 +27,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 | [`do-git-pr-review-triage`](./do-git-pr-review-triage/) | Pull PR review comments and triage them — separate substantive feedback from bikeshedding, stale comments, misreads, AI slop, and other noise. |
 | [`do-git-safe-pr-workflow`](./do-git-safe-pr-workflow/) | Safe GitHub pull request workflow for low-experience Git users. |
 | [`do-git-worktree`](./do-git-worktree/) | Create, remove, and list git worktrees in a standardized location |
-| [`do-readme-update`](./do-readme-update/) | Use when adding, removing, renaming, or moving a skill in the Do-Skills repository to keep the scope and group READMEs and the root catalog current. |
+| [`do-readme-update`](./do-readme-update/) | Bring a repository's README back in line with the code. |
 | [`do-tech-writing`](./do-tech-writing/) | Write clean, terse technical docs — commits, issues, PRDs, specs, and technical communication |
 
 ## See Also

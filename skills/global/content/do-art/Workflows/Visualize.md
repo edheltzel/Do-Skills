@@ -84,7 +84,7 @@ TRANSPARENT: Use Images skill to remove background for overlay use
 **For transparent background** — use the **Images skill** for background removal:
 
 ```bash
-bun ~/.agents/skills/do-art/Tools/RemoveBg.ts /path/to/visualization.png
+bun <skill-dir>/Tools/RemoveBg.ts /path/to/visualization.png
 ```
 
 
@@ -391,7 +391,7 @@ Apply 3-tier system across all elements:
 - **Tier 3 (Advocate Condensed Italic):** Annotations, insights, editorial voice
 
 #### D. Color Strategy
-Maintain UL aesthetic while supporting information hierarchy:
+Maintain editorial aesthetic while supporting information hierarchy:
 - **Black #000000:** Primary structure (chart axes, borders, main elements)
 - **Purple #4A148C:** Critical insights, key data points, optimal zones
 - **Teal #00796B:** Secondary data, supporting elements, context
@@ -545,7 +545,7 @@ VALIDATION CHECKPOINTS:
 - Are data elements accurate and precise?
 - Do editorial elements enhance (not distract from) information?
 
-Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
+Do not add a signature or other text in the prompt. If ART_SIGNATURE is set, stamp it after generation.
 ```
 
 ---
@@ -581,7 +581,7 @@ Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
 **Construct command based on intent:**
 
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=Visualize \
   --model [SELECTED_MODEL] \
   --prompt "[YOUR COMPREHENSIVE PROMPT]" \
@@ -619,7 +619,7 @@ open /path/to/visualization.png
 
 #### Design Quality
 - [ ] **Professional deliverable:** Client/publication ready
-- [ ] **UL aesthetic maintained:** Flat colors, appropriate hand-drawn vs precise
+- [ ] **editorial aesthetic maintained:** Flat colors, appropriate hand-drawn vs precise
 - [ ] **Typography hierarchy clear:** 3 tiers obviously distinct
 - [ ] **Color strategic:** Purple/teal highlight key elements, not overwhelming
 - [ ] **Composition balanced:** Visual weight distributed appropriately
@@ -646,7 +646,7 @@ open /path/to/visualization.png
 | **Message unclear** | No clear visual hierarchy | Strengthen primary element (make larger, add purple), reduce secondary |
 | **Text unreadable** | Font too small or wrong tier | Increase label sizes, strengthen typography tier differentiation |
 | **Data imprecise** | Chart rendering issues | Add specific data points in prompt, request precision explicitly |
-| **Looks generic** | Missing UL aesthetic | Add hand-drawn editorial elements, strategic purple/teal, flatten any gradients |
+| **Looks generic** | Missing editorial aesthetic | Add hand-drawn editorial elements, strategic purple/teal, flatten any gradients |
 | **Elements disconnected** | Poor composition | Redesign spatial layout, add visual connectors (arrows, borders, grouping) |
 | **Color chaos** | Too much color everywhere | Limit purple to 2-3 key elements, teal to 1-2 supporting, rest black/charcoal |
 | **Not professional** | Too sketchy or too rigid | Balance: data viz precise, editorial elements hand-drawn, clean typography |

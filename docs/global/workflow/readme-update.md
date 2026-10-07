@@ -14,40 +14,37 @@ npx skills update do-readme-update
 
 ## What it does
 
-`do-readme-update` regenerates the Do-Skills catalogs from each skill's
-`SKILL.md` frontmatter. It only works in this repository. The defining
-constraint is that the generator is the only writer of those lists: do not
-hand-edit a scope or group README, or the tables between `<!-- skills-start -->`
-and `<!-- skills-end -->`.
+`do-readme-update` brings any repository's README back in line with the code:
+install steps, commands, flags, config, structure, and links. It reads the
+truth from manifests, scripts, `--help` output, and the git history since the
+README last changed, then fixes only what drifted. The defining constraint is
+that it never hand-edits a generated region: if the repo has a README
+generator, it runs that instead.
 
 ## When to reach for it
 
-Type `/do-readme-update`, or the agent reaches for it automatically after a
-skill is added, removed, renamed, or moved between groups or scopes.
+Type `/do-readme-update`, or the agent reaches for it automatically when a
+README is stale or a change adds, removes, or renames something the README
+describes.
 
-Reach for it when the README catalog is stale. It does not write skill prose.
-Use [skill-craft](../core/skill-craft.md) for that.
+Reach for it to keep an existing README accurate. To write a new doc page from
+scratch, use [docs](./docs.md); for tone and terseness, use
+[tech-writing](./tech-writing.md).
 
-## The generator
+## Drift, not rewrite
 
-Run from the repository root:
-
-```bash
-bash skills/global/workflow/do-readme-update/update-readme.sh
-```
-
-It rewrites each `skills/<scope>/<group>/README.md` (install command, skills
-table, see also), each `skills/<scope>/README.md`, and the Global and Project
-tables in the root README.
-Human docs pages under `docs/` are separate; this script does not write them.
+The skill compares each README claim against the repo and sorts it as wrong,
+missing, or dead. It keeps the author's headings, order, and voice, copies
+commands verbatim from the manifest, and runs any changed command that is safe
+to run locally before calling the README done.
 
 ## It's working if
 
-- Root README has a Global and a Project table, each row linking to `skills/<scope>/<group>/`.
-- Each group README has a skills table matching the `SKILL.md` files on disk.
+- Every command in the README exists and runs as written.
+- Every relative link resolves.
+- Generated regions changed only through their generator.
 
 ## Where it fits
 
-Periodic catalog maintenance for this repository. It sits in Workflow with the
-other shipping tools. Shared prose posture:
-[tech-writing](./tech-writing.md).
+Periodic maintenance you reach for after shipping changes. It sits in Workflow
+next to [commit](./commit.md): update the README, then commit both together.

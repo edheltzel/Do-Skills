@@ -1,6 +1,6 @@
 # Illustrated Statistics Workflow
 
-**Single striking statistics illustrated as visual data points using UL aesthetic.**
+**Single striking statistics illustrated as visual data points using editorial aesthetic.**
 Creates **ILLUSTRATED STAT CARDS** — one number/statistic made visual with simple illustration and editorial style.
 
 ---
@@ -233,7 +233,7 @@ CRITICAL REQUIREMENTS:
 - Immediately scannable (number jumps out at thumbnail)
 - Square 1:1 or horizontal 16:9 format
 
-Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
+Do not add a signature or other text in the prompt. If ART_SIGNATURE is set, stamp it after generation.
 ```
 
 ---
@@ -254,7 +254,7 @@ Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
 ### Step 5: Execute Generation
 
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=Stats \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \

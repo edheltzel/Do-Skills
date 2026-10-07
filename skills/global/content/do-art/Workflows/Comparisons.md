@@ -1,6 +1,6 @@
 # Illustrated Dichotomies & Comparisons Workflow
 
-**Hand-drawn side-by-side visual comparisons using UL aesthetic.**
+**Hand-drawn side-by-side visual comparisons using editorial aesthetic.**
 Creates **VISUAL COMPARISONS** — "X vs Y" split compositions, before/after transformations, and illustrated contrasts with editorial style.
 
 ---
@@ -29,13 +29,12 @@ Illustrated comparisons show two contrasting concepts, states, or approaches sid
 3. **Hand-drawn** — Both sides maintain editorial imperfect linework
 4. **Color differentiation** — Purple for one side, teal for other (or both black)
 5. **Immediate contrast** — Differences obvious at a glance
-6. **Editorial style** — Flat colors, black linework, UL aesthetic
+6. **Editorial style** — Flat colors, black linework, editorial aesthetic
 7. **Balanced layout** — Equal visual weight to both sides
 
 ### Character Requirements (When figures present)
 
 **If comparison includes human or robot figures, MUST apply Planeform aesthetic:**
-- Read: `~/.agents/`
 - Figures built from ANGULAR PLANES (no round forms)
 - Adult proportions (1:7), NOT cute/stubby
 - Faces are minimal geometric blocks
@@ -250,7 +249,7 @@ CRITICAL REQUIREMENTS:
 - Immediate visual understanding of the difference
 - Equal visual weight to both sides (balanced composition)
 
-Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
+Do not add a signature or other text in the prompt. If ART_SIGNATURE is set, stamp it after generation.
 ```
 
 ---
@@ -271,7 +270,7 @@ Optional: Sign small in bottom right corner in charcoal (#2D2D2D).
 ### Step 5: Execute Generation
 
 ```bash
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --workflow=Comparisons \
   --model nano-banana-pro \
   --prompt "[YOUR PROMPT]" \

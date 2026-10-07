@@ -7,17 +7,21 @@ effort: medium
 
 # Art Skill
 
+`<skill-dir>` below is the folder containing this SKILL.md.
+
+`<preview>` is `$ART_OUTPUT_DIR` if set, otherwise `~/Downloads` when that directory exists, otherwise `./art-output`. Generate there, review, then copy into the project. Do not write straight into a project's image tree.
+
 ## What It Does
 
-Generates static visual content across 20+ formats - blog headers, technical and architecture diagrams, frameworks, taxonomies, timelines, comparisons, stat cards, comics, icons, wallpapers, D3 charts, Mermaid diagrams - using Flux, Nano Banana Pro (Gemini 3 Pro), and GPT-Image-2. Every request routes through a named workflow that encodes the technique and palette, output stages to ~/Downloads/ for review first, and blog headers ship both a transparent inline version and an opaque social thumbnail.
+Generates static visual content across 20+ formats - blog headers, technical and architecture diagrams, frameworks, taxonomies, timelines, comparisons, stat cards, comics, icons, wallpapers, D3 charts, Mermaid diagrams - using Flux, Nano Banana Pro (Gemini 3 Pro), and GPT-Image-2. Every request routes through a named workflow that encodes the technique and palette, output stages to <preview> for review first, and blog headers ship both a transparent inline version and an opaque social thumbnail.
 
 ## The Problem
 
-The bare image model produces inconsistent, off-style output when handed a freeform prompt - one session shipped 12 rejected diagrams because the prompt skipped the workflow that holds the composition rules. Different formats need different models (text-heavy cards want GPT-Image-2; editorial headers want Nano Banana Pro), different size formats, and different transparency handling. Without a fixed routing-and-staging discipline, you get wrong sizes, opaque headers that bleed over the page background, and images pushed straight to a repo before anyone looked at them. This skill makes the workflow, the model choice, and the Downloads-first review mandatory in code, not just in markdown.
+The bare image model produces inconsistent, off-style output when handed a freeform prompt - one session shipped 12 rejected diagrams because the prompt skipped the workflow that holds the composition rules. Different formats need different models (text-heavy cards want GPT-Image-2; editorial headers want Nano Banana Pro), different size formats, and different transparency handling. Without a fixed routing-and-staging discipline, you get wrong sizes, opaque headers that bleed over the page background, and images pushed straight to a repo before anyone looked at them. This skill makes the workflow, the model choice, and a preview-before-copy review mandatory in code, not just in markdown.
 
 ## How It Works
 
-A complete visual content system for illustrations, diagrams, and other static visuals. Each request picks a matching workflow file first, follows its prompt template, then calls `Generate.ts` with `--workflow=<name>` plus model/size/output flags. `Generate.ts` itself enforces that the workflow was followed, output always lands in ~/Downloads/ for preview, and blog headers run with `--thumbnail` to produce both the transparent PNG and the sepia-backed social thumbnail.
+A complete visual content system for illustrations, diagrams, and other static visuals. Each request picks a matching workflow file first, follows its prompt template, then calls `Generate.ts` with `--workflow=<name>` plus model/size/output flags. `Generate.ts` itself enforces that the workflow was followed, output defaults to <preview> for review, and blog headers run with `--thumbnail` to produce both the transparent PNG and the sepia-backed social thumbnail.
 
 ## 🛑 STRUCTURAL ENFORCEMENT - `--workflow=<name>` IS REQUIRED
 
@@ -36,13 +40,13 @@ Reading the workflow's caps-warning, mentally noting "do the workflow," then com
 ### Workflow → command (copy-paste)
 
 ```bash
-bun ~/.agents/skills/do-art/Tools/Generate.ts \
+bun <skill-dir>/Tools/Generate.ts \
   --workflow=<WorkflowName> \
   --model nano-banana-pro \
   --prompt "..." \
   --size 2K \
   --aspect-ratio 16:9 \
-  --output ~/Downloads/<filename>.png
+  --output <preview>/<filename>.png
 ```
 
 `<WorkflowName>` MUST match a file under `Workflows/` (without `.md`):
@@ -78,17 +82,9 @@ If no workflow matches the request, **stop and surface to the user** before gene
 
 ---
 
-## 🚨🚨🚨 MANDATORY: Output to Downloads First 🚨🚨🚨
+## Preview before copying into a project
 
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚠️  ALL GENERATED IMAGES GO TO ~/Downloads/ FIRST                   ⚠️
-⚠️  NEVER output directly to project directories                    ⚠️
-⚠️  User MUST preview in Finder/Preview before use                  ⚠️
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-**This applies to ALL workflows in this skill.**
+Generate into `<preview>`, not into a project's `public/` tree. Review the file, then copy the approved image. This applies to every workflow in this skill.
 
 ## 🚨🚨🚨 MANDATORY: Transparency Rules for Blog Headers 🚨🚨🚨
 
@@ -106,12 +102,12 @@ The blog page background is sepia #EAE9DF. Inline images MUST be transparent PNG
 
 - `--thumbnail` is the ONLY correct flag for blog headers - it implicitly enables `--remove-bg` and produces BOTH `output.png` (transparent) AND `output-thumb.png` (#EAE9DF background).
 - Background removal runs locally via `rembg` (no external API). If the model returns JPEG (Nano Banana Pro often does), `Generate.ts` automatically renames the output from `.jpg` → `.png` after rembg processing so the final transparent file is a real PNG with a real alpha channel. If you ever see a `.jpg` labeled "transparent", that is NOT transparent.
-- If `rembg` isn't installed at `~/.local/bin/rembg`, the tool fails loudly with install instructions rather than silently producing an opaque image. Install: `pipx install rembg` (or set `REMBG_BIN` env var to override the path).
+- If `rembg` is not on `PATH` (last resort: `~/.local/bin/rembg`), the tool fails loudly with install instructions rather than silently producing an opaque image. Install: `pipx install rembg`. Set `REMBG_BIN` to override the path.
 
 **Verification step before declaring an image done (REQUIRED):**
 
-1. `file ~/Downloads/[name].png` → must report `PNG image data, ... RGBA` (8-bit/color RGBA). If it says `JPEG` or `8-bit colormap` without alpha, transparency failed.
-2. `file ~/Downloads/[name]-thumb.png` → must report `PNG image data`. The thumb is intentionally opaque with sepia background.
+1. `file <preview>/[name].png` must report `PNG image data, ... RGBA` (8-bit/color RGBA). If it says `JPEG` or `8-bit colormap` without alpha, transparency failed.
+2. `file <preview>/[name]-thumb.png` must report `PNG image data`. The thumb is intentionally opaque with sepia background.
 3. Only after both pass: copy to the project directory and wire into the post.
 
 **Wiring into the blog post:**
@@ -210,32 +206,28 @@ Arena leaderboard sweeps measure aesthetic preference at scale, not editorial st
 
 **Note:** `nano-banana-pro` uses `--size` for resolution quality and a separate `--aspect-ratio` flag for aspect ratio (defaults to `16:9`).
 
-### 🚨 CRITICAL: Always Output to Downloads First
+### Preview folder, then the project
 
-**ALL generated images MUST go to `~/Downloads/` first for preview and selection.**
+Generate into `<preview>` first. Do not write straight into a project's `public/images/` directory. Review the image, then copy.
 
-Never output directly to a project's `public/images/` directory. User needs to review images in Preview before they're used.
-
-**Workflow:**
-
-1. Generate to `~/Downloads/[descriptive-name].png`
-2. User reviews in Preview
-3. If approved, THEN copy to final destination (e.g., `cms/public/images/`)
-4. Create WebP and thumbnail versions at final destination
+1. Generate to `<preview>/[descriptive-name].png`
+2. User reviews the file
+3. If approved, copy to the final destination (for example `cms/public/images/`)
+4. Create WebP and thumbnail versions at the final destination
 
 ```bash
-# CORRECT - Output to Downloads for preview
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun <skill-dir>/Tools/Generate.ts \
+  --workflow=Essay \
   --model nano-banana-pro \
   --prompt "[PROMPT]" \
   --size 2K \
   --aspect-ratio 1:1 \
   --thumbnail \
-  --output ~/Downloads/blog-header-concept.png
+  --output <preview>/blog-header-concept.png
 
-# After approval, copy to final location (substitute your blog/site path)
-cp ~/Downloads/blog-header-concept.png ~/your-site/public/images/
-cp ~/Downloads/blog-header-concept-thumb.png ~/your-site/public/images/
+# After approval, copy to the project path the user gave
+cp <preview>/blog-header-concept.png <project>/public/images/
+cp <preview>/blog-header-concept-thumb.png <project>/public/images/
 ```
 
 ### Multiple Reference Images (Character/Style Consistency)
@@ -244,7 +236,7 @@ For improved character or style consistency, use multiple `--reference-image` fl
 
 ```bash
 # Multiple reference images for better likeness
-bun run ~/.agents/skills/do-art/Tools/Generate.ts \
+bun run <skill-dir>/Tools/Generate.ts \
   --model nano-banana-pro \
   --prompt "Person from references at a party..." \
   --reference-image face1.jpg \
@@ -252,7 +244,7 @@ bun run ~/.agents/skills/do-art/Tools/Generate.ts \
   --reference-image face3.jpg \
   --size 2K \
   --aspect-ratio 16:9 \
-  --output ~/Downloads/character-scene.png
+  --output <preview>/character-scene.png
 ```
 
 **API Limits (Gemini):**
@@ -261,7 +253,7 @@ bun run ~/.agents/skills/do-art/Tools/Generate.ts \
 - Up to 6 object reference images
 - Maximum 14 total reference images per request
 
-**API keys in:** `~/.env`
+**API keys:** process environment first. Optional files, only if present: `.env` in the current working directory, then `${XDG_CONFIG_HOME:-~/.config}/do-art/.env`. Neither file is required.
 
 ## Examples
 
@@ -272,7 +264,7 @@ User: "create a header for my AI agents post"
 → Invokes ESSAY workflow
 → Generates charcoal sketch prompt
 → Creates image with architectural aesthetic
-→ Saves to ~/Downloads/ for preview
+→ Saves to <preview> for review
 → After approval, copies to public/images/
 ```
 
@@ -296,7 +288,7 @@ User: "visualize humans vs AI decision-making"
 
 ## Gotchas
 
-- **Always output to ~/Downloads/ first - NEVER directly to project directories.** User must preview before use. Multiple past failures from pushing wrong images directly to repos.
+- **Write to <preview> first, not straight into a project directory.** Review before copying. Pushing an unseen image into a repo is how bad headers ship.
 - **Verify image dimensions match target use case before claiming done.** Social media previews, blog headers, and thumbnails have different size requirements. A header that works on the blog may break OG/social previews.
 - **nano-banana-pro uses `--size` for resolution (1K/2K/4K) and SEPARATE `--aspect-ratio` flag.** Don't pass aspect ratio values to `--size`.
 - **Reference images: max 5 human, 6 object, 14 total per request** (Gemini API limit).
@@ -304,10 +296,10 @@ User: "visualize humans vs AI decision-making"
 - **When asked to use a specific image URL or file, use EXACTLY that asset.** Don't substitute similar images. Past rating-1 failures from using wrong image assets.
 - **`--remove-bg` may produce black backgrounds instead of transparency.** Always verify transparent PNG output visually before deploying.
 - **`--remove-bg` is unsafe for thin-linework technical diagrams.** rembg classifies thin black ink on a light field as "background" and strips it, leaving a near-empty ghost. Documented 2026-05-11 on the free-will flowchart. Mitigations: (a) prompt for *thick* saturated linework first so rembg has a strong signal, or (b) skip `--remove-bg` entirely when the destination background matches the image's background (blog page is sepia #EAE9DF - opaque sepia diagram on sepia page composites with zero visible seam, no alpha needed).
-- **Logo fidelity breaks in 3D/perspective scenes even with a reference image.** Documented 2026-06-11 on the UL wallpaper set: straight-on and macro scenes held the glyph topology in 7/7 rolls, but the isometric 3D scene closed the open mark into a loop and dropped its isolated dot. For any perspective/3D composition with a logo, add topology-locked negative language to the prompt ("do not close the shape into a loop", "do not omit the isolated dot", name every stroke and terminal) on top of `--reference-image`, and vision-verify the topology specifically.
+- **Logo fidelity breaks in 3D/perspective scenes even with a reference image.** Documented 2026-06-11 on a wallpaper set: straight-on and macro scenes held the glyph topology in 7/7 rolls, but the isometric 3D scene closed the open mark into a loop and dropped its isolated dot. For any perspective/3D composition with a logo, add topology-locked negative language to the prompt ("do not close the shape into a loop", "do not omit the isolated dot", name every stroke and terminal) on top of `--reference-image`, and vision-verify the topology specifically.
 - **nano-banana-pro "4K 16:9" is actually 5504×3072 (43:24, ~0.8% wider than 16:9), saved as .jpg even when `--output` says .png.** Disclose the native ratio when the spec says 16:9, and probe the real filename before Read/delivery.
-- **White-box-on-cream bug (2026-06-20): flattening an OPAQUE jpeg on `#EAE9DF` is a no-op.** nano-banana-pro returns an opaque JPEG; `magick -background "#EAE9DF" -flatten` only fills *alpha*, so the model's baked near-white ground survives and paints a white rectangle on the cream blog page ("it has a fucking white background"). For inline blog headers, cut true alpha FIRST (`bun ~/.agents/skills/do-art/Tools/RemoveBg.ts`), then derive the WebP, and verify `identify -format "%[channels]" inline.webp` == `srgba`. Opaque-sepia inline is valid ONLY on an image that already has alpha. See Essay.md Step 7.0.5.
-- **Essay headers: run the Step 5A Best-Image Deliberation before prompting (2026-07-09 principal directive).** Subject-list prompts produce rejected flat tableaus; a composition reasoned deeply from the essay's specific argument - scene concepts compared, every element given a narrative role, connected structure - produces accepted images. The deliberation is the mandatory step; devices like cutaways are possible outcomes, not rules. See Essay.md Step 5A.
+- **White-box-on-cream bug (2026-06-20): flattening an OPAQUE jpeg on `#EAE9DF` is a no-op.** nano-banana-pro returns an opaque JPEG; `magick -background "#EAE9DF" -flatten` only fills *alpha*, so the model's baked near-white ground survives and paints a white rectangle on the cream blog page ("it has a fucking white background"). For inline blog headers, cut true alpha FIRST (`bun <skill-dir>/Tools/RemoveBg.ts`), then derive the WebP, and verify `identify -format "%[channels]" inline.webp` == `srgba`. Opaque-sepia inline is valid ONLY on an image that already has alpha. See Essay.md Step 7.0.5.
+- **Essay headers: run the Step 5A best-image deliberation before prompting.** Subject-list prompts produce flat tableaus. A composition reasoned from the essay's argument - scene concepts compared, every element given a narrative role - lands harder. The deliberation is the step. Devices like cutaways are possible outcomes, not rules. See Essay.md Step 5A.
 - **Interior-white ban (2026-07-09, "giant white space" incident):** prompt large flat surfaces (desks, panels, windows, paper) as "warm cream paper tone", never bright white or unstated - baked-white interiors survive rembg intact and render as giant white rectangles on the cream page. Inside-the-subject sibling of the 2026-06-20 white-box bug. Also trim white padding off any external screenshot before embedding (`magick -fuzz 4% -trim` + sepia border).
 - **Reference-image edits: negative text loses to the reference (2026-07-09 studio-background session).** When nano-banana-pro keeps reproducing an unwanted object that exists in the reference photo (e.g. a second floor lamp), "do NOT add/duplicate" prompt language fails ~7/8 rolls - the model preserves what it sees over what you forbid. Fix: roll until ONE output has the corrected composition, then use THAT output as the new `--reference-image` for the remaining variations; compliance jumped to 7/7. Editing the reference beats describing the edit.
-- **Essay/blog headers MUST be signed "${DA_NAME:-Atlas}" (2026-06-20 + 2026-07-09 principal directives) - cursive signature hand, small, integrated.** Programmatic stamp in Generate.ts/Essay.md Step 7.1 (`SignPainter-HouseScript`, ~3% of image width, semi-transparent charcoal, slight rotation, tucked into the composition's bottom-right); never prompt the signature into the model (it garbles). Formal calligraphy faces (Snell-Roundhand / Apple-Chancery / Savoye) remain rejected; oversized print-letter Bradley Hand was replaced 2026-07-09 ("more cursive looking and smaller, more part of the image").
+- **No signature unless `ART_SIGNATURE` is set.** When that env var is non-empty, `Generate.ts` stamps it bottom-right after generation (small, semi-transparent, tucked in). Never prompt the signature into the model (it garbles). `--no-signature` skips the stamp. When unset, the image has no added text. Optional font: `ART_SIGNATURE_FONT`. Otherwise ImageMagick picks.

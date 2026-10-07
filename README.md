@@ -108,7 +108,7 @@ description: A clear description of what this skill does and when to use it
 After adding, moving, renaming, or changing a skill's behaviour or description, regenerate the catalog and re-sync its docs page (`docs/`, see [`.agents/writing-docs.md`](.agents/writing-docs.md)):
 
 ```bash
-bash skills/global/workflow/do-readme-update/update-readme.sh
+bash scripts/update-readme.sh
 ```
 
 ---

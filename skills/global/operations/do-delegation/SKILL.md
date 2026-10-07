@@ -1,7 +1,7 @@
 ---
 name: do-delegation
 version: 1.0.24
-description: "Routes independent work through current Agent dispatch, background execution, role briefs, worktree isolation, and coordinator-managed synthesis. USE WHEN parallel execution, agent team, swarm, spawn agents, fan out, divide and conquer, multi-agent, coordinate agents, custom agents."
+description: "Routes independent work through the harness's subagent tool: background execution, role briefs, worktree isolation, and coordinator-managed synthesis. USE WHEN parallel execution, agent team, swarm, spawn agents, fan out, divide and conquer, multi-agent, coordinate agents, custom agents."
 effort: medium
 ---
 
@@ -9,7 +9,7 @@ effort: medium
 
 ## What It Does
 
-Delegates bounded work through the current `Agent` tool exposed by Pi or Claude Code. It distinguishes direct work from delegated work, independent workers from coordinator-managed role cohorts, foreground results from background execution, and shared-checkout work from worktree-isolated edits.
+Delegates bounded work through the subagent tool your harness exposes (`Agent` in Claude Code and Pi; the equivalent tool elsewhere). It distinguishes direct work from delegated work, independent workers from coordinator-managed role cohorts, foreground results from background execution, and shared-checkout work from worktree-isolated edits.
 
 ## Core Rule
 
@@ -19,9 +19,9 @@ Independent agents do not share context, memory, task state, or results. The par
 
 ## Current Agent Contract
 
-Use the `Agent` tool supplied by the active harness. Do not write source-code snippets that pretend to call the tool.
+Use the subagent tool supplied by the active harness. Do not write source-code snippets that pretend to call the tool. If the harness has no subagent tool, do the work directly and say so.
 
-Use only fields exposed by the current tool schema. The portable core is:
+Use only fields exposed by the current tool schema. The portable core, named as in Claude Code and Pi (map each to the active tool's equivalent field):
 
 - `description`: short human-readable unit label
 - `prompt`: complete task, context, constraints, permissions, and expected output
@@ -30,13 +30,14 @@ Use only fields exposed by the current tool schema. The portable core is:
 - `max_turns`: optional bound for small one-shot work when supported
 - `isolation`: request worktree isolation for editing work when supported
 
-A new `Agent` dispatch starts a fresh worker. Do not assume persistent peer messaging or a shared task list. For another round, launch a fresh agent and include the prior result plus the new question in its prompt.
+A new dispatch starts a fresh worker. Do not assume persistent peer messaging or a shared task list. For another round, launch a fresh agent and include the prior result plus the new question in its prompt.
 
 ### Harness Controls
 
 - **Claude Code**: background completions notify the parent. Use `/tasks` to inspect running agents and `TaskStop` to cancel a specific task or agent.
 - **Pi**: background completions notify the parent. Use the returned agent ID with `get_subagent_result` only when the result is needed and no completion result is already present. Use `steer_subagent` only for a supported running background agent that needs correction.
-- **Both**: do not poll, sleep, tail output files, or duplicate work while a background agent is already handling it.
+- **Other harnesses**: use their documented status and cancel controls.
+- **All**: do not poll, sleep, tail output files, or duplicate work while a background agent is already handling it.
 
 ## Delegation Gate
 
@@ -64,7 +65,7 @@ Use no agent when:
 
 ### 2. Foreground Agent
 
-Use one foreground `Agent` dispatch when the parent needs the result before proceeding.
+Use one foreground subagent dispatch when the parent needs the result before proceeding.
 
 Best for:
 
@@ -78,7 +79,7 @@ The prompt must define the result contract. Verify the returned claim directly w
 
 Use background agents for independent work while the parent can continue useful coordinator tasks.
 
-Issue one `Agent` tool call per independent unit in the same assistant message. Set `run_in_background` to `true`. Trust completion notifications and continue non-dependent work.
+Issue one subagent call per independent unit in the same assistant message, in background mode (`run_in_background: true` in Claude Code and Pi) when the harness supports it. Trust completion notifications and continue non-dependent work.
 
 Best for:
 
@@ -95,7 +96,7 @@ Use worktree isolation when parallel writers could touch the same checkout or wh
 
 Requirements:
 
-- confirm the current `Agent` schema supports worktree isolation
+- confirm the current subagent tool supports worktree isolation
 - give each worker a non-overlapping objective
 - verify the worker's actual diff and test evidence
 - integrate deliberately; do not assume changes appear in the parent checkout

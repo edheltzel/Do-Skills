@@ -218,7 +218,7 @@ Each point is self-contained, uses plain language, attacks a real weakness, and 
 ## Integration Notes
 
 **This workflow requires:**
-- Task tool for launching parallel adversarial agents in a single message
+- A subagent tool in your harness for launching parallel adversarial agents in a single message (without one, run the attacks sequentially)
 - Synthesis capability to process many agent outputs
 - **do-first-principles skill** for Deconstruct (decomposition) and Challenge (constraint classification)
 

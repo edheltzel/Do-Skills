@@ -20,8 +20,9 @@ asset. Content here means media made for people to see and understand, rather
 than the interface components people use to operate software.
 
 It begins with a named workflow, not a freeform image prompt. That workflow
-selects the composition and generation approach, and its output stages in
-`~/Downloads` for review before it is used in a project.
+selects the composition and generation approach, and its output stages in a
+preview folder (`$ART_OUTPUT_DIR`, else `~/Downloads` when it exists, else
+`./art-output`) for review before it is used in a project.
 
 ## When to reach for it
 
@@ -41,8 +42,10 @@ other formats each carry their own visual rules. `Generate.ts` requires that
 workflow choice unless the user explicitly asks to skip it.
 
 For blog headers, the generation produces a transparent inline image and an
-opaque social thumbnail as separate outputs. Review generated files in
-`~/Downloads` before copying an approved asset into a project.
+opaque social thumbnail as separate outputs. Review generated files in the
+preview folder before copying an approved asset into a project. A signature,
+logo, or custom font is added only when you set `ART_SIGNATURE`, `ART_LOGO`,
+or `ART_THUMBNAIL_FONT`.
 
 ## Where it fits
 

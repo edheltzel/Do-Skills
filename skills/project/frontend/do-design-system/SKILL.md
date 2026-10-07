@@ -275,11 +275,9 @@ Semantic tokens swap between themes. Don't invert colors — map them intentiona
 
 ## Companion Skills
 
-- **`vercel-react-best-practices`** — React/Next.js performance (58 rules by priority)
-- **`vercel-composition-patterns`** — compound components, state management, React 19 APIs
-- **`modern-css`** — modern CSS techniques (64 old-vs-modern comparisons)
-- **`web-design-guidelines`** — UI code review checklist (accessibility, forms, animation, performance)
-- **`typescript`** — type patterns for component props (discriminated unions, branded types)
+- **`do-modern-css`** - modern CSS techniques (64 old-vs-modern comparisons)
+- **`do-write-typescript`** - type patterns for component props (discriminated unions, branded types)
+- **`vercel-react-best-practices`**, **`vercel-composition-patterns`**, **`web-design-guidelines`** - third-party skills from [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills), if installed: React/Next.js performance, composition patterns, UI review checklist
 
 For the `DESIGN.md` + style-guide loop, see [references/design-spec.md](references/design-spec.md).
 For design token implementation, see [references/design-tokens.md](references/design-tokens.md).

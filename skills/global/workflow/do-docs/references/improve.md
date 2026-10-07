@@ -148,7 +148,7 @@ Type "start" to begin refinement, or "abort" to exit without changes.
 
 ### Step 1: Load Type-Specific Skills
 
-As you encounter each section type, load the relevant skill if not already loaded:
+As you encounter each section type, load the relevant reference if not already loaded:
 
 - Tutorial sections: [tutorial-docs](tutorial-docs.md)
 - How-To sections: [howto-docs](howto-docs.md)

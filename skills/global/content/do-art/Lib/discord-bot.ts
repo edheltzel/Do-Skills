@@ -5,7 +5,7 @@
  * with Midjourney bot. Handles connection, message sending, monitoring,
  * and image downloads.
  *
- * @see ~/.agents/skills/do-art/SKILL.md
+ * @see <skill-dir>/SKILL.md
  */
 
 import {
