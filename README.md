@@ -69,7 +69,7 @@ Pay off only when a project uses that stack or product. Install into the project
 | Group | Skills | Coverage |
 |-------|--------|----------|
 | [TypeScript](./skills/project/typescript/) | 4 | Language-wide TypeScript - standards, refactoring, and type-driven design. Install alongside frontend, backend, or tooling. |
-| [Frontend](./skills/project/frontend/) | 7 | Web frontend - Astro, CSS, React effects, design systems, UX flows, cleanup, and review. |
+| [Frontend](./skills/project/frontend/) | 8 | Web frontend - Astro, CSS, React effects, design systems, UX flows, performance, cleanup, and review. |
 | [Backend](./skills/project/backend/) | 1 | Backend engineering - Effect (TypeScript) services and code, and review for Effect, Go, Python, and Rust. |
 | [Tooling](./skills/project/tooling/) | 2 | CLIs and lightweight tools - TypeScript CLI scaffolding and zero-dependency patterns. |
 | [Swift](./skills/project/swift/) | 3 | Swift and Apple platforms - macOS desktop apps, iOS review, and cleanup. |
@@ -128,3 +128,4 @@ WTFPL
 `do-astro` is adapted from [Astrolicious](https://github.com/astrolicious/agent-skills)
 `do-illo` is copied from [tmchow/illo-skill](https://github.com/tmchow/illo-skill)
 `do-marketing` is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) marketing (MIT)
+`do-perf` is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) `skills/enliven` (MIT)

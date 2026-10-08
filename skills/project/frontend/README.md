@@ -1,6 +1,6 @@
 # Frontend
 
-Web frontend - Astro, CSS, React effects, design systems, UX flows, cleanup, and review.
+Web frontend - Astro, CSS, React effects, design systems, UX flows, performance, cleanup, and review.
 
 ## Installation
 
@@ -25,6 +25,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 | [`do-design-system`](./do-design-system/) | Build accessible, themeable UI components, and when asked, capture the project's brand into DESIGN.md plus a live style-guide page. |
 | [`do-modern-css`](./do-modern-css/) | Teaches agents to write modern CSS using native features instead of legacy hacks, workarounds, and JavaScript. |
 | [`do-no-use-effect`](./do-no-use-effect/) | Prevent unnecessary React `useEffect` usage by steering code toward derived state, event handlers, memoization, `key`-based resets, `useSyncExternalStore`, and framework or query-library data APIs. |
+| [`do-perf`](./do-perf/) | The FULL measure → find → fix → remeasure → report performance loop for Electron or web apps: a Playwright/CDP A/B harness that drives the real production build, Blink style-invalidation traces and React commit probes that name root causes at file:line, then a generated HTML report whose every figure comes from harness JSON. |
 | [`do-review-frontend`](./do-review-frontend/) | Comprehensive React/TypeScript frontend code review with per-area review skills, run in parallel where the agent supports subagents and sequentially otherwise. |
 | [`do-ux-flow-plan`](./do-ux-flow-plan/) | Create UX-first plans as flow trees, then attach concrete function names, files, and implementation anchors after the high-level flow is clear. |
 

@@ -15,7 +15,7 @@ npx skills add https://github.com/edheltzel/Do-Skills/tree/master/skills/project
 | Group | Skills | Coverage |
 |-------|--------|----------|
 | [TypeScript](./typescript/) | 4 | Language-wide TypeScript - standards, refactoring, and type-driven design. Install alongside frontend, backend, or tooling. |
-| [Frontend](./frontend/) | 7 | Web frontend - Astro, CSS, React effects, design systems, UX flows, cleanup, and review. |
+| [Frontend](./frontend/) | 8 | Web frontend - Astro, CSS, React effects, design systems, UX flows, performance, cleanup, and review. |
 | [Backend](./backend/) | 1 | Backend engineering - Effect (TypeScript) services and code, and review for Effect, Go, Python, and Rust. |
 | [Tooling](./tooling/) | 2 | CLIs and lightweight tools - TypeScript CLI scaffolding and zero-dependency patterns. |
 | [Swift](./swift/) | 3 | Swift and Apple platforms - macOS desktop apps, iOS review, and cleanup. |
