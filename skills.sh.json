@@ -71,14 +71,13 @@
     },
     {
       "title": "Project: Frontend",
-      "description": "Web frontend - Astro, CSS, React effects, design systems, UX flows, performance, cleanup, and review.",
+      "description": "Web frontend - Astro, CSS, React effects, design systems, UX flows, cleanup, and review.",
       "skills": [
         "do-astro",
         "do-cleanup-web",
         "do-design-system",
         "do-modern-css",
         "do-no-use-effect",
-        "do-perf",
         "do-review-frontend",
         "do-ux-flow-plan"
       ]
@@ -92,10 +91,11 @@
     },
     {
       "title": "Project: Tooling",
-      "description": "CLIs and lightweight tools - TypeScript CLI scaffolding and zero-dependency patterns.",
+      "description": "CLIs and lightweight tools - TypeScript CLI scaffolding, zero-dependency patterns, and performance profiling.",
       "skills": [
         "do-create-cli",
-        "do-lean-ts-patterns"
+        "do-lean-ts-patterns",
+        "do-perf"
       ]
     },
     {

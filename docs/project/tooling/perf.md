@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-perf
 npx skills update do-perf
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/project/frontend/do-perf)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/project/tooling/do-perf)
 
 ## What it does
 
@@ -32,8 +32,8 @@ slim down, find memory leaks, benchmark before and after, or produce a
 performance report.
 
 Reach for it when the claim has to survive review. For CSS technique choice
-while fixing a named rule, use [modern-css](./modern-css.md). For component
-tokens after the measurement, use [design-system](./design-system.md) — it is
+while fixing a named rule, use [modern-css](../frontend/modern-css.md). For component
+tokens after the measurement, use [design-system](../frontend/design-system.md) — it is
 not a required step of this loop.
 
 ## Prerequisites
@@ -70,9 +70,9 @@ the app to the state it started in.
 
 ## Where it fits
 
-A reach-for-it-anytime frontend measurement skill. It sits beside
-[review-frontend](./review-frontend.md) (pre-PR review) and
-[cleanup-web](./cleanup-web.md) (end-of-session polish); those do not produce
+A reach-for-it-anytime performance measurement tool. It sits beside
+[review-frontend](../frontend/review-frontend.md) (pre-PR review) and
+[cleanup-web](../frontend/cleanup-web.md) (end-of-session polish); those do not produce
 an A/B harness. Adapted from
 [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) `skills/enliven`
 under MIT.

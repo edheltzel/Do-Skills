@@ -69,9 +69,9 @@ Pay off only when a project uses that stack or product. Install into the project
 | Group | Skills | Coverage |
 |-------|--------|----------|
 | [TypeScript](./skills/project/typescript/) | 4 | Language-wide TypeScript - standards, refactoring, and type-driven design. Install alongside frontend, backend, or tooling. |
-| [Frontend](./skills/project/frontend/) | 8 | Web frontend - Astro, CSS, React effects, design systems, UX flows, performance, cleanup, and review. |
+| [Frontend](./skills/project/frontend/) | 7 | Web frontend - Astro, CSS, React effects, design systems, UX flows, cleanup, and review. |
 | [Backend](./skills/project/backend/) | 1 | Backend engineering - Effect (TypeScript) services and code, and review for Effect, Go, Python, and Rust. |
-| [Tooling](./skills/project/tooling/) | 2 | CLIs and lightweight tools - TypeScript CLI scaffolding and zero-dependency patterns. |
+| [Tooling](./skills/project/tooling/) | 3 | CLIs and lightweight tools - TypeScript CLI scaffolding, zero-dependency patterns, and performance profiling. |
 | [Swift](./skills/project/swift/) | 3 | Swift and Apple platforms - macOS desktop apps, iOS review, and cleanup. |
 | [Product](./skills/project/product/) | 1 | Product marketing - positioning, SEO and GEO discovery, launches, conversion, and retention. |
 | [Personal](./skills/project/personal/) | 1 | Personal extras for specific projects - recipe diagrams. |
