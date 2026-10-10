@@ -32,7 +32,7 @@ In the regroup file, keep each todo.txt task's raw line so the next regroup can 
 
 Read a board when the user names one or the workspace docs (`AGENTS.md`, `README.md`) name one. Read only: never move cards, edit fields, or close issues.
 
-- **Gather.** Follow the Gather step of `do-gh-pm`'s Status recipe (`references/Status.md`), if installed. Without it: `gh project item-list <num> --owner <owner> --format json`, plus `gh issue list --state closed --json number,title,closedAt` for recent completions. Missing `project` scope: say so and skip the board; do not run `gh auth refresh`.
+- **Gather.** Fetch every item, not the 30-item default: `gh project item-list <num> --owner <owner> --format json --limit 1000`, then check `items` length equals `totalCount`; if it is short, raise `--limit` and fetch again. For recent completions, `gh issue list --state closed --json number,title,closedAt --limit 1000`. `do-gh-pm`'s Status recipe (`references/Status.md`), if installed, adds the rest of the Gather step, but override its smaller limits. Missing `project` scope: say so and skip the board; do not run `gh auth refresh`.
 - **Projects and phases.** The board is the project; its Phase field gives the phases. No Phase field: say so and list tasks under the project.
 - **Statuses.** Map each item, first match wins:
   - Done column or closed issue: **done**, with its close date.

@@ -5,11 +5,11 @@ Produce a progress report across the board. Adapted from `status.md`. This is **
 ## 1. Gather
 
 ```bash
-# open issues with labels
-gh issue list --repo OWNER/REPO --state open --json number,title,labels,state --limit 50
+# open issues with labels (default limit is 30; fetch all)
+gh issue list --repo OWNER/REPO --state open --json number,title,labels,state --limit 1000
 
-# board items with custom fields
-gh project item-list PROJECT_NUM --owner OWNER --format json
+# board items with custom fields; confirm items length == totalCount
+gh project item-list PROJECT_NUM --owner OWNER --format json --limit 1000
 
 # recently closed
 gh issue list --repo OWNER/REPO --state closed --json number,title,closedAt --limit 10
