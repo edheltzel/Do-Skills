@@ -15,7 +15,7 @@ Specify **what** must hold (e.g., "parse data at boundaries"), not **how** to do
 This mirrors the type-driven design principle of making illegal states unrepresentable.
 Rather than documenting "don't pass raw strings where emails are expected," define an
 `EmailAddress` type that can only be created through parsing. The type system becomes
-the enforcer. For the full treatment, see the [`do-parse-dont-validate`](../../../../project/typescript/do-parse-dont-validate/SKILL.md) skill.
+the enforcer. For the full treatment, see the `do-parse-dont-validate` skill if installed.
 
 ## Lint Error Messages as Remediation Instructions
 

@@ -22,7 +22,7 @@ This file answers: "Where is the thing that does X?" and "What does this thing I
 at do?"
 
 For how to write an effective ARCHITECTURE.md with codemaps, boundary markers, and
-invariant callouts, see the [`do-architecture-md`](../../do-architecture-md/SKILL.md) skill.
+invariant callouts, see the `do-architecture-md` skill if installed.
 
 ### Layer 3: Domain-Specific Docs (loaded on demand)
 

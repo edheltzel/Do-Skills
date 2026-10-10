@@ -44,6 +44,16 @@ Where the ladder decides _how far down_ a piece sits, **co-location** decides _w
 - **By invocation** — split off a **model-invoked** skill when you have a distinct **leading word** that should trigger it on its own, or another skill must reach it. You pay **context load** for the new always-loaded **description**, so that independent reach has to be worth it.
 - **By sequence** — split a run of **steps** when the steps still ahead (a step's **post-completion steps**) tempt the agent to rush the one in front of it (**premature completion**). Keeping them out of view encourages the agent to do more **legwork** on the current task.
 
+## Linking other skills
+
+Where this skill's job ends and another's begins, name the neighbour in one line instead of re-explaining it: "For stacked PRs, use `do-gh-stack` if installed."
+
+- **By name, never by path.** Write the skill name in backticks. A relative link (`../do-x/SKILL.md`) breaks once skills install one at a time, across scopes and agents.
+- **Say "if installed".** The agent checks before reaching for it and carries on without it.
+- **Real handoffs only.** The point where the work passes over, not a "see also" list of the whole group.
+- **Only model-invoked targets fire.** A **user-invoked** neighbour can only be suggested to the human, so word it that way.
+- **Links do not route.** The **description** decides which skill fires; a body link only helps after this skill has loaded. Fix overlapping triggers in the descriptions.
+
 ## Pruning
 
 Keep each meaning in a **single source of truth**: one authoritative place, so changing the behaviour is a one-place edit.

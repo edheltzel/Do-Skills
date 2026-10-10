@@ -81,7 +81,7 @@ Marketplace
 **How to verify:** Parse markdown links from SKILL.md. For each relative path, check that the target file exists. Ignore:
 - External URLs (`http://`, `https://`)
 - Anchor links (`#section-name`)
-- Links to files outside the skill directory (these are cross-skill references and may be valid)
+- Links to files outside the skill directory (cross-skill links; judge them under "Links Other Skills by Name" in design-checks.md)
 
 **Why it matters:** Broken references mean the agent can't load the referenced content, resulting in incomplete skill execution.
 

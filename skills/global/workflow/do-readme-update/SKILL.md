@@ -38,3 +38,7 @@ Go section by section. List each claim that is now wrong (command, flag, path, v
 - Run each command you added or changed when it is safe: local, non-destructive (`--help`, install, build, test). Never run deploy, publish, or release commands to check a README.
 - Re-check links.
 - Report what changed and anything you could not verify.
+
+## Related skills
+
+- A new doc page beyond the README: `do-docs`, if installed.

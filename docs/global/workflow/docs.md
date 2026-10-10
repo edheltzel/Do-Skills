@@ -38,4 +38,4 @@ Improve is a two-phase loop: analyze and classify, then refine section by sectio
 
 ## Where it fits
 
-A writing skill in Workflow, next to [tech-writing](./tech-writing.md) (shared prose posture). Detection and rewrite of AI tone live in [humanize](../core/humanize.md).
+A writing skill in Workflow, next to [tech-writing](./tech-writing.md) (shared prose posture). A README that drifted from the code belongs to [readme-update](./readme-update.md). Detection and rewrite of AI tone live in [humanize](../core/humanize.md).

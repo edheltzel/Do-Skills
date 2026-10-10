@@ -60,7 +60,7 @@ test, and modify the code directly, it has more leverage than if it's calling in
 configs. Everything the agent interacts with should be queryable and parseable.
 
 Parse data at system boundaries into precise types — don't let raw/untyped data flow
-deep into business logic. For the full treatment, see the [`do-parse-dont-validate`](../../../../project/typescript/do-parse-dont-validate/SKILL.md) skill.
+deep into business logic. For the full treatment, see the `do-parse-dont-validate` skill if installed.
 
 **Everything in the repo.** Design decisions, architectural rationale, product context,
 quality assessments — if it matters, it's a versioned markdown file checked into the repo.
@@ -101,19 +101,19 @@ topics, load these:
 | Topic | Reference | What It Covers |
 |---|---|---|
 | Writing AGENTS.md | [agents-md.md](agents-md.md) | Structure, sections, anti-patterns for the entry point file |
-| Architecture docs | [`do-architecture-md`](../../do-architecture-md/SKILL.md) | Codemap with boundaries, invariants, cross-cutting concerns |
-| Type-driven boundaries | [`do-parse-dont-validate`](../../../../project/typescript/do-parse-dont-validate/SKILL.md) | Parsing at boundaries, making illegal states unrepresentable |
+| Architecture docs | `do-architecture-md` skill, if installed | Codemap with boundaries, invariants, cross-cutting concerns |
+| Type-driven boundaries | `do-parse-dont-validate` skill, if installed | Parsing at boundaries, making illegal states unrepresentable |
 
 ## Quick Reference
 
 | Need | Where to Look |
 |---|---|
 | Agent entry point file | [agents-md.md](agents-md.md) |
-| Architecture codemap | [`do-architecture-md`](../../do-architecture-md/SKILL.md) skill |
+| Architecture codemap | `do-architecture-md` skill, if installed |
 | Layer docs for agents to drill into | [progressive-disclosure.md](progressive-disclosure.md) |
 | Enforcing rules via linters/CI | [mechanical-enforcement.md](mechanical-enforcement.md) |
 | Preventing codebase drift | [entropy-management.md](entropy-management.md) |
-| Typing boundaries | [`do-parse-dont-validate`](../../../../project/typescript/do-parse-dont-validate/SKILL.md) skill |
+| Typing boundaries | `do-parse-dont-validate` skill, if installed |
 
 ## Workflow: Setting Up an Agent-First Repo
 
@@ -129,7 +129,7 @@ topics, load these:
 ### For an existing project:
 
 1. Write `AGENTS.md` starting from what's in CI config and CONTRIBUTING.md
-2. Write `ARCHITECTURE.md` by exploring the codebase (use the [`do-architecture-md`](../../do-architecture-md/SKILL.md) skill)
+2. Write `ARCHITECTURE.md` by exploring the codebase (use the `do-architecture-md` skill if installed)
 3. Identify the top 3 architectural rules agents violate — encode as lints or tests
 4. Move critical design context from Slack/docs/wikis into versioned repo files
 5. Start a `QUALITY_SCORE.md` to track known gaps per module

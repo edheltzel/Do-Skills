@@ -5,9 +5,45 @@ description: Use when checking status across active projects. Surfaces work that
 
 # Regroup
 
-A status check-in across the projects in scope. This skill is portable. Do not assume a harness, an agent framework, a ticket prefix, or a runtime. Read the source of truth the user named (a board, issues, notes, or a repo). If they did not name one, use the project files in the current workspace and say that is the source.
+A status check-in across the projects in scope. This skill is portable. Do not assume a harness, an agent framework, a ticket prefix, or a runtime. Read the source of truth the user named (a board, issues, notes, a repo, or a todo.txt file). If they did not name one, use the project files in the current workspace plus todo.txt (below) when it exists, and say which sources were read.
 
 Read the previous regroup file of the same mode (and, for one project, the same project) in the `regroup/` directory when one exists. The all-projects reply and file say what changed since that file. Do not call other services to fill a gap the named source and the previous file do not already contain. If a fact is not there, say it is not in the source.
+
+## todo.txt
+
+Read only. Never edit `todo.txt` or `done.txt`, and never complete, archive, or reprioritize a task.
+
+- **File.** `$TODO_FILE`, else `$TODO_DIR/todo.txt`, else `~/todo.txt`. Completed history is the sibling `done.txt`. With tuxedo installed, `TODO_DIR=<dir> tuxedo lsa --json` returns both files parsed; otherwise read the lines. Format and tag conventions: the `do-todo-txt` skill, if installed.
+- **Projects.** Each `+project` tag is a project; a task with two tags appears under both. Untagged tasks go under "No project". todo.txt has no phases. In one-project mode, use the tasks tagged with that project's name.
+- **Statuses.** Map each line, first match wins:
+  - Starts with `x `: **done**, with its completion date.
+  - Names a wait (`@waiting`, or "waiting on ..." in the text), or has a `dep:` whose `id:` task is still open: **blocked** on that wait or task.
+  - `t:` date still in the future: **backlogged** until that date.
+  - No previous regroup file, or no task there with the same words (ignoring priority, dates, and tags): **not started**. Never stalled on a first run.
+  - Same words, but the raw line changed (priority, `due:`, tags): **active**.
+  - Otherwise (unchanged since the previous file): **stalled**.
+- **Up next.** Priority `(A)`-`(Z)`, then the soonest `due:`. Call out an overdue `due:` in the task's sentence.
+- **Last completed.** The newest completion dates across `todo.txt` and `done.txt`.
+- **Percent.** todo.txt never states one.
+
+In the regroup file, keep each todo.txt task's raw line so the next regroup can tell what changed.
+
+## GitHub Projects board
+
+Read a board when the user names one or the workspace docs (`AGENTS.md`, `README.md`) name one. Read only: never move cards, edit fields, or close issues.
+
+- **Gather.** Follow the Gather step of `do-gh-pm`'s Status recipe (`references/Status.md`), if installed. Without it: `gh project item-list <num> --owner <owner> --format json`, plus `gh issue list --state closed --json number,title,closedAt` for recent completions. Missing `project` scope: say so and skip the board; do not run `gh auth refresh`.
+- **Projects and phases.** The board is the project; its Phase field gives the phases. No Phase field: say so and list tasks under the project.
+- **Statuses.** Map each item, first match wins:
+  - Done column or closed issue: **done**, with its close date.
+  - A blocked label or field, or the item says what it waits on: **blocked**.
+  - Backlog column: **backlogged**.
+  - Ready or Todo column: **not started**.
+  - In Progress: **active** on a first run, or when its column, fields, or issue activity changed since the previous regroup file; otherwise **stalled**.
+- **Up next.** Ready items ordered as `do-gh-pm`'s Continue recipe orders them (status, then priority, then dependencies); without it, by the board's Priority field.
+- **Percent.** Only a number a board field states. Closed/total issues per phase may go on the phase line, labelled as a count.
+
+In the regroup file, keep each board item's number, column, and fields so the next regroup can tell what changed.
 
 ## Modes
 

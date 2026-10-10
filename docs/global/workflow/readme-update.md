@@ -47,4 +47,4 @@ to run locally before calling the README done.
 ## Where it fits
 
 Periodic maintenance you reach for after shipping changes. It sits in Workflow
-next to [commit](./commit.md): update the README, then commit both together.
+next to [commit](./commit.md): update the README, then commit both together. A new doc page beyond the README belongs to [docs](./docs.md).

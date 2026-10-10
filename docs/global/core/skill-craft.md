@@ -25,7 +25,7 @@ Authors Agent Skills: write the file, distill a source into one, or review a ski
 
 That word is the bar for every mode.
 
-- **write** (default). Choose invocation, front-load the description, place steps and reference on the information hierarchy, split only when the cut earns it, prune no-ops, and steer with leading words. Failure modes: premature completion, duplication, sediment, sprawl, no-op, negation.
+- **write** (default). Choose invocation, front-load the description, place steps and reference on the information hierarchy, split only when the cut earns it, link neighbour skills by name, prune no-ops, and steer with leading words. Failure modes: premature completion, duplication, sediment, sprawl, no-op, negation.
 - **distill**. Absorb the source, keep decision rules, cut motivation, invert to rule then example then anti-pattern, and compress. A 5,000-word article lands near 150-250 lines. If the skill is as long as the source, it is a summary.
 - **review**. Explicit only. Structural and marketplace checks are high confidence; design checks are medium. Every finding is verified before it is reported. The verdict ignores minor and informational items.
 

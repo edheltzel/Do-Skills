@@ -213,3 +213,9 @@ Before undoing:
 - [ ] determine whether the commits are pushed
 - [ ] choose `revert` for pushed work
 - [ ] use local-only undo only for unpublished work
+
+## Related skills
+
+- Splitting work into dependent PRs: `do-gh-stack`, if installed.
+- Review comments on the open PR: `do-git-pr-review-triage`, if installed.
+- Committing: suggest the user run `/do-commit`, if installed (it is user-invoked).

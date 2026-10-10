@@ -54,9 +54,10 @@
     },
     {
       "title": "Global: Personal",
-      "description": "Personal extras you want everywhere - teaching.",
+      "description": "Personal extras you want everywhere - teaching, todo.txt.",
       "skills": [
-        "do-teach-me"
+        "do-teach-me",
+        "do-todo-txt"
       ]
     },
     {
