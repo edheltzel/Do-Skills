@@ -63,3 +63,7 @@ Group by recommended action so the user can work Address items first, then send 
 End with a tally: e.g. "12 comments → 4 address, 5 push back, 2 defer, 1 ignore."
 
 Do not apply code changes or post responses. This skill triages and drafts only.
+
+## Related skills
+
+- A **Defer** item becomes an issue: write it with `do-tech-writing`, if installed.

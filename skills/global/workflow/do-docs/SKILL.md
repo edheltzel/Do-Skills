@@ -26,3 +26,8 @@ Reach for write when authoring docs, including a tutorial, getting-started, onbo
 Runs only when the user asks to improve or review an existing doc. Invoke as `/do-docs improve <path>`.
 
 Load [improve](references/improve.md) and follow its two-phase analyze/refine workflow and gates. Do not start improve on your own.
+
+## Related skills
+
+- A README that drifted from the code: `do-readme-update`, if installed.
+- Commits, issues, PRDs, and specs: `do-tech-writing`, if installed.

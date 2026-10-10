@@ -19,6 +19,6 @@ Make the repo the thing an agent can read. Pick the mode that matches the ask, t
 | Repo structure, enforcement, entropy | [references/agent-first-repo.md](references/agent-first-repo.md) |
 | Install the DOX `AGENTS.md` hierarchy | [references/dox-install.md](references/dox-install.md) |
 
-Architecture codemaps are a separate skill: [`do-architecture-md`](../do-architecture-md/SKILL.md).
+Architecture codemaps are a separate skill: `do-architecture-md`, if installed.
 
 `agent-first-repo.md` loads its own detail files (progressive disclosure, mechanical enforcement, entropy). `context-layer.md` loads [references/context-layers.md](references/context-layers.md) only when the layer model is needed. DOX installs from [references/dox-framework.md](references/dox-framework.md).

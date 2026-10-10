@@ -215,6 +215,12 @@ gh project item-list 1 --owner "@me" --format json | \
 - **[Continue.md](references/Continue.md)**: Pick the next task from board state (status → priority → deps)
 - **[Status.md](references/Status.md)**: Board progress report — phase progress, status counts, recently-closed, up-next
 
+### Related skills
+
+- Personal tasks in a todo.txt file, not a board: `do-todo-txt`, if installed.
+- Status across several projects or sources, not one board: `do-regroup`, if installed.
+- Writing the issue body itself: `do-tech-writing`, if installed.
+
 ## Command Summary
 
 | Command | Purpose |

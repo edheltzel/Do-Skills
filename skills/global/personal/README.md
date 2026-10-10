@@ -1,6 +1,6 @@
 # Personal
 
-Personal extras you want everywhere - teaching.
+Personal extras you want everywhere - teaching, todo.txt.
 
 ## Installation
 
@@ -21,6 +21,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 | Skill | Description |
 |-------|-------------|
 | [`do-teach-me`](./do-teach-me/) | Teach the user a new skill or concept, within this workspace. |
+| [`do-todo-txt`](./do-todo-txt/) | Manage a personal todo.txt list through the tuxedo CLI - add, list, complete, prioritize, archive, dependencies, and ready tasks. |
 
 ## See Also
 

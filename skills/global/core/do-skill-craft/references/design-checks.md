@@ -44,6 +44,14 @@ description: Assists with software development tasks and best practices
 
 **When NOT to flag:** Complementary skills that cover different aspects of the same domain (e.g., `review-python` for general Python and `review-fastapi` for FastAPI-specific patterns) are expected to share some keywords.
 
+### Links Other Skills by Name
+
+**What to check:** Every reference to another skill uses its name, says "if installed", and marks a real handoff. Rules: [writing-principles.md](writing-principles.md#linking-other-skills).
+
+**How to verify:** Search the skill's files for `](../` links that leave the skill directory. Check each point where the work passes to another skill's job names that skill.
+
+**When NOT to flag:** Links inside the skill's own folder. A skill with no natural neighbour.
+
 ## Progressive Disclosure
 
 ### Main Concepts in SKILL.md, Details in References

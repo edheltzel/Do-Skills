@@ -214,3 +214,7 @@ Open the reference whose trigger matches the task; no need to preload all three.
   side effects, atomicity, or ordering guarantees.
 - `references/troubleshooting.md` — read on a rebase conflict, after a squash-merge, on local and
   remote divergence, when restructuring a stack, or when driving stacks from another tool.
+
+## Related skills
+
+- One branch, not a stack (sync, conflicts, recovery, squash merge): `do-git-safe-pr-workflow`, if installed.

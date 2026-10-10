@@ -80,7 +80,7 @@ than no docs, because agents follow them faithfully.
 |---|---|---|
 | Code-side agent-first work | [agent-first-repo.md](agent-first-repo.md) | Single source of truth, mechanical enforcement, entropy management, quality scoring |
 | Writing the entry file | [agents-md.md](agents-md.md) | Structure, sections, anti-patterns for AGENTS.md |
-| Architecture docs | [`do-architecture-md`](../../do-architecture-md/SKILL.md) | Codemap with boundaries, invariants, cross-cutting concerns |
+| Architecture docs | `do-architecture-md` skill, if installed | Codemap with boundaries, invariants, cross-cutting concerns |
 
 ## Workflow
 

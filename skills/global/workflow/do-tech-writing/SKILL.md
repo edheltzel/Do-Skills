@@ -221,3 +221,8 @@ Before publishing, read it once and cut:
 3. Throat-clearing openers ("So basically...", "As you may know...")
 4. Sections with no actionable content
 5. Anything the reader already knows or can infer
+
+## Related skills
+
+- Tutorials, how-tos, reference, or explanation pages: `do-docs`, if installed.
+- A README that drifted from the code: `do-readme-update`, if installed.

@@ -52,7 +52,7 @@ Key paths and what lives where. Keep it high-level — 1 line per directory.
 ```
 
 For the full treatment of how to write an architecture codemap with boundaries
-and invariants, see the [`do-architecture-md`](../../do-architecture-md/SKILL.md) skill.
+and invariants, see the `do-architecture-md` skill if installed.
 
 ### 3. Architecture Boundaries
 
