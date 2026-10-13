@@ -49,8 +49,8 @@ In the regroup file, keep each board item's number, column, and fields so the ne
 
 Pick the mode from the words in the request. If the request names no mode, run one project.
 
-- **One project** (default). Triggers: "regroup" alone, "just this project", "only this project", "this project", "just <name>", "only <name>". "This project" is the project in the current workspace: its repo root. A name means that project. Run the one-project brief below and skip the full check-in. If the current workspace is not inside a project and no name was given, run all projects and say so.
-- **All projects.** Triggers: "all projects", "everything", "status check-in", "regroup all". Run the full check-in in the sections from Statuses through The reply.
+- **One project** (default). Triggers: "regroup" or "status check-in" with no scope, "just this project", "only this project", "this project", "just <name>", "only <name>". "This project" is the project in the current workspace: its repo root. A name means that project. Run the one-project brief below and skip the full check-in. If the current workspace is not inside a project and no name was given, run all projects and say so.
+- **All projects.** Only on explicit scope: "all projects", "every project", "everything", "regroup all". Run the full check-in in the sections from Statuses through The reply.
 
 ## Statuses
 
