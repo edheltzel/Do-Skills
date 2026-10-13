@@ -1,0 +1,2 @@
+2026-10-12 Commit + PR do-todo rename and global-router/local-list workflow +doskills id:doskills-todo
+2026-10-12 Reinstall do-todo from Do-Skills after merge; remove the old install under its previous name +doskills dep:doskills-todo

@@ -21,7 +21,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 | Skill | Description |
 |-------|-------------|
 | [`do-teach-me`](./do-teach-me/) | Teach the user a new skill or concept, within this workspace. |
-| [`do-todo-txt`](./do-todo-txt/) | Manage a personal todo.txt list through the tuxedo CLI - add, list, complete, prioritize, archive, dependencies, and ready tasks. |
+| [`do-todo`](./do-todo/) | Manage tasks through the tuxedo CLI - a todo.txt per project repo, plus a global ~/todo.txt of personal tasks and routes to each project's list - add, list, complete, prioritize, archive, dependencies, ready tasks, and end-of-turn upkeep so do-regroup can reach every project. |
 
 ## See Also
 

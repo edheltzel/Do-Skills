@@ -65,4 +65,4 @@ part one-time setup (`ProjectSetup`), part daily driver (`Continue`, `Execute`,
 decides and tracks *what* gets worked on, while the engineering skills govern how
 the work itself is done.
 
-For a status check across several projects, including this board and a todo.txt list, use `do-regroup`. Personal tasks that never touch a board belong in `do-todo-txt`.
+For a status check across several projects, including this board and a todo.txt list, use `do-regroup`. Personal tasks that never touch a board belong in `do-todo`.

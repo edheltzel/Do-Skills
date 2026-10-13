@@ -1,6 +1,6 @@
 ---
 name: do-regroup
-description: Use when checking status across active projects. Surfaces work that is active, blocked, or stalled, grouped by project, then phase, then task, and always writes a dated markdown archive. Triggers include "regroup", "all projects", "just this project", "only this project", "just <project>".
+description: Use when checking project status. Defaults to the current project; covers every active project on request. Surfaces work that is active, blocked, or stalled, grouped by project, then phase, then task, and always writes a dated markdown archive. Triggers include "regroup", "all projects", "just this project", "only this project", "just <project>".
 ---
 
 # Regroup
@@ -13,8 +13,8 @@ Read the previous regroup file of the same mode (and, for one project, the same 
 
 Read only. Never edit `todo.txt` or `done.txt`, and never complete, archive, or reprioritize a task.
 
-- **File.** `$TODO_FILE`, else `$TODO_DIR/todo.txt`, else `~/todo.txt`. Completed history is the sibling `done.txt`. With tuxedo installed, `TODO_DIR=<dir> tuxedo lsa --json` returns both files parsed; otherwise read the lines. Format and tag conventions: the `do-todo-txt` skill, if installed.
-- **Projects.** Each `+project` tag is a project; a task with two tags appears under both. Untagged tasks go under "No project". todo.txt has no phases. In one-project mode, use the tasks tagged with that project's name.
+- **Files.** In all-projects mode, always start from `$HOME/todo.txt`, ignoring any exported `TODO_FILE` or `TODO_DIR`; use another file only when the user names it. Each open line tagged `@route` with `todo:<path>` points at a project's local list; read that file too, plus its sibling `done.txt`. A route is not a task: never report it as one. A done route means the project is finished or parked: list it under that heading without reading its file. A missing routed file: say so for that project. With tuxedo installed, read each list as `TODO_FILE=<dir>/todo.txt DONE_FILE=<dir>/done.txt tuxedo lsa --json`, both paths absolute: it returns the file and its `done.txt` parsed, and naming both stops an exported `TODO_FILE` or `DONE_FILE` from swapping in another list. Otherwise read the lines. Format and routing conventions: the `do-todo` skill, if installed.
+- **Projects.** Each route is a project; its local list's tasks belong to it. In the global list, each `+project` tag is a project and a task with two tags appears under both. Untagged global tasks go under "No project". todo.txt has no phases. In one-project mode, read that project's routed list (or, inside the repo, `<repo root>/todo.txt`) plus global tasks tagged with its name.
 - **Statuses.** Map each line, first match wins:
   - Starts with `x `: **done**, with its completion date.
   - Names a wait (`@waiting`, or "waiting on ..." in the text), or has a `dep:` whose `id:` task is still open: **blocked** on that wait or task.
@@ -47,10 +47,10 @@ In the regroup file, keep each board item's number, column, and fields so the ne
 
 ## Modes
 
-Pick the mode from the words in the request. If the request names no mode, run all projects.
+Pick the mode from the words in the request. If the request names no mode, run one project.
 
-- **All projects** (default). Triggers: "regroup", "all projects", "everything", "status check-in". Run the full check-in in the sections from Statuses through The reply.
-- **One project.** Triggers: "just this project", "only this project", "this project", "just <name>", "only <name>". "This project" is the project in the current workspace. A name means that project. Run the one-project brief below and skip the full check-in.
+- **One project** (default). Triggers: "regroup" alone, "just this project", "only this project", "this project", "just <name>", "only <name>". "This project" is the project in the current workspace: its repo root. A name means that project. Run the one-project brief below and skip the full check-in. If the current workspace is not inside a project and no name was given, run all projects and say so.
+- **All projects.** Triggers: "all projects", "everything", "status check-in", "regroup all". Run the full check-in in the sections from Statuses through The reply.
 
 ## Statuses
 

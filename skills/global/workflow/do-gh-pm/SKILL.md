@@ -217,7 +217,7 @@ gh project item-list 1 --owner "@me" --format json | \
 
 ### Related skills
 
-- Personal tasks in a todo.txt file, not a board: `do-todo-txt`, if installed.
+- Personal tasks in a todo.txt file, not a board: `do-todo`, if installed.
 - Status across several projects or sources, not one board: `do-regroup`, if installed.
 - Writing the issue body itself: `do-tech-writing`, if installed.
 
