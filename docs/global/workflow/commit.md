@@ -24,6 +24,8 @@ You invoke this by typing `/do-commit` or `/do-commit push` — the agent will n
 
 Reach for `/do-commit` when a reviewed set of local changes needs a deliberate, well-described commit and should stay on the machine. Reach for `/do-commit push` when that same commit should also leave the machine in one workflow, including No Mistakes publishing when that gate is initialized.
 
+Shorthands extend the push path. `/do-commit cp` is commit and push (same as `push`). `/do-commit cpp` also opens a PR. `/do-commit ppm` makes no new commit: it pushes existing commits, opens a PR, and merges it (GitButler auto-merge, `gh pr merge` fallback). `/do-commit land` commits, pushes, opens a PR, then runs `but land`, which fast-forwards the target so GitHub marks the PR merged.
+
 ## The gates
 
 The first three gates always run, in order: understand the staged and unstaged diff, draft a `type(scope): description` line, then verify the staged set before committing. The message uses imperative language, keeps its first line under 72 characters, and reserves an optional body for motivation rather than a restatement of the diff. A footer holds issue references when appropriate.

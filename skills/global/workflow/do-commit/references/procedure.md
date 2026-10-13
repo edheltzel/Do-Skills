@@ -159,3 +159,19 @@ Optionally append a co-author or footer trailer per project convention (e.g. a `
 Push path only. Skip on the commit-only path.
 
 After pushing, satisfy **Gate 5**: `git status` and `git status -sb`, **or** `but status` if GitButler is in use. Confirm a clean tree and upstream sync (or an expected ahead/behind you can explain). **If No Mistakes:** the axi outcome is Gate 5. Do not `git fetch` origin to prove the push.
+
+## Step 6: PR, Merge, Land
+
+Modes `cpp`, `ppm`, and `land` only. Run after Gate 5 passes. If No Mistakes already opened the PR, reuse it; do not open a second one.
+
+**Open the PR** (`cpp`, `ppm`, `land`):
+- GitButler: `but pr new <feature-branch> -t` (title and body from the commits). Pass `-m` for a custom title and body.
+- Otherwise: `gh pr create --fill`.
+
+Stop here for `cpp`. Report the PR URL.
+
+**Merge** (`ppm`): `but pr auto-merge <feature-branch>` merges once required checks pass. If the repo has auto-merge disabled, use `gh pr merge <number> --squash --delete-branch` (or the method the repo allows). Without GitButler, use the `gh` command.
+
+**Land** (`land`, GitButler only): `but land <feature-branch> --yes`. It fast-forwards the target to the branch tip, so GitHub marks the PR merged. If it refuses (protected branch, stacked segment below, or no fast-forward), stop and report; do not retry with `--whole-stack` or `--no-ff` unless the user asks. Without GitButler, fall back to the `ppm` merge.
+
+Verify: `gh pr view <number> --json state,mergedAt` shows `MERGED` (or auto-merge enabled and pending checks, which you report as pending, not merged).
