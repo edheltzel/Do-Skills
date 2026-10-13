@@ -1,15 +1,53 @@
 ---
-name: do-todo-txt
-description: Manage a personal todo.txt list through the tuxedo CLI - add, list, complete, prioritize, archive, dependencies, and ready tasks. Use for todo.txt, tuxedo, my todo list, or personal tasks.
+name: do-todo
+description: Manage tasks through the tuxedo CLI - a todo.txt per project repo, plus a global ~/todo.txt of personal tasks and routes to each project's list - add, list, complete, prioritize, archive, dependencies, ready tasks, and end-of-turn upkeep so do-regroup can reach every project. Use for todo.txt, tuxedo, todos, follow-ups, or personal tasks.
 ---
 
 # todo.txt via tuxedo
 
 Use **tuxedo only**. Do not use `todo.sh`: its line numbering differs from tuxedo's, so mixing them hits the wrong tasks.
 
-The list is `$TODO_FILE`, else `$TODO_DIR/todo.txt`, else `~/todo.txt`; done history is the sibling `done.txt`. If `TODO_FILE` or `TODO_DIR` is already set, run `tuxedo` as is. If neither is set, tuxedo falls back to `./todo.txt` or a temp **sample** file, so prefix every command with `TODO_DIR=~` (works in fish and bash). Commands below omit that prefix.
+Never rely on tuxedo's own file lookup (`$TODO_FILE` > `$TODO_DIR/todo.txt` > `./todo.txt` > temp **sample**): an exported `TODO_FILE` beats `TODO_DIR` and silently redirects writes, and an exported `DONE_FILE` redirects `archive`. Pick the list by routing (below), then name both files on every command, reads included, with absolute paths:
+
+```
+TODO_FILE=<dir>/todo.txt DONE_FILE=<dir>/done.txt tuxedo --json ...
+```
+
+`<dir>` is the repo root or `$HOME` (use `$HOME`, not `~`; works in fish and bash). Commands below omit the prefix.
 
 Agents: use the CLI with `--json`, never the TUI. A running TUI reloads external changes within ~250 ms.
+
+## Global router, local lists
+
+tuxedo opens one file per run, has no daemon, and never merges files. So the lists are split, and the global list routes to the local ones.
+
+- **Local list**: `<repo root>/todo.txt` (history in its `done.txt`) owns that project's tasks. Tag each line `+<project>`, the lowercased basename of the repo root.
+- **Global list**: `$HOME/todo.txt` holds personal and cross-project tasks, plus one **route** per active project:
+
+  ```
+  2026-10-12 Recall +recall @route todo:/Users/ed/Developer/Atlas/Recall/todo.txt
+  ```
+
+  A route is a pointer, not a task: `@route`, the project tag, and `todo:<absolute path>`. Never copy a project's tasks into the global list.
+- **Which file**: inside a repo, its local list. Outside a repo, or for a personal or cross-project task, the global list.
+- **New project**: the first `add` creates `<repo root>/todo.txt`; in the same turn, add its route to the global list if `ls @route` on the global list lacks one for that `todo:` path. A repo that already has a `todo.txt` but no route gets a route; its lines stay where they are.
+- **Project finished or parked**: `do N` on its route. Its local list stays as history.
+- **`dep:` across lists**: look up the `id:` in the global list first, then in each routed list and its `done.txt`.
+- Do not write agent tasks to `inbox.txt`: only a running TUI drains it, and plain appends do not take its lock.
+
+## End-of-turn upkeep
+
+Keep the lists current without the user doing it. At the end of any turn that changed the state of work, run the matching CLI mutation on the routed file in the same turn:
+
+| What happened | Mutation |
+| --- | --- |
+| New follow-up, deferred work, or a plan/spec/handoff task | `add` with `+<project>`, after `ls` shows it is not there; add the route if missing |
+| Task finished | `app N pr:<url>` or `report:<path>`, then `do N` |
+| Blocked on a person or decision | `app N @waiting` plus the reason |
+| Unblocked | `replace N` with the line minus `@waiting` and its reason (`del N @waiting` leaves the reason behind) |
+| Scope or wording changed | `replace N "<new line>"` |
+
+No change to the work, no mutation. Never leave a TUI or watcher running for this; each CLI write is atomic and done. Mention the changed lines in one short line of the reply.
 
 ## Format (one line = one task)
 
@@ -48,7 +86,7 @@ tuxedo keeps these tags through `pri`, `app`, `do`, and `archive`, but does not 
 
 | Command | Args | Notes |
 | --- | --- | --- |
-| `add`, `a` | `TEXT` | always prepends creation date; natural-language parse (below) |
+| `add`, `a` | `TEXT` | prepends today's date unless the text already has one; natural-language parse (below) |
 | `append`/`app`, `prepend`/`prep`, `replace` | `N TEXT` | |
 | `pri`, `p` | `N A-Z` | one pair only |
 | `depri`, `dp` | `N...` | |
@@ -76,7 +114,7 @@ Task object: `{n, raw, done, priority, created, completed, projects, contexts, d
 
 `del` without `-f` under `--json` still prints the prompt text: always pass `-f`.
 
-File resolution: `$TODO_FILE` > `$TODO_DIR/todo.txt` > `./todo.txt` > sample. Done file: `$DONE_FILE` or sibling `done.txt`. Writes are atomic (tmp + rename).
+Writes are atomic (tmp + rename). Missing files and parent directories are created on first write.
 
 ## TUI (for explaining to the user)
 
