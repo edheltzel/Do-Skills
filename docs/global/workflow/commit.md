@@ -24,7 +24,7 @@ You invoke this by typing `/do-commit` or `/do-commit push` — the agent will n
 
 Reach for `/do-commit` when a reviewed set of local changes needs a deliberate, well-described commit and should stay on the machine. Reach for `/do-commit push` when that same commit should also leave the machine in one workflow, including No Mistakes publishing when that gate is initialized.
 
-Shorthands extend the push path. `/do-commit cp` is commit and push (same as `push`). `/do-commit cpp` also opens a PR. `/do-commit ppm` makes no new commit: it pushes existing commits, opens a PR, and merges it (GitButler auto-merge, `gh pr merge` fallback). `/do-commit land` commits, pushes, opens a PR, then runs `but land`, which fast-forwards the target so GitHub marks the PR merged.
+Shorthands extend the push path. `/do-commit cp` is commit and push (same as `push`). `/do-commit cpp` also opens a PR. `/do-commit land` commits, pushes, opens a PR, then runs `but land`, which moves the target to the branch tip so GitHub marks the PR merged. When `but land` is rejected (protected branch, required checks) or GitButler is not in use, it merges with `gh pr merge --squash` instead.
 
 ## The gates
 

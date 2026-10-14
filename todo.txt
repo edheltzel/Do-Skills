@@ -1,2 +1,3 @@
 x 2026-10-13 2026-10-12 Commit + PR do-todo rename and global-router/local-list workflow +doskills id:doskills-todo pr:https://github.com/edheltzel/Do-Skills/pull/41
 x 2026-10-13 2026-10-12 Reinstall do-todo from Do-Skills after merge; remove the old install under its previous name +doskills dep:doskills-todo
+2026-10-13 Reinstall do-commit from Do-Skills so cp/cpp/ppm/land modes reach ~/.agents/skills +doskills

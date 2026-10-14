@@ -20,7 +20,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 
 | Skill | Description |
 |-------|-------------|
-| [`do-commit`](./do-commit/) | Commit local changes in Conventional Commits format with GitButler and a git fallback, and optionally push, open a PR, merge, or land. |
+| [`do-commit`](./do-commit/) | Commit local changes in Conventional Commits format with GitButler and a git fallback, and optionally push, open a PR, or land it. |
 | [`do-docs`](./do-docs/) | Author or improve one Diataxis documentation page. |
 | [`do-gh-pm`](./do-gh-pm/) | GitHub Projects management via gh CLI — creating projects, managing items/fields, plus opinionated PM recipes — board bootstrap, Epic→Feature→Task issue hierarchy with sub-issue linking, label policy, running a plan against the board, picking next work, and status reporting. |
 | [`do-gh-stack`](./do-gh-stack/) | Manages stacked PRs and splits multi-part work into reviewable branches. |

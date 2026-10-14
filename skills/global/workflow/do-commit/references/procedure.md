@@ -160,18 +160,18 @@ Push path only. Skip on the commit-only path.
 
 After pushing, satisfy **Gate 5**: `git status` and `git status -sb`, **or** `but status` if GitButler is in use. Confirm a clean tree and upstream sync (or an expected ahead/behind you can explain). **If No Mistakes:** the axi outcome is Gate 5. Do not `git fetch` origin to prove the push.
 
-## Step 6: PR, Merge, Land
+## Step 6: PR and Land
 
-Modes `cpp`, `ppm`, and `land` only. Run after Gate 5 passes. If No Mistakes already opened the PR, reuse it; do not open a second one.
+Modes `cpp` and `land` only. Run after Gate 5 passes. If No Mistakes already opened the PR, reuse it; do not open a second one.
 
-**Open the PR** (`cpp`, `ppm`, `land`):
+**Open the PR** (`cpp`, `land`):
 - GitButler: `but pr new <feature-branch> -t` (title and body from the commits). Pass `-m` for a custom title and body.
 - Otherwise: `gh pr create --fill`.
 
 Stop here for `cpp`. Report the PR URL.
 
-**Merge** (`ppm`): `but pr auto-merge <feature-branch>` merges once required checks pass. If the repo has auto-merge disabled, use `gh pr merge <number> --squash --delete-branch` (or the method the repo allows). Without GitButler, use the `gh` command.
+**Land** (`land`): with GitButler, `but land <feature-branch> --yes`. It moves the target to the branch tip, so GitHub marks the PR merged. If it refuses because of a stacked segment below, stop and report; do not retry with `--whole-stack` unless the user asks.
 
-**Land** (`land`, GitButler only): `but land <feature-branch> --yes`. It fast-forwards the target to the branch tip, so GitHub marks the PR merged. If it refuses (protected branch, stacked segment below, or no fast-forward), stop and report; do not retry with `--whole-stack` or `--no-ff` unless the user asks. Without GitButler, fall back to the `ppm` merge.
+Fallback: if GitButler is not in use, or `but land` is rejected (protected branch, required checks), merge through the forge with `gh pr merge <number> --squash --delete-branch` (or the method the repo allows). If required checks are still pending, add `--auto` and report it as pending.
 
 Verify: `gh pr view <number> --json state,mergedAt` shows `MERGED` (or auto-merge enabled and pending checks, which you report as pending, not merged).

@@ -1,6 +1,6 @@
 ---
 name: do-commit
-description: Commit local changes in Conventional Commits format with GitButler and a git fallback, and optionally push, open a PR, merge, or land. Use when committing, pushing, `/do-commit`, `/do-commit push`, the shorthands CP, CPP, PPM, or land, GitButler, or No Mistakes publishing.
+description: Commit local changes in Conventional Commits format with GitButler and a git fallback, and optionally push, open a PR, or land it. Use when committing, pushing, `/do-commit`, `/do-commit push`, the shorthands CP, CPP, or land, GitButler, or No Mistakes publishing.
 disable-model-invocation: true
 ---
 
@@ -19,11 +19,10 @@ Pick the mode from the argument (`/do-commit cpp`) or the user's words. Shorthan
 | Commit (default) | none | Commit. Stop. |
 | Push | `push`, `cp` (commit + push) | Commit, push. |
 | Commit, push, PR | `cpp` | Commit, push, open a PR. |
-| Push, PR, merge | `ppm` | No new commit. Push existing commits, open a PR, merge it. |
-| Land | `land` | Commit, push, open a PR, land it with `but land`. |
+| Land | `land` | Commit, push, open a PR, land it with `but land` (falls back to `gh pr merge`). |
 
 - **Commit (default).** Any request that does not ask to push. Do not push, do not run No Mistakes, and skip gates 4-5 and Step 5.
-- **`ppm`** skips Steps 2-3 and the stage/commit part of Step 4, but still runs Step 4's publish block. If there are uncommitted changes, stop and ask; do not commit them silently.
+- **Every other mode** runs the push path in the procedure: No Mistakes, gates 4-5, publish, and Step 5. `cpp` and `land` then run Step 6. If there is nothing uncommitted, skip the commit and publish existing commits.
 
 ## Related skills
 
