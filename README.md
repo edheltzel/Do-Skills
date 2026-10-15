@@ -48,6 +48,8 @@ Skills are grouped by scope, then by group. The root table is an index; each sco
 
 Names carry a `do-` prefix so they do not collide with a harness command (`/simplify` vs `/do-simplify`). Vendored skills keep their upstream name (`anatomy`) so their documented command still works.
 
+We also use our own [PStack plugin](https://github.com/edheltzel/PStack-for-OMP) for pstack tools (`ps-how`, `ps-why`, `ps-bro`, `ps-unslop`, and the rest). Install it alongside these skills; this repo does not duplicate them.
+
 <!-- skills-start -->
 
 ### [Global](./skills/global/)
