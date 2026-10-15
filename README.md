@@ -33,7 +33,7 @@ npx skills add https://github.com/edheltzel/Do-Skills/tree/master/skills/project
 npx skills add https://github.com/edheltzel/Do-Skills/tree/master/skills/project/frontend
 ```
 
-To install a specific skill, use its exact listed name. Every name carries the `do-` prefix:
+To install a specific skill, use its exact listed name. Names carry the `do-` prefix, except vendored skills that keep their upstream name (such as `anatomy`):
 
 ```bash
 npx skills add edheltzel/Do-Skills --skill=<skill-name>
@@ -46,7 +46,7 @@ claude-code ` or `-a claude-code -a pi`
 
 Skills are grouped by scope, then by group. The root table is an index; each scope and group README lists its skills.
 
-Every name carries a `do-` prefix so it does not collide with a harness command (`/simplify` vs `/do-simplify`).
+Names carry a `do-` prefix so they do not collide with a harness command (`/simplify` vs `/do-simplify`). Vendored skills keep their upstream name (`anatomy`) so their documented command still works.
 
 <!-- skills-start -->
 
