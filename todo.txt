@@ -3,6 +3,6 @@ x 2026-10-14 2026-10-13 Reinstall do-commit from Do-Skills so cp/cpp/land modes 
 x 2026-10-14 2026-10-14 Review CE/Ponytail absorption visual in Plannotator and decide the plan +doskills id:absorb-review report:docs/plans/research/2026-10-14-workflow-absorption.html
 x 2026-10-14 2026-10-14 Port compound-engineering workflow into do-* skills per v4 plan: one workflow (Shape, Build, Ship, Respond), shared Next: hand-off with tool-first Review in Plannotator, model-invocable do-commit, do-plan, do-work, do-debug, merges, do-brainstorm, do-doc-review, do-it (LFG), do-handoff, README workflow section +doskills id:absorb-ce dep:absorb-review report:docs/plans/research/2026-10-14-workflow-absorption.html
 x 2026-10-14 2026-10-14 Keep Ponytail installed; add a do-simplify line routing diff over-engineering to ponytail-review, if installed +doskills id:absorb-ponytail dep:absorb-review report:docs/plans/research/2026-10-14-ponytail.md
-2026-10-14 Uninstall compound-engineering after the new do-* skills are installed +doskills dep:install-workflow
+x 2026-10-14 2026-10-14 Uninstall compound-engineering after the new do-* skills are installed +doskills dep:install-workflow
 2026-10-14 Move the Tern Plannotator launcher from /tmp into dotfiles and export PLANNOTATOR_BROWSER, falling back to open outside Tern +doskills dep:absorb-review
-2026-10-14 Reinstall DoSkills globally for the new workflow skills and the do-redteam rename; remove the stale ~/.agents/skills/do-red-team +doskills id:install-workflow
+x 2026-10-14 2026-10-14 Reinstall DoSkills globally for the new workflow skills and the do-redteam rename; remove the stale ~/.agents/skills/do-red-team +doskills id:install-workflow
