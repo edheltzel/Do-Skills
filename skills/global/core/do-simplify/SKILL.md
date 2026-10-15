@@ -1,6 +1,12 @@
 ---
 name: do-simplify
-description: Simplify and refine recently modified code for clarity and consistency. Use after writing or modifying code, during cleanup passes, or when asked to simplify/refactor without changing behavior.
+description: >-
+  Simplify recently changed code for clarity, reuse, quality, and efficiency
+  without changing behavior. Use after writing or modifying code, during a
+  cleanup pass, or when do-work asks for a simplify pass. NOT FOR bugs
+  (do-debug), correctness hunts (do-adversarial-review), over-engineering
+  scores (ponytail-review), or refactors that change behavior
+  (do-typescript-refactoring).
 ---
 
 # Simplify
@@ -15,6 +21,17 @@ Simplify code by making intent easier to see without changing behavior.
 - Remove code that no longer earns its place: dead branches, unused parameters, duplicate logic, speculative options, and redundant wrappers.
 - Keep related logic together. Split code only when the new boundary has a clear name and purpose.
 - Match the surrounding style. Do not reformat or modernize unrelated code.
+
+
+## Three lenses
+
+Read the diff through each lens. Apply a finding only when behavior stays the same.
+
+- **Reuse.** New code that repeats a helper, a standard-library call, or a guarantee the platform already keeps. Name the existing symbol. Skip a swap that changes locale, ordering, errors, or serialization.
+- **Quality.** Redundant state, parameter sprawl, copy-paste, leaky boundaries, strings where constants exist, deep conditionals, comments that restate code, dead code, inconsistent vocabulary, obsolete compatibility paths, or UI wrappers with no role. Verify non-use before deleting. Keep domain names, unrelated logic, and useful boundaries.
+- **Efficiency.** Repeated work or no-op updates, independent work run serially, blocking hot-path work, check-then-act file access, growing memory or leaked resources, overly broad reads or loads. Keep outputs, errors, side effects, and order.
+
+Never thin a safety check: validation at a trust boundary, a guard against data loss, a security check, or an accessibility affordance. Skip that finding.
 
 ## What to simplify
 
@@ -65,6 +82,7 @@ A simplification is good when:
 - the diff is smaller than the problem it solves
 
 Reject a simplification when the main benefit is aesthetic, theoretical, or based only on line count.
+Over-engineering on a diff goes to `ponytail-review`, if installed. Readability calls stay here.
 
 ## Stop conditions
 
@@ -78,7 +96,7 @@ Stop when:
 ## Review process
 
 1. Identify the modified code.
-2. Find concrete simplifications, not theoretical improvements.
+2. Find concrete simplifications through the three lenses, not theoretical improvements.
 3. Check each candidate against the call site: is the code easier to understand after the change?
 4. Preserve behavior exactly.
 5. If no change improves clarity, say so.
@@ -92,3 +110,9 @@ When proposing changes, explain:
 - what trade-off, if any, the change makes
 
 If a possible simplification is not worth doing, mention it only when the rejection teaches something useful.
+
+## Caller
+
+`mode:return-to-caller` means `do-work` started this run. Report what each lens found, apply the findings that preserve behavior, and return that summary. Do not offer a next rung. The caller re-verifies.
+
+Standalone, apply the same way unless the user asked only for a proposal. If nothing should change, say so.

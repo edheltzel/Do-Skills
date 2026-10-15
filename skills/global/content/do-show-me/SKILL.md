@@ -115,10 +115,14 @@ function expandSkill(command: string): string {
 }
 ```
 
-- For a visual UI, layout, state comparison, or concept too dense for Mermaid, write one focused HTML file — a diagram, an infographic, or a short slide deck, whichever fits the point. Match the product's colors, type, spacing, and components; use real labels and data; support desktop and mobile. Then open it for the user:
+- For a visual UI, layout, state comparison, or concept too dense for Mermaid, write one focused HTML file: a diagram, an infographic, or a short slide deck, whichever fits the point. Match the product's colors, type, spacing, and components. Use real labels and data. Support desktop and mobile. Then review that file in Plannotator when it is installed. Otherwise open it.
+
+  If a `plannotator` tool exists, call it with `{action: "annotate", target: <path>, gate: true}`, end the turn, and wait for the feedback message. Otherwise, if `plannotator` is on PATH, run `plannotator annotate <path> --gate --json` with a long or no timeout and wait until the user acts. `approved`: stop. `annotated`: revise the file from the feedback, then review again. `dismissed`: print the path and stop.
+
+  If Plannotator is not installed, open the file:
 
 ```
-Bash(open path/to/show-me-{description}.html)
+open path/to/show-me-{description}.html
 ```
 
 ### guidance

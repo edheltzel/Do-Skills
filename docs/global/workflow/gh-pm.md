@@ -52,7 +52,7 @@ gh auth refresh -s project
   Epic→Feature→Task model with `addSubIssue` linking), `Labels` (Phase and
   Priority live as board fields, not labels), `Execute` (run a plan against the
   board with tiered deviation rules), `Continue` (pick next work by status →
-  priority → dependencies), and `Status` (progress report).
+  priority → dependencies, after reading the latest handoff in `docs/plans/handoffs/` when one exists), and `Status` (progress report).
 
 The through-line: **the board is the source of truth**, and every item's state is
 set by editing a field, not by dragging a card.

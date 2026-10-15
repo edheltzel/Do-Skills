@@ -18,7 +18,7 @@ Upstream: [humanlayer/skills](https://github.com/humanlayer/skills/tree/main/plu
 
 `do-show-me` makes the agent explain the current topic with compact visuals instead of walls of prose. It picks the smallest view that makes the point: pseudocode, a call tree, a component tree, a shallow file tree, a Mermaid diagram, a `diff` of any of those, or one focused HTML file when the idea is too dense for text.
 
-It never fires on its own. You call it when a reply got too dense to read.
+An HTML file is reviewed in Plannotator when that tool or the `plannotator` command is installed. Approved ends the review. Annotated feedback is applied and the file is reviewed again. If Plannotator is not installed, the file is opened locally instead. The skill never fires on its own. You call it when a reply got too dense to read.
 
 ## When to reach for it
 

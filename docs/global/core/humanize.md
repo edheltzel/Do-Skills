@@ -14,15 +14,15 @@ npx skills update do-humanize
 
 ## What it does
 
-`do-humanize` scans developer text for AI-generated writing patterns and can apply the fixes it finds. Default mode writes `ai-writing-review.json` and does not rewrite files. `fix` mode consumes that report: safe findings are applied automatically, needs-review findings wait for confirmation.
+`do-humanize` scans developer text and can rewrite the sentences that fail a plain-prose test. Default mode writes `ai-writing-review.json` and does not rewrite files. `fix` mode consumes that report: safe findings are applied automatically, needs-review findings wait for confirmation.
 
-Evidence comes before a flag. Every finding must cite file:line and pass the bundled verification protocol. `--dry-run` previews proposed text edits. The skill will not stash. If `git status --porcelain` shows anything other than untracked `ai-writing-review.json`, fix mode stops.
+It judges the text, not who wrote it. A finding names the failed test. Evidence comes before a flag: every finding cites file:line and passes the bundled verification protocol. `--dry-run` previews edits. The skill will not stash. If `git status --porcelain` shows anything other than untracked `ai-writing-review.json`, fix mode stops.
 
 ## When to reach for it
 
 You invoke this by typing `/do-humanize`. The agent won't reach for it on its own.
 
-Reach for review when text sounds like ChatGPT, or you want a writing-quality pass before merge: `/do-humanize [--all] [--category <name>] [path]`. Reach for fix after that JSON exists: `/do-humanize fix [--dry-run]`.
+Reach for review when prose is inflated, filler, or hard to act on, including when it sounds like ChatGPT: `/do-humanize [--all] [--category <name>] [path]`. Reach for fix after that JSON exists: `/do-humanize fix [--dry-run]`. The pass names the failed test. It does not say who wrote the text.
 
 ## Prerequisites
 
@@ -30,9 +30,9 @@ Fix mode needs `ai-writing-review.json` from a review run in this skill, or `--a
 
 ## Review, then fix
 
-The skill partitions files into prose, code docs, and git, then checks six pattern categories (content, vocabulary, formatting, communication, filler, code docs). Safe vs needs-review is classified up front so fix mode can auto-apply only the mechanical ones.
+The skill partitions files into prose, code docs, and git, then checks six pattern categories (content, vocabulary, formatting, communication, filler, code docs) plus the plain-prose tests in the skill: portability, actor, one read, decision first, reader, and mechanism. Safe vs needs-review is classified up front so fix mode can auto-apply only the mechanical catalog fixes.
 
-**Safe** means mechanical: delete a chat leak, swap a listed filler phrase, drop an emoji. **Needs review** means a rewrite that could change meaning: promotional language, tautological docs, structure. Git artifacts (commits, PRs) are never auto-fixed.
+**Safe** means mechanical: delete a chat leak, swap a listed filler phrase, drop an emoji. **Needs review** means a rewrite that could change meaning, including every plain-prose miss. Those rewrites keep every fact, number, name, quote, and citation the source stated. Git artifacts (commits, PRs) are never auto-fixed.
 
 ## It's working if
 
@@ -41,4 +41,4 @@ The skill partitions files into prose, code docs, and git, then checks six patte
 
 ## Where it fits
 
-A user-invoked detection and rewrite pass in Slop Guard. Review feeds fix inside the same skill. [tech-writing](../workflow/tech-writing.md) is the voice to write with in the first place. This skill audits and cleans what already landed.
+A user-invoked detection and rewrite pass. Review feeds fix inside the same skill. [tech-writing](../workflow/tech-writing.md) is the voice to write with in the first place. A README that drifted from the code belongs to [readme-update](../workflow/readme-update.md). This skill audits and cleans text that already landed.

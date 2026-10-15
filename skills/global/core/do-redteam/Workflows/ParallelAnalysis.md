@@ -225,9 +225,6 @@ Each point is self-contained, uses plain language, attacks a real weakness, and 
 **Pairs well with:**
 - `do-first-principles/Deconstruct` - breaks argument into fundamental parts
 - `do-first-principles/Challenge` - classifies constraints as HARD/SOFT/ASSUMPTION
-- `storyexplanation` skill for initial decomposition
-- `extractalpha` for finding highest-signal critiques
-- `research` skill for finding counterexamples and precedents
 
 ---
 

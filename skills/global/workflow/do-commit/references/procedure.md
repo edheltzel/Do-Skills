@@ -84,7 +84,7 @@ Rules:
 
 ## Step 4: Stage and Commit
 
-Satisfy **Gates** 1–3 before committing. On the push path, satisfy **Gate** 4 before pushing and **Gate** 5 after push. On the commit-only path, stop after the commit.
+Satisfy **Gates** 1–3 before committing. On the push path, satisfy **Gate** 4 before pushing and **Gate** 5 after push. On the commit-only path, the commit is the last git action; continue to Next in SKILL.md.
 
 If GitButler is in use:
 
@@ -168,7 +168,7 @@ Modes `cpp` and `land` only. Run after Gate 5 passes. If No Mistakes already ope
 - GitButler: `but pr new <feature-branch> -t` (title and body from the commits). Pass `-m` for a custom title and body.
 - Otherwise: `gh pr create --fill`.
 
-Stop here for `cpp`. Report the PR URL.
+For `cpp`, report the PR URL, then continue to Next in SKILL.md. Do not land.
 
 **Land** (`land`): with GitButler, `but land <feature-branch> --yes`. It moves the target to the branch tip, so GitHub marks the PR merged. If it refuses because of a stacked segment below, stop and report; do not retry with `--whole-stack` unless the user asks.
 

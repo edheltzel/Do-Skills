@@ -57,8 +57,8 @@ Useful in any repo, or none. Install once per machine with `-g`.
 | Group | Skills | Coverage |
 |-------|--------|----------|
 | [Core](./skills/global/core/) | 11 | Stack-agnostic foundations - review lenses, reasoning, testing, simplification, agent-legible repos, comments, design patterns, skill authoring, and AI-writing cleanup. |
-| [Workflow](./skills/global/workflow/) | 9 | Change delivery - commits, docs, GitHub projects and stacks, PR workflow and review triage, worktrees, and technical writing. |
-| [Operations](./skills/global/operations/) | 3 | Operating AI agents - delegation, prompt audits, and project status check-ins. |
+| [Workflow](./skills/global/workflow/) | 15 | Change delivery - the brainstorm, plan, work, debug, and ship loop (LFG), commits, docs, GitHub projects and stacks, PR workflow and review triage, worktrees, and technical writing. |
+| [Operations](./skills/global/operations/) | 4 | Operating AI agents - delegation, handoffs, prompt audits, and project status check-ins. |
 | [Content](./skills/global/content/) | 3 | Audience-facing media - illustrations, diagrams, images, and visual explanations. |
 | [Personal](./skills/global/personal/) | 2 | Personal extras you want everywhere - teaching, todo.txt. |
 
@@ -78,6 +78,51 @@ Pay off only when a project uses that stack or product. Install into the project
 | [Personal](./skills/project/personal/) | 1 | Personal extras for specific projects - recipe diagrams. |
 
 <!-- skills-end -->
+
+## The workflow (LFG)
+
+One loop takes a change from idea to merged PR. Every step ends by naming the
+next one; pick it, pick another, or stop. `/do-it` runs the loop for you.
+
+```mermaid
+flowchart LR
+  subgraph Shape
+    B[do-brainstorm] --> P[do-plan] --> D[do-doc-review]
+  end
+  subgraph Build
+    W[do-work] --> S[do-simplify] --> R[do-adversarial-review]
+  end
+  subgraph Ship
+    C[do-commit] --> N[no-mistakes] --> L[do-commit land]
+  end
+  subgraph Respond
+    T[do-git-pr-review-triage]
+  end
+  D -->|you approve the plan| W
+  R --> C
+  N -->|review comments| T
+  T -->|accepted fixes| W
+  G[do-debug] --> W
+```
+
+| Stage | Skills | You decide |
+|-------|--------|------------|
+| Shape | do-brainstorm → do-plan → do-doc-review | Approve or annotate the plan (in Plannotator, if installed) |
+| Build | do-work → do-simplify → do-adversarial-review | Which review findings to fix |
+| Ship | do-commit (commit, cp, cpp, land) → no-mistakes, if installed | Answer ask-user gates; say go before land |
+| Respond | do-git-pr-review-triage → Build → Ship | Which comments to act on; approve replies before they post |
+
+**Ways in.** New idea: `/do-brainstorm`. Known feature: `/do-plan`.
+Bug: `/do-debug` (joins at Build). PR comments: `/do-git-pr-review-triage`.
+
+**Run it all.** `/do-it` (LFG) runs Shape → Build → Ship without the menus and
+stops at an open PR with green CI. It still stops for decisions only you can
+make. Merging stays with you.
+
+**Step out.** `/do-handoff` from any stage writes a note to
+`docs/plans/handoffs/` and adds its open tasks to `todo.txt`, where `do-regroup`
+and `do-gh-pm` pick them up.
+
 ## Creating a Skill
 
 Each skill lives in its own folder under a scope and a group. Every

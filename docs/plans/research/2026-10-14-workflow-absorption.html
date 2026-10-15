@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Absorbing compound-engineering into DoSkills - v2</title>
+<style>
+  :root {
+    --bg: #fbfaf7; --fg: #1d1f23; --muted: #6b7078; --border: #e3e0d8; --surface: #ffffff;
+    --accent: #2f6fdb; --port: #1f8a5b; --merge: #2f6fdb; --drop: #b4483c; --keep: #8a6d1f; --user: #7a4fc4;
+    --chip-bg: #f1efe9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15171a; --fg: #e7e8ea; --muted: #9aa0a8; --border: #2c3036; --surface: #1c1f23;
+      --accent: #6ea2ff; --port: #4cc38a; --merge: #6ea2ff; --drop: #f07b6e; --keep: #e0b84f; --user: #b493ff;
+      --chip-bg: #24282d;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif; }
+  main { max-width: 1120px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  h2 { font-size: 18px; margin: 44px 0 6px; }
+  h3 { font-size: 14px; margin: 0 0 6px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  p.lede, p.sub { color: var(--muted); margin: 0 0 14px; }
+  code, .mono { font: 12.5px/1.4 ui-monospace, "SF Mono", Menlo, monospace; }
+  code { background: var(--chip-bg); padding: 1px 5px; border-radius: 4px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 980px) { .grid4 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 780px) { .grid2, .grid3, .grid4 { grid-template-columns: 1fr; } }
+  .lane { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 8px 0 4px; }
+  .node { border: 1.5px solid var(--border); background: var(--surface); border-radius: 8px; padding: 6px 10px; font-size: 13px; line-height: 1.25; min-width: 92px; }
+  .node small { display: block; color: var(--muted); font-size: 11px; }
+  .node.port { border-color: var(--port); }
+  .node.merge { border-color: var(--merge); }
+  .node.drop { border-color: var(--drop); border-style: dashed; opacity: .8; }
+  .node.user { border-color: var(--user); background: color-mix(in srgb, var(--user) 10%, var(--surface)); }
+  .node.ext { border-color: var(--keep); }
+  .arrow { color: var(--muted); font-size: 12px; text-align: center; min-width: 46px; }
+  .arrow b { display: block; font-size: 16px; color: var(--fg); font-weight: 400; }
+  .seam { font-size: 11px; padding: 1px 6px; border-radius: 10px; background: var(--chip-bg); color: var(--muted); white-space: nowrap; }
+  .seam.menu { color: var(--port); }
+  .seam.auto { color: var(--drop); }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); margin-top: 10px; }
+  .legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: -2px; border: 1.5px solid; }
+  .lg-port::before { border-color: var(--port) !important; }
+  .lg-merge::before { border-color: var(--merge) !important; }
+  .lg-drop::before { border-color: var(--drop) !important; border-style: dashed !important; }
+  .lg-user::before { border-color: var(--user) !important; }
+  .lg-ext::before { border-color: var(--keep) !important; }
+  pre.tpl { background: var(--chip-bg); border-radius: 8px; padding: 14px; margin: 0; white-space: pre-wrap; font: 13px/1.5 ui-monospace, "SF Mono", Menlo, monospace; }
+  ol.rules, ul.tight { margin: 6px 0 0; padding-left: 18px; } ol.rules li, ul.tight li { margin: 3px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
+  .bar { height: 8px; border-radius: 4px; background: var(--accent); opacity: .7; }
+  .v { font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+  .v.port { color: var(--port); } .v.merge { color: var(--merge); } .v.drop { color: var(--drop); } .v.keep { color: var(--keep); }
+  .scroll { overflow-x: auto; }
+  .stat { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+  .stat + div { color: var(--muted); font-size: 12px; }
+  .q { color: var(--muted); font-style: italic; }
+  .src { color: var(--muted); font-size: 12px; margin-top: 30px; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Absorbing compound-engineering into DoSkills - v4</h1>
+<p class="lede">Revised after your v3 notes (README workflow section, section 7) plus a fix to how skills open Plannotator. Research: <code>docs/plans/research/2026-10-14-compound-engineering-workflow.md</code>, <code>docs/plans/research/2026-10-14-ponytail.md</code>. pstack stays. Ponytail stays as installed (section 5).</p>
+
+<div class="grid3">
+  <div class="card"><div class="stat">7 port · 6 merge</div><div>do-brainstorm, do-plan, do-doc-review, do-work, do-debug, do-it, do-handoff; merges into existing do-* skills</div></div>
+  <div class="card"><div class="stat">/do-commit joins the loop</div><div>Model-invocable, picked from the Next: menu, publishes through no-mistakes, which replaces ce-babysit-pr</div></div>
+  <div class="card"><div class="stat">Ponytail: leave it</div><div>The always-on part is a runtime hook a skill cannot replace. No absorption.</div></div>
+</div>
+
+<h2>What changed in v3</h2>
+<div class="card scroll">
+<table>
+  <thead><tr><th style="width:26%">Your note</th><th>Answer</th></tr></thead>
+  <tbody>
+    <tr><td><b>Ship</b>: is this a workflow?</td><td>No. It is the last stage of the one workflow in section 1, not its own thing. Ship is do-commit's push modes, which hand off to no-mistakes.</td></tr>
+    <tr><td><b>Side rungs</b>: own workflow?</td><td>No. They were badly drawn. do-debug is a second way <i>into</i> the same workflow (a bug instead of a feature; it replaces Shape and joins at Build). do-it is the runner that walks the stages without menus. do-handoff is the exit you can take from any stage. Section 1 now shows them that way.</td></tr>
+    <tr><td><b>Plannotator</b>: open it from a do-skill</td><td>Make "Review in Plannotator" a standard option of the shared hand-off (section 2). Any rung that produced a reviewable file (plan, requirements, handoff, show-me HTML) opens it the way the installed Plannotator skill requires: its <code>plannotator</code> tool first (<code>{action: "annotate", target, gate: true}</code>; feedback arrives later as a message, so the rung ends its turn and waits), else the CLI <code>plannotator annotate &lt;path&gt; --gate --json</code>; skipped if Plannotator is not installed. Approved → next rung. Annotated → revise and reopen, the loop we just ran. do-show-me opens its HTML there instead of the default browser. The Tern part is machine setup, not a skill: move the <code>/tmp</code> launcher into your dotfiles and export <code>PLANNOTATOR_BROWSER</code>, falling back to <code>open</code> outside Tern. That keeps DoSkills portable.</td></tr>
+    <tr><td><b>v4</b>: put the workflow in the README for HILs</td><td>Yes, as a hand-written section between the generated catalog and "Creating a Skill" (outside the <code>skills-start/end</code> markers, which <code>scripts/update-readme.sh</code> owns). It lands in the same change as the new skills, so the README never names a skill that does not exist yet. Draft in section 7.</td></tr>
+    <tr><td><b>Gap found</b>: who applies PR feedback?</td><td>v2 left a hole. <code>do-git-pr-review-triage</code> is triage-and-draft only (<code>SKILL.md:3</code>, "Do NOT use for ... applying the changes"), and no-mistakes only covers CI. Fix: a fourth stage, Respond. Triage writes the accepted-items list → <code>do-work</code> applies it → simplify and review → <code>do-commit cp</code> (no-mistakes rechecks and re-pushes) → triage posts the drafted replies and resolves threads after your go. CE's resolve-pr-feedback did fix + reply in one skill; this splits it so the fix goes through the same build and ship path as everything else.</td></tr>
+    <tr><td>ce-explain</td><td>Marked looks good. Dropped; do-teach-me unchanged.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 1 -->
+<h2>1. One workflow: four stages</h2>
+<p class="sub">Every rung ends with the shared <code>Next:</code> block (section 2). Picking an option loads the next skill in the same session, like CE. Respond loops back through Build and Ship.</p>
+<div class="grid4">
+  <div class="card">
+    <h3>1 · Shape</h3>
+    <div class="node port">do-brainstorm<small>requirements in docs/plans/</small></div>
+    <div class="arrow"><b>↓</b></div>
+    <div class="node port">do-plan<small>units + verification</small></div>
+    <div class="arrow"><span class="seam">auto</span><b>↓</b></div>
+    <div class="node port">do-doc-review<small>"Review complete"</small></div>
+    <div class="arrow"><span class="seam menu">Plannotator gate</span><b>↓</b></div>
+    <div class="node user">you approve the plan</div>
+  </div>
+  <div class="card">
+    <h3>2 · Build</h3>
+    <div class="node port">do-work<small>current checkout, no branches</small></div>
+    <div class="arrow"><span class="seam">caller runs</span><b>↓</b></div>
+    <div class="node merge">do-simplify<small>+ CE's 3 lenses</small></div>
+    <div class="arrow"><b>↓</b></div>
+    <div class="node merge">do-adversarial-review<small>+ ce-code-review, report only</small></div>
+  </div>
+  <div class="card">
+    <h3>3 · Ship</h3>
+    <div class="node user">do-commit<small>model-invocable · but · commit / cp / cpp / land</small></div>
+    <div class="arrow"><span class="seam">push path</span><b>↓</b></div>
+    <div class="node ext">no-mistakes<small>review, test, lint, push, PR, CI; watches until merge, rebases on conflict</small></div>
+    <div class="arrow"><span class="seam menu">you say go</span><b>↓</b></div>
+    <div class="node user">do-commit land<small>merge stays yours</small></div>
+  </div>
+  <div class="card">
+    <h3>4 · Respond</h3>
+    <div class="node merge">do-git-pr-review-triage<small>classify + draft replies → accepted list</small></div>
+    <div class="arrow"><span class="seam menu">Next:</span><b>↓</b></div>
+    <div class="node port">do-work → Build → Ship<small>applies the accepted list; no-mistakes rechecks</small></div>
+    <div class="arrow"><span class="seam menu">you say go</span><b>↓</b></div>
+    <div class="node merge">triage: post replies<small>+ resolve threads (from ce-resolve-pr-feedback)</small></div>
+  </div>
+</div>
+<div class="card" style="margin-top:14px">
+  <h3>Ways in, the runner, the way out</h3>
+  <div class="lane">
+    <div class="node port">new idea → do-brainstorm</div>
+    <div class="node port">known feature → do-plan</div>
+    <div class="node port">bug → do-debug<small>fix / diagnose / rethink, then joins at Build</small></div>
+    <div class="node merge">PR comments → triage<small>joins at Respond</small></div>
+  </div>
+  <div class="lane">
+    <div class="node port">do-it<small>was lfg · runs Shape → Build → Ship with no menus, ends at do-commit cpp</small></div>
+    <div class="node port">do-handoff<small>exit from any stage · docs/plans/handoffs + todo.txt → do-regroup, do-gh-pm</small></div>
+  </div>
+  <div class="legend"><span class="lg-port">port as new do-*</span><span class="lg-merge">merge into existing do-*</span><span class="lg-user">your call / publish step</span><span class="lg-ext">installed tool, not DoSkills</span></div>
+</div>
+
+<!-- 2 -->
+<h2>2. The hand-off seam</h2>
+<div class="grid2">
+  <div class="card">
+    <h3>Shared template (one reference file)</h3>
+<pre class="tpl">Next: &lt;skill&gt; - &lt;one line why&gt;, passing `&lt;absolute artifact path&gt;`.
+
+Other moves:
+1. &lt;skill&gt; - &lt;when this is the better rung&gt;
+2. &lt;skill&gt; - &lt;when this is the better rung&gt;
+3. Stop - the artifact is already saved.
+
+Reply with a number, the label, or what you want instead.</pre>
+  </div>
+  <div class="card">
+    <h3>Rules, copied from CE's behavior</h3>
+    <ol class="rules">
+      <li>Ask tool present (<code>ask</code> in omp) → ask with it; else print the block and wait.</li>
+      <li>A pick loads that skill now, in this session.</li>
+      <li><code>mode:return-to-caller</code> drops the menu; the caller (do-it) owns the next rung.</li>
+      <li>Review and simplify never offer a next rung; the caller applies.</li>
+      <li>Shipping is option 1 only after do-work / do-debug finish. Land is never offered without your go.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- 3 -->
+<h2>3. Your 8 annotations, answered</h2>
+<div class="card scroll">
+<table>
+  <thead><tr><th style="width:24%">You said</th><th style="width:40%">Finding</th><th>Decision</th></tr></thead>
+  <tbody>
+    <tr><td><b>/do-commit</b> should work like the CE equivalent</td>
+      <td>CE's ship skills are model-invocable, so a menu pick or <code>lfg</code> can load them; ce-commit-push-pr then hands the PR to babysit. do-commit is <code>disable-model-invocation: true</code> (<code>do-commit/SKILL.md:4</code>), so nothing in a chain can reach it. That flag is also why ce-commit wins on a plain "commit".</td>
+      <td>Drop the flag. do-commit becomes the rung that do-work, do-debug, and do-it load. Its push path already runs no-mistakes, which plays babysit. End each mode with a <code>Next:</code> block: commit → offer cp / cpp; cpp → triage when comments land, land when you say go.</td></tr>
+    <tr><td><b>do-handoff</b>: tie into do-regroup and do-pm</td>
+      <td>do-regroup reads todo.txt and routes, read-only (<code>do-regroup/SKILL.md:12-29</code>). do-gh-pm owns boards and "picking next work" (<code>:3</code>). GAP requires handoffs in <code>docs/plans/handoffs/</code> with a todo.txt section.</td>
+      <td>do-handoff writes there, adds its open tasks via tuxedo with <code>note:&lt;handoff path&gt;</code> (regroup sees them with no change), and names the board item when a board exists. Add one regroup line: newest handoff per project as its resume point. Add one gh-pm line: next-work reads the latest handoff. Resume: <code>/do-handoff resume &lt;path&gt;</code>.</td></tr>
+    <tr><td><b>ce-babysit-pr</b>: don't we use no-mistakes?</td>
+      <td>Yes. no-mistakes' CI step keeps watching the PR after checks pass, and on a conflict it rebases, revalidates, and re-pushes, until merge or close. do-commit already publishes through it when the repo is gated (<code>procedure.md</code> No Mistakes section). Gap: human review threads after the PR opens [INFERENCE: not in the no-mistakes skill].</td>
+      <td>Drop babysit. no-mistakes owns CI. Review threads get the Respond stage (section 1): triage, then do-work applies fixes, then triage posts replies.</td></tr>
+    <tr><td><b>do-lfg</b> → call it <code>do-it</code>, LFG in the README</td>
+      <td>The README catalog between the <code>skills-start/end</code> markers is generated by <code>scripts/update-readme.sh</code> from descriptions, so it must not be hand-edited.</td>
+      <td><code>skills/global/workflow/do-it</code>. Put "LFG" in its description so the catalog carries it, and add a short hand-written "Workflow loop (LFG)" section outside the markers. Default run ends at <code>do-commit cpp</code> (PR open, CI green, merge yours), like lfg; <code>/do-it commit</code> stops at a local commit.</td></tr>
+    <tr><td><b>test-browser, prototype, ideate</b>: a do-skill matches?</td>
+      <td>Partly. test-browser: <code>do-browser</code> did this (wrapped chrome-devtools-axi) until it was removed on 2026-10-06 (<code>2cf7fe1</code>); chrome-devtools-axi is still installed. prototype: closest is <code>do-show-me</code> HTML artifacts plus <code>do-ux-flow-plan</code>. ideate: closest is <code>do-first-principles</code> Reconstruct and do-red-team's AdversarialValidation.</td>
+      <td>No new skills. do-work's verify step drives the browser with chrome-devtools-axi when UI changed. do-brainstorm opens with an ideas pass when you have no idea yet. Prototype stays with do-show-me.</td></tr>
+    <tr><td><b>The 15 unused</b>: explain before dropping</td><td colspan="2">See section 4.</td></tr>
+    <tr><td><b>do-teach-me</b> is for teaching you, hence personal</td>
+      <td>Agreed; merging ce-explain into it was wrong. ce-explain investigates how or why code works. pstack's <code>do-how</code> (21 sessions) and <code>do-why</code> (6) do that job and pstack stays.</td>
+      <td>Drop ce-explain. do-teach-me unchanged.</td></tr>
+    <tr><td><b>Ponytail</b>: leave it in place as is?</td><td colspan="2">Yes. See section 5.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 4 -->
+<h2>4. What the 15 unused CE skills do</h2>
+<p class="sub">0 sessions each, 2026-08-17 to 2026-10-14. Verdict is a suggestion; annotate any you want kept.</p>
+<div class="card scroll">
+<table>
+  <thead><tr><th style="width:18%">Skill</th><th style="width:44%">What it does</th><th style="width:12%">Verdict</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>ce-bakeoff</td><td>Builds competing solutions to one brief, compares them, synthesizes a winner.</td><td class="v merge">merge</td><td>Same job as do-red-team's AdversarialValidation workflow. Fold the useful bits there.</td></tr>
+    <tr><td>ce-compound-refresh</td><td>Audits the captured learnings in <code>docs/solutions/</code> for stale, overlapping, or drifted entries.</td><td class="v drop">drop</td><td>Only matters once ce-compound's learnings pile up. Revisit if do-docs starts writing them.</td></tr>
+    <tr><td>ce-dogfood</td><td>Hands-off browser QA of the branch: drives flows, fixes small breaks, adds tests, and commits on its own.</td><td class="v drop">drop</td><td>Autonomous commits bypass do-commit and its gates.</td></tr>
+    <tr><td>ce-optimize</td><td>Measured loop to move a metric: attribute cost or score variants and keep winners.</td><td class="v drop">drop</td><td><code>do-perf</code> (project/tooling) covers the measure, fix, re-measure loop for web and Electron.</td></tr>
+    <tr><td>ce-polish</td><td>Live, user-directed UX refinement of a working feature in the browser.</td><td class="v drop">drop</td><td><code>impeccable</code> (installed) and <code>do-cleanup-web</code> cover it.</td></tr>
+    <tr><td>ce-product-pulse</td><td>Time-windowed product reports from configured analytics signals.</td><td class="v drop">drop</td><td>Needs configured signals; <code>do-marketing</code> owns analytics and retention.</td></tr>
+    <tr><td>ce-promote</td><td>Drafts launch or promotion copy for a shipped feature.</td><td class="v drop">drop</td><td><code>do-marketing</code> covers launches.</td></tr>
+    <tr><td>ce-proof</td><td>Publishes and edits markdown in Proof, Every's doc-sharing service.</td><td class="v drop">drop</td><td>Plannotator takes the role, as a standard hand-off option (see "What changed in v3").</td></tr>
+    <tr><td>ce-retune</td><td>Retunes a skill corpus for a new model: baseline from run history, noise floor, adversarial audit, measured cuts.</td><td class="v keep">later</td><td>Relevant to DoSkills itself, but refuses to run without an A/B benchmark harness. <code>do-bitter-pill</code> is the closest today.</td></tr>
+    <tr><td>ce-riffrec-feedback-analysis</td><td>Turns Riffrec screen/voice recordings into bug and requirement evidence.</td><td class="v drop">drop</td><td>Only useful if you record with Riffrec.</td></tr>
+    <tr><td>ce-setup</td><td>Health check for CE's own config; scaffolds Compound Packs.</td><td class="v drop">drop</td><td>CE plumbing.</td></tr>
+    <tr><td>ce-strategy</td><td>Creates or updates <code>STRATEGY.md</code> when starting a product or changing direction.</td><td class="v drop">drop</td><td>No do-* equivalent, but no use. Port later if you start writing strategy docs.</td></tr>
+    <tr><td>ce-sweep</td><td>Sweeps Slack and GitHub Issues for feedback, acknowledges at the source, emits an lfg-ready plan.</td><td class="v drop">drop</td><td>Posts to external systems; intake overlaps do-gh-pm and do-regroup.</td></tr>
+    <tr><td>ce-test-xcode</td><td>Runs iOS apps in the simulator through XcodeBuildMCP for evidence.</td><td class="v drop">drop</td><td>Port into project/swift if iOS work needs simulator proof.</td></tr>
+    <tr><td>wtf</td><td>Re-explains the last message or a passage in plain language.</td><td class="v drop">drop</td><td>pstack's <code>do-bro</code> does exactly this, and pstack stays.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 5 -->
+<h2>5. Ponytail: leave it as installed</h2>
+<div class="grid2">
+  <div class="card">
+    <h3>Why keep it</h3>
+    <ul class="tight">
+      <li>The always-on behavior is a pi-extension <code>before_agent_start</code> hook. No SKILL.md can replace it; the alternative is six lines in GAP that cost tokens on every harness and lose lite / ultra / off.</li>
+      <li>None of do-simplify, do-adversarial-review, do-red-team, or do-behavioral-testing absorbs it: they run after the edit, Ponytail shapes the edit before it is written.</li>
+      <li>MIT, small (6 skills), and used: review 15, audit 10 sessions vs do-simplify 3.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>The one fix worth making</h3>
+    <ul class="tight">
+      <li>ponytail-review scores <code>net: -N lines</code>; do-simplify rejects line count as the measure (<code>do-simplify/SKILL.md:67</code>). Add one line to do-simplify: over-engineering on a diff → <code>ponytail-review</code>, if installed; readability calls stay here.</li>
+      <li>Claude has its own <code>ponytail@ponytail</code> 4.9.0; leave it too.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 6 -->
+<h2>6. Order</h2>
+<div class="lane">
+  <div class="node">1. Shared Next: template + "Review in Plannotator" option; Tern launcher into dotfiles</div><div class="arrow"><b>→</b></div>
+  <div class="node user">2. do-commit model-invocable + Next: blocks</div><div class="arrow"><b>→</b></div>
+  <div class="node port">3. do-plan, do-work, do-debug</div><div class="arrow"><b>→</b></div>
+  <div class="node merge">4. Merges: review, simplify, humanize, red-team (+bakeoff), triage (+ post replies, resolve threads), docs</div><div class="arrow"><b>→</b></div>
+  <div class="node port">5. do-brainstorm, do-doc-review, do-it, do-handoff (+ regroup, gh-pm lines), README workflow section, docs pages</div><div class="arrow"><b>→</b></div>
+  <div class="node drop">6. Uninstall compound-engineering</div>
+</div>
+
+<!-- 7 -->
+<h2>7. README draft: "The workflow (LFG)"</h2>
+<p class="sub">Goes after the skill catalog, before "Creating a Skill". Written for the human in the loop: what runs, and where you decide. GitHub renders the Mermaid block.</p>
+<div class="card">
+<pre class="tpl">## The workflow (LFG)
+
+One loop takes a change from idea to merged PR. Every step ends by naming the
+next one; pick it, pick another, or stop. `/do-it` runs the loop for you.
+
+```mermaid
+flowchart LR
+  subgraph Shape
+    B[do-brainstorm] --&gt; P[do-plan] --&gt; D[do-doc-review]
+  end
+  subgraph Build
+    W[do-work] --&gt; S[do-simplify] --&gt; R[do-adversarial-review]
+  end
+  subgraph Ship
+    C[do-commit] --&gt; N[no-mistakes] --&gt; L[do-commit land]
+  end
+  subgraph Respond
+    T[do-git-pr-review-triage]
+  end
+  D --&gt;|you approve the plan| W
+  R --&gt; C
+  N --&gt;|review comments| T
+  T --&gt;|accepted fixes| W
+  G[do-debug] --&gt; W
+```
+
+| Stage | Skills | You decide |
+|-------|--------|------------|
+| Shape | do-brainstorm → do-plan → do-doc-review | Approve or annotate the plan (in Plannotator, if installed) |
+| Build | do-work → do-simplify → do-adversarial-review | Which review findings to fix |
+| Ship | do-commit (commit, cp, cpp, land) → no-mistakes, if installed | Answer ask-user gates; say go before land |
+| Respond | do-git-pr-review-triage → Build → Ship | Which comments to act on; approve replies before they post |
+
+**Ways in.** New idea: `/do-brainstorm`. Known feature: `/do-plan`.
+Bug: `/do-debug` (joins at Build). PR comments: `/do-git-pr-review-triage`.
+
+**Run it all.** `/do-it` (LFG) runs Shape → Build → Ship without the menus and
+stops at an open PR with green CI. It still stops for decisions only you can
+make. Merging stays with you.
+
+**Step out.** `/do-handoff` from any stage writes a note to
+`docs/plans/handoffs/` and adds its open tasks to `todo.txt`, where `do-regroup`
+and `do-gh-pm` pick them up.</pre>
+</div>
+
+<p class="src">v4, 2026-10-14. Approve to lock the plan; annotate anything to revise.</p>
+</main>
+</body>
+</html>

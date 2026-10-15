@@ -1,13 +1,13 @@
 ---
 name: do-humanize
-description: "Detect and rewrite AI-generated developer text. Use when reviewing any text artifact for authenticity and clarity, humanizing inflated language, filler, tautological docs, and robotic tone in docs, docstrings, commit messages, PR descriptions, and code comments, or when the user mentions ai writing, ai-generated or robotic writing, text that sounds like AI or ChatGPT, or writing quality."
+description: "Rewrite developer text so a sentence states a fact about this project, not a feeling. Use when docs, docstrings, commits, PRs, or comments are inflated, filler, or hard to act on. NOT FOR a README that drifted from the code (`do-readme-update`, if installed)."
 disable-model-invocation: true
 user-invocable: true
 ---
 
 # Humanize
 
-Two modes in one skill. Default is **review**: scan developer text and write `ai-writing-review.json`. **fix** consumes that file and applies classified edits. Builds on [docs-style](references/docs-style.md).
+Two modes. Default is **review**: scan developer text and write `ai-writing-review.json`. **fix** consumes that file and applies classified edits. Judge the text. Do not say who wrote it. Builds on [docs-style](references/docs-style.md). The compass copy in [diataxis-compass](references/diataxis-compass.md) stays in this skill.
 
 ## Usage
 
@@ -52,3 +52,18 @@ Load only the categories in scope:
 - Default invocation is review. `fix` is the first argument.
 - Review writes `ai-writing-review.json` and does not rewrite files.
 - Fix does not edit until that JSON exists and passes the gates in [fix.md](references/fix.md).
+
+## Plain prose
+
+Apply these on every sentence, in review and in fix. The pattern files already cover density (a cluster of tells, not one word) and promotional wording. These tests are the ones those files do not state. A finding names the failed test. It does not name an author.
+
+- **Portability.** Could the sentence move to another project unchanged? It carries no fact about this one. Put a fact in, or cut it.
+- **Actor.** Who does the verb? Name them when the source says who. Keep the passive when the actor is unknown or naming them adds nothing.
+- **One read.** Would the reader have to reread the sentence? Split it. A sentence that lands on the first pass stays, however long.
+- **Decision first.** The first sentence carries the outcome the reader needs.
+- **Reader.** Can someone who has not opened the code act on this? Gloss the identifier, or name the consequence.
+- **Mechanism.** Does the sentence say what the thing does, or how it feels? Put the fact back, or cut the sentence.
+
+Keep every fact, number, name, quote, and citation. Do not add a fact the source did not state. Leave code, quotes, frontmatter, link targets, and identifiers alone unless the user named that text.
+
+Review records these as category `content`, types `portability`, `actor`, `one_read`, `decision_first`, `reader`, `mechanism`, fix safety Needs review. Fix keeps the source facts while applying them.
