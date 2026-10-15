@@ -38,7 +38,7 @@ When GitButler is in use, do not `git merge`, `git rebase`, `git stash`, `git ch
 No Mistakes is in use when `command -v no-mistakes` succeeds **and** `git remote` lists `no-mistakes` (or `no-mistakes axi` shows this repo).
 
 When No Mistakes is in use, the gate owns publication:
-- **Push, open PR, or sync a live PR:** `no-mistakes axi run --intent "<what the user set out to accomplish>"`. Reattach or `axi respond` if a run is already active. Do not `but push`, `but pr new`, `git push origin`, or `gh pr create`.
+- **Push, open PR, or sync a live PR:** `no-mistakes axi run --yes --intent "<what the user set out to accomplish>"`. Reattach or `axi respond` if a run is already active. Do not `but push`, `but pr new`, `git push origin`, or `gh pr create`.
 - GitButler still owns the lane, local commit, `but pull` before first publish, conflicts, and unpublished undo.
 - While a run is active: no hand-rebase, no origin push, no self-edit of findings. `ask-user` findings stop for the user.
 - If `no-mistakes axi` reports `current_branch: gitbutler/workspace` or the default branch, stop. Tell the user the gate cannot see a real feature branch.
@@ -206,7 +206,7 @@ Before pushing:
 - [ ] review `status` and diff
 - [ ] confirm no accidental changes to unrelated files
 - [ ] explain any conflict resolution that changed behavior
-- [ ] if No Mistakes: `no-mistakes axi run --intent "..."` (not `git push` / `but push`)
+- [ ] if No Mistakes: `no-mistakes axi run --yes --intent "..."` (not `git push` / `but push`)
 
 Before undoing:
 
