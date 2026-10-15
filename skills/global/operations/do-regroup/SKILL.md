@@ -68,6 +68,7 @@ A project is active only when at least one of its tasks is active. Do not count 
 ## Shape
 
 Group by project. Under each project, list its phases. Under each phase, list its tasks. If a project has no phases, say so and list the tasks under the project.
+Per project, show the newest file in `docs/plans/handoffs/` (filename date, then mtime) as its resume point, including the one-project brief. Read only, same as the rest of this skill.
 
 Each task shows:
 

@@ -1,14 +1,28 @@
-# Adversarial Validation Pattern (Battle of Bots)
-**Purpose:** Use competing agents + critic to produce superior synthesis through adversarial refinement.
+# Adversarial validation
 
-**When to Use:**
-- Feature specifications that need stress-testing
-- Architectural decisions before implementation
-- Code reviews where multiple approaches exist
-- Content that needs to withstand scrutiny
-- Any output where quality matters more than speed
+**Purpose:** Develop independent alternatives to one brief, compare them, and synthesize one coherent approach. The caller adopts it and does the later work. This workflow does not implement.
+
+**When to use:**
+- A defined goal whose alternatives are still too thin to judge
+- An architecture or feature choice that needs more than one concrete approach before a pick
+- Supplied sketches, or several already-concrete options, that need a fair comparison
+
+Not a code diff (`do-adversarial-review`, if installed). Not one named option that only needs a verdict (Judge, in SKILL.md). Not a routine choice, and not a decision the project already settled.
 
 **Source:** Network Chuck prompting video (2025) - "AI is normally better at critiquing or editing than original writing"
+
+## Develop, then synthesize
+
+The three rounds below are how this runs. These rules win if a round conflicts with them.
+
+1. Write one brief: goal, constraints, settled decisions, and what concrete means here. Every candidate gets that same brief. Unknowns stay in the brief. A candidate may assume something for itself. Do not push that assumption onto the others. Do not hide a correctness bar in a private rubric, and do not change the criteria to favor an entry.
+2. Launch at least two independent candidates in fresh contexts, unless the caller already supplied that many usable ones. If they did, skip launch and start at the critic. Do not play several candidates yourself in one context. A sketch is enough when the mechanism and its real tradeoffs can be judged. Do not claim a sketch proves a runtime result.
+3. Read every finished candidate. The critic round assesses them against the shared criteria before you pick. A hard-constraint miss cannot be outvoted by preference. Agreement is not proof.
+4. Pick the strongest viable base. Take a piece from another candidate only when the result stays one coherent approach. Keep the rejection reasons.
+5. If fewer than two usable candidates came back, or the critic never finished, return incomplete and label any lean as provisional. If only the user can supply the deciding preference, return that dependency. Do not invent a winner.
+
+Return selected, unresolved, or incomplete. Include the brief, the chosen approach if any, why, what was taken from whom, what was rejected, and evidence still missing.
+
 
 ---
 
@@ -114,7 +128,7 @@ than any individual proposal, not just a blend.
 
 ## Complete Adversarial Validation Template
 
-For a single-prompt execution:
+The block below is the brief shape. Run each candidate in its own context. Do not execute this whole protocol as one prompt playing every persona.
 
 ```
 <instructions>
@@ -160,9 +174,10 @@ OUTPUT:
 - The 32-agent parallel analysis (parallelAnalysis.md) is for DEPTH - attacking one argument from 32 perspectives
 - Adversarial Validation is for SYNTHESIS - producing better output through competition and refinement
 
-**When to Use Which:**
-- **32-Agent Protocol:** "Red team this argument/idea" - stress-test existing content
-- **Adversarial Validation:** "Help me design/decide/create X" - produce new content through adversarial refinement
+**When to use which:**
+- Parallel analysis: stress-test an existing argument
+- This workflow: the alternatives still need to be built before a fair choice
+- Judge (SKILL.md): one named option, a verdict against evidence, no new candidates
 
 **Combining Both:**
 1. Use Adversarial Validation to produce initial solution
@@ -225,14 +240,14 @@ Start with A's JWT approach (pragmatic), add B's short-lived tokens (15 min) and
 
 ---
 
-## When NOT to Use
+## When not to use
 
-- Simple decisions with obvious answers (overkill)
-- Time-critical situations (too slow)
-- Creative tasks where multiple valid outputs are fine
-- Problems where expert consensus already exists
+- The answer is obvious, or the project already settled it
+- One named option only needs a verdict (Judge, in SKILL.md)
+- A code diff (`do-adversarial-review`, if installed)
+- Fewer than two independent approaches can meet the brief, and the evidence says why: return that, do not invent a field
 
-**Principle:** Adversarial Validation is for decisions where quality matters more than speed.
+If only the user can supply the deciding preference, return that dependency. Do not invent a winner.
 
 ---
 

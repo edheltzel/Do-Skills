@@ -18,7 +18,7 @@ Most reasoning is reasoning by analogy — "how did we solve something similar,"
 - **Reasoning by analogy** (default, often wrong): copies existing solutions with slight variations.
 - **Reasoning from first principles** (this skill): asks "what is this actually made of?" and rebuilds from irreducible facts.
 
-Invoked directly, or by other skills when inherited assumptions may be limiting the solution space — Architects challenging "constraint or convention?", do-red-team and pentesters attacking assumed boundaries, engineers escaping local maxima.
+Invoked directly, or by other skills when inherited assumptions may be limiting the solution space — Architects challenging "constraint or convention?", do-redteam and pentesters attacking assumed boundaries, engineers escaping local maxima.
 
 
 ## Workflow Routing
@@ -61,7 +61,7 @@ Other skills invoke FirstPrinciples like this:
 → Use do-first-principles/Reconstruct to rebuild from fundamentals
 
 ## For Adversarial Analysis
-→ do-red-team uses do-first-principles/Challenge to attack assumptions
+→ do-redteam uses do-first-principles/Challenge to attack assumptions
 → Pentester uses do-first-principles/Deconstruct on security model
 ```
 

@@ -82,6 +82,7 @@ Read the appropriate reference files based on the findings being fixed:
 - Read `references/vocabulary-swaps.md` when applying `ai_vocabulary_high` or `ai_vocabulary_low` fixes
 - Read `references/fix-strategies.md` for strategy details and before/after examples for any category
 - Read `references/developer-voice.md` for tone/register guidance when rewriting prose
+- For `portability`, `actor`, `one_read`, `decision_first`, `reader`, or `mechanism`, follow the plain-prose tests in SKILL.md. Keep every fact, number, name, quote, and citation.
 
 Only load what you need — if fixing only vocabulary, skip the voice guide.
 
@@ -128,6 +129,7 @@ Partition remaining findings by `fix_safety`:
 - `inline_header_list` - Restructure boldfaced inline-header vertical lists
 - `unnecessary_table` - Convert small tables to prose
 - `regression_to_mean` - Restore specific facts replaced by vague praise
+- `portability`, `actor`, `one_read`, `decision_first`, `reader`, `mechanism` - Rewrite only the failed sentence. Keep every source fact. Do not say who wrote it.
 
 ### 6. Apply Safe Fixes
 
@@ -248,10 +250,10 @@ Fix issues and re-run.
 
 1. **Delete first, rewrite second.** Most AI patterns are padding. Removing them improves the text.
 2. **Use simple words.** Replace "utilize" with "use", "facilitate" with "help", "implement" with "add".
-3. **Keep sentences short.** Break compound sentences. One idea per sentence.
+3. **One read.** Split a sentence the reader must reread. A sentence that lands on the first pass stays, however long.
 4. **Preserve meaning.** Never change what the text says, only how it says it.
 5. **Match the register.** Commit messages are terse. READMEs are conversational. API docs are precise. Read `references/developer-voice.md` for the full register guide.
-6. **Don't overcorrect.** A slightly formal sentence is fine. Only fix patterns that read as obviously AI-generated.
+6. **Don't overcorrect.** A slightly formal sentence is fine. Fix a failed plain-prose test or a catalog pattern. Do not say who wrote the text.
 7. **Understand regression to the mean.** LLMs produce the most statistically likely output. Specific, unusual facts get replaced with generic, positive descriptions. When humanizing, restore specificity — replace vague praise with concrete details.
 8. **Score density, not individual words.** AI vocabulary words co-occur. One or two may be coincidental; a cluster of 3+ is a strong AI tell.
 

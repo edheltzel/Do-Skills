@@ -1,6 +1,6 @@
-# Review AI Writing
+# Review
 
-Detect AI-generated writing patterns across developer text artifacts, parallelizing across artifact groups when the agent supports it.
+Scan developer text for the pattern catalog and the plain-prose tests in SKILL.md. A finding names the failed test. Do not say whether a model wrote the text.
 
 ## Usage
 
@@ -247,6 +247,7 @@ If any check fails, report the error and do not proceed.
 - If the agent supports subagents, parallelize across artifact groups when >= 4 items to scan; otherwise scan sequentially
 - Every finding MUST have file:line reference (use synthetic paths for git artifacts)
 - Do not flag false positives listed in the skill
+- Apply the plain-prose tests in SKILL.md on every sentence. Record a miss as category `content`, type `portability`, `actor`, `one_read`, `decision_first`, `reader`, or `mechanism`, fix safety Needs review. The suggestion keeps every source fact. Do not verdict authorship.
 - Write JSON report before displaying summary
 
 ## Gates (sequenced pass conditions)

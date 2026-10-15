@@ -14,44 +14,36 @@ npx skills update do-git-pr-review-triage
 
 ## What it does
 
-`git-pr-review-triage` pulls the review comments on your PR, classifies each one,
-and proposes an action with a draft response — separating substantive feedback
-from bikeshedding, stale comments, misreads, AI slop, and other noise. The
-defining constraint is that it triages and drafts only: it never edits your code
-or posts a reply, so you stay the one who decides and sends.
+`do-git-pr-review-triage` pulls the review comments on a PR, classifies each one, and drafts a reply. Accepted items go into a feedback file that `do-work` applies. It does not edit the code itself.
+
+Replies post and threads resolve only after the fixes are pushed and you say go. A caller cannot authorize that post.
 
 ## When to reach for it
 
-Type `/do-git-pr-review-triage`, or the agent reaches for it automatically whenever
-you mention PR comments or code-review feedback — "review my PR comments", "triage
-this feedback", "go through my PR" — even without the word "triage".
+Type `/do-git-pr-review-triage`, or the agent reaches for it when you mention PR comments, review feedback, or triage, and when you ask to post the drafted replies.
 
-Reach for it when a PR comes back with a wall of comments and you want to know what
-actually needs addressing versus what to push back on. Not for writing PR
-descriptions, reviewing someone else's PR, or applying the changes.
+Reach for it when a PR comes back with a wall of comments and you want a split between what to change and what to answer. Not for writing a PR description ([tech-writing](./tech-writing.md)), reviewing a diff before comments exist ([adversarial-review](../core/adversarial-review.md)), or committing the fixes ([commit](./commit.md)).
 
-## The triage loop
+## The triage
 
-- **Pull everything.** Via the `gh` CLI, gather both review-level and inline
-  thread comments, capturing author, `file:line`, resolution status, and the
-  commit SHA each was made against — noting where the code has since changed.
-- **Classify.** Label each comment as substantive (`bug`, `design`, `domain`) or
-  noise (`bikeshed`, `stale`, `misread`, `vague`, `ai-slop`, `scope-creep`,
-  `unfounded`). The test: if you made the change, would the code be meaningfully
-  better, or just different?
-- **Recommend an action.** One of Address, Push back, Defer, Clarify, or Ignore —
-  with one-line reasoning and, for push-back or clarify, a direct draft response
-  (no apologetic preamble, no "great point!").
-- **Group and tally.** Output is grouped by action so you work Address items
-  first, ending with a count like "12 comments → 4 address, 5 push back, 2 defer,
-  1 ignore."
+- **Pull.** Via `gh`, gather review-level and inline comments: author, `file:line`, thread id, resolution, and the commit SHA the comment was made against.
+- **Classify.** Substantive (`bug`, `design`, `domain`) or noise (`bikeshed`, `stale`, `misread`, `vague`, `ai-slop`, `scope-creep`, `unfounded`). The test: would the change leave the code meaningfully better, or just different?
+- **Recommend.** Address, Push back, Defer, Clarify, or Ignore, plus a direct draft reply. No apologetic preamble.
 
-The classification is a draft, not a verdict — you know your reviewer and team, so
-it defers when you push back.
+Accepted items are the Address set, unless you move items first. The labels are a draft; it defers when you push back.
+
+## The feedback file
+
+Before the next rung, it writes `docs/plans/YYYY-MM-DD-pr-<number>-feedback.md` (or the location project AGENTS.md names). Each accepted item has `file:line`, the change, and the drafted reply. Held comments keep their drafts too. The file ends with `## todo.txt`.
+
+The next rung is `do-work` with that file. The other moves are post the replies (only after the fixes are pushed and you say go), or stop.
+
+## It's working if
+
+- You have a feedback file whose accepted items name `file:line`, and no code was edited by this skill.
+- Replies are still unposted until you say go after the push.
+- A thread with a failed post is still open, and is not reported resolved.
 
 ## Where it fits
 
-A reach-for-it-anytime standalone for the review stage of a PR. It comes after
-[git-safe-pr-workflow](./git-safe-pr-workflow.md) has opened the PR, and the
-branch it triages was likely set up with
-[git-worktree](./git-worktree.md).
+This is the respond stage. It sits after a PR from [commit](./commit.md). `do-work` applies the accepted list, ship publishes the fixes, and this skill posts the drafts only when you say go.

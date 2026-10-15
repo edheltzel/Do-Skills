@@ -14,32 +14,39 @@
         "do-design-patterns-gof",
         "do-first-principles",
         "do-humanize",
-        "do-red-team",
+        "do-redteam",
         "do-simplify",
         "do-skill-craft"
       ]
     },
     {
       "title": "Global: Workflow",
-      "description": "Change delivery - commits, docs, GitHub projects and stacks, PR workflow and review triage, worktrees, and technical writing.",
+      "description": "Change delivery - the brainstorm, plan, work, debug, and ship loop (LFG), commits, docs, GitHub projects and stacks, PR workflow and review triage, worktrees, and technical writing.",
       "skills": [
+        "do-brainstorm",
         "do-commit",
+        "do-debug",
+        "do-doc-review",
         "do-docs",
         "do-gh-pm",
         "do-gh-stack",
         "do-git-pr-review-triage",
         "do-git-safe-pr-workflow",
         "do-git-worktree",
+        "do-it",
+        "do-plan",
         "do-readme-update",
-        "do-tech-writing"
+        "do-tech-writing",
+        "do-work"
       ]
     },
     {
       "title": "Global: Operations",
-      "description": "Operating AI agents - delegation, prompt audits, and project status check-ins.",
+      "description": "Operating AI agents - delegation, handoffs, prompt audits, and project status check-ins.",
       "skills": [
         "do-bitter-pill",
         "do-delegation",
+        "do-handoff",
         "do-regroup"
       ]
     },

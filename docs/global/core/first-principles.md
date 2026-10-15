@@ -22,7 +22,7 @@ Its defining distinction is that only hard constraints are immutable. Policies, 
 
 Type `/do-first-principles`, or the agent reaches for it automatically when inherited assumptions may be restricting the solution space.
 
-Reach for it when you need to question what is truly required, escape an inherited form, or reason from fundamentals rather than analogy. For an adversarial critique of an existing idea or plan, use [red-team](./red-team.md) instead.
+Reach for it when you need to question what is truly required, escape an inherited form, or reason from fundamentals rather than analogy. For an adversarial critique of an existing idea or plan, use [redteam](./redteam.md) instead.
 
 ## Deconstruct, challenge, reconstruct
 
@@ -36,4 +36,4 @@ This is a reasoning skill, not an instruction to implement a fix. Use it to anal
 
 ## Where it fits
 
-A standalone analysis skill for decisions, designs, and stuck problems. [Red-team](./red-team.md) can use its constraint challenge to attack assumed boundaries, while this skill remains focused on rebuilding from the facts that survive scrutiny.
+A standalone analysis skill for decisions, designs, and stuck problems. [Redteam](./redteam.md) can use its constraint challenge to attack assumed boundaries, while this skill remains focused on rebuilding from the facts that survive scrutiny.

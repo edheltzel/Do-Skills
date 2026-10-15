@@ -1,6 +1,7 @@
 # Continue — pick the next task from board state
 
 Decide what to work on next, sourced from the board. Adapted from `continue.md` — **board-prioritization half only.** Session resumption and conversational context are owned by Recall + the SessionStart hook, not this recipe; don't duplicate them here.
+When `docs/plans/handoffs/` has a file, read the latest (filename date, then mtime) before the board and treat it as the resume point for what next means. The board still wins on item status.
 
 ## 1. Gather board state
 
