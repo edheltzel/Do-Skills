@@ -8,8 +8,6 @@
 ```
 
 > [!WARNING]
-> Hey just a heads up, this project is now combined with [GAP](https://github.com/edheltzel/GAP), my Global Agents Policies, check it out if you want or don't I could careless :)
->
 > This is a **WIP** and changes often. Just like any code/software you find, don't blindly download and run it. Review it, learn what it does to make an educated decision if you should use it.
 
 # Do Skills
