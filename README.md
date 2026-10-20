@@ -50,7 +50,7 @@ Skills are grouped by scope, then by group. The root table is an index; each sco
 
 Names carry a `do-` prefix so they do not collide with a harness command (`/simplify` vs `/do-simplify`). Vendored skills keep their upstream name (`anatomy`) so their documented command still works.
 
-We also use our own [PStack plugin](https://github.com/edheltzel/PStack-for-OMP) for pstack tools (`ps-how`, `ps-why`, `ps-bro`, `ps-unslop`, and the rest). Install it alongside these skills; this repo does not duplicate them.
+We also use our own [PStack plugin](https://github.com/edheltzel/PStack-for-OMP) for pstack tools (`ps-how`, `ps-why`, `ps-bro`, `ps-unslop`, and the rest). Install it alongside these skills. This repo duplicates only `do-no-comments`, a harness-neutral copy of `ps-no-comments`.
 
 <!-- skills-start -->
 
@@ -60,7 +60,7 @@ Useful in any repo, or none. Install once per machine with `-g`.
 
 | Group | Skills | Coverage |
 |-------|--------|----------|
-| [Core](./skills/global/core/) | 11 | Stack-agnostic foundations - review lenses, reasoning, testing, simplification, agent-legible repos, comments, design patterns, skill authoring, and AI-writing cleanup. |
+| [Core](./skills/global/core/) | 12 | Stack-agnostic foundations - review lenses, reasoning, testing, simplification, agent-legible repos, comments, design patterns, skill authoring, and AI-writing cleanup. |
 | [Workflow](./skills/global/workflow/) | 15 | Change delivery - the brainstorm, plan, work, debug, and ship loop (LFG), commits, docs, GitHub projects and stacks, PR workflow and review triage, worktrees, and technical writing. |
 | [Operations](./skills/global/operations/) | 4 | Operating AI agents - delegation, handoffs, prompt audits, and project status check-ins. |
 | [Content](./skills/global/content/) | 3 | Audience-facing media - illustrations, diagrams, images, and visual explanations. |
