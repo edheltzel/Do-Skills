@@ -82,11 +82,12 @@
     },
     {
       "title": "Project: Frontend",
-      "description": "Web frontend - Astro, CSS, React effects, design systems, UX flows, cleanup, and review.",
+      "description": "Web frontend - Astro, CSS, React effects, design systems, UX flows, cleanup, review, and landing page design.",
       "skills": [
         "do-astro",
         "do-cleanup-web",
         "do-design-system",
+        "do-landing-page-design",
         "do-modern-css",
         "do-no-use-effect",
         "do-review-frontend",
