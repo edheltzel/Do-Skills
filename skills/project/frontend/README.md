@@ -1,6 +1,6 @@
 # Frontend
 
-Web frontend - Astro, CSS, React effects, design systems, UX flows, cleanup, and review.
+Web frontend - Astro, CSS, React effects, design systems, UX flows, cleanup, review, and landing page design.
 
 ## Installation
 
@@ -26,6 +26,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 | [`do-modern-css`](./do-modern-css/) | Teaches agents to write modern CSS using native features instead of legacy hacks, workarounds, and JavaScript. |
 | [`do-no-use-effect`](./do-no-use-effect/) | Prevent unnecessary React `useEffect` usage by steering code toward derived state, event handlers, memoization, `key`-based resets, `useSyncExternalStore`, and framework or query-library data APIs. |
 | [`do-review-frontend`](./do-review-frontend/) | Comprehensive React/TypeScript frontend code review with per-area review skills, run in parallel where the agent supports subagents and sequentially otherwise. |
+| [`landing-page-design`](./landing-page-design/) | Landing page strategy, conversion copy, and strict visual rules (type, spacing, radius, color, motion). From [elayadesign/ai-design-skills](https://github.com/elayadesign/ai-design-skills) (MIT). |
 | [`do-ux-flow-plan`](./do-ux-flow-plan/) | Create UX-first plans as flow trees, then attach concrete function names, files, and implementation anchors after the high-level flow is clear. |
 
 ## See Also
