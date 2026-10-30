@@ -1,9 +1,11 @@
 ---
-name: landing-page-design
-description: "Complete system for building high converting landing pages: intake questions, page structure, layout selection, conversion copywriting, SEO, plus strict visual rules for typography, spacing, corner radius, backgrounds, hero layout, icons, and motion. Use this skill whenever building, editing, styling, reviewing, or writing copy for ANY landing page, marketing site, web UI, page section, component, or prototype, even when the user does not mention design, conversion, tokens, or a design system. Always consult it before choosing page sections, headlines, CTAs, fonts, font sizes, spacing values, border radii, background colors, icons, or transitions."
+name: do-landing-page-design
+description: "Use when building, editing, or reviewing a landing page or single-offer marketing page — structure, conversion copy, SEO, and visual rules. For app UI, dashboards, components, or system-wide design, defer to do-design-system / baseline-ui / create-design-md; when a project has DESIGN.md or tokens, those win."
 ---
 
 # Landing Page Design
+
+> Adapted from [elayadesign/ai-design-skills](https://github.com/elayadesign/ai-design-skills) @ 4fdcdd5 (MIT); changes: name, description, scope, B11 optional.
 
 A landing page is not a homepage. A homepage serves multiple intents. A landing page wins one intent:
 
@@ -13,7 +15,7 @@ This skill has two halves. **Part A** decides what the page says and how it is s
 
 ## Scope
 
-Apply to all web UI work: landing pages, marketing sites, components, dashboards, prototypes, and design reviews. When a rule here conflicts with a framework default, this file wins. When the user's explicit prompt conflicts with a rule, the user wins.
+Applies to landing pages. Project DESIGN.md/tokens and the user's prompt take precedence; otherwise these values are the default.
 
 **Companion skill.** For upgrading an *existing* site rather than building a new one, use `redesign-existing-projects` ([github.com/elayadesign/redesign-skill](https://github.com/elayadesign/redesign-skill)). It diagnoses generic patterns and defers to this file for every concrete value.
 
@@ -69,7 +71,7 @@ If the user cannot answer, make a reasonable assumption, state it in one line, a
 11. Risk reversal, trial, cancel anytime, guarantee
 12. Final CTA, identical to the top
 
-Include the mandatory tagline reveal section from B11 somewhere in the mid page argument, typically right after the hero or after benefits.
+Consider including the recommended tagline reveal section from B11 somewhere in the mid page argument, typically right after the hero or after benefits.
 
 ## A3. Layout selection
 
@@ -374,9 +376,9 @@ Things that get forgotten and make a page feel unfinished:
 - A way back from every page
 - A check at 390px wide: no horizontal overflow, buttons keep their text inside, and the primary action is visible in the first screen
 
-## B11. Tagline reveal section (mandatory)
+## B11. Tagline reveal section (recommended)
 
-Every landing page includes one large type section stating the core benefit or tagline, separate from the hero. It sits further down the page as its own moment, not stacked directly under the hero.
+A landing page should usually include one large type section stating the core benefit or tagline, separate from the hero. It sits further down the page as its own moment, not stacked directly under the hero.
 
 **Copy**
 - Minimum two lines of text.
@@ -432,7 +434,7 @@ Then build section by section per A6.
 - [ ] Hero heading and subheading capped at 680px with meaningful line breaks
 - [ ] Icons from Phosphor, Solar, or Iconamoon
 - [ ] Every transition uses the B7 base curve, scroll reveals use IntersectionObserver
-- [ ] Tagline reveal section present, minimum two lines, words activate one at a time on scroll
+- [ ] (Recommended) Tagline reveal section present, minimum two lines, words activate one at a time on scroll
 - [ ] No invented prices, stats, or testimonials; missing facts use marked placeholders
 - [ ] Checked at 390px with no overflow
 

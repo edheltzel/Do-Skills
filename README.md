@@ -168,7 +168,7 @@ bash scripts/update-readme.sh
 
 ## License
 
-WTFPL, except `skills/project/marketing/`, which is Apache-2.0 (see its [LICENSE](./skills/project/marketing/LICENSE)), and `skills/project/frontend/landing-page-design/`, which is MIT (see its [LICENSE](./skills/project/frontend/landing-page-design/LICENSE)).
+WTFPL, except `skills/project/marketing/`, which is Apache-2.0 (see its [LICENSE](./skills/project/marketing/LICENSE)), and `skills/project/frontend/do-landing-page-design/`, which is MIT (see its [LICENSE](./skills/project/frontend/do-landing-page-design/LICENSE)).
 
 ---
 
@@ -180,4 +180,4 @@ WTFPL, except `skills/project/marketing/`, which is Apache-2.0 (see its [LICENSE
 `do-marketing` is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) marketing (MIT)
 `do-perf` is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) `skills/enliven` (MIT)
 `marketing` skills (`ai-visibility`, `competitor-analysis`, `content-brief`, `content-demand-finder`, `keyword-research`, `project-setup`, `seo-action-plan`, `seo-foundations`, `site-audit`) are copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) (Apache-2.0)
-`landing-page-design` is copied from [elayadesign/ai-design-skills](https://github.com/elayadesign/ai-design-skills) (MIT)
+`do-landing-page-design` (`skills/project/frontend/do-landing-page-design/`) is adapted from [elayadesign/ai-design-skills](https://github.com/elayadesign/ai-design-skills) @ 4fdcdd5 (MIT); upstream also credits [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (MIT)
