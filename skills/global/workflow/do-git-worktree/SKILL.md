@@ -8,6 +8,8 @@ alwaysAllow: ["Bash"]
 
 The global policy forbids native git worktrees: no `git worktree add`, and no harness option that isolates work in a worktree. A project contract that names plain git does not change that. Parallel work is a GitButler lane in the primary checkout.
 
+`grit worktree` exists; the same worktree policy applies to it. Do not use it to bypass this skill.
+
 ## Check GitButler
 
 GitButler is in use when `command -v but` succeeds **and** `but status` exits 0.

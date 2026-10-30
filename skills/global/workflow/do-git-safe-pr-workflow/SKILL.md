@@ -33,6 +33,8 @@ When GitButler is in use, do not `git merge`, `git rebase`, `git stash`, `git ch
 - **Undo unpublished work:** `but discard` / `but undo`. Pushed work still prefers revert semantics; do not rewrite shared history.
 - Recovery playbooks in `references/recovery.md` are git-path only.
 
+grit does not replace these `but` verbs or the git safety steps here; it is an opt-in, read-oriented client (do-grit).
+
 ## No Mistakes
 
 No Mistakes is in use when `command -v no-mistakes` succeeds **and** `git remote` lists `no-mistakes` (or `no-mistakes axi` shows this repo).

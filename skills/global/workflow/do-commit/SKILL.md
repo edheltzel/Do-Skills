@@ -5,7 +5,7 @@ description: >-
   commit, push, ship, or open a PR, or when a do-* hand-off names do-commit
   with a mode (commit, cp, cpp, land). Never pushes unless the mode or the
   user asks. NOT FOR sync, conflicts, or undo (do-git-safe-pr-workflow),
-  stacked PRs (do-gh-stack), or review-comment triage (do-git-pr-review-triage).
+  stacked PRs (do-gh-stack), or review-comment triage (do-git-pr-review-triage), grit (do-grit).
 ---
 
 # Commit

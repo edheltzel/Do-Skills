@@ -53,6 +53,8 @@ If `<top>` already exists, `but move <top> --above <bottom>` instead of `but bra
 
 `git log` is fine (read-only). Always pass `-b`. Always pass IDs when the uncommitted tree holds more than one layer.
 
+grit writes a `change-id` commit header (and reads `gitbutler-change-id`), which GitButler stacks can key off. Stacks stay on `but`/`gh`; see do-grit. Do not toggle `grit.changeIds` in shared repos without the captain's call.
+
 ## gh stack
 
 `gh stack` is a [GitHub CLI](https://cli.github.com/) extension for stacked branches and pull
