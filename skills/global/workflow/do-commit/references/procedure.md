@@ -10,6 +10,8 @@ When GitButler is in use:
 - Never `git add`, `git commit`, `git stash`, or `git checkout`.
 - **Push path only:** push with `but push <feature-branch>` unless No Mistakes is in use. Never `git push`.
 
+Never `grit commit` on a GitButler workspace (it refuses, `kind: gitbutler_workspace`). Commit with `but` or `git` as above; grit is opt-in and read-oriented, see do-grit.
+
 ## No Mistakes
 
 Push path only. Skip this section on the commit-only path.
