@@ -72,8 +72,12 @@ logs and asserts come out before the summary.
 
 Then join Build: run `do-simplify`, then `do-adversarial-review`, each with
 `mode:return-to-caller` and if installed, on the fix diff. Skip both for a
-one-line or test-only fix. Apply the accepted findings and re-run the
-regression test.
+one-line or test-only fix and name the skip. Otherwise, if review is unavailable,
+return `status: blocked`; do not claim approval. Follow the review skill's
+`references/review-loop.md`: assess findings, apply accepted scoped fixes,
+re-run the regression and original reproduction checks, and repeat review when
+required. The caller owns the loop. A product decision is `needs-human`; an
+incomplete review is `blocked`.
 
 Summary, always: cause (`file:line`), what changed, the check that now passes,
 and what you did not change.

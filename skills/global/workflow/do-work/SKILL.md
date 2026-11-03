@@ -82,19 +82,23 @@ Otherwise, as caller:
    and applies. If it is missing, do a short pass for duplicate or dead code
    in the diff and say you did.
 2. Load `do-adversarial-review`, if installed, with `mode:return-to-caller`.
-   It reports and does not edit. If it is missing, say so. A self-review is
-   not that skill.
-3. Apply accepted findings. Interactive: ask which findings to apply, with the
-   harness's blocking question tool when it has one. `mode:return-to-caller`:
-   apply a finding that names a concrete fix and does not need a product
-   decision. A finding that needs a decision returns `status: needs-human`
-   with that finding. Do not guess.
-4. Re-run the verification from the units you touched.
+   It reports and does not edit. Follow its `references/review-loop.md` for
+   scoped rounds, the ledger, verification, and stop conditions. The caller
+   owns the loop; the reviewer does not start another. If the skill is missing,
+   return `status: blocked`; a self-review is not that skill.
+3. Apply accepted findings within the unit's owned files. Interactive: ask which
+   findings to apply, with the harness's blocking question tool when it has
+   one. `mode:return-to-caller`: apply a finding that names a concrete fix and
+   does not need a product decision. A finding that needs a decision returns
+   `status: needs-human` with that finding. Do not guess.
+4. Re-run verification from the units touched and repeat review when the loop
+   requires it. Report an incomplete review as `blocked`, not approved.
 
 `mode:return-to-caller` then returns `status: done | blocked | needs-human`
 plus the plan or feedback path, and stops. Do not rename those status words.
-`done` means the units are verified and review findings are applied or named
-in the return. Any other ending uses the Next block.
+`done` means the units are verified and the review loop is complete or explicitly
+skipped under the rule above. An incomplete review returns `blocked`; a decision
+returns `needs-human`. Do not offer a commit as though review passed.
 
 ## Next
 

@@ -163,6 +163,7 @@ These are improvement suggestions for the author to consider in future work, not
 If this is a re-review after fixes were applied:
 - ONLY verify that previously flagged issues were addressed correctly
 - Do NOT introduce new findings unrelated to the previous review's issues
+- When run by do-adversarial-review's `references/review-loop.md`, the loop's scope rule wins: review changed behavior, affected callers and invariants, and open findings; conduct a full review on material scope expansion.
 - Accept Minor/Nice-to-Have issues that weren't fixed — do not re-flag them
 - The goal of re-review is VERIFICATION, not discovery
 

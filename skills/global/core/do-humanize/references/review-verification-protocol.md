@@ -230,6 +230,7 @@ Final verification:
 6. Format every finding as: `[FILE:LINE] ISSUE_TITLE`
 7. For each finding, ask: "Does this fix existing code, or does it request entirely new code that didn't exist before?" If the latter, downgrade to Informational.
 8. If this is a re-review: ONLY verify previous fixes. Do not introduce new findings.
+When run by do-adversarial-review's `references/review-loop.md`, the loop's scope rule wins: review changed behavior, affected callers and invariants, and open findings; conduct a full review on material scope expansion.
 
 If uncertain about any finding, either:
 - Remove it from the review
