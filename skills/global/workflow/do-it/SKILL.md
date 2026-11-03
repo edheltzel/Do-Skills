@@ -34,7 +34,7 @@ Stop, say why, and leave nothing newly pushed, when:
 
 - plan input is missing, or planning returns `blocked`
 - debug returns `rethink` or will not fix
-- a child returns anything but `done`
+- a child returns anything but `done`. Exception: a babysit `blocked` or `needs-human` after `cpp` returned `done` stops and reports; it never unpublishes, closes, or resets the PR or its branch
 - no-mistakes parks on an ask-user gate
 
 ## Report

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Vendored from t3dotgg/tstack, MIT license.
+# Vendored from t3dotgg/tstack, MIT license. Copyright notice and terms: LICENSE next to this file.
 # Source: babysit-pr/scripts/pr-wait at 1085050f3baed1ac724caa4a8166145fb2ac88af
 """pr-wait: watch one GitHub pull request and print one line per real event.
 
@@ -380,7 +380,7 @@ class Watcher:
                 fail_lines.append(f"{label} failed: {name} {link}")
                 self.emit(f"fail:{head}:{name}:{link}", fail_lines[-1])
         watched = {name: c for name, c in checks.items() if bot_name(name) not in ADVISORY_BOTS}
-        gate_done = bool(gate) and all(bucket(n) != "pending" for n in gate)
+        gate_done = all(bucket(n) != "pending" for n in gate)
         all_done = gate_done and all(c["bucket"] != "pending" for c in watched.values())
         # Checks appear a few seconds after a push. Two identical polls in a row
         # guard against calling a half-registered set of checks finished.
@@ -483,7 +483,7 @@ class Watcher:
             counts[c["bucket"]] = counts.get(c["bucket"], 0) + 1
         failed_names = sorted(name for name, c in watched.items() if c["bucket"] in FAILED)
         parts = [
-            ", ".join(f"{n} {b}" for b, n in sorted(counts.items()))
+            (", ".join(f"{n} {b}" for b, n in sorted(counts.items())) or "no CI checks reported")
             + (f" ({', '.join(failed_names)})" if failed_names else ""),
             f"required {sum(bucket(n) in ('pass', 'skipping') for n in self.required)}/{len(self.required)} green"
             if self.required
