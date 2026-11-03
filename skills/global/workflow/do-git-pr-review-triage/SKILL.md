@@ -6,7 +6,8 @@ description: >-
   to post the drafted replies. Fixes are applied by do-work. Replies post and
   threads resolve only on the user's go. NOT FOR writing a PR description
   (do-tech-writing), reviewing a diff before comments exist
-  (do-adversarial-review), or committing the fixes (do-commit).
+  (do-adversarial-review), reviewing a PR nobody commented on yet
+  (do-git-pr-review), or committing the fixes (do-commit).
 ---
 
 # PR review triage
@@ -86,22 +87,16 @@ Run only when both are true: the fixes are pushed, and the user said go in this 
 
 Pushed means `gh pr view <number> --json headRefOid,state` shows `OPEN` and, when Accepted is non-empty, `headRefOid` differs from `Head at triage`. If not, stop and name `do-commit cp`. Do not push.
 
-Then, from the feedback file:
+Then invoke `do-git-pr-comment` with the feedback file, PR, drafted replies, root comment IDs, and thread node IDs. It posts every reply with attribution and a secrets scan, confirms each returned URL, and resolves replied-to threads only after successful posts. Inline replies use REST, not the GraphQL thread-reply mutation, which can park a reply on a pending review. After each inline post, if any review is `PENDING`, stop; do not resolve, submit, or discard that review.
 
-- Post each drafted reply. Inline: `gh api --method POST repos/{owner}/{repo}/pulls/{number}/comments/{root_id}/replies -f body=...` (REST). Do not use the GraphQL thread-reply mutation; it can park the reply on a pending review. Review-level: `gh pr comment <number> --body ...`.
-- After each inline post, if any review on the PR is `PENDING`, stop. Do not resolve, submit, or discard that review.
-- Resolve threads you replied to, plus Ignore, with the thread node id:
-
-```bash
-gh api graphql -f threadId="<id>" -f query='mutation($threadId:ID!){ resolveReviewThread(input:{threadId:$threadId}){ thread { isResolved } } }'
-```
-Leave no answered thread open. Confirm `isResolved` on each thread you meant to close. A failed post stays open; do not report it resolved.
+Resolve Ignore threads without replies only after the same pushed-and-go guards pass. Confirm `isResolved` for each intended resolution. A failed post stays open; do not report it resolved.
 
 ## Related skills
 
 - Apply accepted items: `do-work`, if installed, with the feedback file.
 - Publish the fixes: `do-commit`, if installed. This skill does not push.
 - A Defer item that should become an issue: `do-tech-writing`, if installed.
+- Watch an open PR for feedback and readiness: `do-git-pr-babysit`, if installed.
 
 ## Next
 

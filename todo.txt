@@ -6,3 +6,10 @@ x 2026-10-14 2026-10-14 Keep Ponytail installed; add a do-simplify line routing 
 x 2026-10-14 2026-10-14 Uninstall compound-engineering after the new do-* skills are installed +doskills dep:install-workflow
 2026-10-14 Move the Tern Plannotator launcher from /tmp into dotfiles and export PLANNOTATOR_BROWSER, falling back to open outside Tern +doskills dep:absorb-review
 x 2026-10-14 2026-10-14 Reinstall DoSkills globally for the new workflow skills and the do-redteam rename; remove the stale ~/.agents/skills/do-red-team +doskills id:install-workflow
+x 2026-11-03 2026-11-03 Deliver tstack do-council +doskills
+x 2026-11-03 2026-11-03 Deliver tstack do-git-pr-review +doskills
+x 2026-11-03 2026-11-03 Deliver tstack do-git-pr-comment +doskills
+x 2026-11-03 2026-11-03 Deliver tstack do-git-pr-babysit +doskills
+x 2026-11-03 2026-11-03 Deliver tstack do-git-pr-modernize +doskills
+x 2026-11-03 2026-11-03 Deliver tstack do-git-pr-takeover +doskills
+x 2026-11-03 2026-11-03 Deliver tstack routing-wiring +doskills

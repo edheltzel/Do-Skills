@@ -223,4 +223,5 @@ Before undoing:
 
 - Splitting work into dependent PRs: `do-gh-stack`, if installed.
 - Review comments on the open PR: `do-git-pr-review-triage`, if installed.
+- An old PR whose idea needs re-checking: `do-git-pr-modernize`, if installed.
 - Committing: suggest the user run `/do-commit`, if installed (it is user-invoked).

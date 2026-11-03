@@ -59,9 +59,9 @@ Other moves:
 
 **cp or cpp** (after no-mistakes `checks-passed` or `passed`, or the push verified):
 
-Next: Stop - the PR is ready.
+Next: `do-git-pr-babysit` - watch the PR, passing `<PR URL>`.
 
-On `cp` with no PR, say the push is verified instead.
+On `cp` with no PR, recommend Stop instead and say the push is verified; do not offer PR-specific moves without a PR.
 
 Other moves:
 
