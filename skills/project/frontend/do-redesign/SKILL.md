@@ -25,21 +25,15 @@ A diagnostic. Find what is wrong with an existing interface and fix it in place.
 
 Read `DESIGN.md` at the project root when it exists. It replaces the fallback.
 
-With no `DESIGN.md`, load [references/visual-system.md](../references/visual-system.md). Every replacement value comes from it. A value it does not cover is a question, not a guess.
+With no `DESIGN.md`, load [references/visual-system.md](references/visual-system.md). Every replacement value comes from it. A value it does not cover is a question, not a guess.
 
 ## Audit
 
-**Type.** A browser default or Inter, Roboto, Arial, Open Sans, Helvetica. Two faces where the brief names one. Italics. Weights above bold. Only Regular and Bold in use. Sizes off the scale. Body wider than about 65 characters. A heading with one word alone on its last line. All-caps subheaders. Proportional figures in a data column.
+When `DESIGN.md` exists, audit against it. A choice it permits is not a finding, and a deviation from it is. The correctness checks apply either way. The taste checks apply only where `DESIGN.md` is silent.
 
-**Color.** Surfaces outside the approved set. Any background gradient. A hero heading in flat color. More than one accent, or one past 80% saturation. Warm and cool grays mixed. A dark band dropped into a light page. A card with a border on one side.
+**Correctness.** A scroll listener driving animation. Animating `top`, `left`, `width`, or `height`. No focus ring. `window.alert()`. A button pointing at `#`. No current-page indicator. No privacy or terms link, no way back, no branded 404, no form validation, no skip-to-content link, no favicon, no alt text, no meta description or `og:image`. An ad-only page left indexable. Two CTAs above the fold. Proof buried under the claim it supports. "Learn more" or "Submit". Invented prices, stats, testimonials, or logos. Placeholder Latin. Body wider than about 65 characters. A heading with one word alone on its last line. `100vh` where `100dvh` belongs. Baselines of titles, prices, and buttons that drift across side-by-side cards. A card with a border on one side.
 
-**Layout.** Everything centered. Three equal cards as the feature row: keep the three to five benefits, change the layout to a zig-zag, an asymmetric grid, or a bento. `100vh` where `100dvh` belongs. No max-width container. Radii and spacing chosen by feel. Baselines of titles, prices, and buttons that drift across side-by-side cards. A sidebar on every dashboard.
-
-**Motion and states.** `ease`, `linear`, or `ease-in-out`. A section that is simply present on scroll. A scroll listener driving animation. A nav welded to the top edge. No hover, no press feedback, no focus ring. A spinner where a skeleton fits. A blank panel where an empty state fits. `window.alert()`. A button pointing at `#`. No current-page indicator. Animating `top`, `left`, `width`, or `height`.
-
-**Copy and content.** "Learn more" or "Submit". Two CTAs above the fold. Proof buried under the claim it supports. No risk reversal. Vague verbs: streamline, optimize. Invented prices, stats, testimonials, or logos. Placeholder Latin. Title Case headings.
-
-**Left out.** No privacy or terms link, no way back, no branded 404, no form validation, no skip-to-content link, no favicon, no alt text, no meta description or `og:image`. An ad-only page left indexable.
+**Taste, only where `DESIGN.md` is silent.** A browser default or Inter, Roboto, Arial, Open Sans, Helvetica. Two faces where the brief names one. Italics. Weights above bold. Only Regular and Bold in use. Sizes off the scale. All-caps subheaders. Proportional figures in a data column. Surfaces outside the approved set. Any background gradient. A hero heading in flat color. More than one accent, or one past 80% saturation. Warm and cool grays mixed. A dark band dropped into a light page. Everything centered. Three equal cards as the feature row: keep the three to five benefits, change the layout. No max-width container. Radii and spacing chosen by feel. A sidebar on every dashboard. `ease`, `linear`, or `ease-in-out`. A section that is simply present on scroll. A nav welded to the top edge. No hover, no press feedback. A spinner where a skeleton fits. A blank panel where an empty state fits. Vague verbs: streamline, optimize. No risk reversal. Title Case headings.
 
 ## Priority
 

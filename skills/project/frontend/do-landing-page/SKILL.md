@@ -47,7 +47,7 @@ Before code, return: the section outline, the hero copy, the benefits, the three
 
 Read `DESIGN.md` at the project root when it exists. Its type, spacing, radius, color, motion, and icon decisions replace the fallback entirely.
 
-With no `DESIGN.md`, load [references/visual-system.md](../references/visual-system.md) and use only its values. Capture the project's own brand with `do-design-system` instead of extending the fallback.
+With no `DESIGN.md`, load [references/visual-system.md](references/visual-system.md) and use only its values. Capture the project's own brand with `do-design-system` instead of extending the fallback.
 
 ## States and ship
 

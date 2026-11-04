@@ -2,7 +2,7 @@
 
 Fallback values for `do-landing-page` and `do-redesign`. Read it only when the project has no `DESIGN.md`. When `DESIGN.md` exists, its type, spacing, radius, color, motion, and icon decisions replace this file entirely. Do not mix the two.
 
-Values chosen for this repository. The idea of a single fallback table shared by both skills comes from [elayadesign/ai-design-skills](https://github.com/elayadesign/ai-design-skills) and [elayadesign/redesign-skill](https://github.com/elayadesign/redesign-skill). Credit only; see [NOTICE.md](NOTICE.md).
+Values chosen for this repository. The idea of a single fallback table shared by both skills comes from [elayadesign/ai-design-skills](https://github.com/elayadesign/ai-design-skills) and [elayadesign/redesign-skill](https://github.com/elayadesign/redesign-skill). Credit only; see the [notice](https://github.com/edheltzel/Do-Skills/blob/master/skills/project/frontend/references/NOTICE.md).
 
 ## Type
 
