@@ -19,7 +19,7 @@ Build UI components that are accessible, themeable, composable, and visually pol
 
 **Spec vs components.** If the user asks for `DESIGN.md`, a style guide, documenting existing tokens, or standing up the design system — or they pass `route:`/`mood:`/`name:`/`framework:` overrides — follow [references/design-spec.md](references/design-spec.md) and stop after that loop. Do not run the spec loop just because this skill loaded for a `.tsx`/`.css` edit. Component work uses the sections below. If `DESIGN.md` exists, implement against it; do not rewrite it unless asked.
 
-Companion skills: React performance (`vercel-react-best-practices`), composition (`vercel-composition-patterns`), CSS techniques (`modern-css`), UI code review (`web-design-guidelines`).
+Companion skills: a landing page (`do-landing-page`), an existing screen that looks generic (`do-redesign`), CSS techniques (`do-modern-css`). React performance (`vercel-react-best-practices`), composition (`vercel-composition-patterns`), and UI review (`web-design-guidelines`) when installed.
 
 ## 1. Component Architecture
 
@@ -275,6 +275,8 @@ Semantic tokens swap between themes. Don't invert colors — map them intentiona
 
 ## Companion Skills
 
+- **`do-landing-page`** - a new marketing page: one offer, one audience, one action
+- **`do-redesign`** - audit an existing screen, report, then fix in place
 - **`do-modern-css`** - modern CSS techniques (64 old-vs-modern comparisons)
 - **`do-write-typescript`** - type patterns for component props (discriminated unions, branded types)
 - **`vercel-react-best-practices`**, **`vercel-composition-patterns`**, **`web-design-guidelines`** - third-party skills from [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills), if installed: React/Next.js performance, composition patterns, UI review checklist
