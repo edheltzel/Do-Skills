@@ -223,4 +223,19 @@ awk -v section="$root_section" '
     !skip { print }
 ' "$README" > "$README.tmp" && mv "$README.tmp" "$README"
 
+# The skills CLI installs one skill directory and nothing outside it, so a
+# fallback a skill loads has to live inside that directory. The source file
+# stays the single maintained copy; these two are generated from it.
+visual_source="$SKILLS_DIR/project/frontend/references/visual-system.md"
+if [ -f "$visual_source" ]; then
+    for skill in do-landing-page do-redesign; do
+        dest="$SKILLS_DIR/project/frontend/$skill/references"
+        mkdir -p "$dest"
+        {
+            printf '%s\n\n' '> Generated from `skills/project/frontend/references/visual-system.md` by `scripts/update-readme.sh`. Edit the source, then regenerate.'
+            cat "$visual_source"
+        } > "$dest/visual-system.md"
+    done
+fi
+
 echo "✓ Updated README.md and $group_count group READMEs ($total skills)"

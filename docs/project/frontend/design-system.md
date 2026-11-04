@@ -32,8 +32,9 @@ dialogs, forms, cards, or any reusable component (it triggers on `.tsx`,
 Reach for it to build or review components — props, theming, keyboard and
 screen-reader behavior. Pass `route:`/`mood:`/`name:`/`framework:` or ask for
 `DESIGN.md` / a style guide to run the spec loop instead. That loop does not
-run just because a `.tsx` file is open. For raw CSS techniques, use
-[modern-css](./modern-css.md).
+run just because a `.tsx` file is open. For a new marketing page, use [landing-page](./landing-page.md). For an
+existing screen that looks generic, use [redesign](./redesign.md). For raw CSS
+techniques, use [modern-css](./modern-css.md).
 
 ## The patterns it enforces
 
