@@ -1,0 +1,11 @@
+---
+import { logo } from "./logo";
+import { config } from "virtual:nimbus/config";
+
+interface Props { class?: string }
+const { class: cls = "h-5 w-5" } = Astro.props;
+---
+<span class="flex items-center gap-2">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${logo.width} ${logo.height}`} class={cls} aria-hidden="true">{logo.paths.map((d) => <path d={d} fill="currentColor" />)}</svg>
+  <span class="truncate text-sm font-medium tracking-tight">{config.title}</span>
+</span>

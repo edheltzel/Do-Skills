@@ -1,0 +1,150 @@
+---
+import Base from '../layouts/LandingLayout.astro';
+import ThemeToggle from '../components/landing/ThemeToggle.astro';
+import Cmd from '../components/landing/Cmd.astro';
+import { counts, docsHref, installCommand, installHref, projectCommand, siteName } from '../site.js';
+import '../styles/landing.css';
+
+export const prerender = true;
+
+const repo = 'https://github.com/edheltzel/Do-Skills';
+const steps = [
+  { phase: 'Shape', name: 'do-brainstorm', text: 'Decide what to build, not how.' },
+  { phase: 'Shape', name: 'do-plan', text: 'Ordered units, each with a check.' },
+  { phase: 'Build', name: 'do-work', text: 'Run the plan one unit at a time.' },
+  { phase: 'Build', name: 'do-simplify', text: 'Simplify the change without changing behavior.' },
+  { phase: 'Build', name: 'do-adversarial-review', text: 'Hunt the diff for bugs. Reports, never edits.' },
+  { phase: 'Ship', name: 'do-commit', text: 'Commit your changes, and add <code>cpp</code> to push and open a pull request.' },
+];
+const globalGroups = ['core', 'workflow', 'operations', 'content', 'personal'];
+const projectGroups = ['typescript', 'frontend', 'backend', 'tooling', 'swift', 'product', 'marketing', 'personal'];
+const starts = [
+  { title: 'Install', text: 'The commands to install globally, per project, or one skill at a time.', href: installHref },
+  { title: 'Which skills should I install?', text: 'Pick the groups your project needs.', href: docsHref },
+  { title: 'Your first change with /do-it', text: 'Walk one change from request to pull request.', href: '/global/workflow/it/' },
+];
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<Base>
+  <div class="cb">
+    <a class="skip" href="#content">Skip to content</a>
+    <main id="content">
+      <div class="stage" id="stage" data-cx="0.8" data-rh="0.44" data-rw="0.27" data-ncx="0.84" data-ncy="0.16" data-nr="0.4">
+        <canvas id="field" aria-hidden="true"></canvas>
+        <div class="shade"></div>
+        <p class="sr">Illustration: a large dithered disc of text glyphs, lit on its upper left rim in amber.</p>
+        <header class="top">
+          <a class="word" href="/"><i></i>{siteName}</a>
+          <nav class="mono" aria-label="Primary">
+            <a href={docsHref}>Docs</a>
+            <a href={repo}>GitHub</a>
+            <ThemeToggle />
+          </nav>
+        </header>
+        <div class="copy" id="install">
+          <h1>Install the loop.<br /><span class="l2">Then add</span> <span class="l3">your stack.</span></h1>
+          <p class="sub">A curated set of skills for coding agents. A loop from idea to pull request, plus stack skills you add per project. Install the global set once with <code>npx skills</code>.</p>
+          <div class="console">
+            <div class="crow"><span class="lab"><b>1</b> Once per machine <em>global</em></span><Cmd command={installCommand} /></div>
+            <div class="crow"><span class="lab"><b>2</b> Inside each project <em>per stack</em></span><Cmd command={projectCommand} /></div>
+          </div>
+          <p class="hint">Work in progress. It changes often, so read a skill before you install it.</p>
+          <div class="cta"><a class="btn" href={installHref}>Read the install guide</a><a class="ghost" href={repo}>GitHub</a></div>
+        </div>
+        <i class="spark" id="sp1" aria-hidden="true"></i><i class="spark v" id="sp2" aria-hidden="true"></i>
+        <div class="foot ledger">
+          <dl>
+            <div><dt>Skills</dt><dd>{counts.skills}</dd></div>
+            <div><dt>Global</dt><dd>{counts.global}</dd></div>
+            <div><dt>Project</dt><dd>{counts.project}</dd></div>
+            <div><dt>Groups</dt><dd>{counts.groups}</dd></div>
+          </dl>
+          <div class="legal"><span>WTFPL · work in progress</span></div>
+        </div>
+      </div>
+      <div class="wrap">
+        <section id="how" aria-labelledby="how-title">
+          <div class="lhead">
+            <h2 id="how-title">Idea to pull request. <span>Six steps, in order.</span></h2>
+            <p class="lead">LFG takes a change from an idea to an open pull request. Run each step yourself, or let <code>/do-it</code> take a request through plan, work, and commit. It skips brainstorm, and it never merges. Every step ends by naming the next one.</p>
+          </div>
+          <div class="flow">
+            <div class="phases" aria-hidden="true"><span style="grid-column:span 2">Shape</span><span style="grid-column:span 3">Build</span><span style="grid-column:span 1">Ship</span></div>
+            <ol class="track">
+              {steps.map((s, i) => (
+                <li class="fs" style={`--i:${i}`}>
+                  <span class="node" aria-hidden="true">{pad(i + 1)}</span>
+                  <article class="fc">
+                    <span class="fic" aria-hidden="true">
+                      <img class="icd" src={`/loop/icon-${pad(i + 1)}-d.png`} alt="" width="26" height="26" />
+                      <img class="icl" src={`/loop/icon-${pad(i + 1)}-l.png`} alt="" width="26" height="26" />
+                    </span>
+                    <div class="fb">
+                      <span class="ph">{s.phase} · Step {i + 1} of {steps.length}</span>
+                      <h3><code>{s.name}</code></h3>
+                      <p set:html={s.text} />
+                    </div>
+                  </article>
+                </li>
+              ))}
+            </ol>
+            <div class="doit"><span class="br" aria-hidden="true"></span><p><code>/do-it</code> runs plan, work, and commit for you. It skips brainstorm, and it ends at an open pull request.</p><span class="pr">Open pull request</span></div>
+          </div>
+        </section>
+        <section id="safe" aria-labelledby="scope-title">
+          <h2 id="scope-title">Install once, <span>then add stacks.</span></h2>
+          <div class="pair">
+            <article class="sc">
+              <header><span class="scl">Global</span><span class="scn">{counts.global}</span></header>
+              <h3>Useful in any repo</h3>
+              <p class="scp">Review, planning, commits, docs. Install once per machine with <code>-g</code>.</p>
+              <p class="grps">{globalGroups.map((g) => <code class="grp">{g}</code>)}</p>
+              <Cmd command={installCommand} />
+            </article>
+            <article class="sc">
+              <header><span class="scl">Project</span><span class="scn">{counts.project}</span></header>
+              <h3>Pay off with one stack or product</h3>
+              <p class="scp">Run from inside the project. Replace <code>&lt;group&gt;</code> with a group name.</p>
+              <p class="grps">{projectGroups.map((g) => <code class="grp">{g}</code>)}</p>
+              <Cmd command={projectCommand} />
+            </article>
+          </div>
+        </section>
+        <section aria-labelledby="start-title">
+          <h2 id="start-title">Start here</h2>
+          <div class="shs">
+            {starts.map((s, i) => (
+              <a class="sh" href={s.href}><span class="shn">{pad(i + 1)}</span><b>{s.title}</b><span class="shd">{s.text}</span><i aria-hidden="true">→</i></a>
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer class="base">
+      <span>Do Skills is curated by Ed Heltzel. Root license WTFPL; some skills carry their own license, so check a skill&rsquo;s folder before you reuse it.<br />Work in progress. It changes often.</span>
+      <nav aria-label="Footer"><a href={docsHref}>Docs</a><a href={repo}>GitHub</a><a href="https://github.com/edheltzel/Do-Skills/blob/master/LICENSE">License</a></nav>
+    </footer>
+  </div>
+</Base>
+
+<script>
+  import '../scripts/hero.ts';
+
+  for (const button of document.querySelectorAll<HTMLButtonElement>('.cmd .cp')) {
+    const command = button.dataset.command ?? '';
+    const shown = button.parentElement?.querySelector('.t')?.textContent ?? '';
+    if (shown !== command) throw new Error('install command mismatch');
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(command);
+        button.textContent = 'Copied';
+      } catch {
+        button.textContent = 'Failed';
+      }
+      window.setTimeout(() => {
+        button.textContent = 'Copy';
+      }, 1200);
+    });
+  }
+</script>

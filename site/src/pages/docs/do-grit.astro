@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import { withBase } from "@cloudflare/nimbus-docs/runtime";
+
+export const prerender = true;
+
+const docsHref = withBase("/docs/", import.meta.env.BASE_URL);
+const sourceHref = "https://github.com/edheltzel/Do-Skills/tree/master/skills/global/workflow/do-grit";
+---
+
+<BaseLayout
+  title="do-grit"
+  description="do-grit is a workflow skill. It has no promoted docs page; this URL is kept from the previous site."
+>
+  <div class="flex min-h-screen flex-col">
+    <Header showSidebar={false} />
+    <main id="main-content" tabindex="-1" class="mx-auto w-full max-w-(--nb-content-max) flex-1 px-4 py-12 md:px-6">
+      <p class="text-sm font-medium text-muted-foreground">Workflow</p>
+      <h1
+        class="mt-2 text-foreground"
+        style="font-size: var(--nb-h1-size); font-weight: var(--nb-h1-weight); letter-spacing: var(--nb-h1-tracking); line-height: var(--nb-h1-leading);"
+      >
+        do-grit
+      </h1>
+      <p class="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed text-muted-foreground">
+        Opt-in use of the grit CLI for read-oriented, JSON-safe git inspection when grit is installed and the user or repo asks for it.
+        There is no promoted docs page for this skill. The previous site redirected here to the workflow group on GitHub.
+      </p>
+      <p class="mt-6 flex flex-wrap gap-4">
+        <a href={sourceHref} class="font-medium text-brand no-underline hover:underline">Skill source</a>
+        <a href={docsHref} class="font-medium text-brand no-underline hover:underline">All docs</a>
+      </p>
+    </main>
+  </div>
+</BaseLayout>
