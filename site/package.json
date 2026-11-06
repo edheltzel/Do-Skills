@@ -13,7 +13,11 @@
     "preview": "astro preview",
     "typecheck": "astro check",
     "lint:docs": "nimbus-docs lint",
-    "lint:docs:fix": "nimbus-docs lint --fix"
+    "lint:docs:fix": "nimbus-docs lint --fix",
+    "check:links": "node scripts/check-links.mjs",
+    "contrast": "node scripts/contrast.mjs",
+    "flash": "node scripts/flash.mjs",
+    "install-box": "node scripts/install-box.mjs"
   },
   "dependencies": {
     "@cloudflare/nimbus-docs": "0.19.3",
@@ -34,6 +38,8 @@
     "@astrojs/language-server": "2.16.13",
     "@tailwindcss/vite": "^4.1.4",
     "pagefind": "^1.5.2",
+    "playwright-core": "^1.64.1",
+    "pngjs": "^7.0.0",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3"
   }
