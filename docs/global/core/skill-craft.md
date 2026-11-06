@@ -28,14 +28,14 @@ That word is the bar for every mode.
 - **write** (default). Choose invocation, front-load the description, place steps and reference on the information hierarchy, split only when the cut earns it, link neighbour skills by name, prune no-ops, and steer with leading words. Failure modes: premature completion, duplication, sediment, sprawl, no-op, negation.
 - **distill**. Absorb the source, keep decision rules, cut motivation, invert to rule then example then anti-pattern, and compress. A 5,000-word article lands near 150-250 lines. If the skill is as long as the source, it is a summary.
 - **review**. Explicit only. Structural and marketplace checks are high confidence; design checks are medium. Every finding is verified before it is reported. The verdict ignores minor and informational items.
-- **eval**. Explicit only. Lock fixed cases and criteria, run each case in a fresh context, and have a separate judge grade the artifact without the author's preferred verdict. After a skill edit, rerun every case. A miss is a skill defect or a bad case. When runs disagree, the result stays a count.
+- **eval**. Explicit only. Lock fixed cases and criteria, run each case in a fresh context, and have a separate judge grade the artifact without the author's preferred verdict. After a skill edit, rerun every case. A miss is a skill defect or a bad case, labeled for that generation. When runs disagree, the result stays a count. The record check confirms the saved prompts, judge reply, quote, and reruns agree. The saved replies are the proof those prompts went to separate contexts.
 
 ## It's working if
 
 - The description states what the skill enables and the phrases that should trigger it.
 - A distilled skill is a fraction of the source, and an agent can act on it without the original.
 - A review names file and line, states confidence, and does not start unless review mode was requested.
-- An eval names each case's count, the judge's quote, and whether a miss is a skill defect or a bad case. It does not start unless eval was requested.
+- An eval names each case's count, the judge's quote, and whether a miss is a skill defect or a bad case. It does not start unless eval was requested. A passing record check still has the runner and judge transcripts beside it.
 
 ## Where it fits
 

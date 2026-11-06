@@ -45,6 +45,10 @@ function base() {
   });
 }
 
+function judgeReply(outcome, artifact) {
+  return `VERDICT: ${outcome}\nEVIDENCE: "${artifact}"\n`;
+}
+
 function run(state, caseId, outcome, artifact) {
   return {
     type: "run",
@@ -53,6 +57,7 @@ function run(state, caseId, outcome, artifact) {
     artifact,
     runnerPrompt: runnerPrompt(state, caseId),
     judgePrompt: judgePrompt(state, caseId, artifact),
+    judgeResponse: judgeReply(outcome, artifact),
   };
 }
 
@@ -126,8 +131,8 @@ test("a split result stays a count", () => {
 
 test("a bad case blocks an edit, and a skill defect allows one", () => {
   const state = base();
-  recordRun(state, "pine", { outcome: "fail", artifact: "APPLE" });
-  recordRun(state, "oak", { outcome: "fail", artifact: "APPLE" });
+  recordRun(state, "pine", { outcome: "fail", artifact: "APPLE", judgeResponse: judgeReply("fail", "APPLE") });
+  recordRun(state, "oak", { outcome: "fail", artifact: "APPLE", judgeResponse: judgeReply("fail", "APPLE") });
   noteDiagnosis(state, "pine", "skill-defect", "The skill says APPLE instead of the named word.");
   noteDiagnosis(state, "oak", "bad-case", "The criteria contradict what the skill is for.");
   assert.throws(() => proposeEdit(state, "oak", "teach BANANA", "SKILL-V2 say BANANA"), /skill defect/);
@@ -176,7 +181,8 @@ test("a disagreed rerun is not stored as a pass", () => {
   const pine = report.cases.find((entry) => entry.id === "pine");
   assert.equal(pine.counts[0].count, "1/2");
   assert.equal(pine.counts[0].stable, false);
-  assert.equal(pine.diagnosis.kind, "skill-defect");
+  assert.equal(pine.counts[0].diagnosis.kind, "skill-defect");
+  assert.deepEqual(pine.counts[0].quotes, ["APPLE", "PINE"]);
 });
 
 test("the checker rejects a prompt that was not the fresh-context prompt", () => {
@@ -201,8 +207,8 @@ test("check command accepts a finished record and rejects a partial rerun", asyn
     const partial = join(directory, "partial.json");
     const next = "SKILL-V2 use the named word";
     const replay = openEval(state);
-    recordRun(replay, "pine", { outcome: "fail", artifact: "APPLE" });
-    recordRun(replay, "oak", { outcome: "fail", artifact: "APPLE" });
+    recordRun(replay, "pine", { outcome: "fail", artifact: "APPLE", judgeResponse: judgeReply("fail", "APPLE") });
+    recordRun(replay, "oak", { outcome: "fail", artifact: "APPLE", judgeResponse: judgeReply("fail", "APPLE") });
     noteDiagnosis(replay, "pine", "skill-defect", "The skill says APPLE.");
     noteDiagnosis(replay, "oak", "bad-case", "OAK's criteria do not match the skill.");
     events.push({ type: "edit", caseId: "pine", change: "Use the named word.", skill: next });
@@ -215,13 +221,97 @@ test("check command accepts a finished record and rejects a partial rerun", asyn
     assert.equal(rejected.code, 1);
     assert.match(rejected.stderr, /missing oak/);
     events.push(run(replay, "oak", "fail", "OAK"));
+    events.push({ type: "diagnosis", caseId: "oak", kind: "bad-case", reason: "The rerun still misses because the criteria are wrong." });
     const finished = join(directory, "finished.json");
     await writeFile(finished, JSON.stringify({ skill: state.skill, principles: state.principles, cases: state.cases, events }));
     const accepted = await execute(process.execPath, ["scripts/eval-record.mjs", "check", finished], { cwd: skillDirectory });
     const report = JSON.parse(accepted.stdout);
-    assert.equal(report.cases.find((entry) => entry.id === "oak").diagnosis.kind, "bad-case");
+    const oakReport = report.cases.find((entry) => entry.id === "oak");
+    assert.equal(oakReport.counts[0].diagnosis.kind, "bad-case");
+    assert.equal(oakReport.counts[1].diagnosis.kind, "bad-case");
+    assert.equal(oakReport.counts[1].quotes[0], "OAK");
     assert.equal(report.cases.find((entry) => entry.id === "pine").counts[1].count, "1/1");
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
+});
+
+test("a pass with no judge response fails", () => {
+  const state = base();
+  const event = run(state, "pine", "pass", "PINE");
+  delete event.judgeResponse;
+  assert.equal(event.judgePrompt, judgePrompt(state, "pine", "PINE"));
+  assert.throws(() => checkRecord({
+    skill: state.skill,
+    principles: state.principles,
+    cases: state.cases,
+    events: [event, run(state, "oak", "pass", "OAK")],
+  }), /judge response/);
+});
+
+test("an outcome that disagrees with the judge verdict fails", () => {
+  const state = base();
+  const event = run(state, "pine", "pass", "PINE");
+  event.judgeResponse = "VERDICT: fail\nEVIDENCE: \"PINE\"\n";
+  assert.throws(() => checkRecord({
+    skill: state.skill,
+    principles: state.principles,
+    cases: state.cases,
+    events: [event, run(state, "oak", "pass", "OAK")],
+  }), /does not match the judge/);
+});
+
+test("the reported quote is a span from the artifact", () => {
+  const state = base();
+  const event = run(state, "pine", "pass", "PINE");
+  event.judgeResponse = "VERDICT: pass\nEVIDENCE: \"BANANA\"\n";
+  assert.throws(() => checkRecord({
+    skill: state.skill,
+    principles: state.principles,
+    cases: state.cases,
+    events: [event, run(state, "oak", "pass", "OAK")],
+  }), /not in the artifact/);
+  event.judgeResponse = "VERDICT: pass\nEVIDENCE: \"PINE\"\n";
+  const oak = run(state, "oak", "pass", "OAK");
+  oak.judgeResponse = "VERDICT: pass\nEVIDENCE: \"OAK\"\n";
+  const report = checkRecord({
+    skill: state.skill,
+    principles: state.principles,
+    cases: state.cases,
+    events: [event, oak],
+  });
+  const quote = report.cases.find((entry) => entry.id === "pine").counts[0].quotes[0];
+  assert.equal(quote, "PINE");
+  assert.equal(event.artifact.includes(quote), true);
+});
+
+test("a later failure needs a new diagnosis and keeps the earlier label", () => {
+  const state = openEval({
+    skill: "V1 says APPLE",
+    principles: "Use the named word.",
+    cases: [{ id: "pine", input: "Reply with the single word PINE.", criteria: "The artifact is the single word PINE." }],
+  });
+  const events = [run(state, "pine", "fail", "APPLE")];
+  events.push({ type: "diagnosis", caseId: "pine", kind: "skill-defect", reason: "It says APPLE." });
+  const v2 = "V2 still says APPLE";
+  events.push({ type: "edit", caseId: "pine", change: "Use the named word.", skill: v2 });
+  const mid = openEval(state);
+  recordRun(mid, "pine", { outcome: "fail", artifact: "APPLE", judgeResponse: judgeReply("fail", "APPLE") });
+  noteDiagnosis(mid, "pine", "skill-defect", "It says APPLE.");
+  proposeEdit(mid, "pine", "Use the named word.", v2);
+  events.push(run(mid, "pine", "fail", "PEAR"));
+  events.push({ type: "edit", caseId: "pine", change: "Try again.", skill: "V3 names the word" });
+  assert.throws(() => checkRecord({
+    skill: state.skill,
+    principles: state.principles,
+    cases: state.cases,
+    events,
+  }), /label pine before an edit/);
+  events.pop();
+  events.push({ type: "diagnosis", caseId: "pine", kind: "bad-case", reason: "PEAR is not what this case should demand." });
+  const report = checkRecord({ skill: state.skill, principles: state.principles, cases: state.cases, events });
+  assert.equal(report.cases[0].counts[0].diagnosis.kind, "skill-defect");
+  assert.equal(report.cases[0].counts[1].diagnosis.kind, "bad-case");
+  assert.equal(report.cases[0].counts[1].quotes[0], "PEAR");
+  assert.equal(events.at(-2).artifact.includes(report.cases[0].counts[1].quotes[0]), true);
 });

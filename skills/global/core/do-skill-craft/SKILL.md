@@ -39,6 +39,6 @@ Apply [references/writing-principles.md](references/writing-principles.md) when 
 
 Only when the user asks to evaluate a skill against fixed cases.
 
-Load [references/eval.md](references/eval.md). When a miss is a skill defect, apply [references/writing-principles.md](references/writing-principles.md) to that edit. Check the record with [scripts/eval-record.mjs](scripts/eval-record.mjs).
+Load [references/eval.md](references/eval.md). When a miss is a skill defect, apply [references/writing-principles.md](references/writing-principles.md) to that edit. Check the record with [scripts/eval-record.mjs](scripts/eval-record.mjs). Exit 0 means the record agrees with itself. The runner and judge transcripts are the proof those were separate contexts.
 
 Provenance: write-mode principles and glossary are MIT (Matt Pocock, LICENSE-mattpocock), adapted from do-writing-great-skills; review-mode checks are Apache-2.0 (Beagle, LICENSE), adapted from do-review-skill.

@@ -63,7 +63,27 @@ export function openEval({ skill, principles, cases }) {
       preferredVerdict,
     });
   });
-  return { skill, principles, cases: Object.freeze(locked), runs: [], diagnoses: {}, edits: [], generation: 0 };
+  return { skill, principles, cases: Object.freeze(locked), runs: [], diagnoses: [], edits: [], generation: 0 };
+}
+
+function diagnosisFor(state, caseId, generation) {
+  return state.diagnoses.find((entry) => entry.caseId === caseId && entry.generation === generation) || null;
+}
+
+export function readJudge(judgeResponse, artifact) {
+  const response = text(judgeResponse, "judge response");
+  const body = text(artifact, "artifact");
+  const verdicts = [...response.matchAll(/VERDICT:\s*(pass|fail)\b/g)].map((match) => match[1]);
+  if (verdicts.length !== 1) fail("the judge response needs one VERDICT");
+  const evidenceMatch = response.match(/EVIDENCE:\s*([\s\S]+)/);
+  if (!evidenceMatch) fail("the judge response needs EVIDENCE");
+  const evidence = evidenceMatch[1].trim();
+  const quoted = [...evidence.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+  const spans = quoted.length ? quoted : [evidence];
+  for (const span of spans) {
+    if (!body.includes(span)) fail("judge evidence is not in the artifact");
+  }
+  return { verdict: verdicts[0], quote: spans[0] };
 }
 
 export function runnerPrompt(state, caseId) {
@@ -87,18 +107,19 @@ export function judgePrompt(state, caseId, artifact) {
   return prompt;
 }
 
-export function recordRun(state, caseId, { outcome, artifact }) {
+export function recordRun(state, caseId, { outcome, artifact, judgeResponse }) {
   caseById(state, caseId);
-  if (!OUTCOMES.has(outcome)) fail("a run is pass or fail");
-  text(artifact, "artifact");
-  state.runs.push({ caseId, outcome, artifact, generation: state.generation });
+  const judged = readJudge(judgeResponse, artifact);
+  if (outcome !== judged.verdict) fail(`outcome ${outcome} does not match the judge VERDICT ${judged.verdict}`);
+  state.runs.push({ caseId, outcome: judged.verdict, artifact, quote: judged.quote, judgeResponse, generation: state.generation });
   return state;
 }
 
 export function noteDiagnosis(state, caseId, kind, reason) {
   caseById(state, caseId);
   if (kind !== "skill-defect" && kind !== "bad-case") fail("a miss is a skill defect or a bad case");
-  state.diagnoses[caseId] = { kind, reason: text(reason, "diagnosis reason") };
+  if (diagnosisFor(state, caseId, state.generation)) fail(`case ${caseId} already has a label for this generation`);
+  state.diagnoses.push({ caseId, generation: state.generation, kind, reason: text(reason, "diagnosis reason") });
   return state;
 }
 
@@ -106,9 +127,9 @@ export function proposeEdit(state, caseId, change, skill) {
   for (const entry of state.cases) {
     const outcomes = runsFor(state, entry.id, state.generation).map((run) => run.outcome);
     if (outcomes.length === 0) fail(`run every case before an edit; missing ${entry.id}`);
-    if (!cleared(summarizeRuns(outcomes)) && !state.diagnoses[entry.id]) fail(`label ${entry.id} before an edit`);
+    if (!cleared(summarizeRuns(outcomes)) && !diagnosisFor(state, entry.id, state.generation)) fail(`label ${entry.id} before an edit`);
   }
-  const diagnosis = state.diagnoses[caseId];
+  const diagnosis = diagnosisFor(state, caseId, state.generation);
   if (!diagnosis || diagnosis.kind !== "skill-defect") fail("an edit has to come from a skill defect");
   const outcomes = runsFor(state, caseId, state.generation).map((run) => run.outcome);
   if (cleared(summarizeRuns(outcomes))) fail("a passing case is not a reason to edit the skill");
@@ -133,7 +154,7 @@ export function assertRerunComplete(state) {
   for (const entry of state.cases) {
     const outcomes = runsFor(state, entry.id, state.generation).map((run) => run.outcome);
     if (outcomes.length === 0) fail(`case ${entry.id} has no runs`);
-    if (!cleared(summarizeRuns(outcomes)) && !state.diagnoses[entry.id]) fail(`case ${entry.id} needs a skill-defect or bad-case label`);
+    if (!cleared(summarizeRuns(outcomes)) && !diagnosisFor(state, entry.id, state.generation)) fail(`case ${entry.id} needs a skill-defect or bad-case label`);
   }
   return { complete: true, generation: state.generation };
 }
@@ -144,10 +165,17 @@ export function report(state) {
     cases: state.cases.map((entry) => {
       const counts = [];
       for (let generation = 0; generation <= state.generation; generation += 1) {
-        const outcomes = runsFor(state, entry.id, generation).map((run) => run.outcome);
-        if (outcomes.length) counts.push({ generation, ...summarizeRuns(outcomes) });
+        const runs = runsFor(state, entry.id, generation);
+        if (!runs.length) continue;
+        const diagnosis = diagnosisFor(state, entry.id, generation);
+        counts.push({
+          generation,
+          ...summarizeRuns(runs.map((run) => run.outcome)),
+          quotes: runs.map((run) => run.quote),
+          diagnosis: diagnosis ? { kind: diagnosis.kind, reason: diagnosis.reason } : null,
+        });
       }
-      return { id: entry.id, counts, diagnosis: state.diagnoses[entry.id] || null };
+      return { id: entry.id, counts };
     }),
   };
 }
@@ -158,7 +186,8 @@ export function checkRecord(record) {
   for (const event of record.events) {
     const keys = Object.keys(event).sort().join(",");
     if (event.type === "run") {
-      if (keys !== "artifact,caseId,judgePrompt,outcome,runnerPrompt,type") fail("a run records the prompts that were sent");
+      if (!Object.hasOwn(event, "judgeResponse")) fail("a run needs the judge response");
+      if (keys !== "artifact,caseId,judgePrompt,judgeResponse,outcome,runnerPrompt,type") fail("a run records the prompts that were sent");
       const runner = runnerPrompt(state, event.caseId);
       const judge = judgePrompt(state, event.caseId, event.artifact);
       if (event.runnerPrompt !== runner) fail(`runner prompt for ${event.caseId} is not the fresh-context prompt`);

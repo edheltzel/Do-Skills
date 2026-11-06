@@ -8,7 +8,7 @@ An eval locks cases first, runs the skill in a fresh context, and has a separate
 node scripts/eval-record.mjs check record.json
 ```
 
-Exit 0 is the record you may report. The checker is the rule for who saw what, and for which cases an edit reruns.
+Exit 0 means the record is internally consistent. The checker compares the saved prompts with the ones it builds, reads one `VERDICT` from the judge reply and matches it to `outcome`, keeps an evidence quote only when that quote appears in the artifact, requires a label for each miss in the generation being read, and requires every case again after each edit. It does not prove those prompts were the only text a separate context received. Save the runner prompt, the judge prompt, and the judge reply for each attempt. Those transcripts are the execution proof.
 
 ## Lock the cases
 
@@ -34,7 +34,7 @@ If the skill has to write files, point the runner at an empty directory. When it
 
 ## Read the result
 
-Keep the judge's verdict and quote with the case. Map a clear `VERDICT: pass` or `VERDICT: fail` onto the run. If the judge does not give one of those, the run has no outcome yet. Do not pick one for them.
+Keep the judge's whole reply on the run as `judgeResponse`. It has one `VERDICT: pass` or `VERDICT: fail`, then `EVIDENCE:` and a quote. `outcome` has to be that verdict. The quote has to appear in the artifact, either as the evidence text or inside double quotes in that evidence. The checker copies that quote into the report. If the reply has no single verdict, or the quote is not in the artifact, the run has no outcome yet. Do not pick one for them.
 
 For a case that matters, or a verdict that is close, run it two or three times, each in a fresh context. The summary is a count such as `2/3`. If the runs disagree, `stable` is false. Report the count. Do not replace a split with a single pass or fail.
 
@@ -45,7 +45,7 @@ A case that is not a stable run of passes needs one label:
 - **Skill defect.** The criteria match what the skill is for, and the skill did not produce that behavior. Say what to change. Apply the writing principles to the edit, and use a failure mode named there when one of them fits.
 - **Bad case.** The criteria ask for something the skill should not do, or they reject an artifact the skill was right to produce. Say why. Leave the skill alone. The checker rejects an edit blamed on that case.
 
-A miss has one label, not both.
+A miss has one label, not both. The label belongs to the generation you are reading. After an edit, a new miss needs its own label. The earlier label stays on the earlier generation.
 
 ## Edit, then rerun every case
 
@@ -57,7 +57,7 @@ Stop when the counts are acceptable, or when a remaining miss is a bad case, or 
 
 ## Report
 
-Per case: the count at each generation, the judge's quote, and the label if it missed. Then the edit, if you made one, and the rerun of every case.
+Per case and generation: the count, the quotes, and the label if that generation missed. Then the edit, if you made one, and the rerun of every case. A passing check is the mechanical half. The transcripts beside the record are the half that shows the runner and the judge were separate contexts.
 
 `record.json` uses this shape. `events` are in the order they happened. Prompts are the strings the checker builds, copied verbatim.
 
@@ -69,7 +69,7 @@ Per case: the count at each generation, the judge's quote, and the label if it m
     { "id": "pine", "input": "the input", "criteria": "what a good artifact does", "preferredVerdict": "optional note" }
   ],
   "events": [
-    { "type": "run", "caseId": "pine", "outcome": "fail", "artifact": "the runner's artifact", "runnerPrompt": "", "judgePrompt": "" },
+    { "type": "run", "caseId": "pine", "outcome": "fail", "artifact": "the runner's artifact", "runnerPrompt": "", "judgePrompt": "", "judgeResponse": "VERDICT: fail\nEVIDENCE: \"a quote from the artifact\"" },
     { "type": "diagnosis", "caseId": "pine", "kind": "skill-defect", "reason": "what is wrong" },
     { "type": "edit", "caseId": "pine", "change": "what you changed", "skill": "the full skill text after the edit" }
   ]
