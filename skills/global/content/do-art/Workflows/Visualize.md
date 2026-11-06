@@ -23,21 +23,21 @@ The Visualize workflow is the **intelligent visualization orchestrator**. Unlike
 
 ---
 
-## 🚨 INFOGRAPHICS: Use Excalidraw Whiteboard Style
+## 🚨 INFOGRAPHICS: Use Excalidraw Sketch Style
 
-**Infographics use the EXCALIDRAW whiteboard sketch aesthetic** — hand-drawn with wobbly boxes, sketchy lines, and imperfect organic shapes. This is the same style as mermaid.md technical diagrams but with richer graphics and narrative.
+**Infographics use the EXCALIDRAW hand-drawn sketch aesthetic** — hand-drawn with wobbly boxes, sketchy lines, and imperfect organic shapes. This is the same style as mermaid.md technical diagrams but with richer graphics and narrative.
 
 **Key principle:** Infographics = Excalidraw aesthetic + Rich graphics + Visual narrative
 
 ### Excalidraw Infographic Aesthetic
 
 ```
-STYLE: Excalidraw whiteboard sketch with rich graphics
+STYLE: Excalidraw hand-drawn sketch with rich graphics
 - WOBBLY BOXES — rectangles with rough, hand-drawn edges (not perfect)
 - SKETCHY LINES — arrows and connections with slight wobble
 - IMPERFECT SHAPES — circles slightly oval, diamonds asymmetric
 - HAND-LETTERED TEXT — labels look handwritten, not typed
-- WHITEBOARD FEEL — looks like someone drew this on a whiteboard
+- SKETCHED FEEL — looks like someone drew this by hand
 - VARIABLE LINE WEIGHT — heavier for boxes, lighter for details
 - RICH GRAPHICS — icons, illustrations, visual metaphors (all sketchy)
 ```
@@ -99,15 +99,15 @@ ALWAYS LEFT-JUSTIFIED — Never centered
 ### Infographic Prompt Template
 
 ```
-Excalidraw-style whiteboard infographic with rich hand-drawn graphics.
+Excalidraw-style infographic with rich hand-drawn graphics.
 
-STYLE: Excalidraw whiteboard sketch aesthetic
+STYLE: Excalidraw hand-drawn sketch aesthetic
 - Wobbly rectangles with rough edges (not perfect boxes)
 - Sketchy arrows with slight wobble (not ruler-straight)
 - Imperfect shapes throughout (circles slightly oval)
 - Hand-lettered text labels (natural slant, imperfect)
 - Variable line weight (boxes thicker, details thinner)
-- Whiteboard/sketch paper feel
+- Sketch paper feel
 
 BACKGROUND: Light Cream #F5E6D3 (DEFAULT) — only use White #FFFFFF if explicitly requested
 
@@ -157,7 +157,7 @@ COLOR USAGE:
 - Charcoal: All body text
 
 CRITICAL:
-- Excalidraw hand-drawn whiteboard aesthetic throughout
+- Excalidraw hand-drawn aesthetic throughout
 - All shapes imperfect, all lines wobbly
 - Title/subtitle LEFT-JUSTIFIED, not centered
 - Use proper font hierarchy (Valkyrie, Concourse, Advocate)
