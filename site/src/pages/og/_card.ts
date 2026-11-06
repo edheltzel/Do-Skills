@@ -1,8 +1,8 @@
 /**
  * The site's social cards, 1200 × 630 PNGs rendered at build time: the logo
  * over a hairline, then the page's section and title. `og/[...slug].ts`
- * draws one per page and `og.png.ts` the site's own, with its description as
- * the title. This file is the cards' look; edit it freely.
+ * draws one per page; the site's own card is the static `public/og.png`.
+ * This file is the cards' look; edit it freely.
  *
  * `@cloudflare/nimbus-docs/og` does the rest: it loads the fonts, fits text
  * to its lines by measuring it, and renders the PNG. To use another script,
@@ -76,7 +76,3 @@ async function card({ section, title, sizes }: { section?: string; title: string
 /** A page's card. */
 export const renderPageCard = async (input: { section?: string; title: string }) =>
   renderer.png(await card({ ...input, sizes: [64, 56, 50, 44] }));
-
-/** The site's card: its description, or its title when it has none. */
-export const renderSiteCard = async (input: { title: string }) =>
-  renderer.png(await card({ ...input, sizes: [72, 64, 56, 50, 44] }));
