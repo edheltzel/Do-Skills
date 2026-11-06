@@ -1,0 +1,82 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import { getCollection } from "astro:content";
+import { withBase } from "@cloudflare/nimbus-docs/runtime";
+
+export const prerender = true;
+
+const pages = (await getCollection("docs")).filter((entry) => !entry.data.draft);
+const groups = new Map<string, { scope: string; group: string; pages: typeof pages }>();
+for (const page of pages) {
+  const [scope, group] = page.id.split("/");
+  if (!scope || !group) continue;
+  const key = `${scope}/${group}`;
+  const bucket = groups.get(key) ?? { scope, group, pages: [] };
+  bucket.pages.push(page);
+  groups.set(key, bucket);
+}
+
+const scopes = ["global", "project"] as const;
+const hrefFor = (id: string) => withBase(`/${id}/`, import.meta.env.BASE_URL);
+const label = (value: string) => value.replace(/-/g, " ");
+---
+
+<BaseLayout
+  title="Docs"
+  description="Human-facing pages for the skills in Do-Skills. One page per promoted skill, read from the repo docs/ tree."
+>
+  <div class="flex min-h-screen flex-col">
+    <Header collection="docs" showSidebar={false} />
+    <main id="main-content" tabindex="-1" class="mx-auto w-full max-w-(--nb-content-max) flex-1 px-4 py-12 md:px-6">
+      <p class="text-sm font-medium text-muted-foreground">Do Skills</p>
+      <h1
+        class="mt-2 text-foreground"
+        style="font-size: var(--nb-h1-size); font-weight: var(--nb-h1-weight); letter-spacing: var(--nb-h1-tracking); line-height: var(--nb-h1-leading);"
+      >
+        Docs
+      </h1>
+      <p class="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed text-muted-foreground">
+        Human-facing pages for the skills in this repository, one per promoted skill.
+        Each page explains what a skill does, when to reach for it, and where it sits among the others.
+        Internal plans and agent-only notes stay out of this site.
+      </p>
+      {scopes.map((scope) => {
+        const scoped = [...groups.values()].filter((entry) => entry.scope === scope);
+        if (scoped.length === 0) return null;
+        return (
+          <section id={scope} class="mt-12 scroll-mt-20">
+            <h2
+              class="text-foreground capitalize"
+              style="font-size: var(--nb-h2-size); font-weight: var(--nb-h2-weight); letter-spacing: var(--nb-h2-tracking); line-height: var(--nb-h2-leading);"
+            >
+              {scope}
+            </h2>
+            <div class="mt-6 grid gap-6">
+              {scoped.map((entry) => (
+                <div id={`${scope}-${entry.group}`} class="scroll-mt-20">
+                  <h3 class="text-sm font-semibold capitalize tracking-wide text-brand">{label(entry.group)}</h3>
+                  <ul class="mt-3 grid gap-2 sm:grid-cols-2">
+                    {entry.pages
+                      .slice()
+                      .sort((a, b) => a.data.title.localeCompare(b.data.title))
+                      .map((page) => (
+                        <li>
+                          <a
+                            href={hrefFor(page.id)}
+                            class="block rounded-lg border border-border px-3 py-2 text-foreground no-underline transition-colors hover:border-border-strong hover:bg-accent"
+                          >
+                            {page.data.title}
+                          </a>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+        );
+      })}
+    </main>
+  </div>
+</BaseLayout>
