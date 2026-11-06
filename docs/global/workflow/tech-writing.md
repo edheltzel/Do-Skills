@@ -46,6 +46,12 @@ govern, use those — this skill sets the writing posture they all share.
   a word doesn't change the meaning, remove it.
 - **Requirements are testable.** "Fast" is not a requirement; "loads in < 200ms at
   p95" is. Success criteria are measurable; open questions have owners.
+- **A PR body names the problem, then the behavior.** Proof matches the change.
+  A failed, missing, or unrun check stays labeled that way. Screenshots and
+  output are read, then stripped of secrets and personal data, before they are
+  shared. When an agent wrote the change, the opening credit matches that work
+  and says a human reviewed it only after that person says so. Commit trailers,
+  GitButler, stacks, and opt-in grit stay on their own skills.
 
 ## It's working if
 
@@ -54,6 +60,8 @@ govern, use those — this skill sets the writing posture they all share.
   *what*.
 - There are no "Risks: None" filler sections and no weasel words ("some users",
   "significant impact") left to quantify.
+- A PR description states the caller-visible behavior, shows proof that fits
+  that change, and labels any failed, missing, or unrun check.
 
 ## Where it fits
 

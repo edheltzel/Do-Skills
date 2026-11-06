@@ -185,19 +185,50 @@ count += 1
 
 ## Format: PR Descriptions
 
-```markdown
-## What
-<One sentence — what this PR does>
+This section writes the pull request body. Commit messages and trailers stay with the project convention and with `do-commit` if installed. GitButler (`but`), plain git, and `do-gh-stack` if installed keep their current commit and open steps. Opt-in grit stays on `do-grit` if installed. Those skills keep commit grouping.
 
-## Why
-<Motivation — link to issue if applicable>
+When an agent wrote the change or this body, the first line says an agent wrote it, names that agent when the name is known, and names the human who assigned the work when that person is known. State what the human actually did: assigned the task, wrote a spec, or shaped the design. Choosing among options the agent offered counts as an assignment. Say a named human reviewed the change only after that person says they reviewed it. Until then, say they have not reviewed it.
 
-## How
-<Brief summary of approach — not a line-by-line walkthrough>
+Example, when those are the facts:
 
-## Testing
-<How you verified this works>
 ```
+> Example Agent wrote this change for @ada, who assigned the task. @ada has not reviewed this change.
+```
+
+Use this order. Omit a heading that would be empty.
+
+```markdown
+## Problem
+<Who is blocked, and how it shows up. Link the issue when one exists.>
+
+## Behavior
+<What a caller can do after this change. The history already lists the commits.>
+
+## Evidence
+<Proof that fits the change. Name each check and its result, including any check that failed, is missing, or was not run.>
+
+## Details
+<Only what the diff hides: migrations, flags, tradeoffs, and work still open.>
+
+## Plain language
+<Two sentences a teammate outside the diff can repeat.>
+```
+
+Match the proof to the change:
+
+| Change | Proof |
+| --- | --- |
+| UI | The same view before and after, at the viewport the change affects. A short clip when the change is motion or a multi-step flow. |
+| Command or build | The command, its exit code, and the output from that run. |
+| Bug | The input, the result before, the result after, and the regression check. |
+| Performance | What was measured, on what machine and input, how many runs, both results, and how much they vary. |
+| Interface or feature | A short example of using it. A new surface has no before state. |
+| Agent behavior | The prompts that were run, the outcome recorded, and the part of the grading that is unreliable. |
+| Other | The smallest check that fails if this change is wrong. |
+
+Read every screenshot, clip, log, and pasted output before it is shared. Share demo or already-public data only. Remove tokens, keys, emails, private messages, and customer data. If a capture cannot be made safe, leave it out and describe the check in words. A security fix states the impact and the project's disclosure path, and keeps any reproduction or payload on that private path.
+
+A failed check stays failed. Proof that does not exist stays missing. A check that was not run stays unrun.
 
 ## Anti-Patterns
 
