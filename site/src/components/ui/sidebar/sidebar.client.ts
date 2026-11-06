@@ -110,6 +110,7 @@ function applyFilter(root: HTMLElement, query: string): void {
     const text = label?.textContent?.toLowerCase() ?? "";
     if (!text.includes(query)) return;
     group.removeAttribute("data-nb-sidebar-hidden");
+    revealAncestors(group, root);
     openGroup(group);
     group.querySelectorAll<HTMLElement>("li > a, details")
       .forEach((child) => child.removeAttribute("data-nb-sidebar-hidden"));
