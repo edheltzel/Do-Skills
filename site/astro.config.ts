@@ -5,6 +5,7 @@ import nimbus, {
   defineConfig as defineNimbusConfig,
 } from "@cloudflare/nimbus-docs";
 import { tableScroll } from "@cloudflare/nimbus-docs/markdown";
+import { repoLinks } from "./src/lib/repo-links";
 
 function docsRef(): string {
   const fromEnv = process.env.DOCS_REF || process.env.CF_PAGES_COMMIT_SHA || process.env.GITHUB_SHA;
@@ -64,7 +65,7 @@ export default defineConfig({
         "nimbus/internal-link": "error",
       },
       markdown: {
-        hastPlugins: [tableScroll()],
+        hastPlugins: [tableScroll(), repoLinks()],
         features: { headingAttributes: true },
       },
     }),
