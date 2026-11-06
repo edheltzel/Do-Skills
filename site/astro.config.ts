@@ -7,15 +7,10 @@ import nimbus, {
 import { tableScroll } from "@cloudflare/nimbus-docs/markdown";
 import { repoLinks } from "./src/lib/repo-links";
 
-function docsRef(): string {
-  const fromEnv = process.env.DOCS_REF || process.env.CF_PAGES_COMMIT_SHA || process.env.GITHUB_SHA;
-  if (fromEnv) return fromEnv;
-  try {
-    return execSync("git rev-parse HEAD", { cwd: "..", encoding: "utf8" }).trim();
-  } catch {
-    return "master";
-  }
-}
+const buildCommit = execSync("git rev-parse --verify HEAD^{commit}", {
+  cwd: new URL("..", import.meta.url),
+  encoding: "utf8",
+}).trim();
 
 const site = process.env.SITE_URL || "https://doskills.edheltzel.codes";
 
@@ -41,7 +36,7 @@ const nimbusConfig = defineNimbusConfig({
   sources: {
     "do-skills": {
       repo: "..",
-      ref: docsRef(),
+      ref: buildCommit,
       path: "docs",
       editPattern: "https://github.com/edheltzel/Do-Skills/edit/master/{path}",
     },
