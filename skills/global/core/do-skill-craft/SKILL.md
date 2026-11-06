@@ -1,12 +1,12 @@
 ---
 name: do-skill-craft
 description: >-
-  Authors Agent Skills: the vocabulary and principles that make a skill predictable, distillation of a blog post, article, documentation, GitHub repo, video transcript, book, or paper into a reusable skill, and review of PRs that add or modify Agent Skills for structural validity, design quality, and marketplace consistency. Use when you want to write/edit a skill, tune a skill description, make a skill from this, distill into a skill, distill this into a skill, turn this repo into a skill, turn this repo/article into a skill, create a skill from this article, extract patterns from, convert to a skill, review skill PR, audit SKILL.md, review skill file changes, or run an automated skill PR review.
+  Authors Agent Skills: the vocabulary and principles that make a skill predictable, distillation of a blog post, article, documentation, GitHub repo, video transcript, book, or paper into a reusable skill, and review of PRs that add or modify Agent Skills for structural validity, design quality, and marketplace consistency. Use when you want to write/edit a skill, tune a skill description, make a skill from this, distill into a skill, distill this into a skill, turn this repo into a skill, turn this repo/article into a skill, create a skill from this article, extract patterns from, convert to a skill, review skill PR, audit SKILL.md, review skill file changes, or run an automated skill PR review, or evaluate a skill against fixed cases.
 ---
 
 # Skill Craft
 
-Author Agent Skills. Default mode is `write`. Review mode runs only on explicit request. Do not start a review because a skill file is open or a diff looks skill-related.
+Author Agent Skills. Default mode is `write`. Review and eval run only on explicit request. Do not start a review or an eval because a skill file is open or a diff looks skill-related.
 
 Bold terms in the writing principles are defined in [references/GLOSSARY.md](references/GLOSSARY.md). Load it when a term needs the full meaning.
 
@@ -34,5 +34,11 @@ Load [references/review.md](references/review.md) and the checks it names:
 - [references/review-verification-protocol.md](references/review-verification-protocol.md)
 
 Apply [references/writing-principles.md](references/writing-principles.md) when judging design.
+
+## eval
+
+Only when the user asks to evaluate a skill against fixed cases.
+
+Load [references/eval.md](references/eval.md). When a miss is a skill defect, apply [references/writing-principles.md](references/writing-principles.md) to that edit. Check the record with [scripts/eval-record.mjs](scripts/eval-record.mjs).
 
 Provenance: write-mode principles and glossary are MIT (Matt Pocock, LICENSE-mattpocock), adapted from do-writing-great-skills; review-mode checks are Apache-2.0 (Beagle, LICENSE), adapted from do-review-skill.
