@@ -1,47 +1,104 @@
-// WCAG contrast for the token file. Text pairs must be >= 4.5:1.
-// Meaningful lines (focus ring, tab underline, callout borders, diagram strokes) must be >= 3:1.
-//
-// Neutral hairline borders on labelled controls are decorative and excluded.
-// Those are --b1, --b2, --b3, and --b4 (nav pills, the install box, card edges,
-// diagram boxes). Each of those controls is identified by its own text.
-//
-// This gate reads flat token pairs. It does not sample the landing hero's glyph
-// pixels under the headline. scripts/flash.mjs does that in a browser when the
-// hero canvas is on the page.
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import http from 'node:http';
+import path from 'node:path';
+import { chromium } from 'playwright-core';
 
-import fs from 'node:fs';
+const lightPalette = {
+  '--bg': [246, 245, 241],
+  '--s1': [252, 251, 248],
+  '--s2': [236, 235, 230],
+  '--text': [17, 17, 17],
+  '--t2': [74, 74, 74],
+  '--t3': [95, 95, 95],
+  '--l2': [90, 90, 90],
+  '--callout': [44, 44, 44],
+  '--btn-bg': [17, 17, 17],
+  '--btn-fg': [246, 245, 241],
+  '--btn-hv': [0, 0, 0],
+  '--acc': [138, 90, 12],
+  '--acc2': [74, 51, 16],
+  '--mid': [154, 106, 20],
+  '--bg-rgb': [246, 245, 241],
+  '--s1-rgb': [252, 251, 248],
+  '--ink-rgb': [17, 17, 17],
+  '--acc-rgb': [138, 90, 12],
+  '--acc2-rgb': [74, 51, 16],
+  '--hot-rgb': [255, 210, 122],
+  '--b1': [0, 0, 0, 0.07],
+  '--b2': [0, 0, 0, 0.11],
+  '--b3': [0, 0, 0, 0.17],
+  '--b4': [0, 0, 0, 0.27],
+  '--hi': [255, 255, 255, 0.8],
+  '--stripe': [0, 0, 0, 0.03],
+};
 
-const file = new URL('../src/styles/tokens.css', import.meta.url);
-const css = fs.readFileSync(file, 'utf8');
-
-function blocks(source) {
-  const out = {};
-  const re = /\/\*\s*@theme\s+([\w-]+)\s*\*\/([\s\S]*?)(?=\/\*\s*@theme\s+|$)/g;
-  for (const match of source.matchAll(re)) {
-    const vars = {};
-    for (const prop of match[2].matchAll(/--([a-z0-9-]+)\s*:\s*([^;]+);/g)) {
-      vars['--' + prop[1]] = prop[2].trim();
-    }
-    out[match[1]] = vars;
+const root = path.resolve('dist');
+await readFile(path.join(root, 'index.html'));
+const server = http.createServer(async (req, res) => {
+  try {
+    const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+    const file = path.join(root, pathname.endsWith('/') ? pathname + 'index.html' : pathname);
+    const data = await readFile(file);
+    const types = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' };
+    res.setHeader('content-type', types[path.extname(file)] || 'application/octet-stream');
+    res.end(data);
+  } catch {
+    res.writeHead(404).end('not found');
   }
-  return out;
+});
+await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+const themes = {};
+let browser;
+try {
+  browser = await chromium.launch({
+    executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome',
+    args: ['--no-sandbox', '--disable-dev-shm-usage'],
+  });
+  for (const javaScriptEnabled of [true, false]) {
+    for (const colorScheme of ['dark', 'light']) {
+      const context = await browser.newContext({ javaScriptEnabled, colorScheme });
+      try {
+        const page = await context.newPage();
+        const response = await page.goto(`http://127.0.0.1:${server.address().port}/`, { waitUntil: 'load' });
+        assert.equal(response.status(), 200);
+        const name = colorScheme + (javaScriptEnabled ? '' : '-nojs');
+        themes[name] = await page.evaluate((tokens) => {
+          const probe = document.createElement('span');
+          document.body.append(probe);
+          const values = {};
+          for (const token of tokens) {
+            probe.style.backgroundColor = token.endsWith('-rgb') ? `rgb(var(${token}))` : `var(${token})`;
+            values[token] = getComputedStyle(probe).backgroundColor;
+          }
+          probe.style.boxShadow = 'var(--glow)';
+          probe.style.opacity = 'var(--shade-edge)';
+          values.glow = getComputedStyle(probe).boxShadow;
+          values.shadeEdge = getComputedStyle(probe).opacity;
+          values.background = getComputedStyle(document.documentElement).backgroundColor;
+          values.foreground = getComputedStyle(document.body).color;
+          values.colorScheme = getComputedStyle(document.documentElement).colorScheme;
+          probe.remove();
+          return values;
+        }, Object.keys(lightPalette));
+      } finally {
+        await context.close();
+      }
+    }
+  }
+} finally {
+  await browser?.close();
+  await new Promise((resolve) => server.close(resolve));
 }
 
 function parse(value) {
-  const v = value.trim();
-  if (v.startsWith('#')) {
-    const h = v.slice(1);
-    const n = h.length === 3 ? h.split('').map((c) => c + c).join('') : h;
-    return { c: [0, 2, 4].map((i) => parseInt(n.slice(i, i + 2), 16)), a: 1 };
-  }
-  const parts = v.match(/[\d.]+/g);
+  const parts = value.match(/[\d.]+/g);
   if (!parts) throw new Error('cannot parse color ' + value);
   const n = parts.map(Number);
   return { c: n.slice(0, 3), a: n.length > 3 ? n[3] : 1 };
 }
 
 function channels(vars, name) {
-  if (name.endsWith('-rgb')) return vars[name].split(',').map((n) => Number(n.trim()));
   return parse(vars[name]).c;
 }
 
@@ -57,31 +114,28 @@ const contrast = (a, b) => {
 };
 const over = (fg, bg, a) => fg.map((v, i) => v * a + bg[i] * (1 - a));
 
-const themes = blocks(css);
-for (const name of ['dark', 'light', 'light-nojs']) {
-  if (!themes[name]) {
-    console.error('missing @theme ' + name);
-    process.exit(1);
+for (const name of ['light', 'light-nojs']) {
+  for (const [token, expected] of Object.entries(lightPalette)) {
+    assert.deepEqual(parse(themes[name][token]), { c: expected.slice(0, 3), a: expected[3] ?? 1 }, `${name} ${token}: preserved landing palette`);
   }
+  assert.equal(themes[name].glow, 'none', `${name} glow`);
+  assert.equal(Number(themes[name].shadeEdge), 0.35, `${name} shade edge`);
+  assert.deepEqual(parse(themes[name].background).c, [246, 245, 241], `${name} page background`);
+  assert.deepEqual(parse(themes[name].foreground).c, [17, 17, 17], `${name} page text`);
+  assert.equal(themes[name].colorScheme, 'light');
 }
-
-const lightKeys = Object.keys(themes.light).sort();
-const nojsKeys = Object.keys(themes['light-nojs']).sort();
-const drift = lightKeys.filter((k) => themes.light[k] !== themes['light-nojs'][k]);
-const extra = nojsKeys.filter((k) => !(k in themes.light));
-if (drift.length || extra.length || lightKeys.length !== nojsKeys.length) {
-  console.error('light and light-nojs token blocks differ');
-  for (const k of drift) console.error(`  ${k}: ${themes.light[k]} != ${themes['light-nojs'][k]}`);
-  process.exit(1);
+for (const scheme of ['light', 'dark']) {
+  for (const token of Object.keys(lightPalette)) {
+    assert.deepEqual(parse(themes[scheme][token]), parse(themes[`${scheme}-nojs`][token]), `${scheme} JavaScript/no-JavaScript ${token}`);
+  }
 }
 
 const textOn = ['--bg', '--s1', '--s2'];
 const textFg = ['--text', '--t2', '--t3', '--l2', '--acc', '--acc2'];
 
 let failed = false;
-const summary = [];
 
-for (const name of ['dark', 'light']) {
+for (const name of ['dark', 'light', 'dark-nojs', 'light-nojs']) {
   const v = themes[name];
   const bg = channels(v, '--bg');
   const rows = [];
@@ -123,7 +177,6 @@ for (const name of ['dark', 'light']) {
   const lines = rows.filter((r) => r.kind === 'line');
   const lowText = texts.reduce((a, b) => (b.ratio < a.ratio ? b : a));
   const lowLine = lines.reduce((a, b) => (b.ratio < a.ratio ? b : a));
-  summary.push({ name, lowText, lowLine });
   console.log(`  lowest text ${lowText.ratio.toFixed(2)} (${lowText.label})`);
   console.log(`  lowest line ${lowLine.ratio.toFixed(2)} (${lowLine.label})\n`);
 }
