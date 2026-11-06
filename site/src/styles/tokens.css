@@ -111,7 +111,6 @@
 
 /* @theme end */
 
-/* Starlight reads the same tokens. Unlayered, so these beat Starlight's defaults. */
 :root {
   --sl-color-white: var(--text);
   --sl-color-gray-1: var(--text);

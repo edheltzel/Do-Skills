@@ -9,10 +9,17 @@ keeps no second copy. The landing page's skill counts come from `skills/`.
 `docs/plans/`, `docs/README.md`, and other agent-only material are not
 published.
 
+`/docs/` indexes the public pages at `/<scope>/<group>/<slug>/`.
+HTML links to scope and group directories under `docs/{global,project}` lead
+to matching docs hub sections; links to other repository directories lead to GitHub.
+Nimbus's Markdown downloads and `llms-full.txt` keep directory links as authored.
+
 ## Run
 
 Needs Node 22.23.4 or later (`.nvmrc` pins it). That is the highest minimum
 any locked package declares (`@astrojs/prism` needs `>=22.23.4`).
+
+Run these commands from `site/`:
 
 ```bash
 npm ci
@@ -50,7 +57,7 @@ Cloudflare Pages, Git integration on this repo:
 | Build command | `npm run build` |
 | Output directory | `dist` |
 | Production branch | `master` |
-| `NODE_VERSION` | `22.23.4` |
+| `NODE_VERSION` (production and preview) | `22.23.4` |
 | `SITE_URL` (production) | `https://doskills.edheltzel.codes` |
 
 The domain cutover and rollback are in the

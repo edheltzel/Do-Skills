@@ -32,18 +32,9 @@ calls returned `success: true`, and the readback still said
 
 ## New project
 
-| Item | Value |
-| --- | --- |
-| Project | `doskills` |
-| Source | GitHub `edheltzel/Do-Skills` (repo id `1249358413`), production branch `master` |
-| Build | `npm run build`, output `dist`, root `site`, build image v3 |
-| Env, production | `NODE_VERSION=22.23.4`, `SITE_URL=https://doskills.edheltzel.codes` |
-| Env, preview | `NODE_VERSION=22.23.4` |
-| Compatibility date | `2026-10-29` |
-
-`NODE_VERSION` moves from `22` to `22.23.4` to match `site/.nvmrc`: the
-highest Node minimum in the lockfile (`@astrojs/prism >=22.23.4`).
-`SITE_URL` carries over.
+Project `doskills` uses GitHub repo id `1249358413`, build image v3, and
+compatibility date `2026-10-29`. Use the build, branch, and environment
+settings in [site/README.md](../../site/README.md#deploy).
 
 Shell setup for every step:
 
@@ -113,9 +104,9 @@ verification and the DNS update below use this recorded value.
    ```
 
 5. Verify on `https://doskills.edheltzel.codes`: landing page, `/docs/`,
-   `/docs` and `/docs/do-grit` redirects, a docs page, images, code blocks,
-   install links, `/og.png`, `/sitemap-index.xml`, 404 status, HTTPS
-   certificate, desktop and mobile.
+   `/docs/do-grit/` compatibility page, both slashless URLs, a docs page,
+   images, code blocks, install links, `/og.png`, `/sitemap-index.xml`,
+   404 status, HTTPS certificate, desktop and mobile.
 6. Only then: update the `doskills-site` README, settle its open issues and
    PRs, and archive the repo. Keep the `doskills-site` Pages project and its
    deployment as the rollback target.
