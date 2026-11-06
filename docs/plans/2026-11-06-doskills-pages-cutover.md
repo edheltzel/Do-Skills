@@ -41,14 +41,14 @@ only for the PR branch. Its Pages hostname is `doskills.pages.dev` (no
 suffix was needed). Preview `8beacec9` built `90c4a2e` from `site/` on Node
 22.23.4 and passed the desktop and mobile browser checks before approval.
 
-Shell setup for every step. `cf` fails on an HTTP error or `success: false`,
-so with `set -e` a failed call stops the sequence:
+Shell setup for every step. `cf` prints validated JSON and fails on an HTTP
+error or `success: false`, so with `set -e` a failed call stops the sequence:
 
 ```bash
 set -euo pipefail
 API="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects"
 ZONE="https://api.cloudflare.com/client/v4/zones/bafd5eed99c0c3ccf2d2c22e09d49b34"
-cf() { curl -fsS -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$@" | jq -e '.success' >/dev/null; }
+cf() { curl -fsS -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$@" | jq -e 'select(.success == true)'; }
 J=(-H "Content-Type: application/json")
 ```
 
@@ -77,8 +77,10 @@ J=(-H "Content-Type: application/json")
    cf -X DELETE "$API/doskills-site/domains/doskills.edheltzel.codes"
    cf "${J[@]}" -X POST "$API/doskills/domains" -d '{"name":"doskills.edheltzel.codes"}'
    cf "${J[@]}" -X PATCH "$ZONE/dns_records/b75952295e74f3230872815d08409e1e" -d '{"content":"doskills.pages.dev"}'
-   curl -fsS -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$API/doskills/domains/doskills.edheltzel.codes" | jq -r .result.status   # repeat until active
+   cf "$API/doskills/domains/doskills.edheltzel.codes" | jq -r '.result.status'
    ```
+
+   Repeat the status command until it reports `active`.
 
 5. Verify on `https://doskills.edheltzel.codes`: landing page, `/docs/`,
    `/docs/do-grit/` compatibility page, both slashless URLs, a docs page,
@@ -91,11 +93,18 @@ J=(-H "Content-Type: application/json")
 ## Rollback
 
 The old project and deployment `79ae52ec` are never deleted, so rollback is
-the domain move in reverse:
+the domain move in reverse. Check both associations first so rollback also
+works after a failed cutover or an interrupted rollback:
 
 ```bash
-cf -X DELETE "$API/doskills/domains/doskills.edheltzel.codes"
-cf "${J[@]}" -X POST "$API/doskills-site/domains" -d '{"name":"doskills.edheltzel.codes"}'
+new_has_domain=$(cf "$API/doskills/domains" | jq 'any(.result[]; .name == "doskills.edheltzel.codes")')
+old_has_domain=$(cf "$API/doskills-site/domains" | jq 'any(.result[]; .name == "doskills.edheltzel.codes")')
+if [ "$new_has_domain" = true ]; then
+  cf -X DELETE "$API/doskills/domains/doskills.edheltzel.codes"
+fi
+if [ "$old_has_domain" = false ]; then
+  cf "${J[@]}" -X POST "$API/doskills-site/domains" -d '{"name":"doskills.edheltzel.codes"}'
+fi
 cf "${J[@]}" -X PATCH "$ZONE/dns_records/b75952295e74f3230872815d08409e1e" -d '{"content":"doskills-site.pages.dev"}'
 cf "${J[@]}" -X PATCH "$API/doskills-site" -d '{"source":{"config":{"production_deployments_enabled":true}}}'
 ```
