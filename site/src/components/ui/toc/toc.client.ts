@@ -172,20 +172,31 @@ function initToc(root: HTMLElement): () => void {
   }
 
   // rootMargin collapses the root to the top band; deepest in-band heading wins.
-  const spy = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        const i = indexOfEl.get(entry.target as HTMLElement);
-        if (i === undefined) continue;
-        if (entry.isIntersecting) inBand.add(i);
-        else inBand.delete(i);
-      }
-      if (inBand.size > 0) observedIndex = Math.max(...inBand);
-      resolve();
-    },
-    { rootMargin: `0px 0px -${(1 - READING_BAND) * 100}% 0px`, threshold: 0 },
-  );
-  observed.forEach((o) => spy.observe(o.el));
+  let spy: IntersectionObserver;
+
+  function observeHeadings() {
+    spy?.disconnect();
+    inBand.clear();
+    spy = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const i = indexOfEl.get(entry.target as HTMLElement);
+          if (i === undefined) continue;
+          if (entry.isIntersecting) inBand.add(i);
+          else inBand.delete(i);
+        }
+        if (inBand.size > 0) observedIndex = Math.max(...inBand);
+        resolve();
+      },
+      {
+        rootMargin: `0px 0px ${-window.innerHeight * (1 - READING_BAND)}px 0px`,
+        threshold: 0,
+      },
+    );
+    observed.forEach((o) => spy.observe(o.el));
+  }
+
+  observeHeadings();
 
   function updateBottom() {
     const scrollEl = document.scrollingElement ?? document.documentElement;
@@ -313,10 +324,14 @@ function initToc(root: HTMLElement): () => void {
     passive: true,
     signal: controller.signal,
   });
-  window.addEventListener("resize", onLayoutChange, {
-    passive: true,
-    signal: controller.signal,
-  });
+  window.addEventListener(
+    "resize",
+    () => {
+      observeHeadings();
+      onLayoutChange();
+    },
+    { passive: true, signal: controller.signal },
+  );
   // Content that loads later (the API home's parts) dispatches
   // `nb:toc-headings`: track the headings that have appeared since.
   document.addEventListener(

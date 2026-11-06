@@ -21,7 +21,7 @@ import { mount } from "@cloudflare/nimbus-docs/client";
 // 30%] of the viewport height; BAND_TOP is its upper edge, reused by the
 // first/last clamp below.
 const BAND_TOP = 0.1;
-const ROOT_MARGIN = "-10% 0px -70% 0px";
+const BAND_BOTTOM = 0.3;
 const SUPPRESS_MS = 1000;
 
 function prefersReducedMotion(): boolean {
@@ -110,21 +110,35 @@ function initMobileToc(root: HTMLElement): () => void {
     }
   }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        const i = headings.findIndex((h) => h.el === entry.target);
-        if (i === -1) continue;
-        if (entry.isIntersecting) inBand.add(i);
-        else inBand.delete(i);
-      }
-      resolve();
-    },
-    { rootMargin: ROOT_MARGIN, threshold: 0 },
-  );
+  let observer: IntersectionObserver;
 
-  for (const { el } of headings) observer.observe(el);
-  resolve(); // initial sync before the observer's first async callback
+  function observeHeadings() {
+    observer?.disconnect();
+    inBand.clear();
+    observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const i = headings.findIndex((h) => h.el === entry.target);
+          if (i === -1) continue;
+          if (entry.isIntersecting) inBand.add(i);
+          else inBand.delete(i);
+        }
+        resolve();
+      },
+      {
+        rootMargin: `${-window.innerHeight * BAND_TOP}px 0px ${-window.innerHeight * (1 - BAND_BOTTOM)}px 0px`,
+        threshold: 0,
+      },
+    );
+    for (const { el } of headings) observer.observe(el);
+    resolve();
+  }
+
+  observeHeadings();
+  window.addEventListener("resize", observeHeadings, {
+    passive: true,
+    signal: controller.signal,
+  });
 
   return () => {
     controller.abort();
