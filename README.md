@@ -14,6 +14,9 @@
 
 This is a collection of skills I've curated from across the inter-webs.
 
+Browse the [public skill docs](https://doskills.edheltzel.codes/docs/).
+For site development, see [site/README.md](./site/README.md).
+
 [Skills.sh](https://skills.sh) is a good way to discover and install skills, but it lacks many features. This repo is my temporary solution for installing skills on a per-project and global basis for day-to-day work and personal projects. Many are from people I've copied, borrowed, improved, and modified to fit my use cases.
 
 **Suggestions**

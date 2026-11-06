@@ -37,16 +37,18 @@ calls returned `success: true`, and the readback still said
 | Project | `doskills` |
 | Source | GitHub `edheltzel/Do-Skills` (repo id `1249358413`), production branch `master` |
 | Build | `npm run build`, output `dist`, root `site`, build image v3 |
-| Env, production | `NODE_VERSION=22.12.0`, `SITE_URL=https://doskills.edheltzel.codes` |
-| Env, preview | `NODE_VERSION=22.12.0` |
+| Env, production | `NODE_VERSION=22.23.4`, `SITE_URL=https://doskills.edheltzel.codes` |
+| Env, preview | `NODE_VERSION=22.23.4` |
 | Compatibility date | `2026-10-29` |
 
-`NODE_VERSION` moves from `22` to `22.12.0` to match `site/.nvmrc` and the
-`>=22.12.0` engine that Nimbus requires. `SITE_URL` carries over.
+`NODE_VERSION` moves from `22` to `22.23.4` to match `site/.nvmrc`: the
+highest Node minimum in the lockfile (`@astrojs/prism >=22.23.4`).
+`SITE_URL` carries over.
 
 Shell setup for every step:
 
 ```bash
+set -euo pipefail
 API="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects"
 ZONE="https://api.cloudflare.com/client/v4/zones/bafd5eed99c0c3ccf2d2c22e09d49b34"
 H=(-H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json")
@@ -56,7 +58,31 @@ H=(-H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: applicatio
 
 The project `doskills` exists with production deployments off and previews
 only for the PR branch, so the real Pages build of `site/` is proven on a
-`*.doskills-*.pages.dev` preview URL before anything moves.
+preview URL before anything moves.
+
+Resolve the project's actual hostname with the read-only
+[Get project API](https://developers.cloudflare.com/api/resources/pages/subresources/projects/methods/get/).
+Cloudflare may append a suffix when a project name is taken, so do not infer
+the hostname from `doskills`. Run this before any cutover steps and keep the
+same shell open through cutover:
+
+```bash
+PAGES_SUBDOMAIN="$(
+  curl -fsS "${H[@]}" "$API/doskills" |
+    node --input-type=module -e '
+      let input = "";
+      for await (const chunk of process.stdin) input += chunk;
+      const { success, result } = JSON.parse(input);
+      if (!success || !/^[a-z0-9-]+\.pages\.dev$/.test(result?.subdomain)) process.exit(1);
+      process.stdout.write(result.subdomain);
+    '
+)" || exit 1
+printf '%s\n' "$PAGES_SUBDOMAIN" | tee doskills-pages-subdomain.txt
+```
+
+Keep `doskills-pages-subdomain.txt` with the cutover evidence. If the lookup
+fails, stop before changing either project or the domain. Both production
+verification and the DNS update below use this recorded value.
 
 ## Cutover (after approval)
 
@@ -68,7 +94,7 @@ only for the PR branch, so the real Pages build of `site/` is proven on a
    curl -sS -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -X POST "$API/doskills/deployments" -F branch=master
    ```
 
-   Verify the production `*.pages.dev` URL serves the landing page, `/docs/`,
+   Verify `https://$PAGES_SUBDOMAIN` serves the landing page, `/docs/`,
    assets, and a 404 before touching the domain.
 3. Stop the old project from deploying (its live deployment stays):
 
@@ -82,7 +108,7 @@ only for the PR branch, so the real Pages build of `site/` is proven on a
    ```bash
    curl -sS "${H[@]}" -X DELETE "$API/doskills-site/domains/doskills.edheltzel.codes"
    curl -sS "${H[@]}" -X POST "$API/doskills/domains" -d '{"name":"doskills.edheltzel.codes"}'
-   curl -sS "${H[@]}" -X PATCH "$ZONE/dns_records/b75952295e74f3230872815d08409e1e" -d '{"content":"<doskills subdomain>.pages.dev"}'
+   curl -sS "${H[@]}" -X PATCH "$ZONE/dns_records/b75952295e74f3230872815d08409e1e" -d "{\"content\":\"$PAGES_SUBDOMAIN\"}"
    curl -sS "${H[@]}" "$API/doskills/domains/doskills.edheltzel.codes"   # repeat until status is active
    ```
 

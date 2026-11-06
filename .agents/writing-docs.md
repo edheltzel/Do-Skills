@@ -14,7 +14,8 @@ Act whenever a promoted skill is added, renamed, moved, or has its behaviour cha
 
 ## Repo conventions
 
-This repo is **not** published to a website — pages are read on GitHub. So:
+Pages are read on GitHub and published by the [site build](../site/README.md).
+Keep the canonical Markdown suitable for both:
 
 - **Keep an H1** with the skill's title (GitHub renders it as the page heading).
 - **Links are repo-relative.** Within a group, link `./<name>.md`. To another
