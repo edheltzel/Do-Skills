@@ -1,13 +1,13 @@
 # Mermaid-Style Technical Diagrams with Excalidraw Aesthetic
 
 **Hand-drawn technical diagrams combining Mermaid structure with Excalidraw sketchy aesthetic and editorial color scheme.**
-Creates **EXCALIDRAW-STYLE MERMAID DIAGRAMS** — flowcharts, sequence diagrams, state machines, and other technical diagrams with whiteboard hand-drawn feel, derived from content via story explanation.
+Creates **EXCALIDRAW-STYLE MERMAID DIAGRAMS** — flowcharts, sequence diagrams, state machines, and other technical diagrams with a hand-drawn feel, derived from content via story explanation.
 
 ---
 
 ## Purpose
 
-The Mermaid workflow creates structured technical diagrams (like Mermaid.js generates) but with a **hand-drawn whiteboard aesthetic** (like Excalidraw) while maintaining **editorial color scheme**. Unlike generic technical diagrams, these follow specific diagram grammar (flowcharts, sequences, states, etc.) and are derived from content analysis, not hand-specified.
+The Mermaid workflow creates structured technical diagrams (like Mermaid.js generates) but with a **hand-drawn sketch aesthetic** (like Excalidraw) while maintaining **editorial color scheme**. Unlike generic technical diagrams, these follow specific diagram grammar (flowcharts, sequences, states, etc.) and are derived from content analysis, not hand-specified.
 
 **Use this workflow for:**
 - Flowcharts showing decision logic and process flows
@@ -85,14 +85,14 @@ main ──> feature branch ──> merged back ──> main
 
 ## Excalidraw Aesthetic Principles
 
-**Think:** Whiteboard sketch, not polished Visio diagram
+**Think:** Hand-drawn sketch, not polished Visio diagram
 
 ### Visual Characteristics
 1. **Wobbly boxes** — Rectangles with rough, hand-drawn edges (not perfect)
 2. **Sketchy arrows** — Arrows with slight wobble, not ruler-straight
 3. **Rough edges** — Everything has organic imperfection
 4. **Hand-lettered text** — Labels look handwritten, not typed
-5. **Whiteboard feel** — Looks like someone drew this on a whiteboard
+5. **Sketched feel** — Looks like someone drew this by hand
 6. **Variable line weight** — Heavier for boxes, lighter for arrows
 7. **Crossing-out style** — Double-line or rough crossing for connections
 
@@ -130,7 +130,7 @@ Charcoal #2D2D2D — All text labels and annotations
 
 ### Background
 ```
-Light Cream #F5E6D3 — Whiteboard/sketch paper feel
+Light Cream #F5E6D3 — Sketch paper feel
 OR
 White #FFFFFF — Clean background
 ```
@@ -328,7 +328,7 @@ CRITICAL PATH: [Start → Process 1 → Decision 1 → Process 2a → End]
 
 ### Step 4: Design Excalidraw-Style Layout
 
-**Plan the whiteboard sketch aesthetic:**
+**Plan the hand-drawn sketch aesthetic:**
 
 #### A. Spatial Arrangement
 - **Flowcharts:** Top-to-bottom or left-to-right flow
@@ -407,15 +407,15 @@ CONNECTION PATHS:
 ### Prompt Template
 
 ```
-Hand-drawn Mermaid [DIAGRAM TYPE] in Excalidraw whiteboard sketch style.
+Hand-drawn Mermaid [DIAGRAM TYPE] in Excalidraw sketch style.
 
-STYLE REFERENCE: Excalidraw whiteboard diagram, hand-drawn flowchart, sketchy technical diagram
+STYLE REFERENCE: Excalidraw diagram, hand-drawn flowchart, sketchy technical diagram
 
-BACKGROUND: [Light Cream #F5E6D3 / White #FFFFFF] — whiteboard/sketch paper feel
+BACKGROUND: [Light Cream #F5E6D3 / White #FFFFFF] — sketch paper feel
 
 AESTHETIC:
 - Excalidraw hand-drawn style (wobbly, sketchy, organic)
-- Whiteboard sketch quality (looks hand-drawn, not digital)
+- Hand-sketched quality (looks hand-drawn, not digital)
 - Rough edges on all shapes (rectangles not perfect, circles slightly oval)
 - Sketchy arrows (gentle curves, slight wobble, not ruler-straight)
 - Hand-lettered text labels (imperfect alignment, natural slant)
@@ -586,7 +586,7 @@ CRITICAL REQUIREMENTS:
 - Mermaid diagram structure ([chosen type] grammar)
 - editorial color scheme (purple for critical, teal for secondary, black structure)
 - 3-tier typography (title, node labels, edge labels)
-- Whiteboard sketch feel (not polished, not digital)
+- Hand-drawn sketch feel (not polished, not digital)
 - All shapes imperfect (rectangles wobbly, circles oval, arrows curved)
 - Variable line weight (thicker boxes, medium arrows, thin details)
 - Hand-lettered text (natural slant, imperfect alignment)
@@ -595,7 +595,7 @@ CRITICAL REQUIREMENTS:
 - Follows [Mermaid diagram type] conventions
 
 VALIDATION CHECKPOINTS:
-- Does it look hand-drawn on a whiteboard (not digital)?
+- Does it look hand-drawn (not digital)?
 - Are all geometric shapes imperfect (wobbly edges)?
 - Is the diagram type structure clear (flowchart/sequence/state/etc.)?
 - Can you follow the flow/logic/sequence easily?
@@ -679,7 +679,7 @@ open /path/to/mermaid-diagram.png
 - [ ] **Labels accurate:** Node and edge labels match content
 
 #### Excalidraw Aesthetic
-- [ ] **Hand-drawn feel:** Looks sketched on whiteboard
+- [ ] **Hand-drawn feel:** Looks sketched by hand
 - [ ] **Wobbly shapes:** No perfect rectangles/circles
 - [ ] **Sketchy arrows:** Organic curves, not ruler-straight
 - [ ] **Imperfect text:** Hand-lettered, natural slant
@@ -706,14 +706,14 @@ open /path/to/mermaid-diagram.png
 
 | Problem | Diagnosis | Fix |
 |---------|-----------|-----|
-| **Too polished/digital** | Missing Excalidraw aesthetic | Emphasize: "Wobbly rectangles, sketchy arrows, hand-drawn on whiteboard, imperfect shapes" |
+| **Too polished/digital** | Missing Excalidraw aesthetic | Emphasize: "Wobbly rectangles, sketchy arrows, hand-drawn, imperfect shapes" |
 | **Perfect geometry** | Shapes too clean | "All rectangles with rough edges, circles slightly oval, organic imperfection throughout" |
 | **Can't follow flow** | Unclear structure | Strengthen arrow directions, add labels, clarify critical path with purple |
 | **Labels unreadable** | Text too sketchy or small | Increase label size, simplify hand-lettering: "Readable hand-lettered style" |
 | **Wrong diagram type** | Doesn't match content | Return to Step 2, reconsider diagram type based on CSE |
 | **Missing Mermaid structure** | Doesn't follow conventions | Add proper diagram grammar: decision diamonds for flowcharts, lifelines for sequence, etc. |
 | **Color overload** | Too much purple/teal | Limit: "Purple on 2-3 critical nodes only, teal on 1-2 secondary, rest black" |
-| **Looks generic** | Missing the editorial palette or Excalidraw style | Combine both: "Excalidraw wobbly whiteboard sketch + purple/teal strategic accents" |
+| **Looks generic** | Missing the editorial palette or Excalidraw style | Combine both: "Excalidraw wobbly hand-drawn sketch + purple/teal strategic accents" |
 
 **Regeneration Process:**
 1. Identify specific validation failures
@@ -864,7 +864,7 @@ open /path/to/mermaid-diagram.png
 ### When to Use Mermaid Workflow
 - Content has inherent diagram structure (flow, sequence, states)
 - Need structured technical diagram (not freeform architecture)
-- Want hand-drawn whiteboard aesthetic (Excalidraw style)
+- Want hand-drawn sketch aesthetic (Excalidraw style)
 - Deriving diagram from content analysis (not manually specified)
 
 ### Mermaid vs Technical Diagrams
@@ -876,7 +876,7 @@ open /path/to/mermaid-diagram.png
 1. Run /cse (24-item story explanation) ← MANDATORY
 2. Determine diagram type (flowchart, sequence, state, etc.)
 3. Extract structure from CSE (nodes, edges, flows)
-4. Design Excalidraw layout (wobbly, sketchy, whiteboard)
+4. Design Excalidraw layout (wobbly, sketchy, hand-drawn)
 5. Construct comprehensive prompt
 6. Choose aspect ratio (based on diagram type)
 7. Generate with nano-banana-pro
@@ -886,7 +886,7 @@ open /path/to/mermaid-diagram.png
 ### Core Principles
 1. **CSE-driven:** Always derive from content analysis, never manually specify
 2. **Mermaid grammar:** Follow proper diagram type conventions
-3. **Excalidraw aesthetic:** Hand-drawn whiteboard sketch feel
+3. **Excalidraw aesthetic:** Hand-drawn sketch feel
 4. **editorial color scheme:** Strategic purple/teal, black structure
 5. **Readable imperfection:** Sketchy but clear
 
@@ -894,4 +894,4 @@ open /path/to/mermaid-diagram.png
 
 **The workflow: /cse → Diagram Type → Structure → Excalidraw Design → Prompt → Generate → Validate → Complete**
 
-**The synthesis: Mermaid structure + Excalidraw aesthetic + editorial style = Technical diagrams that feel like smart sketches on a whiteboard.**
+**The synthesis: Mermaid structure + Excalidraw aesthetic + editorial style = Technical diagrams that feel like smart hand-drawn sketches.**

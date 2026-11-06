@@ -135,7 +135,7 @@ Create a consistent, styled technical diagram using ALL of the styling guideline
 
 BACKGROUND: Pure Black #000000— absolutely NO grid lines, NO texture, completely clean black.
 
-STYLE: Architect aesthetic — like an architect artist did it on the whiteboard
+STYLE: Architect aesthetic — like an architect artist sketched it by hand
 
 TYPOGRAPHY (CRITICAL - use these exact font styles):
 
@@ -163,7 +163,7 @@ When you must use everyday objects to help the visual, use technically-drawn, no
 
 ## Overall look and feel
 
-The whole image should look like it was made on a whiteboard by an extremely talented artist with Architect training, using all the styling above. Like Excalidraw, but more Architect / Artistic.
+The whole image should look like it was hand-drawn by an extremely talented artist with Architect training, using all the styling above. Like Excalidraw, but more Architect / Artistic.
 
 All the art components, labels, and such should mostly look hand-drawn, similar to Excalidraw. But roughly in the style of our fonts.
 
