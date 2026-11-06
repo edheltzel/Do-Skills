@@ -12,7 +12,6 @@ import {
   getTOC,
   stripBase,
 } from "@cloudflare/nimbus-docs/runtime";
-import { components } from "../components";
 
 export const getStaticPaths = getDocsStaticPaths;
 
@@ -67,5 +66,5 @@ const socialImage = entry.data.socialImage ?? ogImageUrl;
   collection={entry.collection}
   entryId={entry.id}
 >
-  <Content components={components} />
+  <Content />
 </DocsLayout>

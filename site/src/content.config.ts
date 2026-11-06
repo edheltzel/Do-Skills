@@ -1,6 +1,6 @@
 import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
-import { docsCollection, partialsCollection } from "@cloudflare/nimbus-docs/content";
+import { docsCollection } from "@cloudflare/nimbus-docs/content";
 
 export const collections = {
   docs: defineCollection(
@@ -13,5 +13,4 @@ export const collections = {
       strictFrontmatter: false,
     }),
   ),
-  partials: defineCollection(partialsCollection()),
 };

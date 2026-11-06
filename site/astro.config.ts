@@ -60,6 +60,8 @@ export default defineConfig({
   },
   integrations: [
     nimbus(nimbusConfig, {
+      // The docs are plain .md from ../docs; there is no MDX to validate.
+      validateMdx: false,
       rules: {
         "nimbus/frontmatter-shape": "error",
         "nimbus/internal-link": "error",
