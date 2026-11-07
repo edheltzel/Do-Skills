@@ -17,3 +17,8 @@ x 2026-11-04 2026-11-04 Adapt elayadesign landing-page-design and redesign-exist
 x 2026-11-04 2026-11-04 PR 56: make Part B the default visual system so DESIGN.md wins +doskills id:pr56-partb note:/Users/ed/Developer/Atlas/DoSkills/docs/plans/2026-11-04-pr-56-feedback.md
 x 2026-11-04 2026-11-04 PR 56: add the promoted docs page for the landing skill +doskills id:pr56-docs dep:pr56-partb note:/Users/ed/Developer/Atlas/DoSkills/docs/plans/2026-11-04-pr-56-feedback.md
 x 2026-11-04 2026-11-04 PR 56: drop baseline-ui and create-design-md from the landing skill description +doskills id:pr56-names dep:pr56-partb note:/Users/ed/Developer/Atlas/DoSkills/docs/plans/2026-11-04-pr-56-feedback.md
+x 2026-11-04 2026-11-04 Merge PR 59 once a fresh review comes back low risk pr:https://github.com/edheltzel/Do-Skills/pull/59 +doskills id:pr59-merge
+2026-11-05 Change the README install section from npx skills add to Gap, keeping a short skills.sh note for outside users (GAP provisioner section 9 step 4) +doskills note:/Users/ed/Developer/Atlas/GAP/docs/plans/2026-10-20-gap-env-provisioner-plan.md
+x 2026-11-07 2026-11-06 Get approval on PR 60, then merge and move doskills.edheltzel.codes to the new doskills Pages site using docs/plans/2026-11-06-doskills-pages-cutover.md +doskills id:site-cutover pr:https://github.com/edheltzel/Do-Skills/pull/60
+x 2026-11-07 2026-11-06 After production is verified, update the doskills-site README, settle its PRs and issues, and archive edheltzel/doskills-site +doskills dep:site-cutover
+2026-11-06 Ask Nimbus for a source-transform hook so repo-relative folder links in docs/ also resolve in .md, .mdx, and llms-full.txt output (HTML is already fixed by site/src/lib/repo-links.ts) +doskills
