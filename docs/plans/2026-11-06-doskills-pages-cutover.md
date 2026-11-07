@@ -15,7 +15,17 @@ way to do it, and the API ignores it: on 2026-11-06 a scratch project
 calls returned `success: true`, and the readback still said
 `repo_name: doskills-site`, `repo_id: 1437772609`. The probe was deleted.
 
-## Current production (unchanged until cutover)
+## Status: cut over on 2026-11-07
+
+| Item | Value |
+| --- | --- |
+| Production project | `doskills`, live deployment `c14951ba` from `master` `8cfdf69` |
+| Custom domain | `doskills.edheltzel.codes` on `doskills`, active since 17:24:34 UTC, Google Trust Services certificate |
+| DNS | `CNAME doskills -> doskills.pages.dev`, proxied, record `b75952295e74f3230872815d08409e1e` |
+| Old project | `doskills-site`, production builds off, only `doskills-site.pages.dev`, rollback target `79ae52ec` |
+| Old repo | `edheltzel/doskills-site` archived |
+
+## Baseline before cutover (rollback target)
 
 | Item | Value |
 | --- | --- |
