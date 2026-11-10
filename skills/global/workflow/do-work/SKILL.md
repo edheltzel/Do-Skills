@@ -64,16 +64,20 @@ missing, skip this section and never call `plan` or `update_plan_step`.
 
 Publish only when the plan's last line is `Review complete`. Otherwise run the
 units with no panel. Approval stays with `do-plan`; this section does not
-repeat it.
+repeat its review.
 
 Before the first unit, call `plan` once:
 
 - `depth`: `"light"`.
 - `title`: the plan's topic, 2 to 6 words.
-- `context`: the `## Outcome` section.
+- `context`: the `## Outcome` section, then the plan's absolute path and
+  whether `mode:return-to-caller` was passed. In a plan-mode tab, add this
+  handoff: on Implement, resume `do-work` with that path and caller mode, reuse
+  this panel, and continue at Each unit without publishing again.
 - `files`: the union of every unit's `Files:`. `action` is `"create"` when the
-  path does not exist, otherwise `"modify"`. Never `"delete"`. Leave `symbols`
-  and `code_snippets` empty.
+  path does not exist, otherwise `"modify"`. Never `"delete"`. `description`
+  summarizes the owning units' changes. Leave `symbols` and `code_snippets`
+  empty.
 - `steps`: one step per unit, in listed order. One unit is one step. Never put
   the whole plan in one step.
   - `id`: `step-1`, `step-2`, and so on, matching U1, U2.
@@ -86,14 +90,27 @@ Before the first unit, call `plan` once:
   - Leave `edits` empty.
 - `verification`: every `Verify:` line.
 
-The required action immediately after `plan` returns is `update_plan_step` with
-`step-1` and status `"active"`, before any edit.
-
-If `plan` is rejected, including a plan under three files while the tab is not
-in plan mode, run the units with no panel. Do not switch the tab's mode. Do not
-stop the build.
-
 The markdown plan stays the source of truth. Never write status back into it.
+
+### Tab not in plan mode
+
+The required action immediately after `plan` returns is `update_plan_step` with
+`step-1` and status `"active"`, before any edit. Then run the units in the same
+turn.
+
+If `plan` is rejected, including a plan under three files, run the units with
+no panel. Do not tell the user to switch mode. Do not stop the build.
+
+### Tab already in plan mode
+
+The `plan` call ends the tool loop. Wait for Empryo's native Implement
+continuation, which restores write access and carries the context above.
+Resume this skill against the original markdown plan, reuse the panel, and call
+`update_plan_step` with `step-1` and status `"active"` before the first edit.
+Keep caller mode for the rest of the run.
+
+A rejected or cancelled plan, or a requested revision, does not build. Return
+`status: needs-human` with the reason and name `do-plan`.
 
 ## Each unit
 

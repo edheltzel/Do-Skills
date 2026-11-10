@@ -32,7 +32,9 @@ The skill finishes that unit and runs its check before starting the next. After 
 
 ## Inside Empryo
 
-In Empryo, a plan whose last line is `Review complete` also shows in Empryo's plan panel. Each unit is one step, its check is the unit's `Verify:` command, and the skill marks steps active, done, or skipped as it goes. The markdown plan stays the source of truth and gets no status written back. If Empryo refuses the panel, the build continues without it. Outside Empryo nothing changes.
+In Empryo, a plan whose last line is `Review complete` also shows in Empryo's plan panel. Each unit is one step, its check is the unit's `Verify:` command, and the skill marks steps active, done, or skipped as it goes. The markdown plan stays the source of truth and gets no status written back. Outside Empryo nothing changes.
+
+In a normal tab the build starts in the same turn. If Empryo refuses the panel, including a plan under three files, the build continues without it. In a tab already in plan mode, the skill publishes the panel and waits for Empryo's Implement action. A rejected, cancelled, or revised plan goes back to [plan](./plan.md) instead of building.
 
 ## It's working if
 
