@@ -118,7 +118,7 @@ flowchart LR
 | ------- | ------------------------------------------------------------- | ----------------------------------------------------------- |
 | Shape   | do-brainstorm → do-plan → do-doc-review                       | Approve or annotate the plan (in Plannotator, if installed) |
 | Build   | do-work → do-simplify → do-adversarial-review                 | Which review findings to fix                                |
-| Ship    | do-commit (commit, cp, cpp, land) → no-mistakes, if installed | Answer ask-user gates; say go before land                   |
+| Ship    | do-commit (commit, cp, cpp, land) → no-mistakes, if this repo was initialized | Answer ask-user gates; say go before land                   |
 | Respond | do-git-pr-review-triage → Build → Ship                        | Which comments to act on; approve replies before they post  |
 
 **Ways in.** New idea: `/do-brainstorm`. Known feature: `/do-plan`.

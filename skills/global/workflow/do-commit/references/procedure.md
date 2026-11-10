@@ -16,7 +16,7 @@ Never `grit commit` on a GitButler workspace (it refuses, `kind: gitbutler_works
 
 Push path only. Skip this section on the commit-only path.
 
-No Mistakes is in use when `command -v no-mistakes` succeeds **and** `git remote` lists `no-mistakes` (or `no-mistakes axi` shows this repo). Do not run `no-mistakes init` unless the user asked.
+No Mistakes is in use only when this repo was already initialized: `command -v no-mistakes` succeeds **and** `git remote` lists `no-mistakes` (or `no-mistakes axi` shows this repo). The binary alone is not enough. If the check fails, skip this section and publish with `but push` or `git push`. Do not run `no-mistakes init`, do not ask, and do not hold the push.
 
 When No Mistakes is in use:
 - GitButler still owns inspect and commit. Raw git still owns `git add` / `git commit` when GitButler is not in use.
