@@ -56,6 +56,45 @@ Before editing, read a unit's `Change:`, `Files:`, `Done when:` (plans), and
 `Files:` list. A feedback item without `Files:` may touch only the file it
 names.
 
+## Empryo plan panel
+
+Plans only, not feedback files. You are in Empryo only when the tools
+`final_response`, `genome_query` and `code_script` are all present. If any is
+missing, skip this section and never call `plan` or `update_plan_step`.
+
+Publish only when the plan's last line is `Review complete`. Otherwise run the
+units with no panel. Approval stays with `do-plan`; this section does not
+repeat it.
+
+Before the first unit, call `plan` once:
+
+- `depth`: `"light"`.
+- `title`: the plan's topic, 2 to 6 words.
+- `context`: the `## Outcome` section.
+- `files`: the union of every unit's `Files:`. `action` is `"create"` when the
+  path does not exist, otherwise `"modify"`. Never `"delete"`. Leave `symbols`
+  and `code_snippets` empty.
+- `steps`: one step per unit, in listed order. One unit is one step. Never put
+  the whole plan in one step.
+  - `id`: `step-1`, `step-2`, and so on, matching U1, U2.
+  - `label`: the unit name.
+  - `targetFiles`: the unit's `Files:`.
+  - `shell`: the unit's `Verify:` when that line is a single command, so the
+    check is part of the step.
+  - `details`: the unit's `Change:` and `Done when:`, then: touch only
+    targetFiles, run shell, and do not start the next step if it fails.
+  - Leave `edits` empty.
+- `verification`: every `Verify:` line.
+
+The required action immediately after `plan` returns is `update_plan_step` with
+`step-1` and status `"active"`, before any edit.
+
+If `plan` is rejected, including a plan under three files while the tab is not
+in plan mode, run the units with no panel. Do not switch the tab's mode. Do not
+stop the build.
+
+The markdown plan stays the source of truth. Never write status back into it.
+
 ## Each unit
 
 1. Implement that unit only. Match patterns already in the files it owns. A
@@ -70,6 +109,11 @@ names.
    installed. If it is not installed, say so and record what you could not see.
 
 A unit is done when its checks pass and its requirements show up in the diff.
+
+With the panel published, call `update_plan_step` for the unit's step:
+`"active"` before its first edit, `"done"` when its `Verify:` passes,
+`"skipped"` when the unit is skipped. A failed `Verify:` leaves the step
+active.
 
 ## After the last unit
 

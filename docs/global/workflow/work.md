@@ -30,6 +30,10 @@ The skill finishes that unit and runs its check before starting the next. After 
 
 `do-it` can start this skill with `mode:return-to-caller`. That run skips the menu and returns `done`, `blocked`, or `needs-human` plus the artifact path.
 
+## Inside Empryo
+
+In Empryo, a plan whose last line is `Review complete` also shows in Empryo's plan panel. Each unit is one step, its check is the unit's `Verify:` command, and the skill marks steps active, done, or skipped as it goes. The markdown plan stays the source of truth and gets no status written back. If Empryo refuses the panel, the build continues without it. Outside Empryo nothing changes.
+
 ## It's working if
 
 - Each unit's check passed before the next unit started.
