@@ -102,14 +102,14 @@ flowchart LR
     W[do-work] --> S[do-simplify] --> R[do-adversarial-review]
   end
   subgraph Ship
-    C[do-commit] --> N[no-mistakes] --> L[do-commit land]
+    C[do-commit] --> U[Publish] --> L[do-commit land]
   end
   subgraph Respond
     T[do-git-pr-review-triage]
   end
   D -->|you approve the plan| W
   R --> C
-  N -->|review comments| T
+  U -->|review comments| T
   T -->|accepted fixes| W
   G[do-debug] --> W
 ```
@@ -118,10 +118,8 @@ flowchart LR
 | ------- | ------------------------------------------------------------- | ----------------------------------------------------------- |
 | Shape   | do-brainstorm → do-plan → do-doc-review                       | Approve or annotate the plan (in Plannotator, if installed) |
 | Build   | do-work → do-simplify → do-adversarial-review                 | Which review findings to fix                                |
-| Ship    | do-commit (commit, cp, cpp, land) → no-mistakes, if this repo was initialized | Answer ask-user gates; say go before land                   |
+| Ship    | do-commit (commit, cp, cpp, land); [publication routing](./docs/global/workflow/commit.md#what-it-does) | Answer ask-user gates; say go before land                   |
 | Respond | do-git-pr-review-triage → Build → Ship                        | Which comments to act on; approve replies before they post  |
-
-An initialized repo with an unavailable No Mistakes gate is blocked; only uninitialized repos publish the normal way.
 
 **Ways in.** New idea: `/do-brainstorm`. Known feature: `/do-plan`.
 Bug: `/do-debug` (joins at Build). PR comments: `/do-git-pr-review-triage`.

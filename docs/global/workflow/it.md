@@ -16,7 +16,7 @@ npx skills update do-it
 
 `do-it` is the LFG runner: one explicit end-to-end ask, no menus, from the request to a shipped artifact. A feature goes plan, then build, then ship. A bug skips the plan and starts on the fix path.
 
-It stops for missing plan input, a debug rethink, a no-mistakes ask-user gate, or a blocked child. In an initialized repo, a missing No Mistakes binary or a gate that cannot run blocks publication. A repo that was never initialized ships with the normal push and PR. It never lands or merges. `/do-it commit` stops at a local commit instead of opening a PR.
+It stops for missing plan input, a debug rethink, a no-mistakes ask-user gate, or a blocked child. Shipping follows [commit's publication routing](./commit.md#what-it-does). It never lands or merges. `/do-it commit` stops at a local commit instead of opening a PR.
 
 ## When to reach for it
 

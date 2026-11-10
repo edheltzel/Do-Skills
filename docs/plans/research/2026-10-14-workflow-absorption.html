@@ -263,52 +263,7 @@ Reply with a number, the label, or what you want instead.</pre>
 
 <!-- 7 -->
 <h2>7. README draft: "The workflow (LFG)"</h2>
-<p class="sub">Goes after the skill catalog, before "Creating a Skill". Written for the human in the loop: what runs, and where you decide. GitHub renders the Mermaid block.</p>
-<div class="card">
-<pre class="tpl">## The workflow (LFG)
-
-One loop takes a change from idea to merged PR. Every step ends by naming the
-next one; pick it, pick another, or stop. `/do-it` runs the loop for you.
-
-```mermaid
-flowchart LR
-  subgraph Shape
-    B[do-brainstorm] --&gt; P[do-plan] --&gt; D[do-doc-review]
-  end
-  subgraph Build
-    W[do-work] --&gt; S[do-simplify] --&gt; R[do-adversarial-review]
-  end
-  subgraph Ship
-    C[do-commit] --&gt; N[no-mistakes] --&gt; L[do-commit land]
-  end
-  subgraph Respond
-    T[do-git-pr-review-triage]
-  end
-  D --&gt;|you approve the plan| W
-  R --&gt; C
-  N --&gt;|review comments| T
-  T --&gt;|accepted fixes| W
-  G[do-debug] --&gt; W
-```
-
-| Stage | Skills | You decide |
-|-------|--------|------------|
-| Shape | do-brainstorm → do-plan → do-doc-review | Approve or annotate the plan (in Plannotator, if installed) |
-| Build | do-work → do-simplify → do-adversarial-review | Which review findings to fix |
-| Ship | do-commit (commit, cp, cpp, land) → no-mistakes, if installed | Answer ask-user gates; say go before land |
-| Respond | do-git-pr-review-triage → Build → Ship | Which comments to act on; approve replies before they post |
-
-**Ways in.** New idea: `/do-brainstorm`. Known feature: `/do-plan`.
-Bug: `/do-debug` (joins at Build). PR comments: `/do-git-pr-review-triage`.
-
-**Run it all.** `/do-it` (LFG) runs Shape → Build → Ship without the menus and
-stops at an open PR with green CI. It still stops for decisions only you can
-make. Merging stays with you.
-
-**Step out.** `/do-handoff` from any stage writes a note to
-`docs/plans/handoffs/` and adds its open tasks to `todo.txt`, where `do-regroup`
-and `do-gh-pm` pick them up.</pre>
-</div>
+<p class="sub">The adopted workflow lives in <a href="../../../README.md#the-workflow-lfg">README.md</a>; see <a href="../../global/workflow/commit.md#what-it-does">commit's publication routing</a> for gate selection.</p>
 
 <p class="src">v4, 2026-10-14. Approve to lock the plan; annotate anything to revise.</p>
 </main>
