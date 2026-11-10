@@ -16,7 +16,7 @@ npx skills update do-commit
 
 `do-commit` turns the current local changes into a Conventional Commit. If `but` is on PATH and `but status` succeeds, it commits with `but commit` instead of `git add` / `git commit`. Otherwise it keeps the git commands.
 
-It never pushes unless the mode or the user asks. `/do-commit` ends after the commit. `cp` (or `push`) publishes. `cpp` also opens a PR. `land` merges, and only when you say go. On the push path, No Mistakes publishes with `no-mistakes axi run` only when this repo was already initialized (`git remote` lists `no-mistakes`, or `no-mistakes axi` shows this repo). The binary being installed is not enough. In a GitButler repo that is `--branch <name>` from the workspace, not a checkout. Only `checks-passed` or `passed` counts as done. A repo that was never initialized skips the gate and uses `but push` or `git push`.
+It never pushes unless the mode or the user asks. `/do-commit` ends after the commit. `cp` (or `push`) publishes. `cpp` also opens a PR. `land` merges, and only when you say go. On the push path, No Mistakes publishes with `no-mistakes axi run` only when this repo was already initialized (`git remote` lists `no-mistakes`, or `no-mistakes axi` shows this repo). The binary being installed is not enough. If initialized but the binary is missing or the gate cannot run, it reports a blocker without publishing. In a GitButler repo that is `--branch <name>` from the workspace, not a checkout. Only `checks-passed` or `passed` counts as done. A repo that was never initialized skips the gate and uses `but push` or `git push`.
 
 ## When to reach for it
 

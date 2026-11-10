@@ -37,7 +37,7 @@ grit does not replace these `but` verbs or the git safety steps here; it is an o
 
 ## No Mistakes
 
-No Mistakes is in use only when this repo was already initialized: `command -v no-mistakes` succeeds **and** `git remote` lists `no-mistakes` (or `no-mistakes axi` shows this repo). The binary alone is not enough. If the check fails, publish and open the PR the normal way. Do not run `no-mistakes init`, do not ask, and do not hold the push.
+No Mistakes is in use when this repo was already initialized: `git remote` lists `no-mistakes`, or `no-mistakes axi` shows this repo when the binary is available. Check the remote independently of `command -v no-mistakes`; the binary alone is not enough. In an initialized repo, a missing binary or a gate that cannot run is a blocker: stop without pushing, opening a PR, or syncing a live PR. Only an uninitialized repo publishes and opens the PR the normal way, without asking or holding the push. Do not run `no-mistakes init` or ask to initialize it.
 
 When No Mistakes is in use, the gate owns publication:
 - **Push, open PR, or sync a live PR:** `no-mistakes axi run --yes --intent "<what the user set out to accomplish>"`. In a GitButler repo, stay on the workspace and pass `--branch <name>`. Do not check out the branch. Reattach or `axi respond` if a run is already active. Do not `but push`, `but pr new`, `git push origin`, `gh pr create`, `axi sync`, or `--recover`.

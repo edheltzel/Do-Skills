@@ -121,6 +121,8 @@ flowchart LR
 | Ship    | do-commit (commit, cp, cpp, land) → no-mistakes, if this repo was initialized | Answer ask-user gates; say go before land                   |
 | Respond | do-git-pr-review-triage → Build → Ship                        | Which comments to act on; approve replies before they post  |
 
+An initialized repo with an unavailable No Mistakes gate is blocked; only uninitialized repos publish the normal way.
+
 **Ways in.** New idea: `/do-brainstorm`. Known feature: `/do-plan`.
 Bug: `/do-debug` (joins at Build). PR comments: `/do-git-pr-review-triage`.
 

@@ -26,7 +26,7 @@ Pick the mode from the argument (`/do-commit cpp`, or a caller passing `cpp`) or
 | Land | `land` | Commit, push, open a PR, land it. No Next. |
 
 - **Commit (default).** Any request that does not ask to push and passes no push mode. Do not push, do not run No Mistakes, and skip gates 4-5 and Step 5.
-- **Every other mode** runs the push path: No Mistakes when this repo was already initialized, otherwise the normal push, then gates 4-5, publish, and Step 5. `cpp` and `land` then run Step 6. If there is nothing uncommitted, skip the commit and publish existing commits.
+- **Every other mode** runs the push path: No Mistakes when this repo was already initialized, otherwise the normal push, then gates 4-5, publish, and Step 5. If initialized but the binary is missing or the gate cannot run, return `blocked` without publishing. `cpp` and `land` then run Step 6. If there is nothing uncommitted, skip the commit and publish existing commits.
 - **`land` only on the user's explicit go.** They typed `land` or picked it. A caller that passes `land` with `mode:return-to-caller` is not that go: return `status: needs-human` and do not merge.
 
 ## Caller
@@ -35,7 +35,7 @@ Pick the mode from the argument (`/do-commit cpp`, or a caller passing `cpp`) or
 
 - `done` - the mode finished (push path: Gate 5 passed).
 - `needs-human` - No Mistakes `ask-user`, `land` without an explicit go, or `but land` refused.
-- `blocked` - no feature branch, or push/PR failed.
+- `blocked` - no feature branch, an unavailable gate in an initialized repo, or push/PR failed.
 
 ## Related skills
 
