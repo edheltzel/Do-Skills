@@ -21,8 +21,8 @@ that it biases toward safety over elegance: it prefers reversible operations,
 merges `origin/main` into your feature branch instead of rebasing it, and reaches
 for `git revert` over rewriting history whenever commits may already be pushed.
 If GitButler is in use, those writes become `but pull`, `but resolve`, and
-`but push`; the git recipes stay as the fallback. When No Mistakes is initialized,
-that gate owns push, opening the PR, and catching up a live gated PR.
+`but push`; the git recipes stay as the fallback. Publication follows
+[commit's routing rules](./commit.md#what-it-does).
 
 ## When to reach for it
 
@@ -47,7 +47,7 @@ you're not a confident git user. It teaches the next decision, not the whole too
   the PR title as the final commit message.
 - **Refuse or warn hard** on committing to `main`, force-pushing protected
   branches, or `reset --hard` / `clean -fd` without a clear destructive request.
-- **No Mistakes owns publication.** If the repo has a `no-mistakes` remote, do not `git push origin`, `but push`, `but pr new`, or `gh pr create`. Drive `no-mistakes axi run`. In a GitButler repo, stay on the workspace and pass `--branch <name>`. Do not check out the branch, and do not run `axi sync` or `--recover`. Do not open a PR early. Do not merge `origin/main` onto a live gated PR. Do not treat the pipeline's guarded force-push as a user force-push. While a run is active, do not hand-rebase or edit findings yourself.
+- **Follow the gate's safety rules in enrolled repos.** The skill's [No Mistakes playbook](https://github.com/edheltzel/Do-Skills/blob/master/skills/global/workflow/do-git-safe-pr-workflow/SKILL.md#no-mistakes) owns publication, live PR sync, and GitButler constraints.
 
 Deeper playbooks live in the skill's `references/` — `conflict-resolution.md`,
 `recovery.md`, and `repo-settings.md`.
@@ -67,5 +67,4 @@ A reach-for-it-anytime standalone for the branch-to-merge lifecycle. It follows
 [git-worktree](./git-worktree.md), which sets up where a branch lives, and
 feeds [git-pr-review-triage](./git-pr-review-triage.md), which sorts the
 review comments once the PR is open. One-shot commit-and-publish is
-[commit](./commit.md) with `push`; both hand publication to No Mistakes when
-that gate is initialized.
+[commit](./commit.md) with `push`.

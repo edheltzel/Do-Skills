@@ -16,7 +16,9 @@ npx skills update do-commit
 
 `do-commit` turns the current local changes into a Conventional Commit. If `but` is on PATH and `but status` succeeds, it commits with `but commit` instead of `git add` / `git commit`. Otherwise it keeps the git commands.
 
-It never pushes unless the mode or the user asks. `/do-commit` ends after the commit. `cp` (or `push`) publishes. `cpp` also opens a PR. `land` merges, and only when you say go. On the push path, a live No Mistakes gate publishes with `no-mistakes axi run`. In a GitButler repo that is `--branch <name>` from the workspace, not a checkout. Only `checks-passed` or `passed` counts as done. Otherwise it uses `but push` or `git push`.
+It never pushes unless the mode or the user asks. `/do-commit` ends after the commit. `cp` (or `push`) publishes. `cpp` also opens a PR. `land` merges, and only when you say go.
+
+On the push path, No Mistakes runs only when this repo was already initialized (`git remote` lists `no-mistakes`, or `no-mistakes axi` shows this repo). The binary being installed is not enough. If initialized but the binary is missing or the gate cannot run, it reports a blocker without publishing. A repo that was never initialized skips the gate and uses `but push` or `git push`, without asking to initialize No Mistakes or running `no-mistakes init`. The skill's [No Mistakes procedure](https://github.com/edheltzel/Do-Skills/blob/master/skills/global/workflow/do-commit/references/procedure.md#no-mistakes) owns the command details.
 
 ## When to reach for it
 
@@ -30,7 +32,7 @@ Reach for it when local work should be recorded or published. For sync, conflict
 
 The first three gates always run, in order: understand the diff, draft a `type(scope): description` line, then verify the staged set before committing. The first line stays under 72 characters, imperative, with an optional body for why.
 
-The push path adds two gates. Gate 4 confirms a real feature branch, then either starts axi or pushes. In a GitButler repo with No Mistakes, that start is `axi run --branch <name>` from the workspace. Otherwise the checkout is the feature branch, not the default branch. Gate 5 passes only on axi `checks-passed` or `passed`, or on upstream sync when No Mistakes is not in use. A parked `ask-user` gate is blocked, not a ship. `passed-with-skips` is reported, not treated as publication.
+The push path adds two gates. Gate 4 confirms a real feature branch and follows the publication routing above. Gate 5 passes only on axi `checks-passed` or `passed` when the gate ran, or on upstream sync when No Mistakes is not in use. A parked `ask-user` gate is blocked, not a ship. `passed-with-skips` is reported, not treated as publication.
 
 ## Next
 
