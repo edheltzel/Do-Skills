@@ -47,6 +47,9 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 If you want to install for a specific agents, use the option flags ie: `-a
 claude-code ` or `-a claude-code -a pi`
 
+[`gap-utility.toml`](./gap-utility.toml) declares the skill names for GAP's
+`gap add` command and distro selection.
+
 ## Available Skills
 
 Skills are grouped by scope, then by group. The root table is an index; each scope and group README lists its skills.
@@ -162,6 +165,9 @@ description: A clear description of what this skill does and when to use it
 
 [Instructions for the agent go here]
 ```
+
+When adding, removing, or renaming a skill, update the `skills` list in
+[`gap-utility.toml`](./gap-utility.toml) to match the skill frontmatter names.
 
 After adding, moving, renaming, or changing a skill's behaviour or description, regenerate the catalog and re-sync its docs page (`docs/`, see [`.agents/writing-docs.md`](.agents/writing-docs.md)):
 
