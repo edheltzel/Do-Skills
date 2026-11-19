@@ -12,3 +12,7 @@ Thumbs.db
 
 # Node (in case any skills bundle scripts)
 node_modules/
+
+# Python
+__pycache__/
+*.pyc
