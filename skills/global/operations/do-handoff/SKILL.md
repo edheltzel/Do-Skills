@@ -14,7 +14,7 @@ A fresh agent should orient from artifacts, not from a retelling. Bare invocatio
 
 ## Create
 
-Write `docs/plans/handoffs/YYYY-MM-DD-<topic>.md`. If the project `AGENTS.md` names another handoff directory, use that. Date is the request date. Slug is a few hyphenated words. Do not overwrite; on collision add `-2`, then `-3`.
+Write `docs/plans/handoffs/YYYY-MM-DD-<topic>.md` in the main checkout (the clone itself), never in a linked worktree. If the project `AGENTS.md` names another handoff directory, use that. Date is the request date. Slug is a few hyphenated words. Do not overwrite; on collision add `-2`, then `-3`.
 
 Pointer-first. Link plans, issues, diffs, and files. For each link, one line on what matters there (add a line range when it helps). Do not paste those documents. Redact secrets and credentials. Say whether a decision was the user's or yours.
 

@@ -34,8 +34,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 | [`do-git-pr-review-triage`](./do-git-pr-review-triage/) | Triage pull-request review comments into accepted fixes and drafted replies. |
 | [`do-git-pr-takeover`](./do-git-pr-takeover/) | Take over and finish an existing PR, branch, agent thread or do-handoff note while preserving contributor credit. |
 | [`do-git-safe-pr-workflow`](./do-git-safe-pr-workflow/) | Safe GitHub pull request workflow for low-experience Git users. |
-| [`do-git-worktree`](./do-git-worktree/) | Isolate parallel work as GitButler lanes in the primary checkout, never as native git worktrees. |
-| [`do-grit`](./do-grit/) | Opt-in use of the grit CLI (GitButler's Rust Git client) for read-oriented, JSON-safe inspection (status, log, diff) when grit is installed and the user or repo asks for it. |
+| [`do-git-worktree`](./do-git-worktree/) | Create, remove, list, and prune git worktrees as sibling folders (`../<repo>-<name>`). |
 | [`do-it`](./do-it/) | LFG runner. |
 | [`do-plan`](./do-plan/) | Implementation plan as ordered units, each with a verification check. |
 | [`do-readme-update`](./do-readme-update/) | Bring a repository's README back in line with the code. |

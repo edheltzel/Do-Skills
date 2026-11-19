@@ -83,7 +83,7 @@ J=(-H "Content-Type: application/json")
    Repeat the status command until it reports `active`.
 
 5. Verify on `https://doskills.edheltzel.codes`: landing page, `/docs/`,
-   `/docs/do-grit/` compatibility page, both slashless URLs, a docs page,
+   both slashless URLs, a docs page,
    images, code blocks, install links, `/og.png`, `/sitemap-index.xml`,
    404 status, HTTPS certificate, desktop and mobile.
 6. Only then: update the `doskills-site` README, settle its open issues and

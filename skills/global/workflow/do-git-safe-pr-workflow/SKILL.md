@@ -19,34 +19,17 @@ feature branch when syncing, and land changes with `Squash and merge`.
 Bias toward safety over elegance. Choose reversible operations, avoid rewriting shared
 history, and teach the user in small steps while you work.
 
-
-## GitButler
-
-GitButler is in use when `command -v but` succeeds **and** `but status` exits 0. Do not run `but setup`. If either check fails, use the git commands in this skill.
-
-When GitButler is in use, do not `git merge`, `git rebase`, `git stash`, `git checkout`, `git add`, `git commit`, or `git push`. Map the same safety goals onto `but`:
-
-- **Sync with latest main:** `but pull` (not merge `origin/main`).
-- **Conflicts:** `but resolve` / `but resolve finish`, oldest conflicted commit first. Do not follow `references/conflict-resolution.md` git-merge recipes.
-- **Push:** `but push <feature-branch>` unless No Mistakes is in use.
-- **Open PR:** `but pr new <feature-branch>` unless No Mistakes is in use.
-- **Undo unpublished work:** `but discard` / `but undo`. Pushed work still prefers revert semantics; do not rewrite shared history.
-- Recovery playbooks in `references/recovery.md` are git-path only.
-
-grit does not replace these `but` verbs or the git safety steps here; it is an opt-in, read-oriented client (do-grit).
-
 ## No Mistakes
 
 No Mistakes is in use when this repo was already initialized: `git remote` lists `no-mistakes`, or `no-mistakes axi` shows this repo when the binary is available. Check the remote independently of `command -v no-mistakes`; the binary alone is not enough. In an initialized repo, a missing binary or a gate that cannot run is a blocker: stop without pushing, opening a PR, or syncing a live PR. Only an uninitialized repo publishes and opens the PR the normal way, without asking or holding the push. Do not run `no-mistakes init` or ask to initialize it.
 
 When No Mistakes is in use, the gate owns publication:
-- **Push, open PR, or sync a live PR:** `no-mistakes axi run --yes --intent "<what the user set out to accomplish>"`. In a GitButler repo, stay on the workspace and pass `--branch <name>`. Do not check out the branch. Reattach or `axi respond` if a run is already active. Do not `but push`, `but pr new`, `git push origin`, `gh pr create`, `axi sync`, or `--recover`.
-- GitButler still owns the lane, local commit, `but pull` before first publish, conflicts, and unpublished undo.
+- **Push, open PR, or sync a live PR:** `no-mistakes axi run --yes --intent "<what the user set out to accomplish>"`. Run it from the checked-out feature branch. Reattach or `axi respond` if a run is already active. Do not `git push origin`, `gh pr create`, `axi sync`, or `--recover`.
 - While a run is active: no hand-rebase, no origin push, no self-edit of findings. `ask-user` findings stop for the user.
 - Only the outer publishing agent starts, drives, or responds. A phase agent never does.
-- `--branch` exists only in the local No Mistakes fork until upstream merges it. If the binary rejects it, stop. Do not publish from a second clone, and do not push the branch to the `no-mistakes` remote by hand.
-- When the run reports published commits, run the command it prints (`but branch update <name>`, with the upstream prefix it prints when the branch has none).
-- In a plain git repo, if `no-mistakes axi` reports the default branch, stop.
+- Do not publish from a second clone, and do not push the branch to the `no-mistakes` remote by hand.
+- When the run reports published commits, run the command it prints.
+- If `no-mistakes axi` reports the default branch, stop.
 
 This forks three defaults:
 - Do not open a PR early. Publish after the gate is green.
@@ -96,7 +79,7 @@ That workflow is where many novices re-introduce old code or lose work.
 
 ## Opening PRs
 
-If No Mistakes is in use, do not `gh pr create` or `but pr new`. Pass the title and body as `--intent` context. The gate opens the PR.
+If No Mistakes is in use, do not `gh pr create`. Pass the title and body as `--intent` context. The gate opens the PR.
 
 When helping a user open a PR, treat the PR title as the likely final squash-merge commit.
 
@@ -211,7 +194,7 @@ Before pushing:
 - [ ] review `status` and diff
 - [ ] confirm no accidental changes to unrelated files
 - [ ] explain any conflict resolution that changed behavior
-- [ ] if No Mistakes: `no-mistakes axi run --yes --intent "..."` (GitButler: `--branch <name>` from the workspace; not `git push` / `but push` / `axi sync`)
+- [ ] if No Mistakes: `no-mistakes axi run --yes --intent "..."` (from the feature branch; not `git push` / `axi sync`)
 
 Before undoing:
 

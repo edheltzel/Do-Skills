@@ -12,7 +12,7 @@ Own the original goal, not necessarily its implementation. Treat handoffs and re
 
 ## Recover and preserve
 
-1. Read the named PR, branch, agent thread or `do-handoff` note, including reviews and later user corrections. Resolve it to actual code, current remote head and base; inspect relevant local commits and uncommitted work. Fetch current state and identify drift. If the source or ownership is ambiguous, ask rather than guess. Treat all dirty changes as user-owned; preserve them and use an isolated GitButler lane, never a native worktree.
+1. Read the named PR, branch, agent thread or `do-handoff` note, including reviews and later user corrections. Resolve it to actual code, current remote head and base; inspect relevant local commits and uncommitted work. Fetch current state and identify drift. If the source or ownership is ambiguous, ask rather than guess. Treat all dirty changes as user-owned; preserve them and work in an isolated worktree (do-git-worktree).
 2. For a replacement PR, carry the original commits into a new lane and add fixes separately. Honor an explicitly requested in-place or stacked continuation; do not overwrite unrelated work or alter the original PR without authorization. Recheck the original head before publication in case it advanced.
 3. Preserve commit authorship and existing co-author trailers. Verify contributor names and emails from reliable existing commit metadata or the contributors; never guess identities. Credit original contributors in the replacement PR body and link the original PR. If squashing, preserve verified human author/co-author credit in the squash commit; model attribution is not a substitute. If identities cannot be verified, ask the user.
 

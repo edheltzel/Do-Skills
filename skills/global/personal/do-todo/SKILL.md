@@ -21,7 +21,7 @@ Agents: use the CLI with `--json`, never the TUI. A running TUI reloads external
 
 tuxedo opens one file per run, has no daemon, and never merges files. So the lists are split, and the global list routes to the local ones.
 
-- **Local list**: `<repo root>/todo.txt` (history in its `done.txt`) owns that project's tasks. Tag each line `+<project>`, the lowercased basename of the repo root.
+- **Local list**: `<repo root>/todo.txt` (history in its `done.txt`) owns that project's tasks. Tag each line `+<project>`, the lowercased basename of the repo root. The repo root is the main checkout (the clone itself), never a linked worktree.
 - **Global list**: `$HOME/todo.txt` holds personal and cross-project tasks, plus one **route** per active project:
 
   ```

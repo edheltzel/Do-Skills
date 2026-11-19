@@ -60,7 +60,7 @@ Rules:
 | Check for updates | `npx @cloudflare/nimbus-docs outdated` — starter files behind their tag + registry components behind. |
 | Upgrade Nimbus | Update the package, then run `npx @cloudflare/nimbus-docs migrate --dry-run --diff`. Review every change and required manual step before applying. |
 | Upgrade a starter file | `npx @cloudflare/nimbus-docs diff <file>` to review, `diff --apply <file>` to pull a clean upstream change. |
-| Upgrade a registry component | `npx @cloudflare/nimbus-docs add <slug> --overwrite`, then review with GitButler. Components you edited are kept and listed. To compare one with upstream, commit when authorized, run the `--overwrite --yes` command it prints, and review the diff; unless the user decided to keep the overwrite, use GitButler to undo only that run's changes, including `nimbus.json`, while preserving unrelated work. |
+| Upgrade a registry component | `npx @cloudflare/nimbus-docs add <slug> --overwrite`, then review with `git diff`. Components you edited are kept and listed. To compare one with upstream, commit when authorized, run the `--overwrite --yes` command it prints, and review the diff; unless the user decided to keep the overwrite, restore only that run's files with `git restore <paths>`, including `nimbus.json`, while preserving unrelated work. |
 
 Sätteri is Nimbus's default Markdown and MDX processor. Extend it using `markdown.mdastPlugins` for Markdown AST transformations or `markdown.hastPlugins` for HTML AST transformations.
 If the site replaces Sätteri with another processor, set `admonitions: false` and keep that processor's existing callout implementation.
