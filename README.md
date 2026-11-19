@@ -106,14 +106,14 @@ flowchart LR
     W[do-work] --> S[do-simplify] --> R[do-adversarial-review]
   end
   subgraph Ship
-    C[do-commit] --> U[Publish] --> L[do-commit land]
+    C[do-commit] --> U[Publish] --> K[do-git-pr-babysit] --> L[do-commit land]
   end
   subgraph Respond
-    T[do-git-pr-review-triage]
+    T[do-git-pr-review-triage] --> M[do-git-pr-comment]
   end
   D -->|you approve the plan| W
   R --> C
-  U -->|review comments| T
+  K -->|review comments| T
   T -->|accepted fixes| W
   G[do-debug] --> W
 ```
@@ -122,15 +122,17 @@ flowchart LR
 | ------- | ------------------------------------------------------------- | ----------------------------------------------------------- |
 | Shape   | do-brainstorm → do-plan → do-doc-review                       | Approve or annotate the plan (in Plannotator, if installed) |
 | Build   | do-work → do-simplify → do-adversarial-review                 | Which review findings to fix                                |
-| Ship    | do-commit (commit, cp, cpp, land); [publication routing](./docs/global/workflow/commit.md#what-it-does) | Answer ask-user gates; say go before land                   |
-| Respond | do-git-pr-review-triage → Build → Ship                        | Which comments to act on; approve replies before they post  |
+| Ship    | do-commit (commit, cp, cpp, land) → do-git-pr-babysit; [publication routing](./docs/global/workflow/commit.md#what-it-does) | Answer ask-user gates; say go before land                   |
+| Respond | do-git-pr-review-triage → Build → Ship; replies via do-git-pr-comment | Which comments to act on; approve replies before they post  |
 
 **Ways in.** New idea: `/do-brainstorm`. Known feature: `/do-plan`.
 Bug: `/do-debug` (joins at Build). PR comments: `/do-git-pr-review-triage`.
+Someone else's PR: `/do-git-pr-review`. Stale PR: `/do-git-pr-modernize`.
+Unfinished PR or handoff: `/do-git-pr-takeover`. Second opinions: `/do-council`.
 
 **Run it all.** `/do-it` (LFG) runs Shape → Build → Ship without the menus and
-stops at an open PR with green CI. It still stops for decisions only you can
-make. Merging stays with you.
+watches the PR with `do-git-pr-babysit` until it is ready to merge. It still
+stops for decisions only you can make. Merging stays with you.
 
 **Step out.** `/do-handoff` from any stage writes a note to
 `docs/plans/handoffs/` and adds its open tasks to `todo.txt`, where `do-regroup`
