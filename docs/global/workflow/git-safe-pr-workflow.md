@@ -20,8 +20,7 @@ that keeps `main` clean without demanding fluent git. The defining constraint is
 that it biases toward safety over elegance: it prefers reversible operations,
 merges `origin/main` into your feature branch instead of rebasing it, and reaches
 for `git revert` over rewriting history whenever commits may already be pushed.
-If GitButler is in use, those writes become `but pull`, `but resolve`, and
-`but push`; the git recipes stay as the fallback. Publication follows
+Publication follows
 [commit's routing rules](./commit.md#what-it-does).
 
 ## When to reach for it
@@ -47,7 +46,7 @@ you're not a confident git user. It teaches the next decision, not the whole too
   the PR title as the final commit message.
 - **Refuse or warn hard** on committing to `main`, force-pushing protected
   branches, or `reset --hard` / `clean -fd` without a clear destructive request.
-- **Follow the gate's safety rules in enrolled repos.** The skill's [No Mistakes playbook](https://github.com/edheltzel/Do-Skills/blob/master/skills/global/workflow/do-git-safe-pr-workflow/SKILL.md#no-mistakes) owns publication, live PR sync, and GitButler constraints.
+- **Follow the gate's safety rules in enrolled repos.** The skill's [No Mistakes playbook](https://github.com/edheltzel/Do-Skills/blob/master/skills/global/workflow/do-git-safe-pr-workflow/SKILL.md#no-mistakes) owns publication and live PR sync.
 
 Deeper playbooks live in the skill's `references/` — `conflict-resolution.md`,
 `recovery.md`, and `repo-settings.md`.

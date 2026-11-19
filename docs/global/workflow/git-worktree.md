@@ -14,9 +14,11 @@ npx skills update do-git-worktree
 
 ## What it does
 
-The global policy forbids native git worktrees. When you ask for a worktree, a
-separate workspace, or parallel branches, this skill gives you a GitButler lane in
-the primary checkout instead. It never runs `git worktree add`.
+When you ask for a worktree, a separate workspace, or parallel branches, this
+skill creates a linked git worktree inside the main checkout, at
+`.worktrees/<name>` (the branch name with `/` turned into `-`), one branch per
+worktree. `.worktrees/` is ignored through the repo's local exclude file. Repo-level files such as
+`todo.txt` and handoffs stay in the main checkout.
 
 ## When to reach for it
 
@@ -26,16 +28,12 @@ feature.
 
 ## Operations
 
-- **New lane**: `but branch new <branch>`, then `but commit -b <branch>` with the
-  file and hunk IDs from `but diff`.
-- **Open an existing branch**: `but apply <branch>`.
-- **Park a lane**: `but unapply <branch>`. The branch ref stays.
-- **List lanes**: `but status`.
-
-If the repo is not in GitButler mode, the agent asks before `but setup`. If you
-decline, it works one plain branch at a time. It never falls back to a worktree.
-`git worktree list` stays allowed, and an old worktree with uncommitted changes is
-named to you, never removed.
+- **Create**: `git worktree add -b <branch> .worktrees/<name>` (drop `-b` for an
+  existing branch). The agent prints the new path so you can open a session there.
+- **Remove**: `git worktree remove .worktrees/<name>`. A worktree with uncommitted
+  changes is named to you before any `--force`.
+- **List**: `git worktree list`.
+- **Prune**: `git worktree prune` clears records of deleted worktree folders.
 
 ## Where it fits
 

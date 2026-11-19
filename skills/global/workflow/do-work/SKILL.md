@@ -20,9 +20,9 @@ re-verified, and the run either returns to its caller or offers the Next block.
 ## Stay here
 
 Work in the current checkout. Do not create a branch, add a worktree, run a
-unit-workspace script, commit, push, or open a PR. GitButler owns branches.
+unit-workspace script, commit, push, or open a PR.
 Commits happen only when the user picks `do-commit`.
-Git changes go through do-commit (`git` / `but`). grit is opt-in only (do-grit), never the default.
+Git changes go through do-commit.
 
 Edit only files the unit owns. Leave other dirty files alone. If a unit needs
 a file that already has unrelated edits, stop that unit and return

@@ -5,7 +5,7 @@ description: >-
   commit, push, ship, or open a PR, or when a do-* hand-off names do-commit
   with a mode (commit, cp, cpp, land). Never pushes unless the mode or the
   user asks. NOT FOR sync, conflicts, or undo (do-git-safe-pr-workflow),
-  stacked PRs (do-gh-stack), or review-comment triage (do-git-pr-review-triage), grit (do-grit).
+  stacked PRs (do-gh-stack), or review-comment triage (do-git-pr-review-triage).
 ---
 
 # Commit
@@ -34,7 +34,7 @@ Pick the mode from the argument (`/do-commit cpp`, or a caller passing `cpp`) or
 `do-it`, `do-work`, and `do-debug` may call this with a mode. `mode:return-to-caller` (used by `do-it` and `do-work`) skips Next. Return `status: done | blocked | needs-human` plus the artifact: the PR URL if this run opened or reused one, otherwise the commit SHA.
 
 - `done` - the mode finished (push path: Gate 5 passed).
-- `needs-human` - No Mistakes `ask-user`, `land` without an explicit go, or `but land` refused.
+- `needs-human` - No Mistakes `ask-user`, `land` without an explicit go, or `gh pr merge` refused (protected branch, missing approval).
 - `blocked` - no feature branch, an unavailable gate in an initialized repo, or push/PR failed.
 
 ## Related skills

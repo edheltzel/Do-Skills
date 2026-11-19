@@ -69,19 +69,19 @@ omp loads `.omp-plugin/marketplace.json` and root `skills/`. `.pi/extensions/com
 
 Portable: `SKILL.md`, `references/*.md`, persona prompts pasted into a generic subagent (`CONCEPTS.md:16-17`). Not portable: `skills/*/scripts/` (60 files, 49,532 lines) — `pr-snapshot`, `unit-workspace*.py`, cross-model shells — which need `git`, `gh`, and Python 3. `allowed-tools` (`skills/ce-resolve-pr-feedback/SKILL.md:5`) is Claude-only (`README.md:273`).
 
-## 4. Git and worktree vs GitButler
+## 4. Git and worktree conflicts
 
-`do-commit` is `disable-model-invocation: true` and uses GitButler, pushing only when asked (`skills/global/workflow/do-commit/SKILL.md:3-9`). `ce-commit` has no such flag (`skills/ce-commit/SKILL.md:2-3`), so "commit" shadows it.
+`do-commit` is `disable-model-invocation: true` and uses plain git, pushing only when asked (`skills/global/workflow/do-commit/SKILL.md:3-9`). `ce-commit` has no such flag (`skills/ce-commit/SKILL.md:2-3`), so "commit" shadows it.
 
 | Assumption | Where | Conflict |
 | --- | --- | --- |
-| `git checkout -b` on default or detached HEAD, no ask | `skills/ce-commit/SKILL.md:34` | `but` owns the branch. A raw checkout misses the applied stack. |
-| `git fetch` then `git checkout --no-overwrite-ignore -b`, or `git checkout -b` if fetch fails | `skills/ce-commit-push-pr/references/branch-creation.md:10,34,44`; detached: `references/context.md:33` | Same. Unpushed-commit question (`:24`) is a git-ref question, not a but question. |
-| `git push -u origin HEAD` | `references/commit-and-push.md:23` | Not `but` push. Publishes the whole branch. CE warns (`skills/ce-debug/SKILL.md:113`, `skills/ce-work/references/shipping-workflow.md:67`) and still pushes. |
-| `gh pr create --title ... --body-file` | `references/apply-and-handoff.md:75` | PR spans every branch commit (`skills/ce-debug/SKILL.md:113`). A but workspace often has unrelated applied work. |
+| `git checkout -b` on default or detached HEAD, no ask | `skills/ce-commit/SKILL.md:34` | `do-commit` owns branch creation. A silent checkout skips the ask. |
+| `git fetch` then `git checkout --no-overwrite-ignore -b`, or `git checkout -b` if fetch fails | `skills/ce-commit-push-pr/references/branch-creation.md:10,34,44`; detached: `references/context.md:33` | Same. Unpushed-commit question (`:24`) is a git-ref question. |
+| `git push -u origin HEAD` | `references/commit-and-push.md:23` | Bypasses `do-commit` push gates. Publishes the whole branch. CE warns (`skills/ce-debug/SKILL.md:113`, `skills/ce-work/references/shipping-workflow.md:67`) and still pushes. |
+| `gh pr create --title ... --body-file` | `references/apply-and-handoff.md:75` | PR spans every branch commit (`skills/ce-debug/SKILL.md:113`). The branch can carry unrelated work. |
 | Feature branch from `origin/HEAD`; worktree only if the user asked | `skills/ce-work/references/workspace-setup.md:17-21` | Branch create still conflicts. Cross-model path ignores the ask. |
-| `git worktree add --detach`; later `git worktree remove --force` | `skills/ce-work/scripts/unit_workspace_jobs.py:281`; `unit_workspace_lifecycle.py:955` | Native worktree on the external-model route. |
-| Harness worktree, else `git worktree add -b ... .worktrees/<branch>` and `git worktree add` for a PR | `skills/ce-worktree/SKILL.md:37-50` | The skill's job. Drop it. omp `task` worktree isolation (`docs/specs/omp.md:83`) is the harness, not a reason to keep it. |
+| `git worktree add --detach`; later `git worktree remove --force` | `skills/ce-work/scripts/unit_workspace_jobs.py:281`; `unit_workspace_lifecycle.py:955` | Worktree outside the `do-git-worktree` `.worktrees/<name>` layout. |
+| Harness worktree, else `git worktree add -b ... .worktrees/<branch>` and `git worktree add` for a PR | `skills/ce-worktree/SKILL.md:37-50` | Overlaps `do-git-worktree`. Drop it. omp `task` worktree isolation (`docs/specs/omp.md:83`) is the harness, not a reason to keep it. |
 | `git checkout -b` on the default branch; pipeline pushes the fix | `skills/ce-debug/SKILL.md:78`; `references/pipeline-mode.md:14` | Auto-branch and auto-push, then `ce-commit-push-pr` (`SKILL.md:116`). |
 | A `git remote` means `ce-commit-push-pr mode:pipeline`, then babysit | `skills/lfg/SKILL.md:45,55-57` | `lfg` creates no worktree. A remote counts as permission to publish. |
 | Checkout must be the PR head branch; commit, push, reply, and resolve are pre-authorized | `skills/ce-babysit-pr/references/setup.md:21`; `references/envelope.md:38-42` | Needs a git checkout and push rights. GitHub only (`skills/ce-resolve-pr-feedback/SKILL.md:34`). |
@@ -100,12 +100,12 @@ Port means a short skill with the outcome and the hand-off, not a file copy.
 
 | Skill (uses) | Verdict | Target | Change |
 | --- | --- | --- | --- |
-| ce-commit-push-pr (27) | Drop | — | `do-commit` already ships via `but`. |
+| ce-commit-push-pr (27) | Drop | — | `do-commit cpp` already ships. |
 | ce-commit (26) | Drop | — | The shadow. Uninstall removes it. |
 | ce-code-review (18) | Merge | `skills/global/core/do-adversarial-review` | Report-only; caller applies. Reuse `do-red-team`, `do-behavioral-testing`, `do-design-patterns-gof`. No persona copy. |
 | ce-plan (17) | Port | `skills/global/workflow/do-plan` | Units and verification under `docs/plans/`. No elevation, HTML, or research farm. |
 | ce-work (17) | Port | `skills/global/workflow/do-work` | Current checkout only. No branch, no worktree, no `unit-workspace.py`. End at `/do-commit`. |
-| ce-babysit-pr (17) | Drop | — | Auto-push and "checkout is the PR branch" do not survive `but`. |
+| ce-babysit-pr (17) | Drop | — | Auto-push does not survive `do-commit` push gates. |
 | ce-debug (16) | Port | `skills/global/workflow/do-debug` | Keep the three-way gate. No `git checkout -b`, no auto-push. |
 | lfg (12) | Port | `skills/global/operations/do-lfg` | User-invoked. Plan, work, simplify, review, then print `/do-commit`. |
 | ce-simplify-code (11) | Merge | `skills/global/core/do-simplify` | Reuse, quality, efficiency. Do not thin a safety check. Leave ponytail and pstack. |

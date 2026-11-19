@@ -14,11 +14,11 @@ npx skills update do-commit
 
 ## What it does
 
-`do-commit` turns the current local changes into a Conventional Commit. If `but` is on PATH and `but status` succeeds, it commits with `but commit` instead of `git add` / `git commit`. Otherwise it keeps the git commands.
+`do-commit` turns the current local changes into a Conventional Commit. It commits with `git add` / `git commit`.
 
 It never pushes unless the mode or the user asks. `/do-commit` ends after the commit. `cp` (or `push`) publishes. `cpp` also opens a PR. `land` merges, and only when you say go.
 
-On the push path, No Mistakes runs only when this repo was already initialized (`git remote` lists `no-mistakes`, or `no-mistakes axi` shows this repo). The binary being installed is not enough. If initialized but the binary is missing or the gate cannot run, it reports a blocker without publishing. A repo that was never initialized skips the gate and uses `but push` or `git push`, without asking to initialize No Mistakes or running `no-mistakes init`. The skill's [No Mistakes procedure](https://github.com/edheltzel/Do-Skills/blob/master/skills/global/workflow/do-commit/references/procedure.md#no-mistakes) owns the command details.
+On the push path, No Mistakes runs only when this repo was already initialized (`git remote` lists `no-mistakes`, or `no-mistakes axi` shows this repo). The binary being installed is not enough. If initialized but the binary is missing or the gate cannot run, it reports a blocker without publishing. A repo that was never initialized skips the gate and uses `git push`, without asking to initialize No Mistakes or running `no-mistakes init`. The skill's [No Mistakes procedure](https://github.com/edheltzel/Do-Skills/blob/master/skills/global/workflow/do-commit/references/procedure.md#no-mistakes) owns the command details.
 
 ## When to reach for it
 
@@ -26,7 +26,7 @@ Type `/do-commit`, or the agent reaches for it when you say commit, push, ship, 
 
 Reach for it when local work should be recorded or published. For sync, conflicts, or undo, use [git-safe-pr-workflow](./git-safe-pr-workflow.md). For review comments, use [git-pr-review-triage](./git-pr-review-triage.md). Dependent PRs belong in [gh-stack](./gh-stack.md).
 
-`/do-commit cp` is commit and push. `/do-commit cpp` also opens a PR. `/do-commit land` then runs `but land` (or `gh pr merge` when GitButler is not in use or `but land` is rejected). Land does not run because a caller asked.
+`/do-commit cp` is commit and push. `/do-commit cpp` also opens a PR. `/do-commit land` then runs `gh pr merge`. Land does not run because a caller asked.
 
 ## The gates
 
