@@ -34,7 +34,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 | [`do-git-pr-review-triage`](./do-git-pr-review-triage/) | Triage pull-request review comments into accepted fixes and drafted replies. |
 | [`do-git-pr-takeover`](./do-git-pr-takeover/) | Take over and finish an existing PR, branch, agent thread or do-handoff note while preserving contributor credit. |
 | [`do-git-safe-pr-workflow`](./do-git-safe-pr-workflow/) | Safe GitHub pull request workflow for low-experience Git users. |
-| [`do-git-worktree`](./do-git-worktree/) | Create, remove, list, and prune git worktrees as sibling folders (`../<repo>-<name>`). |
+| [`do-git-worktree`](./do-git-worktree/) | Create, remove, list, and prune git worktrees under `.worktrees/<name>` in the main checkout. |
 | [`do-it`](./do-it/) | LFG runner. |
 | [`do-plan`](./do-plan/) | Implementation plan as ordered units, each with a verification check. |
 | [`do-readme-update`](./do-readme-update/) | Bring a repository's README back in line with the code. |

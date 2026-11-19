@@ -15,8 +15,9 @@ npx skills update do-git-worktree
 ## What it does
 
 When you ask for a worktree, a separate workspace, or parallel branches, this
-skill creates a linked git worktree next to the main checkout, at
-`../<repo>-<name>`, one branch per worktree. Repo-level files such as
+skill creates a linked git worktree inside the main checkout, at
+`.worktrees/<name>` (the branch name with `/` turned into `-`), one branch per
+worktree. `.worktrees/` is ignored through the repo's local exclude file. Repo-level files such as
 `todo.txt` and handoffs stay in the main checkout.
 
 ## When to reach for it
@@ -27,9 +28,9 @@ feature.
 
 ## Operations
 
-- **Create**: `git worktree add -b <branch> ../<repo>-<name>` (drop `-b` for an
+- **Create**: `git worktree add -b <branch> .worktrees/<name>` (drop `-b` for an
   existing branch). The agent prints the new path so you can open a session there.
-- **Remove**: `git worktree remove ../<repo>-<name>`. A worktree with uncommitted
+- **Remove**: `git worktree remove .worktrees/<name>`. A worktree with uncommitted
   changes is named to you before any `--force`.
 - **List**: `git worktree list`.
 - **Prune**: `git worktree prune` clears records of deleted worktree folders.

@@ -62,13 +62,13 @@ flowchart TB
   end
   subgraph New["git worktrees (one folder each)"]
     M["Do-Skills/ (main checkout)<br/>todo.txt, handoffs live here"]
-    M --- T1["../Do-Skills-feat-a"]
-    M --- T2["../Do-Skills-fix-b"]
+    M --- T1[".worktrees/feat-a"]
+    M --- T2[".worktrees/fix-b"]
   end
   Old -. replaced by .-> New
 ```
 
-Recipe (same as GAP): `git worktree add -b <branch> ../<repo>-<name>`.
+Recipe (same as GAP): `git worktree add -b <branch> .worktrees/<name>`.
 
 ## Command map
 
@@ -186,11 +186,11 @@ Legend: **DEL** remove lines · **REP** replace · **REW** rewrite file · **TRA
 | Before | After |
 |---|---|
 | Forbids `git worktree add` and `grit worktree` | Creates, lists, removes, prunes real worktrees |
-| GitButler lanes via `but branch new`, `apply`, `unapply` | `git worktree add -b <branch> ../<repo>-<name>` |
+| GitButler lanes via `but branch new`, `apply`, `unapply` | `git worktree add -b <branch> .worktrees/<name>` |
 | "Craft Agent" mention | removed |
 | Asks before `but setup` | Asks before `git worktree remove --force` on a dirty tree |
 
-New description: "Create, remove, list, and prune git worktrees as sibling folders (`../<repo>-<name>`)." Repo-level files (`todo.txt`, handoffs) stay in the main checkout.
+New description: "Create, remove, list, and prune git worktrees under `.worktrees/<name>` in the main checkout." Repo-level files (`todo.txt`, handoffs) stay in the main checkout.
 
 ### 6. `skills/global/workflow/do-git-pr-modernize/SKILL.md`
 
