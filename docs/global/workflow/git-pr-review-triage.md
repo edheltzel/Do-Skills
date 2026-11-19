@@ -46,4 +46,4 @@ The next rung is `do-work` with that file. The other moves are post the replies 
 
 ## Where it fits
 
-This is the respond stage. It sits after a PR from [commit](./commit.md). `do-work` applies the accepted list, ship publishes the fixes, and this skill posts the drafts only when you say go.
+This is the respond stage. It sits after a PR from [commit](./commit.md), and [git-pr-babysit](./git-pr-babysit.md) runs it when comments land. Replies post through [git-pr-comment](./git-pr-comment.md). For someone else's PR, use [git-pr-review](./git-pr-review.md). `do-work` applies the accepted list, ship publishes the fixes, and this skill posts the drafts only when you say go.

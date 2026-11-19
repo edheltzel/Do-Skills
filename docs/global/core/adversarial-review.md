@@ -69,4 +69,6 @@ In that caller mode it returns the report and does not edit. It complements
 [parse-dont-validate](../../project/typescript/parse-dont-validate.md), each of
 which owns a different concern. It also runs as the correctness lens inside
 [cleanup-web](../../project/frontend/cleanup-web.md) and
-[cleanup-swift](../../project/swift/cleanup-swift.md).
+[cleanup-swift](../../project/swift/cleanup-swift.md), and on a PR snapshot inside
+[git-pr-review](../workflow/git-pr-review.md). For several independent reviewers,
+use [council](./council.md).

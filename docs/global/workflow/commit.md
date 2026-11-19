@@ -48,4 +48,4 @@ After a local commit, the next rung is `do-commit cp`. The other moves are `do-c
 
 ## Where it fits
 
-This is the ship stage. [work](./work.md) and `do-debug` hand off here after a verified change. [it](./it.md) calls `cpp` and skips this menu. Review comments that arrive later go to [git-pr-review-triage](./git-pr-review-triage.md), which does not push; publishing the fixes comes back here.
+This is the ship stage. [work](./work.md) and `do-debug` hand off here after a verified change. [it](./it.md) calls `cpp` and skips this menu. After a push, [git-pr-babysit](./git-pr-babysit.md) watches the PR until it is ready. Review comments that arrive later go to [git-pr-review-triage](./git-pr-review-triage.md), which does not push; publishing the fixes comes back here.

@@ -67,7 +67,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
         <section id="how" aria-labelledby="how-title">
           <div class="lhead">
             <h2 id="how-title">Idea to pull request. <span>Six steps, in order.</span></h2>
-            <p class="lead">LFG takes a change from an idea to an open pull request. Run each step yourself, or let <code>/do-it</code> take a request through plan, work, and commit. It skips brainstorm, and it never merges. Every step ends by naming the next one.</p>
+            <p class="lead">LFG takes a change from an idea to an open pull request. Run each step yourself, or let <code>/do-it</code> take a request through plan, work, and commit, then watch the pull request through CI and review. It skips brainstorm, and it never merges. Every step ends by naming the next one.</p>
           </div>
           <div class="flow">
             <div class="phases" aria-hidden="true"><span style="grid-column:span 2">Shape</span><span style="grid-column:span 3">Build</span><span style="grid-column:span 1">Ship</span></div>
@@ -89,7 +89,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
                 </li>
               ))}
             </ol>
-            <div class="doit"><span class="br" aria-hidden="true"></span><p><code>/do-it</code> runs plan, work, and commit for you. It skips brainstorm, and it ends at an open pull request.</p><span class="pr">Open pull request</span></div>
+            <div class="doit"><span class="br" aria-hidden="true"></span><p><code>/do-it</code> runs plan, work, and commit for you, then watches the pull request until it is ready to merge. It skips brainstorm, and it never merges.</p><span class="pr">Open pull request</span></div>
           </div>
         </section>
         <section id="safe" aria-labelledby="scope-title">
