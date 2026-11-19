@@ -16,7 +16,7 @@ REPO_URL="https://github.com/edheltzel/Do-Skills/tree/master"
 # their authoritative owner. Unlisted groups on disk are appended.
 SCOPE_ORDER="global project"
 GROUP_ORDER_global="core workflow operations content personal"
-GROUP_ORDER_project="typescript frontend backend tooling swift product marketing personal"
+GROUP_ORDER_project="typescript frontend design backend tooling swift product marketing personal"
 # Groups without docs pages.
 UNPROMOTED="global/operations global/personal project/personal project/marketing"
 
@@ -44,6 +44,7 @@ group_title() {
         personal)   echo "Personal" ;;
         typescript) echo "TypeScript" ;;
         frontend)   echo "Frontend" ;;
+        design)     echo "Design" ;;
         swift)      echo "Swift" ;;
         backend)    echo "Backend" ;;
         tooling)    echo "Tooling" ;;

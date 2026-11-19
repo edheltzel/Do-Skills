@@ -88,17 +88,32 @@
     },
     {
       "title": "Project: Frontend",
-      "description": "Web frontend - Astro, CSS, React effects, design systems, landing pages, redesign audits, UX flows, cleanup, and review.",
+      "description": "Web frontend - Astro, CSS, React effects, design systems and their migration, tokens, component docs, landing pages, redesign audits, UI and code review, UX flows, and cleanup.",
       "skills": [
         "do-astro",
+        "do-build-design-system",
         "do-cleanup-web",
+        "do-component-docs",
         "do-design-system",
+        "do-design-system-boss",
         "do-landing-page",
+        "do-migrate-design-system",
         "do-modern-css",
-        "do-redesign",
         "do-no-use-effect",
+        "do-redesign",
         "do-review-frontend",
+        "do-token-mapping",
+        "do-ui-review",
         "do-ux-flow-plan"
+      ]
+    },
+    {
+      "title": "Project: Design",
+      "description": "Brand and media design - your own fonts, logos, and motion graphics videos.",
+      "skills": [
+        "make-font",
+        "make-logo",
+        "make-motion"
       ]
     },
     {

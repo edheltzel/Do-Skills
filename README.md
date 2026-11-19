@@ -81,7 +81,8 @@ Pay off only when a project uses that stack or product. Install into the project
 | Group | Skills | Coverage |
 |-------|--------|----------|
 | [TypeScript](./skills/project/typescript/) | 4 | Language-wide TypeScript - standards, refactoring, and type-driven design. Install alongside frontend, backend, or tooling. |
-| [Frontend](./skills/project/frontend/) | 9 | Web frontend - Astro, CSS, React effects, design systems, landing pages, redesign audits, UX flows, cleanup, and review. |
+| [Frontend](./skills/project/frontend/) | 15 | Web frontend - Astro, CSS, React effects, design systems and their migration, tokens, component docs, landing pages, redesign audits, UI and code review, UX flows, and cleanup. |
+| [Design](./skills/project/design/) | 3 | Brand and media design - your own fonts, logos, and motion graphics videos. |
 | [Backend](./skills/project/backend/) | 1 | Backend engineering - Effect (TypeScript) services and code, and review for Effect, Go, Python, and Rust. |
 | [Tooling](./skills/project/tooling/) | 3 | CLIs and lightweight tools - TypeScript CLI scaffolding, zero-dependency patterns, and performance profiling. |
 | [Swift](./skills/project/swift/) | 3 | Swift and Apple platforms - macOS desktop apps, iOS review, and cleanup. |
@@ -137,8 +138,9 @@ and `do-gh-pm` pick them up.
 
 ## Creating a Skill
 
-Each skill lives in its own folder under a scope and a group. Every
-skill folder and its frontmatter `name:` carry the `do-` prefix:
+Each skill lives in its own folder under a scope and a group. New original
+skills use the `do-` prefix for both the folder and frontmatter `name:`.
+For vendored skills, keep the exact names listed in the catalog.
 
 ```
 skills/<scope>/<group>/do-skill-name/SKILL.md
@@ -151,7 +153,7 @@ Pick the scope first:
 - `global/` - useful in any repo, or none: methodology, writing, git and GitHub, agent operations, setup you run before a project has skills, personal tools
 - `project/` - assumes a specific language, framework, platform, or product the project must use
 
-Then the group. Global groups: `core`, `workflow`, `operations`, `content`, `personal`. Project groups are the stack or product: `typescript` (language-wide, installed alongside the TS groups), `frontend`, `backend`, `tooling`, `swift`, `product`, `personal`. `personal` exists in both scopes: personal tools you want everywhere go in `global/personal`, ones you only use in certain projects go in `project/personal`. Group descriptions live in [`skills.sh.json`](./skills.sh.json).
+Then choose the group from the catalog above. `personal` exists in both scopes: personal tools you want everywhere go in `global/personal`, ones you only use in certain projects go in `project/personal`. Group descriptions live in [`skills.sh.json`](./skills.sh.json).
 
 The `SKILL.md` file contains YAML frontmatter and markdown instructions:
 
@@ -179,7 +181,7 @@ bash scripts/update-readme.sh
 
 ## License
 
-WTFPL, except `skills/project/marketing/`, which is Apache-2.0 (see its [LICENSE](./skills/project/marketing/LICENSE)).
+WTFPL, except `skills/project/marketing/`, which is Apache-2.0 (see its [LICENSE](./skills/project/marketing/LICENSE)), and the design.how skills under `skills/project/frontend/` (`do-build-design-system`, `do-component-docs`, `do-design-system-boss`, `do-migrate-design-system`, `do-token-mapping`, `do-ui-review`) and `skills/project/design/` (`make-font`, `make-logo`, `make-motion`), which are MIT (see each folder's LICENSE).
 
 ---
 
@@ -192,3 +194,4 @@ WTFPL, except `skills/project/marketing/`, which is Apache-2.0 (see its [LICENSE
 `do-perf` is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) `skills/enliven` (MIT)
 `marketing` skills (`ai-visibility`, `competitor-analysis`, `content-brief`, `content-demand-finder`, `keyword-research`, `project-setup`, `seo-action-plan`, `seo-foundations`, `site-audit`) are copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) (Apache-2.0)
 `do-landing-page` and `do-redesign` are original to this repo. The ideas come from [elayadesign/ai-design-skills](https://github.com/elayadesign/ai-design-skills) and [elayadesign/redesign-skill](https://github.com/elayadesign/redesign-skill); nothing is copied, and no MIT grant is made (see [NOTICE.md](./skills/project/frontend/references/NOTICE.md))
+`do-build-design-system`, `do-component-docs`, `do-design-system-boss`, `do-migrate-design-system`, `do-token-mapping`, `do-ui-review` (renamed with the `do-` prefix), `make-font`, `make-logo`, and `make-motion` are copied from [arla6ka/design.how](https://github.com/arla6ka/design.how) `skills/` @ `1ce5304466db2ba47a7a7524603e86df77c702bd` (MIT)
