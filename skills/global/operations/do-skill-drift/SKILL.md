@@ -30,6 +30,8 @@ Gather the candidate baselines for skill `<name>` of component `<id>`:
 - A skills.sh install: `jq '.skills["<name>"].source' ~/.agents/.skill-lock.json` (or `$XDG_STATE_HOME/skills/.skill-lock.json`). A source under `~/.gap/store/<id>/<commit>` is a baseline.
 - Any other `~/.gap/store/<id>/*` commit still on disk.
 
+A store counts as a baseline only when it still holds its commit: `git -C <store> rev-parse HEAD` prints its folder name and `git -C <store> status --porcelain --untracked-files=all` prints nothing. Skip any store that fails; a copy that matches only an unverified store is **edited**.
+
 Locate the skill folder in each store with `grep -rl '^name: <name>$' <store>/skills --include=SKILL.md`, ignoring `references/` copies. Then diff each installed copy against every baseline with `diff -rq`. Installed copies live in `~/.agents/skills/<name>` and `~/.claude/skills/<name>`, plus `<repo root>/.agents/skills/<name>` and `<repo root>/.claude/skills/<name>` for each repo root that lists the skill in `jq '.components["<id>"].projectSkills' ~/.gap/state.json`.
 
 - No differences against some baseline: **stale**.
