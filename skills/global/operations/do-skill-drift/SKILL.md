@@ -26,11 +26,11 @@ Note each `<skill> drift=N` line and the component (`<id> ref=... commit=<pin> s
 Gather the candidate baselines for skill `<name>` of component `<id>`:
 
 - The pinned store: `~/.gap/store/<id>/<pin commit>`.
-- GAP's last install: `jq -r '.components["<id>"].installed' ~/.gap/state.json`, then `~/.gap/store/<id>/<that commit>`.
+- GAP's last copy of this skill: `jq -r '.components["<id>"] | .skillCopies["<name>"] // .installed' ~/.gap/state.json`, then `~/.gap/store/<id>/<that commit>`.
 - A skills.sh install: `jq '.skills["<name>"].source' ~/.agents/.skill-lock.json` (or `$XDG_STATE_HOME/skills/.skill-lock.json`). A source under `~/.gap/store/<id>/<commit>` is a baseline.
 - Any other `~/.gap/store/<id>/*` commit still on disk.
 
-Locate the skill folder in each store with `grep -rl '^name: <name>$' <store>/skills --include=SKILL.md`, ignoring `references/` copies. Then diff each installed copy (`~/.agents/skills/<name>`, `~/.claude/skills/<name>`) against every baseline with `diff -rq`.
+Locate the skill folder in each store with `grep -rl '^name: <name>$' <store>/skills --include=SKILL.md`, ignoring `references/` copies. Then diff each installed copy against every baseline with `diff -rq`. Installed copies live in `~/.agents/skills/<name>` and `~/.claude/skills/<name>`, plus `<repo root>/.agents/skills/<name>` and `<repo root>/.claude/skills/<name>` for each repo root that lists the skill in `jq '.components["<id>"].projectSkills' ~/.gap/state.json`.
 
 - No differences against some baseline: **stale**.
 - Differences against every baseline: **edited**. Show `diff -ru <pinned store skill> <installed copy>`.
