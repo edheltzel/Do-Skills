@@ -37,10 +37,12 @@ Locate the skill folder in each store with `grep -rl '^name: <name>$' <store>/sk
 
 ## 3. Repair
 
-- **Stale**: `gap restore <id>`. It backs up both copies under `~/.gap/backups/` and reinstalls from the pin.
+`gap restore <id>` replaces every drifted skill of the component, edited ones included. Run it only when every drifted skill of that component is stale, or the user chose restore for each edited one.
+
+- **Stale**: `gap sync --only <id> --yes` upgrades a copy that equals an earlier verified store of its component without asking, and leaves edited copies alone. Use `gap restore <id>` only under the rule above.
 - **Edited**: show the user the diff and offer three moves:
-  1. The edit is wanted upstream: port it to the source repo on a branch and open a PR. Restore after it merges and the pin moves.
-  2. The edit is obsolete: `gap restore <id>`.
+  1. The edit is wanted upstream: port it to the source repo on a branch and open a PR. After it merges, `gap update <id>` moves the lock; merge that and run `gap sync`.
+  2. The edit is obsolete: once no other skill of the component is edited, `gap restore <id>`. Otherwise back the copy up to a scratch folder, `trash` both installed copies, and run `gap sync --only <id> --yes` to reinstall that skill alone.
   3. Keep it for now: leave it. Sync keeps reporting it.
 
 Harness copies outside GAP's two folders (`~/.jcode/skills/<name>`, `~/.empryo/skills/<name>`) shadow the managed one. Copy the old folder to a scratch backup, `trash` it, then copy `~/.agents/skills/<name>` in its place. If it holds edits, treat it as edited first.
@@ -52,4 +54,6 @@ gap status
 gap sync --only <id> --yes
 ```
 
-Done when `gap status` shows no `drift=` above 0 for the component and the sync exits 0 with no "differs from the managed" line for it. Report each skill as stale or edited and what was done.
+Done when `gap status` shows no `drift=` above 0 for the component, apart from edited copies the user chose to keep, and the sync shows no "differs from the managed" line for it. Report each skill as stale or edited and what was done.
+
+Newer commits waiting on the ref are not drift: `gap check <id>` lists them and `gap update <id>` moves the lock. Never run `gap pin`.
