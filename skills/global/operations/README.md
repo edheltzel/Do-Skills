@@ -1,6 +1,6 @@
 # Operations
 
-Operating AI agents - delegation, handoffs, prompt audits, and project status check-ins.
+Operating AI agents - delegation, handoffs, prompt audits, project status check-ins, and skill drift repair.
 
 ## Installation
 
@@ -24,6 +24,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 | [`do-delegation`](./do-delegation/) | Routes independent work through the harness's subagent tool: background execution, role briefs, worktree isolation, and coordinator-managed synthesis. |
 | [`do-handoff`](./do-handoff/) | Write a pointer-first session handoff, or resume from a source the user names. |
 | [`do-regroup`](./do-regroup/) | Use when checking project status. |
+| [`do-skill-drift`](./do-skill-drift/) | Resolve skill drift that gap sync or gap status reports: tell a stale but untouched copy from a real local edit, restore the stale ones, and route real edits back to their source repo. |
 
 ## See Also
 

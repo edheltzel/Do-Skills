@@ -49,12 +49,13 @@
     },
     {
       "title": "Global: Operations",
-      "description": "Operating AI agents - delegation, handoffs, prompt audits, and project status check-ins.",
+      "description": "Operating AI agents - delegation, handoffs, prompt audits, project status check-ins, and skill drift repair.",
       "skills": [
         "do-bitter-pill",
         "do-delegation",
         "do-handoff",
-        "do-regroup"
+        "do-regroup",
+        "do-skill-drift"
       ]
     },
     {

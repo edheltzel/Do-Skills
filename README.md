@@ -70,7 +70,7 @@ Useful in any repo, or none. Install once per machine with `-g`.
 |-------|--------|----------|
 | [Core](./skills/global/core/) | 13 | Stack-agnostic foundations - review lenses, reasoning, testing, simplification, agent-legible repos, comments, design patterns, skill authoring, and AI-writing cleanup. |
 | [Workflow](./skills/global/workflow/) | 20 | Change delivery - the brainstorm, plan, work, debug, and ship loop (LFG), commits, docs, GitHub projects and stacks, PR workflow and review triage, worktrees, and technical writing. |
-| [Operations](./skills/global/operations/) | 4 | Operating AI agents - delegation, handoffs, prompt audits, and project status check-ins. |
+| [Operations](./skills/global/operations/) | 5 | Operating AI agents - delegation, handoffs, prompt audits, project status check-ins, and skill drift repair. |
 | [Content](./skills/global/content/) | 3 | Audience-facing media - illustrations, diagrams, images, and visual explanations. |
 | [Personal](./skills/global/personal/) | 4 | Personal extras you want everywhere - teaching, todo.txt, isometric explainer figures. |
 
