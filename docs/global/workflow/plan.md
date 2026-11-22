@@ -16,7 +16,7 @@ npx skills update do-plan
 
 `do-plan` writes an implementation plan a later run can execute. The plan is ordered units. Each unit names the change, when it is done, and a check that can fail.
 
-It does not invent product behavior the requirements left open, and it does not implement. There is no research-agent farm, no HTML renderer, and no model-tier switch. After the file is written, the skill runs [doc-review](./doc-review.md) on it, then waits for you to pick the next move.
+It does not invent product behavior the requirements left open, and it does not implement. There is no research-agent farm, no HTML renderer, and no model-tier switch. After the file is written, the skill runs [doc-review](./doc-review.md) on it, opens it in Plannotator when installed, and in Empryo hands it to Empryo plan mode; otherwise it waits for you to pick the next move.
 
 ## When to reach for it
 
@@ -28,7 +28,11 @@ An **Implementation Unit** is one ordered change under `## Implementation Units`
 
 The file is `docs/plans/YYYY-MM-DD-<topic>-plan.md`, or the directory the project `AGENTS.md` names instead. Passing an existing plan path revises that file. The requirements file stays put.
 
-When Plannotator is installed, the next move is to approve the plan there. Approval offers [work](./work.md). Without Plannotator, the next move is `do-work` directly.
+In interactive mode, after review passes with no blocker, `do-plan` runs an approval gate:
+
+- **Plannotator:** when installed, the skill opens the plan there automatically. Annotations send the plan back through revision and [doc-review](./doc-review.md) before reopening. Dismissing drops to the Next menu.
+- **Empryo plan mode:** when running inside Empryo (detected by its tools), approval hands the plan to Empryo's `plan` tool (one step per unit) so you get Empryo's Implement / Clear & Implement / Revise buttons and a saved `.empryo/plans/plan-*.md` copy. Outside plan mode, Empryo rejects plans with fewer than 3 files, so the skill asks you to run `/mode plan` first. You can also ask to open Empryo's copy in Plannotator.
+- **Outside Empryo:** approval (or no Plannotator) leads to the Next menu with [work](./work.md).
 
 ## It's working if
 
