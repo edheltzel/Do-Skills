@@ -453,25 +453,30 @@ class Watcher:
         reviewed: list[str] = []
         bot_failed: list[str] = []
         bots_pending = False
+        # A bot named on the command line, or one that posts on this head
+        # during the watch, is required for this head from then on.
+        engaged: set[str] = set(self.require_bots) | set(self.state.setdefault("engaged", {}).get(head, []))
         for bot in GATING_BOTS + ADVISORY_BOTS:
             own_checks = {name: c for name, c in checks.items() if bot_check(name) == bot}
             summaries = [c for c in comments if bot_login(who(c)[0]) == bot]
             own_reviews = [r for r in reviews if bot_login(who(r)[0]) == bot]
             on_head = any((r.get("commit") or {}).get("oid") == head for r in own_reviews)
+            if bot in GATING_BOTS and (own_checks or on_head):
+                engaged.add(bot)
             if bot == "pullfrog":
                 approval = next((c for c in own_checks.values() if c["name"] == "pullfrog-approval"), None)
                 done = on_head and bool(approval) and approval["bucket"] != "pending"
-                seen = bool(own_checks or own_reviews) or bot in self.require_bots
-                if bot in self.require_bots:
+                seen = bool(own_checks or on_head) or bot in engaged
+                if bot in engaged:
                     bot_failed += [f"pullfrog check failed on {short}: {name} {c['link']}" for name, c in own_checks.items() if c["name"] == "pullfrog" and c["bucket"] in FAILED]
             elif own_checks:
                 done = all(c["bucket"] != "pending" for c in own_checks.values())
-                seen = bool(own_checks or summaries or own_reviews) or bot in self.require_bots
-                if bot in GATING_BOTS:
+                seen = bool(own_checks or summaries or own_reviews) or bot in engaged
+                if bot in engaged:
                     bot_failed += [f"{bot} check failed on {short}: {name} {c['link']}" for name, c in own_checks.items() if c["bucket"] in FAILED]
             else:
                 done = on_head or any(short in s["body"] for s in summaries)
-                seen = bool(own_checks or summaries or own_reviews) or bot in self.require_bots
+                seen = bool(own_checks or summaries or own_reviews) or bot in engaged
             if bot in ADVISORY_BOTS and own_checks:
                 desc = next(iter(own_checks.values()))
                 bot_status[bot] = f"{bot} {desc['description'] or desc['bucket']} (advisory)"
@@ -494,7 +499,7 @@ class Watcher:
                 tag = " (advisory, not waited on)" if bot in ADVISORY_BOTS else ""
                 self.emit(key, f"{bot} finished on {short}{': ' + detail if detail else ''}{tag}")
             if bot in GATING_BOTS:
-                if seen and bot not in reviewed:
+                if bot in engaged and bot not in reviewed:
                     bots_pending = True
                 for s in summaries:
                     new, old = digest(s["body"]), self.state["summaries"].get(s["id"])
@@ -544,10 +549,11 @@ class Watcher:
         summary = "; ".join(p for p in parts if p)
         checks_key = f"checks:{head}"
 
+        self.state["engaged"][head] = sorted(engaged)
         # Decide whether to stop. A green or ready line carries the same summary
         # as the checks line, so it marks that event as reported.
         if self.until != "any-change":
-            if self.require_bots and self.until == "ready" and bot_failed:
+            if engaged and self.until == "ready" and bot_failed:
                 self.finish(1, bot_failed)
             if merge_state == "DIRTY":
                 self.finish(1, [dirty_line])
@@ -556,10 +562,10 @@ class Watcher:
             if green and self.until == "green":
                 self.reported.add(checks_key)
                 self.finish(0, [f"green on {short}: {summary}{self.behind(base, base_oid, head)}"])
-            # Optionally wait for Pullfrog, Greptile, or Macroscope, never for CodeRabbit.
-            missing = [b for b in self.require_bots if b not in reviewed]
-            if green and (not self.require_bots or not missing):
-                if self.require_bots and bots_pending:
+            # Wait for each bot engaged on this head, never for CodeRabbit.
+            missing = [b for b in engaged if b not in reviewed]
+            if green and not missing:
+                if bots_pending:
                     pass
                 elif unresolved:
                     self.finish(1, [f"blocked by {len(unresolved)} unresolved threads on {short}: {' '.join(unresolved)}"])
