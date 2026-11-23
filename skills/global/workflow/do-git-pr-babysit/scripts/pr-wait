@@ -381,11 +381,6 @@ class Watcher:
             self.finish(1, [f"closed without merging: {pr['url']}"])
 
         base = pr["baseRefName"]
-        if self.state.get("base_ref") != base:
-            self.state["base_ref"] = base
-            self.state["base_oid"] = None
-            self.prev_snapshot = None
-            self.pr_files.clear()
         if self.required is None or base != self.required_base:
             self.required_base = base
             self.required = required_checks(self.repo, base)
@@ -402,6 +397,11 @@ class Watcher:
             log(f"head or base moved during the poll of {short}; waiting for the next one")
             return "retry"
         pr = again
+        if self.state.get("base_ref") != base:
+            self.state["base_ref"] = base
+            self.state["base_oid"] = None
+            self.prev_snapshot = None
+            self.pr_files.clear()
         mine = {who(pr)[0], pr["viewer"]}
         comments = pr["comments"]["nodes"]
         reviews = pr["reviews"]["nodes"]
