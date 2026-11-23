@@ -158,7 +158,9 @@ def bot_name(text: str | None) -> str | None:
     lowered = (text or "").lower()
     if lowered in BOT_CHECKS["pullfrog"]:
         return "pullfrog"
-    return next((bot for bot in GATING_BOTS + ADVISORY_BOTS if lowered == bot or lowered.startswith(bot + "[")), None)
+    if lowered.startswith("pullfrog["):
+        return "pullfrog"
+    return next((bot for bot in ("greptile", "macroscope", "coderabbit") if lowered == bot), None)
 
 
 def who(node: Json) -> tuple[str, bool]:
@@ -381,8 +383,7 @@ class Watcher:
         checks = self.fetch_checks()
         if self.fetch_pr()["headRefOid"] != head:
             log(f"head moved during the poll of {short}; waiting for the next one")
-            self.baseline = True
-            return
+            return "retry"
         mine = {who(pr)[0], pr["viewer"]}
         comments = pr["comments"]["nodes"]
         reviews = pr["reviews"]["nodes"]
@@ -456,6 +457,8 @@ class Watcher:
                 approval = next((c for c in own_checks.values() if c["name"] == "pullfrog-approval"), None)
                 done = on_head and bool(approval) and approval["bucket"] != "pending"
                 seen = bool(own_checks or own_reviews)
+                if self.require_review_bot:
+                    bot_failed += [f"pullfrog check failed on {short}: {name} {c['link']}" for name, c in own_checks.items() if c["name"] == "pullfrog" and c["bucket"] in FAILED]
             elif own_checks:
                 done = all(c["bucket"] != "pending" for c in own_checks.values())
                 seen = bool(own_checks or summaries or own_reviews)
@@ -549,7 +552,7 @@ class Watcher:
                 self.reported.add(checks_key)
                 self.finish(0, [f"green on {short}: {summary}{self.behind(base, base_oid, head)}"])
             # Optionally wait for Pullfrog, Greptile, or Macroscope, never for CodeRabbit.
-            pullfrog_missing = self.require_review_bot and "pullfrog" in bot_status and "pullfrog" not in reviewed
+            pullfrog_missing = self.require_review_bot and "pullfrog" not in reviewed
             if green and (reviewed or not self.require_review_bot) and not pullfrog_missing:
                 if self.require_review_bot and bots_pending:
                     pass
@@ -569,7 +572,8 @@ class Watcher:
         failures = 0
         while True:
             try:
-                self.poll()
+                if self.poll() == "retry":
+                    continue
                 failures = 0
             except GhError as error:
                 if not error.transient:
