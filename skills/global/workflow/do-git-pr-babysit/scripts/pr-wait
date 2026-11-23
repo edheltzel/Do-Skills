@@ -162,7 +162,7 @@ def bot_check(name: str | None) -> str | None:
     lowered = (name or "").lower()
     if lowered in ("pullfrog", "pullfrog-approval"):
         return "pullfrog"
-    return None
+    return next((bot for bot in ("greptile", "macroscope", "coderabbit") if lowered == bot), None)
 
 
 def who(node: Json) -> tuple[str, bool]:
