@@ -25,7 +25,7 @@ Modernize the idea, not just the branch. A clean rebase does not prove the PR st
 
 For MODERNIZE, rebase the PR branch onto the fetched actual base with `git rebase` and resolve conflicts with `git rebase --continue`. If a conflict exposes a product or architecture decision, stop for the user. Compare old and new series with `git range-diff`, inspect the final diff and run focused checks. Confirm intended behavior survived and landed behavior was not reintroduced.
 
-Push only after the disposition and checks, through repository publication gates (the roborev local review when the repo uses it, as `do-commit` runs it, then No Mistakes when initialized), with only `--force-with-lease=<branch>:<head sha seen before rebase>` against the correct head remote and branch. Never use an unpinned force push. On lease failure fetch and reassess; never overwrite new work. If the gate owns publication, follow it rather than bypassing it. Never merge, close, retarget or expand scope. Post comments only when the user asked for them, through `do-git-pr-comment`; a caller cannot grant posting permission.
+Push only after the disposition and checks, through repository publication gates. When the repo uses roborev, review the rebased commits first. When it also uses No Mistakes, stop and return blocked: the pipeline pushes commits roborev has not reviewed. Otherwise No Mistakes publishes when initialized, and a plain push publishes when neither is in use. Push with only `--force-with-lease=<branch>:<head sha seen before rebase>` against the correct head remote and branch. Never use an unpinned force push. On lease failure fetch and reassess; never overwrite new work. If the gate owns publication, follow it rather than bypassing it. Never merge, close, retarget or expand scope. Post comments only when the user asked for them, through `do-git-pr-comment`; a caller cannot grant posting permission.
 
 Write a report artifact under `docs/plans/` naming the disposition and evidence, PR link, base changes, conflicts, checks, push result and unknowns. Separate facts from judgment.
 
@@ -41,7 +41,11 @@ Write a report artifact under `docs/plans/` naming the disposition and evidence,
 
 End with this block. Run the next skill only when the user picks it. When a caller started this run (`mode:return-to-caller`), skip the block and return `status: done | blocked | needs-human` plus the artifact path.
 
-After a MODERNIZE disposition whose push verified, start `do-git-pr-babysit` on the PR now, if installed, and let its Next block end the run. Otherwise:
+After a MODERNIZE disposition whose push verified, start `do-git-pr-babysit` on the PR now when it is installed, and let its Next block end the run. When it is not installed:
+
+Next: Stop - the report is saved and the push is verified.
+
+For any other disposition:
 
 Next: Stop - the report is saved, and no push went out. The reason is the disposition.
 

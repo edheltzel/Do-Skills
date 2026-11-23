@@ -150,10 +150,16 @@ BOT_CHECKS = {"pullfrog": ("pullfrog", "pullfrog-approval")}
 
 
 def bot_name(text: str | None) -> str | None:
-    """Which review bot a login or check name belongs to, if any."""
+    """Which review bot a login or check name belongs to, if any.
+
+    A check name matches exactly. A login matches when the bot name is in it,
+    so a CI check that only mentions a bot stays an ordinary check.
+    """
     lowered = (text or "").lower()
     if lowered in BOT_CHECKS["pullfrog"]:
         return "pullfrog"
+    if " " in lowered or "/" in lowered:
+        return None
     return next((bot for bot in GATING_BOTS + ADVISORY_BOTS if bot in lowered), None)
 
 
@@ -372,9 +378,12 @@ class Watcher:
             self.required = required_checks(self.repo, base)
             gate = ", ".join(sorted(self.required)) or "none set, so every CI check gates"
             log(f"watching {self.repo}#{self.pr} until {self.until}; required checks: {gate}")
-        checks = self.fetch_checks()
         head = pr["headRefOid"]
         short = head[:7]
+        checks = self.fetch_checks()
+        if self.fetch_pr()["headRefOid"] != head:
+            log(f"head moved during the poll of {short}; waiting for the next one")
+            return
         mine = {who(pr)[0], pr["viewer"]}
         comments = pr["comments"]["nodes"]
         reviews = pr["reviews"]["nodes"]
@@ -451,6 +460,8 @@ class Watcher:
             elif own_checks:
                 done = all(c["bucket"] != "pending" for c in own_checks.values())
                 seen = bool(own_checks or summaries or own_reviews)
+                if bot in GATING_BOTS and done and any(c["bucket"] in FAILED for c in own_checks.values()):
+                    bot_failed += [f"{bot} check failed on {short}: {name} {c['link']}" for name, c in own_checks.items() if c["bucket"] in FAILED]
             else:
                 done = on_head or any(short in s["body"] for s in summaries)
                 seen = bool(own_checks or summaries or own_reviews)
@@ -529,6 +540,8 @@ class Watcher:
         # Decide whether to stop. A green or ready line carries the same summary
         # as the checks line, so it marks that event as reported.
         if self.until != "any-change":
+            if self.require_review_bot and self.until == "ready" and bot_failed:
+                self.finish(1, bot_failed)
             if merge_state == "DIRTY":
                 self.finish(1, [dirty_line])
             if fail_lines:
@@ -537,9 +550,8 @@ class Watcher:
                 self.reported.add(checks_key)
                 self.finish(0, [f"green on {short}: {summary}{self.behind(base, base_oid, head)}"])
             # Optionally wait for Pullfrog, Greptile, or Macroscope, never for CodeRabbit.
-            if self.require_review_bot and bot_failed:
-                self.finish(1, bot_failed)
-            if green and (reviewed or not self.require_review_bot):
+            pullfrog_missing = self.require_review_bot and "pullfrog" not in reviewed and not any("pullfrog" in s for s in bot_status)
+            if green and (reviewed or not self.require_review_bot) and not pullfrog_missing:
                 if self.require_review_bot and bots_pending:
                     pass
                 elif unresolved:
