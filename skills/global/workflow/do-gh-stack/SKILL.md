@@ -104,7 +104,7 @@ gh stack sync                   # fetch, reconcile with GitHub, rebase, push, re
 gh stack sync --prune           # also delete local branches for merged PRs
 ```
 
-When the repo uses roborev, do not run `gh stack sync`: it rebases and pushes in one step, so the rebased commits leave before roborev sees them. Do the parts separately: `git fetch`, rebase the layers with `gh stack rebase`, commit nothing extra, run `roborev job wait <sha> [...]` for every rebased commit, then `gh stack push`. Same for `gh stack link` with a branch argument, which pushes: review the commits first.
+When the repo uses roborev, do not run `gh stack sync`: it rebases and pushes in one step, so the rebased commits leave before roborev sees them. Do the parts separately. Reconcile with GitHub first: `git fetch`, then read both chains, and stop if they differ. Then rebase the layers with `gh stack rebase`. A rebase rewrites commits, so review every commit the push will publish, old ones included: `roborev review <sha> --wait` for each one that has no job, then `roborev job wait <sha> [...]` must exit 0. Then `gh stack push`. `gh stack link` with a branch argument pushes too, so review first. After any of these opens or updates PRs, start `do-git-pr-babysit`, if installed, once per PR.
 
 Pruning never happens without `--prune` when non-interactive. If the local and remote stacks have
 diverged, `sync` prints both chains, makes no changes, and exits 0 with `Sync aborted` — see
