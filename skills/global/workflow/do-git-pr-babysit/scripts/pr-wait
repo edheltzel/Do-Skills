@@ -290,6 +290,7 @@ class Watcher:
         self.required: set[str] | None = None
         self.prev_snapshot: list[str] | None = None
         self.start_head: str | None = None
+        self.required_base: str | None = None
         self.pr_files: dict[str, set[str]] = {}
 
     def load(self) -> Json | None:
@@ -380,7 +381,11 @@ class Watcher:
             self.finish(1, [f"closed without merging: {pr['url']}"])
 
         base = pr["baseRefName"]
-        if self.required is None:
+        if self.required is None or base != self.required_base:
+            if self.required_base is not None:
+                self.prev_snapshot = None
+                self.state["base_oid"] = None
+            self.required_base = base
             self.required = required_checks(self.repo, base)
             gate = ", ".join(sorted(self.required)) or "none set, so every CI check gates"
             log(f"watching {self.repo}#{self.pr} until {self.until}; required checks: {gate}")
@@ -390,7 +395,8 @@ class Watcher:
             self.start_head = head
         checks = self.fetch_checks()
         again = self.fetch_pr()
-        if again["headRefOid"] != head or again["baseRefName"] != base:
+        tip = lambda node: ((node.get("baseRef") or {}).get("target") or {}).get("oid")
+        if again["headRefOid"] != head or again["baseRefName"] != base or tip(again) != tip(pr):
             log(f"head or base moved during the poll of {short}; waiting for the next one")
             return "retry"
         pr = again
