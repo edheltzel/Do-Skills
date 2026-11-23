@@ -31,7 +31,7 @@ The GitHub CLI (`gh`), signed in to the PR's repository. Roborev and Pullfrog ar
 ## The watch
 
 - **Roborev first.** Before the first watch it checks `roborev job wait <head>`. A failed or missing review goes back to `do-commit cp`, which fixes and pushes.
-- **Then Pullfrog.** When this PR already shows a `pullfrog` check or a `pullfrog[bot]` review, the watcher runs with `--require-review-bot pullfrog`: ready waits for Pullfrog's review and its `pullfrog-approval` check on the current head. A `pullfrog.yml` that only runs on `workflow_dispatch` does not review a push by itself, so the file alone does not make the watch wait.
+- **Then Pullfrog.** When the current head has a `pullfrog` or `pullfrog-approval` check, a `pullfrog[bot]` review of that head, or a confirmed dispatch for it, the watcher runs with `--require-review-bot pullfrog`: ready waits for Pullfrog's review of this head and a passing `pullfrog-approval` check on it. A review of an older head does not count. If Pullfrog, Greptile, or Macroscope first appears during the watch, ready waits for that bot on this head too. A `pullfrog.yml` that only runs on `workflow_dispatch` does not review a push by itself, so the file alone does not make the watch wait.
 - **One watcher per PR.** The skill's `scripts/pr-wait` runs as one background job and locks the PR. It never writes its own sleep loop, and a second watcher does not start.
 - **On a failed check.** It runs `do-debug` and tells flakes from real failures.
 - **On review comments,** including Pullfrog's review and threads, it runs [git-pr-review-triage](./git-pr-review-triage.md), then [work](./work.md) for the accepted fixes and `do-commit cp` to push them.
