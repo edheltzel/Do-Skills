@@ -89,8 +89,10 @@ git add ... && git commit -m "Add auth middleware"
 gh stack add api                # next layer, branched from the current one
 git add ... && git commit -m "Add API routes"
 gh stack submit --auto          # push every branch and open draft PRs
-gh stack view --json            # confirm
+gh stack view --json            # confirm the layers and their PR numbers
 ```
+
+When the repo uses roborev, `roborev job wait <sha> [...]` must exit 0 for every unpushed commit on every layer before `push` or `submit`. After `submit` opens or updates the PRs, start `do-git-pr-babysit`, if installed, once per PR.
 
 Add `--open` to `submit` to create PRs ready for review instead of drafts. Branch names are
 verbatim — `gh stack add refactor/foo` creates `refactor/foo`.
@@ -101,6 +103,8 @@ verbatim — `gh stack add refactor/foo` creates `refactor/foo`.
 gh stack sync                   # fetch, reconcile with GitHub, rebase, push, refresh PR state
 gh stack sync --prune           # also delete local branches for merged PRs
 ```
+
+When the repo uses roborev, do not run `gh stack sync`: it rebases and pushes in one step, so the rebased commits leave before roborev sees them. Do the parts separately: `git fetch`, rebase the layers with `gh stack rebase`, commit nothing extra, run `roborev job wait <sha> [...]` for every rebased commit, then `gh stack push`. Same for `gh stack link` with a branch argument, which pushes: review the commits first.
 
 Pruning never happens without `--prune` when non-interactive. If the local and remote stacks have
 diverged, `sync` prints both chains, makes no changes, and exits 0 with `Sync aborted` — see

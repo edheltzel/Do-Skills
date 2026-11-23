@@ -41,7 +41,9 @@ Write a report artifact under `docs/plans/` naming the disposition and evidence,
 
 End with this block. Run the next skill only when the user picks it. When a caller started this run (`mode:return-to-caller`), skip the block and return `status: done | blocked | needs-human` plus the artifact path.
 
-Next: `do-git-pr-babysit` - watch the updated PR through CI and review, passing `<PR URL>`. Only after a MODERNIZE disposition whose push verified; otherwise Next is Stop with the reason.
+After a MODERNIZE disposition whose push verified, start `do-git-pr-babysit` on the PR now, if installed, and let its Next block end the run. Otherwise:
+
+Next: Stop - the report is saved, and no push went out. The reason is the disposition.
 
 Other moves:
 
