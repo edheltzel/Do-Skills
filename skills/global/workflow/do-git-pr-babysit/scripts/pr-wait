@@ -272,9 +272,12 @@ def required_checks(repo: str, base: str) -> set[str]:
 
 
 class Watcher:
-    def __init__(self, repo: str, pr: int, until: str, interval: int, require_review_bot: bool = False) -> None:
+    def __init__(self, repo: str, pr: int, until: str, interval: int, require_review_bot: list[str] | None = None) -> None:
         self.repo, self.pr, self.until, self.interval = repo, pr, until, interval
-        self.require_review_bot = require_review_bot
+        self.require_bots = [b.lower() for b in (require_review_bot or [])]
+        unknown = [b for b in self.require_bots if b not in GATING_BOTS]
+        if unknown:
+            fail(f"unknown review bot: {', '.join(unknown)} (pullfrog, greptile, macroscope)")
         self.owner, self.name = repo.split("/")
         self.path = STATE_DIR / f"{repo.replace('/', '__')}__{pr}.json"
         state = self.load()
@@ -458,17 +461,17 @@ class Watcher:
             if bot == "pullfrog":
                 approval = next((c for c in own_checks.values() if c["name"] == "pullfrog-approval"), None)
                 done = on_head and bool(approval) and approval["bucket"] != "pending"
-                seen = bool(own_checks or own_reviews)
-                if self.require_review_bot:
+                seen = bool(own_checks or own_reviews) or bot in self.require_bots
+                if bot in self.require_bots:
                     bot_failed += [f"pullfrog check failed on {short}: {name} {c['link']}" for name, c in own_checks.items() if c["name"] == "pullfrog" and c["bucket"] in FAILED]
             elif own_checks:
                 done = all(c["bucket"] != "pending" for c in own_checks.values())
-                seen = bool(own_checks or summaries or own_reviews)
+                seen = bool(own_checks or summaries or own_reviews) or bot in self.require_bots
                 if bot in GATING_BOTS:
                     bot_failed += [f"{bot} check failed on {short}: {name} {c['link']}" for name, c in own_checks.items() if c["bucket"] in FAILED]
             else:
                 done = on_head or any(short in s["body"] for s in summaries)
-                seen = bool(own_checks or summaries or own_reviews)
+                seen = bool(own_checks or summaries or own_reviews) or bot in self.require_bots
             if bot in ADVISORY_BOTS and own_checks:
                 desc = next(iter(own_checks.values()))
                 bot_status[bot] = f"{bot} {desc['description'] or desc['bucket']} (advisory)"
@@ -544,7 +547,7 @@ class Watcher:
         # Decide whether to stop. A green or ready line carries the same summary
         # as the checks line, so it marks that event as reported.
         if self.until != "any-change":
-            if self.require_review_bot and self.until == "ready" and bot_failed:
+            if self.require_bots and self.until == "ready" and bot_failed:
                 self.finish(1, bot_failed)
             if merge_state == "DIRTY":
                 self.finish(1, [dirty_line])
@@ -554,9 +557,9 @@ class Watcher:
                 self.reported.add(checks_key)
                 self.finish(0, [f"green on {short}: {summary}{self.behind(base, base_oid, head)}"])
             # Optionally wait for Pullfrog, Greptile, or Macroscope, never for CodeRabbit.
-            pullfrog_missing = self.require_review_bot and "pullfrog" in bot_status and "pullfrog" not in reviewed
-            if green and (reviewed or not self.require_review_bot) and not pullfrog_missing:
-                if self.require_review_bot and bots_pending:
+            missing = [b for b in self.require_bots if b not in reviewed]
+            if green and (not self.require_bots or not missing):
+                if self.require_bots and bots_pending:
                     pass
                 elif unresolved:
                     self.finish(1, [f"blocked by {len(unresolved)} unresolved threads on {short}: {' '.join(unresolved)}"])
@@ -599,7 +602,7 @@ def main() -> None:
     parser.add_argument("--repo", help="owner/name (default: from the URL or the current checkout)")
     parser.add_argument("--until", choices=("green", "ready", "any-change"), default="ready")
     parser.add_argument("--interval", type=int, default=20, help="seconds between polls (default 20, min 5)")
-    parser.add_argument("--require-review-bot", action="store_true", help="require a Pullfrog, Greptile, or Macroscope review on the head for ready")
+    parser.add_argument("--require-review-bot", action="append", default=[], metavar="BOT", help="bot that must review the head before ready; repeat for several (pullfrog, greptile, macroscope)")
     args = parser.parse_args()
     repo, pr = parse_target(args.pr, args.repo)
     _lock = lock(repo, pr)
