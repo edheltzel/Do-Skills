@@ -27,7 +27,7 @@ gh pr view <number-or-url> --json url,headRefOid,reviews,reviewThreads,comments
 gh api repos/{owner}/{repo}/pulls/{number}/comments
 ```
 
-Pull review-level comments and inline threads. For each, capture author, body, file + line (if inline), thread node id, root comment numeric id, resolution, and the commit SHA the comment was made against. Note when the line has changed since.
+Pull review-level comments and inline threads, including review bots such as `pullfrog[bot]`: a Pullfrog review body counts as a review-level comment, and its threads as inline ones. For each, capture author, body, file + line (if inline), thread node id, root comment numeric id, resolution, and the commit SHA the comment was made against. Note when the line has changed since.
 
 ## Classify
 
@@ -94,9 +94,9 @@ Resolve Ignore threads without replies only after the same pushed-and-go guards 
 ## Related skills
 
 - Apply accepted items: `do-work`, if installed, with the feedback file.
-- Publish the fixes: `do-commit`, if installed. This skill does not push.
+- Publish the fixes: `do-commit cp`, if installed. It runs the roborev local review before the push. This skill does not push.
 - A Defer item that should become an issue: `do-tech-writing`, if installed.
-- Watch an open PR for feedback and readiness: `do-git-pr-babysit`, if installed.
+- Watch an open PR for feedback and readiness: `do-git-pr-babysit`, if installed. After the fixes push, it waits for Pullfrog to review the new head.
 
 ## Next
 

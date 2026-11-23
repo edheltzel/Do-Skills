@@ -63,37 +63,39 @@ Not installed: say the review did not run. Do not write `Review complete` yourse
 
 Interactive mode only, after the review finished with no blocker. Caller mode skips this section and Next.
 
-**Plannotator.** Installed means a `plannotator` tool exists or `command -v plannotator` succeeds. Open the plan there without asking. If a `plannotator` tool exists, call it with `{action: "annotate", target: <absolute plan path>, gate: true}`, end the turn, and wait for the feedback message. Otherwise run `plannotator annotate <absolute plan path> --gate --json` with a long or no timeout. It blocks until the user acts.
+**Plannotator.** Installed means a `plannotator` tool exists or `command -v plannotator` succeeds. Open the plan there without asking. If a Plannotator annotate tool exists (its name starts with `plannotator`), call it on the absolute plan path with the gate on, following its schema, end the turn, and wait for the feedback message. Otherwise run `plannotator annotate <absolute plan path> --gate --json` with a long or no timeout. It blocks until the user acts.
 
 - `annotated`: revise the plan from the feedback, run Review again, then open it in Plannotator again.
 - `approved`: continue to Empryo.
-- `dismissed`: go to Next.
+- `dismissed` or `denied`: go to Next.
+- Any other decision: treat it as `annotated` when it carries feedback, otherwise as `dismissed`.
 
 Not installed: continue to Empryo.
 
-**Empryo.** Empryo is active only when the Empryo-only tools `final_response`, `genome_query` and `code_script` are all present (https://github.com/edheltzel/GAP/blob/master/global/docs/agents/harness-detection.md). Not active, unsure, or no `plan` tool: go to Next, as before. Otherwise hand the plan to Empryo plan mode with the `plan` tool:
+**Empryo.** Empryo is active only when the Empryo-only tools `final_response`, `genome_query` and `code_script` are all present (https://github.com/edheltzel/GAP/blob/master/global/docs/agents/harness-detection.md). Not active or unsure: go to Next, as before. `plan` may be a deferred tool that is missing from the visible list: load it with `tool_search("plan")` first, or call it through `run_tool({name: "plan", args: {...}})`. A `describe` lookup only inspects it. Go to Next only when that load fails. Otherwise hand the plan to Empryo plan mode with the `plan` tool:
 
-- `title`: the topic. `depth`: `light`. `context`: the Outcome and the absolute plan path.
-- `steps`: one per unit, in order. `id` is `U1`, `U2`, and so on. `label` is the unit name. `details` holds Change, Done when and Verify. `targetFiles` is the unit's Files.
-- `files`: every path in the units' Files, with `create` or `modify` and what changes there.
+- `title`: the topic. `depth`: `light`. `context`: the Outcome, the absolute plan path, and the line `Build with do-work, passing <absolute plan path>, unit by unit with each Verify.`
+- `steps`: one per unit, in order. `id` is `U1`, `U2`, and so on. `label` is the unit name. `details` holds Change, Done when and Verify. The first step's `details` also start with the do-work line from `context`. `targetFiles` is the unit's Files.
+- `files`: every path in the units' Files, with `create`, `modify` or `delete` and what changes there.
 - `verification`: the Verify lines.
 
-Empryo shows the plan with Implement, Clear & Implement and Revise, and saves its copy as `.empryo/plans/plan-*.md`. That review is the gate, so skip Next. On Revise, change the plan file, run Review, and hand it over again. Outside plan mode the `plan` tool rejects a plan with fewer than 3 files. An agent cannot switch the tab's mode, so ask the user to run `/mode plan`, then hand it over again. When the user asks to review Empryo's copy in Plannotator, run the Plannotator step with that `.empryo/plans/plan-*.md` path.
+Empryo shows the plan with Implement, Clear & Implement and Revise, and saves its copy as `.empryo/plans/plan-*.md`. That review is the gate, so skip Next. On Implement or Clear & Implement, load `do-work` and build from the plan file, not from Empryo's checklist alone, so each unit's Verify and do-work's own Next still run. On Revise, change the plan file, run Review, and hand it over again. Outside plan mode the `plan` tool rejects a plan with fewer than 3 files. An agent cannot switch the tab's mode, so ask the user to run `/mode plan`, then hand it over again. When the user asks to review Empryo's copy in Plannotator, run the Plannotator step with that `.empryo/plans/plan-*.md` path.
 
 ## Next
 
-End with this block. Run the next skill only when the user picks it. When a caller started this run (`mode:return-to-caller`, used by `do-it` and `do-work`), skip the block and return `status: done | blocked | needs-human` plus the artifact path.
+End with this block. Run the next skill only when the user picks it. When a caller started this run (`mode:return-to-caller`, used by `do-it`), skip the block and return `status: done | blocked | needs-human` plus the artifact path.
 
 Fill the Next line when you show the block:
 
-- The review finished with no blocker, and Plannotator approved the plan or is not installed: Next is `do-work` - build this plan in the current checkout, passing `<absolute artifact path>`.
-- Plannotator dismissed: Next is Review in Plannotator - approve the plan before anyone builds it.
+- The review finished with no blocker, Plannotator approved the plan or is not installed, and the Empryo hand-off did not run: Next is `do-work` - build this plan in the current checkout, passing `<absolute artifact path>`.
+- Plannotator dismissed or denied: Next is Review in Plannotator - approve the plan before anyone builds it. Dismiss is not a blocker, so `do-work` stays an Other move.
 - While status is `blocked` or `needs-human`, or `do-doc-review` did not run, do not offer `do-work`. Name the blocker above the block.
 
 Other moves:
 1. `do-brainstorm` - requirements are unclear, if installed
-2. Review in Plannotator - annotate or approve `<artifact>` again. Omit this move when it is already the Next line, or when Plannotator is not installed.
-3. Stop - the artifact is already saved.
+2. `do-work` - build without approval, passing `<absolute artifact path>`. Only when Plannotator dismissed or denied the plan.
+3. Review in Plannotator - annotate or approve `<artifact>` again. Omit this move when it is already the Next line, or when Plannotator is not installed.
+4. Stop - the artifact is already saved.
 
 Reply with a number, the label, or what you want instead.
 

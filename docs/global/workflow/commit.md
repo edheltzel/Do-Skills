@@ -18,7 +18,9 @@ npx skills update do-commit
 
 It never pushes unless the mode or the user asks. `/do-commit` ends after the commit. `cp` (or `push`) publishes. `cpp` also opens a PR. `land` merges, and only when you say go.
 
-On the push path, No Mistakes runs only when this repo was already initialized (`git remote` lists `no-mistakes`, or `no-mistakes axi` shows this repo). The binary being installed is not enough. If initialized but the binary is missing or the gate cannot run, it reports a blocker without publishing. A repo that was never initialized skips the gate and uses `git push`, without asking to initialize No Mistakes or running `no-mistakes init`. The skill's [No Mistakes procedure](https://github.com/edheltzel/Do-Skills/blob/master/skills/global/workflow/do-commit/references/procedure.md#no-mistakes) owns the command details.
+On the push path, roborev reviews every commit locally before anything leaves the machine, when this repo uses it (its post-commit hook calls roborev, or `roborev repo list` shows the checkout). Real findings get fixed in new commits; false ones are commented and closed; three failing rounds stop for you. The skill's [Roborev procedure](https://github.com/edheltzel/Do-Skills/blob/master/skills/global/workflow/do-commit/references/procedure.md#roborev) owns the command details.
+
+After roborev, No Mistakes runs only when this repo was already initialized (`git remote` lists `no-mistakes`, or `no-mistakes axi` shows this repo). The binary being installed is not enough. If initialized but the binary is missing or the gate cannot run, it reports a blocker without publishing. A repo that was never initialized skips the gate and uses `git push`, without asking to initialize No Mistakes or running `no-mistakes init`. The skill's [No Mistakes procedure](https://github.com/edheltzel/Do-Skills/blob/master/skills/global/workflow/do-commit/references/procedure.md#no-mistakes) owns the command details.
 
 ## When to reach for it
 
@@ -32,20 +34,22 @@ Reach for it when local work should be recorded or published. For sync, conflict
 
 The first three gates always run, in order: understand the diff, draft a `type(scope): description` line, then verify the staged set before committing. The first line stays under 72 characters, imperative, with an optional body for why.
 
-The push path adds two gates. Gate 4 confirms a real feature branch and follows the publication routing above. Gate 5 passes only on axi `checks-passed` or `passed` when the gate ran, or on upstream sync when No Mistakes is not in use. A parked `ask-user` gate is blocked, not a ship. `passed-with-skips` is reported, not treated as publication.
+The push path adds three gates. Gate 4 passes when roborev passed for every commit about to be published, or roborev is not in use. Gate 5 confirms a real feature branch and follows the publication routing above. Gate 6 passes only on axi `checks-passed` or `passed` when the gate ran, or on upstream sync when No Mistakes is not in use. A parked `ask-user` gate is blocked, not a ship. `passed-with-skips` is reported, not treated as publication.
 
 ## Next
 
-After a local commit, the next rung is `do-commit cp`. The other moves are `do-commit cpp`, or stop. After a verified push or PR, the next rung is stop. The other moves are triage when review comments land, or `do-commit land` when you say go. Land itself offers no menu.
+After a local commit, the next rung is `do-commit cp`. The other moves are `do-commit cpp`, or stop. After a verified push with a PR open, or after `cpp`, there is no menu: it starts [git-pr-babysit](./git-pr-babysit.md) on the PR, and babysit's menu ends the run. A push with no PR offers stop, or `do-commit cpp`. Land itself offers no menu.
 
 `do-it` and `do-work` can call a mode with `mode:return-to-caller`. That skips the menu and returns a status plus the PR URL, or the commit SHA when there is no PR.
 
 ## It's working if
 
 - A bare commit did not push.
+- Roborev passed on every published commit before the push, when the repo uses it.
 - The push path waited for `checks-passed`, `passed`, or upstream sync.
+- A push with a PR went straight into the babysit watch.
 - Nothing merged unless you said go.
 
 ## Where it fits
 
-This is the ship stage. [work](./work.md) and `do-debug` hand off here after a verified change. [it](./it.md) calls `cpp` and skips this menu. After a push, [git-pr-babysit](./git-pr-babysit.md) watches the PR until it is ready. Review comments that arrive later go to [git-pr-review-triage](./git-pr-review-triage.md), which does not push; publishing the fixes comes back here.
+This is the ship stage. [work](./work.md) and `do-debug` hand off here after a verified change. [it](./it.md) calls `cpp` and skips this menu. After a push with a PR, it starts [git-pr-babysit](./git-pr-babysit.md), which waits for Pullfrog and CI. Fixes babysit finds come back here as `cp`, so roborev reviews them before they push. Review comments that arrive later go to [git-pr-review-triage](./git-pr-review-triage.md), which does not push; publishing the fixes comes back here.

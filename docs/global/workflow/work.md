@@ -18,7 +18,7 @@ npx skills update do-work
 
 ## When to reach for it
 
-Type `/do-work`, or the agent reaches for it when a plan is approved, triage hands over accepted items, or `do-it` needs the build.
+Type `/do-work`, or the agent reaches for it when a plan is approved (in the [plan](./plan.md) menu, or with Implement or Clear & Implement in Empryo plan mode), triage hands over accepted items, or `do-it` needs the build.
 
 Reach for it when the work is already specified. For an open-ended bug, use [debug](./debug.md). For shaping the work, use [plan](./plan.md). For the commit, use [commit](./commit.md).
 

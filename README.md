@@ -111,7 +111,7 @@ flowchart LR
   subgraph Respond
     T[do-git-pr-review-triage] --> M[do-git-pr-comment]
   end
-  D -->|you approve the plan| W
+  D -->|you approve the plan in Plannotator or Empryo| W
   R --> C
   K -->|review comments| T
   T -->|accepted fixes| W
@@ -120,7 +120,7 @@ flowchart LR
 
 | Stage   | Skills                                                        | You decide                                                  |
 | ------- | ------------------------------------------------------------- | ----------------------------------------------------------- |
-| Shape   | do-brainstorm → do-plan → do-doc-review                       | Approve or annotate the plan (in Plannotator, if installed) |
+| Shape   | do-brainstorm → do-plan → do-doc-review                       | Approve or annotate the plan (in Plannotator or Empryo plan mode, if present); `/do-it` skips this |
 | Build   | do-work → do-simplify → do-adversarial-review                 | Which review findings to fix                                |
 | Ship    | do-commit (commit, cp, cpp, land) → do-git-pr-babysit; [publication routing](./docs/global/workflow/commit.md#what-it-does) | Answer ask-user gates; say go before land                   |
 | Respond | do-git-pr-review-triage → Build → Ship; replies via do-git-pr-comment | Which comments to act on; approve replies before they post  |
