@@ -83,9 +83,11 @@ After the project list, add a short section for decisions the previous regroup f
 
 ## The file
 
-Always write a markdown file. The chat reply never replaces it.
+Always write two markdown files with the same stem. The chat reply never replaces them.
 
-Filename: `YYYY-MM-DD-regroup-status-check.md`. The date is the date of this request. If the user names a date, use that date. Do not use a later "today" once the request date is known.
+Filename: `YYYY-MM-DD-regroup-status-check.md` for the agent version, and `YYYY-MM-DD-regroup-status-check.human.md` for the human version. The date is the date of this request. If the user names a date, use that date. Do not use a later "today" once the request date is known.
+
+The human version follows the GAP plans contract: a diagram or table first, then what changed, what is blocked, and what is next, on one screen. It carries the same projects and status as the agent version and no raw task lines.
 
 Put the file in a `regroup/` directory in the workspace the user named. If they did not name one, use the current workspace. Create `regroup/` if it is missing.
 
@@ -108,7 +110,7 @@ Count active projects before writing the reply.
 
 Lead with the counts, then what changed since the last file. In the short form, still name every blocked task and every stalled task, even when their project is not in the brief list.
 
-Do not start or change the work. The only file this skill writes is the new regroup file.
+Do not start or change the work. The only files this skill writes are the new regroup file and its human version.
 
 ## One-project brief
 
@@ -120,4 +122,4 @@ Keep it simple and clear. The reply has exactly three sections, plain bullets, o
 
 If the source does not say what finished last or what comes next, say that instead of guessing.
 
-Still write the file, with the same no-overwrite rule. Filename: `YYYY-MM-DD-regroup-<project-slug>.md` in the same `regroup/` directory. It holds a title, the request date, the source that was read, and the same three sections.
+Still write both files, with the same no-overwrite rule. Filename: `YYYY-MM-DD-regroup-<project-slug>.md` and `YYYY-MM-DD-regroup-<project-slug>.human.md` in the same `regroup/` directory. The agent version holds a title, the request date, the source that was read, and the same three sections. The human version holds the same three sections, short, with a diagram or table first.

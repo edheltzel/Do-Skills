@@ -21,7 +21,9 @@ An existing plan path is revised in place. Otherwise write a new file. Read the 
 
 Location: project `AGENTS.md` override for plan paths, else `docs/plans/`. Create it if missing.
 
-New file: `YYYY-MM-DD-<topic>-plan.md` in that directory. Local date, short lowercase hyphenated topic. If the path exists, append `-2`, then `-3`. Do not overwrite a requirements file.
+Two files, same stem. `YYYY-MM-DD-<topic>-plan.md` is the agent version, and `YYYY-MM-DD-<topic>-plan.human.md` is the human version. Local date, short lowercase hyphenated topic. If the path exists, append `-2`, then `-3`. Do not overwrite a requirements file.
+
+The human version follows [plans.md](https://github.com/edheltzel/GAP/blob/master/global/docs/agents/plans.md): a diagram or table first, then goal, now, next, and risks, on one screen. It carries the same steps and status as the agent version and no code, diffs, or long file lists. Update it whenever the agent version changes, including after a review revises the plan.
 
 ```
 # <topic>
