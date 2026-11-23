@@ -386,14 +386,14 @@ class Watcher:
             log(f"watching {self.repo}#{self.pr} until {self.until}; required checks: {gate}")
         head = pr["headRefOid"]
         short = head[:7]
-        checks = self.fetch_checks()
-        again = self.fetch_pr()
-        if again["headRefOid"] != head:
-            log(f"head moved during the poll of {short}; waiting for the next one")
-            return "retry"
-        pr = again
         if self.start_head is None:
             self.start_head = head
+        checks = self.fetch_checks()
+        again = self.fetch_pr()
+        if again["headRefOid"] != head or again["baseRefName"] != base:
+            log(f"head or base moved during the poll of {short}; waiting for the next one")
+            return "retry"
+        pr = again
         mine = {who(pr)[0], pr["viewer"]}
         comments = pr["comments"]["nodes"]
         reviews = pr["reviews"]["nodes"]
@@ -479,8 +479,8 @@ class Watcher:
                     bot_failed.append(f"pullfrog approval skipped on {short}: {approval['link']}")
                 if bot in engaged:
                     bot_failed += [f"pullfrog check failed on {short}: {name} {c['link']}" for name, c in own_checks.items() if c["name"] == "pullfrog" and c["bucket"] in FAILED]
-            elif own_checks:
-                done = bool(live) and all(c["bucket"] == "pass" for c in live.values())
+            elif live:
+                done = all(c["bucket"] == "pass" if bot in GATING_BOTS else c["bucket"] != "pending" for c in live.values())
                 seen = bool(live or on_head) or bot in engaged
                 if bot in engaged:
                     bot_failed += [f"{bot} check failed on {short}: {name} {c['link']}" for name, c in own_checks.items() if c["bucket"] in FAILED]
