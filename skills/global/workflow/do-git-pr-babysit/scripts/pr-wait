@@ -288,7 +288,8 @@ class Watcher:
         self.printed: set[str] = set()
         self.events = 0
         self.required: set[str] | None = None
-        self.prev_snapshot: list[tuple[str, str]] | None = None
+        self.prev_snapshot: list[str] | None = None
+        self.start_head: str | None = None
         self.pr_files: dict[str, set[str]] = {}
 
     def load(self) -> Json | None:
@@ -386,9 +387,13 @@ class Watcher:
         head = pr["headRefOid"]
         short = head[:7]
         checks = self.fetch_checks()
-        if self.fetch_pr()["headRefOid"] != head:
+        again = self.fetch_pr()
+        if again["headRefOid"] != head:
             log(f"head moved during the poll of {short}; waiting for the next one")
             return "retry"
+        pr = again
+        if self.start_head is None:
+            self.start_head = head
         mine = {who(pr)[0], pr["viewer"]}
         comments = pr["comments"]["nodes"]
         reviews = pr["reviews"]["nodes"]
@@ -414,7 +419,7 @@ class Watcher:
         all_done = gate_done and all(c["bucket"] != "pending" for c in watched.values())
         # Checks appear a few seconds after a push. Two identical polls in a row
         # guard against calling a half-registered set of checks finished.
-        snapshot = sorted((name, c["bucket"]) for name, c in watched.items())
+        snapshot = [head] + sorted(f"{name}:{c['bucket']}" for name, c in watched.items())
         stable = snapshot == self.prev_snapshot
         self.prev_snapshot = snapshot
         green = gate_done and stable and not fail_lines
@@ -455,28 +460,34 @@ class Watcher:
         bots_pending = False
         # A bot named on the command line, or one that posts on this head
         # during the watch, is required for this head from then on.
-        engaged: set[str] = set(self.require_bots) | set(self.state.setdefault("engaged", {}).get(head, []))
+        engaged: set[str] = set(self.state.setdefault("engaged", {}).get(head, []))
+        if head == self.start_head:
+            engaged |= set(self.require_bots)
         for bot in GATING_BOTS + ADVISORY_BOTS:
             own_checks = {name: c for name, c in checks.items() if bot_check(name) == bot}
             summaries = [c for c in comments if bot_login(who(c)[0]) == bot]
             own_reviews = [r for r in reviews if bot_login(who(r)[0]) == bot]
             on_head = any((r.get("commit") or {}).get("oid") == head for r in own_reviews)
-            if bot in GATING_BOTS and (own_checks or on_head):
+            live = {name: c for name, c in own_checks.items() if c["bucket"] != "skipping"}
+            if bot in GATING_BOTS and (live or on_head):
                 engaged.add(bot)
             if bot == "pullfrog":
                 approval = next((c for c in own_checks.values() if c["name"] == "pullfrog-approval"), None)
-                done = on_head and bool(approval) and approval["bucket"] != "pending"
-                seen = bool(own_checks or on_head) or bot in engaged
+                done = on_head and bool(approval) and approval["bucket"] == "pass"
+                seen = bool(live or on_head) or bot in engaged
+                if bot in engaged and approval and approval["bucket"] == "skipping":
+                    bot_failed.append(f"pullfrog approval skipped on {short}: {approval['link']}")
                 if bot in engaged:
                     bot_failed += [f"pullfrog check failed on {short}: {name} {c['link']}" for name, c in own_checks.items() if c["name"] == "pullfrog" and c["bucket"] in FAILED]
             elif own_checks:
-                done = all(c["bucket"] != "pending" for c in own_checks.values())
-                seen = bool(own_checks or summaries or own_reviews) or bot in engaged
+                done = bool(live) and all(c["bucket"] == "pass" for c in live.values())
+                seen = bool(live or on_head) or bot in engaged
                 if bot in engaged:
                     bot_failed += [f"{bot} check failed on {short}: {name} {c['link']}" for name, c in own_checks.items() if c["bucket"] in FAILED]
             else:
-                done = on_head or any(short in s["body"] for s in summaries)
-                seen = bool(own_checks or summaries or own_reviews) or bot in engaged
+                named = any(short in s["body"] for s in summaries)
+                done = on_head or named
+                seen = on_head or named or bot in engaged
             if bot in ADVISORY_BOTS and own_checks:
                 desc = next(iter(own_checks.values()))
                 bot_status[bot] = f"{bot} {desc['description'] or desc['bucket']} (advisory)"
