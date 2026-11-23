@@ -149,18 +149,20 @@ def gh_lines(args: list[str]) -> list[str]:
 BOT_CHECKS = {"pullfrog": ("pullfrog", "pullfrog-approval")}
 
 
-def bot_name(text: str | None) -> str | None:
-    """Which review bot a login or check name belongs to, if any.
-
-    A check name matches exactly. A login matches when the bot name is in it,
-    so a CI check that only mentions a bot stays an ordinary check.
-    """
+def bot_login(text: str | None) -> str | None:
+    """Which review bot an author login belongs to. Check names are matched separately."""
     lowered = (text or "").lower()
-    if lowered in BOT_CHECKS["pullfrog"]:
+    if lowered == "pullfrog[bot]":
         return "pullfrog"
-    if lowered in ("pullfrog", "pullfrog-approval", "pullfrog[bot]"):
+    return next((bot for bot in ("greptile", "macroscope", "coderabbit") if lowered == bot + "[bot]"), None)
+
+
+def bot_check(name: str | None) -> str | None:
+    """Which review bot owns a check, by its exact name."""
+    lowered = (name or "").lower()
+    if lowered in ("pullfrog", "pullfrog-approval"):
         return "pullfrog"
-    return next((bot for bot in ("greptile", "macroscope", "coderabbit") if lowered == bot or lowered == bot + "[bot]"), None)
+    return None
 
 
 def who(node: Json) -> tuple[str, bool]:
@@ -392,7 +394,7 @@ class Watcher:
 
         # Required checks. With no required checks configured, every CI check
         # gates except the review bots' own checks.
-        gate = self.required or {name for name in checks if not bot_name(name)}
+        gate = self.required or {name for name in checks if not bot_check(name)}
         label = "required check" if self.required else "check"
 
         def bucket(name: str) -> str:
@@ -404,7 +406,7 @@ class Watcher:
                 link = checks[name]["link"]
                 fail_lines.append(f"{label} failed: {name} {link}")
                 self.emit(f"fail:{head}:{name}:{link}", fail_lines[-1])
-        watched = {name: c for name, c in checks.items() if bot_name(name) not in ADVISORY_BOTS}
+        watched = {name: c for name, c in checks.items() if bot_check(name) not in ADVISORY_BOTS}
         gate_done = all(bucket(n) != "pending" for n in gate)
         all_done = gate_done and all(c["bucket"] != "pending" for c in watched.values())
         # Checks appear a few seconds after a push. Two identical polls in a row
@@ -417,7 +419,7 @@ class Watcher:
         # People and bots talking. Edits are never events.
         for comment in comments:
             login, is_bot = who(comment)
-            if login in mine or bot_name(login) or (is_bot and any(b in login for b in STATUS_BOTS)):
+            if login in mine or bot_login(login) or (is_bot and any(b in login for b in STATUS_BOTS)):
                 continue
             self.emit(f"c:{comment['id']}", f"comment from {login}: {snippet(comment['body'])} {comment['url']}")
         for review in reviews:
@@ -449,9 +451,9 @@ class Watcher:
         bot_failed: list[str] = []
         bots_pending = False
         for bot in GATING_BOTS + ADVISORY_BOTS:
-            own_checks = {name: c for name, c in checks.items() if bot_name(name) == bot}
-            summaries = [c for c in comments if bot_name(who(c)[0]) == bot]
-            own_reviews = [r for r in reviews if bot_name(who(r)[0]) == bot]
+            own_checks = {name: c for name, c in checks.items() if bot_check(name) == bot}
+            summaries = [c for c in comments if bot_login(who(c)[0]) == bot]
+            own_reviews = [r for r in reviews if bot_login(who(r)[0]) == bot]
             on_head = any((r.get("commit") or {}).get("oid") == head for r in own_reviews)
             if bot == "pullfrog":
                 approval = next((c for c in own_checks.values() if c["name"] == "pullfrog-approval"), None)
