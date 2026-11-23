@@ -36,4 +36,4 @@ When a stack changes below the current layer, rebase the branches above it with 
 
 ## Where it fits
 
-Use this to shape related changes into reviewable PR layers, not as a replacement for an ordinary commit workflow. [Commit](./commit.md) covers a local Conventional Commit, and with `push` it also publishes a single branch.
+Use this to shape related changes into reviewable PR layers, not as a replacement for an ordinary commit workflow. [Commit](./commit.md) covers a local Conventional Commit, and with `push` it also publishes a single branch. In a repo that uses roborev, every layer's unpushed commits pass roborev before `push`, `submit`, or `sync`, and each opened PR gets its own [git-pr-babysit](./git-pr-babysit.md) watcher.

@@ -36,6 +36,10 @@ This forks three defaults:
 - Do not merge `origin/main` onto a live gated PR to catch up. The pipeline rebases.
 - Do not treat the pipeline's guarded force-push for CI repair as a user force-push. Still refuse `git push --force` on `main`.
 
+## Roborev
+
+Roborev is in use when the repo's post-commit hook calls it (`grep -q roborev "$(git rev-parse --git-path hooks/post-commit)"`) or `roborev repo list` lists this checkout. Then every push, PR, or sync push waits for roborev first: `roborev job wait <sha> [...]` for each commit about to be published must exit 0. Fix real findings in new commits, and close false ones with `roborev job comment` and `roborev job close`. `do-commit`, if installed, owns that loop: publish through `do-commit cp` rather than a bare `git push`. A merge commit from syncing `origin/main` is a commit too; wait for its review before pushing. Not in use: skip. Do not run `roborev init`.
+
 ## Safe Defaults
 
 - Treat `main` and `master` as shared, sensitive branches.
@@ -68,9 +72,10 @@ Use this as the default GitHub workflow for low-experience users:
 3. Open a PR early.
 4. When the branch falls behind `main`, merge `origin/main` into the feature branch.
 5. Resolve conflicts carefully and verify the final code, not just the merge markers.
-6. Push the updated branch.
-7. Merge with `Squash and merge`.
-8. Delete the feature branch after merge.
+6. Push the updated branch, after roborev passes when it is in use.
+7. Watch the PR with `do-git-pr-babysit`, if installed. It waits for Pullfrog and CI on the pushed head.
+8. Merge with `Squash and merge`, only on the user's go.
+9. Delete the feature branch after merge.
 
 If No Mistakes is in use, skip steps 3 and 6. The gate opens the PR and pushes after checks are green. For a live gated PR that is behind `main`, do not merge `origin/main` or rebase by hand.
 
@@ -100,6 +105,8 @@ For the PR body:
 - briefly state what changed
 - briefly state why it changed
 - mention testing or validation if relevant
+
+Once the PR is open, start `do-git-pr-babysit`, if installed, with the PR URL. It watches until ready and never merges.
 
 If the repo uses GitHub squash merges, prefer the PR title as the default squash commit message.
 
@@ -194,6 +201,7 @@ Before pushing:
 - [ ] review `status` and diff
 - [ ] confirm no accidental changes to unrelated files
 - [ ] explain any conflict resolution that changed behavior
+- [ ] if roborev: `roborev job wait` exits 0 for every commit about to be published
 - [ ] if No Mistakes: `no-mistakes axi run --yes --intent "..."` (from the feature branch; not `git push` / `axi sync`)
 
 Before undoing:
@@ -207,4 +215,5 @@ Before undoing:
 - Splitting work into dependent PRs: `do-gh-stack`, if installed.
 - Review comments on the open PR: `do-git-pr-review-triage`, if installed.
 - An old PR whose idea needs re-checking: `do-git-pr-modernize`, if installed.
-- Committing: suggest the user run `/do-commit`, if installed (it is user-invoked).
+- Committing and publishing, with the roborev local review: `do-commit`, if installed. Suggest the user run `/do-commit cp` or `/do-commit cpp`.
+- Watching the PR through Pullfrog and CI after a push: `do-git-pr-babysit`, if installed.

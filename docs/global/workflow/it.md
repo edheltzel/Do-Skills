@@ -26,7 +26,7 @@ Reach for this when you want the whole loop run without a stop at each skill. Fo
 
 ## The run
 
-**LFG** means the route is already chosen. Feature: `do-plan`, then `do-work`, then `do-commit cpp` (commit, push, PR, CI green), then [git-pr-babysit](./git-pr-babysit.md). Bug: `do-debug` on the fix path, then the same ship step. External PR: [git-pr-review](./git-pr-review.md), which posts only when your ask named commenting. Children report back instead of offering their own menus.
+**LFG** means the route is already chosen. Feature: `do-plan`, then `do-work`, then `do-commit cpp` (commit, push, PR, CI green), then [git-pr-babysit](./git-pr-babysit.md). Bug: `do-debug` on the fix path, then the same ship step. External PR: [git-pr-review](./git-pr-review.md), which posts only when your ask named commenting. Children report back instead of offering their own menus, so the plan skips the Plannotator and Empryo approval gate.
 
 The run ends with a short report: what ran, artifact paths, PR URL if one exists, and why it stopped if it did. Then a Next block. After babysit reports the PR ready, next is land only when you say go, or review triage when comments land. A babysit stop after the PR opened is reported; the PR and branch stay as they are. After `/do-it commit`, next is publishing that commit.
 

@@ -189,3 +189,6 @@ Open the reference whose trigger matches the task; no need to preload all three.
 ## Related skills
 
 - One branch, not a stack (sync, conflicts, recovery, squash merge): `do-git-safe-pr-workflow`, if installed.
+- The roborev local review before `push`, `submit`, or `sync`: `do-commit`, if installed, owns it. When the repo uses roborev, `roborev job wait <sha> [...]` must exit 0 for every unpushed commit on every layer first.
+- Watching each opened PR through Pullfrog and CI: `do-git-pr-babysit`, if installed, one watcher per PR.
+- Review comments on a layer's PR: `do-git-pr-review-triage`, if installed.

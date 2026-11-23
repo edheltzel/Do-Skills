@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # Vendored from t3dotgg/tstack, MIT license. Copyright notice and terms: LICENSE next to this file.
 # Source: babysit-pr/scripts/pr-wait at 1085050f3baed1ac724caa4a8166145fb2ac88af
+# Changed in Do-Skills: Pullfrog is a gating review bot.
 """pr-wait: watch one GitHub pull request and print one line per real event.
 
   pr-wait <pr> [--repo owner/name] [--until green|ready|any-change] [--interval 20]
@@ -14,14 +15,15 @@ Progress and errors that do not end the run go to stderr.
   green       required checks passed on the current head (every CI check when
               the base branch requires none)
   ready      green and no unresolved review threads (default); optionally require
-              Greptile or Macroscope with --require-review-bot
+              Pullfrog, Greptile, or Macroscope with --require-review-bot
   any-change  stop after the first poll that prints an event
 
 Exit codes
   0  the --until condition is met, or the PR merged
   1  the condition cannot be met without action: a required check failed, the
      branch conflicts with its base, the PR closed, `ready` is blocked by
-     unresolved threads or a BEHIND branch, or GitHub stayed unreachable
+     unresolved threads or a BEHIND branch, a required review bot's own check
+     failed, or GitHub stayed unreachable
   2  bad arguments, unknown PR, or another pr-wait already watches this PR
 
 Events
@@ -29,8 +31,8 @@ Events
   - all checks finished on the head (one summary line)
   - a new comment, review, thread, or thread reply from someone other than the
     PR author or the gh user
-  - Greptile, Macroscope, or CodeRabbit finished on the head, or a Greptile or
-    Macroscope summary changed after that
+  - Pullfrog, Greptile, Macroscope, or CodeRabbit finished on the head, or a
+    Greptile or Macroscope summary changed after that
   - the base branch moved and the new commits touch files in this PR
   - merge state became BEHIND or DIRTY
   - the PR merged or closed
@@ -61,7 +63,7 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import Any, NoReturn
 
-GATING_BOTS = ("greptile", "macroscope")
+GATING_BOTS = ("pullfrog", "greptile", "macroscope")
 ADVISORY_BOTS = ("coderabbit",)
 # CI and deploy bots report through checks. Their PR comments are status reports.
 STATUS_BOTS = ("github-actions", "vercel", "netlify", "railway", "cloudflare")
@@ -170,6 +172,15 @@ def verdict(body: str) -> str:
     for line in plain(body).splitlines():
         if re.search(r"verdict|confidence score", line, re.IGNORECASE):
             return snippet(line.replace("*", ""), 80)
+    return ""
+
+
+def headline(body: str) -> str:
+    """The first line of a bot review (Pullfrog), without callout markers."""
+    for line in plain(body).splitlines():
+        text = re.sub(r"^[>\s]*(\[![A-Z]+\])?[>\s]*", "", line).strip()
+        if text:
+            return snippet(text.replace("*", ""), 80)
     return ""
 
 
@@ -417,9 +428,13 @@ class Watcher:
 
         # Review bots on the current head. A bot with checks is done when they
         # finish. Otherwise it is done once it reviews the head commit or its
-        # summary names the head.
+        # summary names the head. With --require-review-bot, a bot that is not
+        # on this PR yet is still expected until the first one shows up.
         bot_status: dict[str, str] = {}
         reviewed: list[str] = []
+        bot_failed: list[str] = []
+        bot_seen: list[str] = []
+        bots_pending = False
         for bot in GATING_BOTS + ADVISORY_BOTS:
             own_checks = {name: c for name, c in checks.items() if bot_name(name) == bot}
             summaries = [c for c in comments if bot_name(who(c)[0]) == bot]
@@ -438,16 +453,22 @@ class Watcher:
             key = f"bot:{bot}:{head}"
             was_done = key in self.reported
             if done:
+                failed = [name for name, c in own_checks.items() if c["bucket"] in FAILED]
                 if bot in GATING_BOTS:
                     reviewed.append(bot)
-                failed = [name for name, c in own_checks.items() if c["bucket"] in FAILED]
+                    bot_failed += [f"{bot} check failed on {short}: {name} {own_checks[name]['link']}" for name in failed]
+                head_reviews = [r for r in own_reviews if (r.get("commit") or {}).get("oid") == head]
                 detail = "; ".join(filter(None, [
-                    next((v for v in map(verdict, (s["body"] for s in summaries)) if v), ""),
+                    next((v for v in map(verdict, (s["body"] for s in summaries)) if v), "")
+                    or (headline(head_reviews[-1]["body"]) if head_reviews else ""),
                     f"failed: {', '.join(failed)}" if failed else "",
                 ]))
                 tag = " (advisory, not waited on)" if bot in ADVISORY_BOTS else ""
                 self.emit(key, f"{bot} finished on {short}{': ' + detail if detail else ''}{tag}")
             if bot in GATING_BOTS:
+                if seen:
+                    bot_seen.append(bot)
+                    bots_pending = bots_pending or bot not in reviewed
                 for s in summaries:
                     new, old = digest(s["body"]), self.state["summaries"].get(s["id"])
                     self.state["summaries"][s["id"]] = new
@@ -489,7 +510,7 @@ class Watcher:
             if self.required
             else "",
             ", ".join(bot_status[b] for b in GATING_BOTS + ADVISORY_BOTS if b in bot_status)
-            or "no Greptile or Macroscope yet",
+            or "no Pullfrog, Greptile, or Macroscope yet",
             f"{len(unresolved)} unresolved threads",
             f"merge state {merge_state}",
         ]
@@ -506,14 +527,19 @@ class Watcher:
             if green and self.until == "green":
                 self.reported.add(checks_key)
                 self.finish(0, [f"green on {short}: {summary}{self.behind(base, base_oid, head)}"])
-            # Optionally wait for Greptile or Macroscope, never for CodeRabbit.
+            # Optionally wait for Pullfrog, Greptile, or Macroscope, never for CodeRabbit.
             if green and (reviewed or not self.require_review_bot):
-                if unresolved:
+                if self.require_review_bot and bot_failed:
+                    self.finish(1, bot_failed)
+                if self.require_review_bot and bots_pending:
+                    pass
+                elif unresolved:
                     self.finish(1, [f"blocked by {len(unresolved)} unresolved threads on {short}: {' '.join(unresolved)}"])
-                if merge_state == "BEHIND":
+                elif merge_state == "BEHIND":
                     self.finish(1, [behind_line])
-                self.reported.add(checks_key)
-                self.finish(0, [f"ready on {short}: {summary}{self.behind(base, base_oid, head)}"])
+                else:
+                    self.reported.add(checks_key)
+                    self.finish(0, [f"ready on {short}: {summary}{self.behind(base, base_oid, head)}"])
         if all_done and (stable or self.baseline):
             self.emit(checks_key, f"checks finished on {short}: {summary}")
         if self.until == "any-change" and self.events:
@@ -546,7 +572,7 @@ def main() -> None:
     parser.add_argument("--repo", help="owner/name (default: from the URL or the current checkout)")
     parser.add_argument("--until", choices=("green", "ready", "any-change"), default="ready")
     parser.add_argument("--interval", type=int, default=20, help="seconds between polls (default 20, min 5)")
-    parser.add_argument("--require-review-bot", action="store_true", help="require Greptile or Macroscope review on the head for ready")
+    parser.add_argument("--require-review-bot", action="store_true", help="require a Pullfrog, Greptile, or Macroscope review on the head for ready")
     args = parser.parse_args()
     repo, pr = parse_target(args.pr, args.repo)
     _lock = lock(repo, pr)

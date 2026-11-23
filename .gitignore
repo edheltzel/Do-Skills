@@ -16,3 +16,5 @@ node_modules/
 # Python
 __pycache__/
 *.pyc
+# roborev snapshots
+/.roborev/

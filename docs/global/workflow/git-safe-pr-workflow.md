@@ -46,6 +46,8 @@ you're not a confident git user. It teaches the next decision, not the whole too
   the PR title as the final commit message.
 - **Refuse or warn hard** on committing to `main`, force-pushing protected
   branches, or `reset --hard` / `clean -fd` without a clear destructive request.
+- **Roborev before every push.** In a repo that uses roborev, each commit about to be published, merge commits included, waits for a passing review first. [commit](./commit.md) owns the fix loop.
+- **Watch after the push.** Once a PR is open, [git-pr-babysit](./git-pr-babysit.md) watches it through Pullfrog and CI.
 - **Follow the gate's safety rules in enrolled repos.** The skill's [No Mistakes playbook](https://github.com/edheltzel/Do-Skills/blob/master/skills/global/workflow/do-git-safe-pr-workflow/SKILL.md#no-mistakes) owns publication and live PR sync.
 
 Deeper playbooks live in the skill's `references/` — `conflict-resolution.md`,
@@ -58,12 +60,13 @@ Deeper playbooks live in the skill's `references/` — `conflict-resolution.md`,
 - Mistakes on shared history get reverted rather than reset away.
 - Conflict resolutions are verified against the final code, not just cleared of
   markers, and any behavior change is explained back to you.
+- No push left before roborev passed, when the repo uses it.
 - In a gated repo, the pipeline opens the PR after local validation; `checks-passed` means it is ready for review and merge, not that the PR only then appears. Do not open one early with `gh pr create`.
 
 ## Where it fits
 
 A reach-for-it-anytime standalone for the branch-to-merge lifecycle. It follows
 [git-worktree](./git-worktree.md), which sets up where a branch lives, and
-feeds [git-pr-review-triage](./git-pr-review-triage.md), which sorts the
-review comments once the PR is open. One-shot commit-and-publish is
+feeds [git-pr-babysit](./git-pr-babysit.md), which watches the open PR, and
+[git-pr-review-triage](./git-pr-review-triage.md), which sorts its review comments. One-shot commit-and-publish is
 [commit](./commit.md) with `push`.
