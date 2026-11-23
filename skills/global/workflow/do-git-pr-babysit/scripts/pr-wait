@@ -158,9 +158,9 @@ def bot_name(text: str | None) -> str | None:
     lowered = (text or "").lower()
     if lowered in BOT_CHECKS["pullfrog"]:
         return "pullfrog"
-    if lowered.startswith("pullfrog["):
+    if lowered in ("pullfrog", "pullfrog-approval", "pullfrog[bot]"):
         return "pullfrog"
-    return next((bot for bot in ("greptile", "macroscope", "coderabbit") if lowered == bot), None)
+    return next((bot for bot in ("greptile", "macroscope", "coderabbit") if lowered == bot or lowered == bot + "[bot]"), None)
 
 
 def who(node: Json) -> tuple[str, bool]:
@@ -552,7 +552,7 @@ class Watcher:
                 self.reported.add(checks_key)
                 self.finish(0, [f"green on {short}: {summary}{self.behind(base, base_oid, head)}"])
             # Optionally wait for Pullfrog, Greptile, or Macroscope, never for CodeRabbit.
-            pullfrog_missing = self.require_review_bot and "pullfrog" not in reviewed
+            pullfrog_missing = self.require_review_bot and "pullfrog" in bot_status and "pullfrog" not in reviewed
             if green and (reviewed or not self.require_review_bot) and not pullfrog_missing:
                 if self.require_review_bot and bots_pending:
                     pass
@@ -573,6 +573,7 @@ class Watcher:
         while True:
             try:
                 if self.poll() == "retry":
+                    time.sleep(self.interval)
                     continue
                 failures = 0
             except GhError as error:
