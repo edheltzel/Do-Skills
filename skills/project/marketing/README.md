@@ -34,3 +34,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 
 - [Project skills](../README.md)
 - [Skill catalog](../../../README.md)
+
+## Source
+
+Copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) (Apache-2.0, see [LICENSE](./LICENSE)).

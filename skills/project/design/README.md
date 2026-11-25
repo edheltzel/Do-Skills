@@ -29,3 +29,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 - [Project skills](../README.md)
 - [Skill catalog](../../../README.md)
 - [Docs](../../../docs/project/design/) - human-facing pages for these skills
+
+## Source
+
+Copied from [arla6ka/design.how](https://github.com/arla6ka/design.how) `skills/` (MIT). Each skill keeps its notice in its own `LICENSE`.
