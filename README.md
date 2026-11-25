@@ -69,7 +69,8 @@ Useful in any repo, or none. Install once per machine with `-g`.
 | Group | Skills | Coverage |
 |-------|--------|----------|
 | [Core](./skills/global/core/) | 13 | Stack-agnostic foundations - review lenses, reasoning, testing, simplification, agent-legible repos, comments, design patterns, skill authoring, and AI-writing cleanup. |
-| [Workflow](./skills/global/workflow/) | 20 | Change delivery - the brainstorm, plan, work, debug, and ship loop (LFG), commits, docs, GitHub projects and stacks, PR workflow and review triage, worktrees, and technical writing. |
+| [Loop](./skills/global/loop/) | 6 | The idea-to-PR loop - brainstorm, plan, plan review, work, debug, and the do-it (LFG) runner. Ships through do-commit in Workflow. |
+| [Workflow](./skills/global/workflow/) | 14 | Shipping and collaboration - commits, PR babysitting, review and triage, GitHub projects and stacks, safe PR workflow, worktrees, docs, and technical writing. |
 | [Operations](./skills/global/operations/) | 5 | Operating AI agents - delegation, handoffs, prompt audits, project status check-ins, and skill drift repair. |
 | [Content](./skills/global/content/) | 3 | Audience-facing media - illustrations, diagrams, images, and visual explanations. |
 | [Personal](./skills/global/personal/) | 4 | Personal extras you want everywhere - teaching, todo.txt, isometric explainer figures. |
@@ -92,10 +93,13 @@ Pay off only when a project uses that stack or product. Install into the project
 
 <!-- skills-end -->
 
-## The workflow (LFG)
+## The loop (LFG)
 
 One loop takes a change from idea to merged PR. Every step ends by naming the
 next one; pick it, pick another, or stop. `/do-it` runs the loop for you.
+Shape and Build live in [Loop](./skills/global/loop/); Ship and Respond use
+[Workflow](./skills/global/workflow/) and the review lenses in [Core](./skills/global/core/),
+so install the whole global set.
 
 ```mermaid
 flowchart LR

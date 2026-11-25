@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-debug
 npx skills update do-debug
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/global/workflow/do-debug)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/global/loop/do-debug)
 
 ## What it does
 
@@ -37,4 +37,4 @@ Then the chain, from trigger to symptom, with a file and line and no gap. That c
 
 ## Where it fits
 
-This is a way into Build, not a separate loop. A verified fix offers [commit](./commit.md). A fix that grew into a feature offers [work](./work.md). Rethink hands off to [brainstorm](./brainstorm.md).
+This is a way into Build, not a separate loop. A verified fix offers [commit](../workflow/commit.md). A fix that grew into a feature offers [work](./work.md). Rethink hands off to [brainstorm](./brainstorm.md).

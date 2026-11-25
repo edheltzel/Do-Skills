@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-work
 npx skills update do-work
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/global/workflow/do-work)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/global/loop/do-work)
 
 ## What it does
 
@@ -20,7 +20,7 @@ npx skills update do-work
 
 Type `/do-work`, or the agent reaches for it when a plan is approved (in the [plan](./plan.md) menu, or with Implement or Clear & Implement in Empryo plan mode), triage hands over accepted items, or `do-it` needs the build.
 
-Reach for it when the work is already specified. For an open-ended bug, use [debug](./debug.md). For shaping the work, use [plan](./plan.md). For the commit, use [commit](./commit.md).
+Reach for it when the work is already specified. For an open-ended bug, use [debug](./debug.md). For shaping the work, use [plan](./plan.md). For the commit, use [commit](../workflow/commit.md).
 
 ## The unit
 
@@ -39,4 +39,4 @@ The skill finishes that unit and runs its check before starting the next. After 
 
 ## Where it fits
 
-This is the Build stage. It follows [plan](./plan.md) and precedes [commit](./commit.md). [debug](./debug.md) hands it a fix that grew into a feature. [git-pr-review-triage](./git-pr-review-triage.md) hands it the accepted list. `do-it` calls it and takes the result without the menu.
+This is the Build stage. It follows [plan](./plan.md) and precedes [commit](../workflow/commit.md). [debug](./debug.md) hands it a fix that grew into a feature. [git-pr-review-triage](../workflow/git-pr-review-triage.md) hands it the accepted list. `do-it` calls it and takes the result without the menu.
