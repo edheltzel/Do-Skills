@@ -100,7 +100,7 @@ The human version follows the GAP plans contract: a diagram or table first, then
 
 Put the file in a `regroup/` directory in the workspace the user named. If they did not name one, use the current workspace. Create `regroup/` if it is missing.
 
-Do not overwrite or delete an older regroup file. That archive is how someone later asks what a past check-in said. Only `do-cleanup` may move an older file, and only into `regroup/archive/`. If today's filename already exists, keep the earlier file and write this one with a short numeric suffix (`-2`, then `-3`).
+Do not overwrite or delete an older regroup file. That archive is how someone later asks what a past check-in said. Only `do-cleanup` may move an older file, and only into `regroup/archive/`. If today's filename already exists in `regroup/` or `regroup/archive/`, keep the earlier file and write this one with the next free numeric suffix across both folders (`-2`, then `-3`), for the agent and human versions alike.
 
 The file contains, in this order:
 

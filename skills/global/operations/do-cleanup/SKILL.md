@@ -23,7 +23,7 @@ Bring `todo.txt`, plans, handoffs, and regroup files in line with what is merged
 
 Read only, before any change:
 
-- `git fetch origin`, then the default branch's log (`origin/master` or `origin/main`).
+- The default branch's log from the existing remote-tracking ref (`origin/master` or `origin/main`). Do not fetch during a dry run; if the ref looks stale, say so. Run `git fetch origin` only at the start of apply, then re-check every row.
 - Merged and closed PRs: `gh pr list --state merged --limit 100 --json number,title,headRefName,mergedAt,url`. Skip when `gh` is unavailable and say so.
 - `git worktree list` and local branches with `git branch --merged origin/<default>`.
 - The files each record names, checked on the default branch with `git cat-file -e origin/<default>:<path>`.
@@ -32,11 +32,13 @@ Read only, before any change:
 
 Follow `do-todo`. Every command names both files, quoted and absolute: `TODO_FILE="<root>/todo.txt" DONE_FILE="<root>/done.txt" tuxedo --json ...`. Re-list before each mutation, because task numbers shift.
 
-Close an open task only on hard evidence:
+Close an open task only when the evidence shows the outcome the task asks for, not just a mention of it:
 
-- its `pr:` URL is merged;
-- a merged PR or a commit on the default branch names the task, its `id:`, or the exact change it describes;
-- its `report:` file, or the deliverable path it names, exists on the default branch.
+- its `pr:` URL is merged and that PR's diff makes the change the task describes;
+- a merged PR or default-branch commit whose diff makes that change (a commit that only names the task, or plans it, does not count);
+- its `report:` file exists on the default branch and records the task as done.
+
+A path that already existed before the task was created is not evidence: the file must carry the requested change.
 
 Append the evidence (`app N pr:<url>` or `app N report:<path>`) when the line lacks it, then `do N`. After all closes, `archive`. A route line (`@route`) is never closed here unless its repo has no open task and the user confirms.
 
@@ -44,25 +46,29 @@ Anything that looks done but lacks that proof stays open and goes on the **Needs
 
 ## 3. Plans
 
-Plans are `docs/plans/*.md` with their `.human.md` pair. The `research/` and `handoffs/` folders are not plans.
+Plans live in the plans directory the project `AGENTS.md` names, else `docs/plans/`, with their `.human.md` pair. The `research/` and `handoffs/` folders are not plans.
 
-- **Finished.** Every line in its `## todo.txt` section is done (or matches a done task in `done.txt`), or the PR it names is merged and no follow-up task cites it. Move the plan and its `.human.md` pair to `docs/plans/archive/` with `git mv`.
+- **Finished.** Every implementation unit's `Done when` and `Verify` is met on the default branch (a merged PR that delivers the units, or the checks passing there), and no line in its `## todo.txt` section is still open. An empty or all-done todo section alone is not enough. Move the plan and its `.human.md` pair to `archive/` inside that plans directory with `git mv`.
 - **Open.** Leave it in place. You may tick a step that has the same hard evidence as step 2. Never rewrite its goal, steps, or decisions.
 
 ## 4. Handoffs
 
-Handoffs are `docs/plans/handoffs/*.md` (or the directory the project `AGENTS.md` names).
+Handoffs live in the handoff directory the project `AGENTS.md` names, else `docs/plans/handoffs/`.
 
-- **Superseded.** A newer handoff covers the same topic (same slug, or it names this one), or every task in its `## todo.txt` section is done. Move it to `docs/plans/handoffs/archive/` with `git mv`.
+- **Superseded.** A newer handoff explicitly replaces this one (it says it supersedes or continues it and carries its open work forward), or every task in its `## todo.txt` section is done with step 2's evidence. A newer handoff that only links this one as a dependency does not supersede it. Move it to `archive/` inside that handoff directory with `git mv`.
 - **Still live.** Leave the body alone. Append one dated line under a `## Status` heading at the end only when a linked PR merged or a listed task closed since it was written.
 
 ## 5. Regroup files
 
-Regroup files are `regroup/*.md` with their `.human.md` pair. Group them by mode and scope from the filename: `YYYY-MM-DD-regroup-all*.md` for all projects, `YYYY-MM-DD-regroup-<project-slug>*.md` for one project. In each group, keep the newest file (latest date, then highest `-N` suffix) and its pair in `regroup/`. Move every older one to `regroup/archive/` with `git mv`. `do-regroup` reads the archive when `regroup/` has no earlier file, so history stays reachable.
+Regroup files are `regroup/*.md` with their `.human.md` pair. Group them by scope. `do-regroup` names every file `YYYY-MM-DD-regroup-status-check[-N].md`; older files may use `regroup-all` or `regroup-<project-slug>`. Read the scope from the file's header (all projects or which project), and fall back to the filename only when the header has none. In each group, keep the newest file (latest date, then highest `-N` suffix) and its pair in `regroup/`. Move every older one to `regroup/archive/` with `git mv`. `do-regroup` reads the archive when `regroup/` has no earlier file, so history stays reachable.
+
+## Moving a file
+
+Before any move, find live references to the file: `grep` the repo for its path and file name (READMEs, other docs, `note:` and `report:` tags in `todo.txt` and `done.txt`). Update each to the archive path in the same apply, or list the move as blocked when a reference cannot be updated. Never move onto an existing archive file: if the destination exists, list the row as blocked.
 
 ## 6. Worktrees and branches
 
-List linked worktrees whose branch is merged into the default branch or whose PR is merged, and local branches merged into it. For each, say whether it has uncommitted changes (`git -C <path> status --porcelain`). Remove them only on the user's yes: `git worktree remove <path>`, then `git branch -d <branch>`. Never force-remove one with uncommitted changes; it may hold another agent's work.
+List a linked worktree or local branch only when its tip is an ancestor of the default branch (`git merge-base --is-ancestor <branch> origin/<default>`), or equals the head commit of a PR that merged. A branch with commits after that point is not merged; leave it off the list. For each, say whether it has uncommitted changes (`git -C <path> status --porcelain`). Remove them only on the user's yes: `git worktree remove <path>`, then `git branch -d <branch>`. Never force-remove one with uncommitted changes; it may hold another agent's work.
 
 ## Dry run, then apply
 
