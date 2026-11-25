@@ -25,3 +25,9 @@ x 2026-11-22 2026-11-20 Add do-skill-drift skill and verified store baseline fix
 x 2026-11-22 2026-11-21 Gate do-plan in Plannotator and hand off to Empryo plan mode, sync docs/global/workflow/plan.md +doskills pr:https://github.com/edheltzel/Do-Skills/pull/70
 x 2026-11-22 2026-11-21 Publish Do-Skills v0.3.0 release +doskills report:https://github.com/edheltzel/Do-Skills/releases/tag/v0.3.0
 x 2026-11-22 2026-11-22 Close GAP #25 (do-gh-pm Phase 3 interview + scaffold, shipped in PR #53) and move board #26 card to Done +doskills issue:https://github.com/edheltzel/GAP/issues/25
+x 2026-11-22 2026-11-22 Review and land or discard uncommitted do-no-comments edits (SKILL.md and references/comment-sicko.md) +doskills report:ffe412f
+x 2026-11-22 2026-11-06 Cutover doskills.edheltzel.codes to the doskills Pages project after PR 60 +doskills report:https://doskills.edheltzel.codes
+x 2026-11-22 2026-11-06 Archive edheltzel/doskills-site after production is verified on the new project +doskills report:https://github.com/edheltzel/doskills-site
+x 2026-11-25 2026-11-22 Update do-plan and do-regroup to emit paired .human.md files per GAP plans.md +doskills note:/Users/ed/Developer/Atlas/GAP/global/docs/agents/plans.md pr:https://github.com/edheltzel/Do-Skills/pull/71
+x 2026-11-25 2026-11-22 Re-pin do-skills in GAP (gap pin do-skills@master and gap sync) after v0.3.0 and docs sync land +doskills report:GAP/gap.lock@ffe412f
+x 2026-11-25 2026-11-25 Scout Compound Engineering and PStack loops vs ours +doskills report:/Users/ed/Developer/Atlas/DoSkills/.worktrees/loop-group/docs/plans/research/2026-11-25-loop-comparison.md

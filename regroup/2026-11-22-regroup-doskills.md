@@ -6,15 +6,20 @@ Sources read: `/Users/ed/Developer/Atlas/DoSkills/todo.txt` and `done.txt` (via 
 
 ## Last completed
 
-- 2026-11-19 - Push chore/drop-gitbutler and open its PR (plain-git rewrite, commit 1577721) ([PR #65](https://github.com/edheltzel/Do-Skills/pull/65)).
-- 2026-11-19 - Run `gap sync --only do-skills` once GAP docs are deployed and GAP #129 merges.
+- 2026-11-22 - Landed do-no-comments edits in `ffe412f`.
+- 2026-11-22 - Pages cutover is live at https://doskills.edheltzel.codes and `edheltzel/doskills-site` is archived.
+- 2026-11-22 - Closed GAP #25. Do-Skills itself has no GitHub issues.
 
 ## Up next
 
-- Up next not specified.
+- Re-pin do-skills in GAP. Lock is still `c3965ca`; v0.3.0 is `56e0361` and master is `ffe412f`.
+- Run `but teardown` in Do-Skills. `.git/gitbutler` is still present.
 
 ## Remaining
 
-- `2026-11-19 Decide on GAP gitbutler/workspace: it still holds f37e089, 7673fd8, c346119 not on master; policy/plain-git-worktrees already deleted +doskills @waiting Ed's call report:/Users/ed/Developer/Atlas/branch-backups-2026-11-19` - blocked (waiting on Ed's call).
-- `2026-10-14 create landing page and documentation on how to use, leverage and update` - stalled (unchanged since 2026-10-15).
-- `2026-10-14 Move the Tern Plannotator launcher from /tmp into dotfiles and export PLANNOTATOR_BROWSER, falling back to open outside Tern +doskills dep:absorb-review` - stalled (unchanged since 2026-10-15; dependency `absorb-review` is done, so not blocked).
+- `2026-11-22 Re-pin do-skills in GAP` - ready.
+- `2026-11-19 Run but teardown in Do-Skills` - ready. `drop-gitbutler` is done.
+- `2026-11-22 Update do-plan and do-regroup to emit paired .human.md files` - ready.
+- `2026-11-22 Finish do-gh-pm Phase 4` - open. GAP #26 is still open, so it stays open here.
+- `2026-10-14 Move the Tern Plannotator launcher` - ready. `absorb-review` is done.
+- `2026-11-19 Decide whether to salvage GAP commit f37e089` - waiting on Ed.
