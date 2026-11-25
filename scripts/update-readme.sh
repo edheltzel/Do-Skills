@@ -159,6 +159,13 @@ EOF
     sort -f -o "$group_file" "$group_file"
 }
 
+group_source() {
+    case "$1/$2" in
+        project/design)    echo "Copied from [arla6ka/design.how](https://github.com/arla6ka/design.how) \`skills/\` (MIT). Each skill keeps its notice in its own \`LICENSE\`." ;;
+        project/marketing) echo "Copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) (Apache-2.0, see [LICENSE](./LICENSE))." ;;
+    esac
+}
+
 write_group_readme() {
     scope="$1"; group="$2"
     {
@@ -179,6 +186,10 @@ write_group_readme() {
         printf -- '- [Skill catalog](../../../README.md)\n'
         if is_promoted "$scope" "$group"; then
             printf -- '- [Docs](../../../docs/%s/%s/) - human-facing pages for these skills\n' "$scope" "$group"
+        fi
+        source_line=$(group_source "$scope" "$group")
+        if [ -n "$source_line" ]; then
+            printf '\n## Source\n\n%s\n' "$source_line"
         fi
     } > "$SKILLS_DIR/$scope/$group/README.md"
 }
