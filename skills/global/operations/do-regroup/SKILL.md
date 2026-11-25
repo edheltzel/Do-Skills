@@ -56,7 +56,7 @@ Pick the mode from the words in the request. If the request names no mode, run o
 
 Every task line in the reply and the file starts with a ref, so the user can hand that task off without searching for it.
 
-- **todo.txt.** `id:<slug>` when the line has an `id:` tag. Otherwise, for an open task, `<list>#<n>`, where `n` is the task's `n` in the `todo` array of `tuxedo lsa --json` on that list (its position among non-blank lines). A done task, in either file, gets no number: quote its text. `<list>` is the project tag for a repo's local list, `~` for `$HOME/todo.txt`, and the list's absolute path for any other list the user named or when two read lists share a project tag. A `#<n>` ref is valid only until that list changes: say so once in the reply when any appears.
+- **todo.txt.** `id:<slug>` when the line has an `id:` tag. Otherwise, for an open task, `<list>#<n>`, where `n` is the task's `n` in the `todo` array of `tuxedo lsa --json` on that list (its position among non-blank lines). A done task without an `id:`, in either file, gets no number: quote its text. `<list>` is the project tag for a repo's local list, `~` for `$HOME/todo.txt`, and the list's absolute path for any other list the user named or when two read lists share a project tag. A `#<n>` ref is valid only until that list changes: say so once in the reply when any appears.
 - **GitHub board.** The issue as `#<number>`, or `<owner>/<repo>#<number>` when the board spans repos. A draft item has no number: quote its title.
 - **Any other source.** Its own ID when it has one; otherwise the task name in quotes.
 
