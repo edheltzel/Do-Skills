@@ -1,6 +1,6 @@
 ---
 name: do-regroup
-description: Use when checking project status. Defaults to the current project; covers every active project on request. Surfaces work that is active, blocked, or stalled, grouped by project, then phase, then task, and always writes a dated markdown archive. Triggers include "regroup", "regroup all", "regroup everything", "all projects", "all open projects", "just this project", "only this project", "check in", "status report", "status update", "just <project>".
+description: Use when checking project status. Defaults to the current project; covers every active project on request. Surfaces work that is active, blocked, or stalled, grouped by project, then phase, then task, and always writes a dated markdown archive. Triggers include "regroup", "regroup all", "regroup everything", "all projects", "all open projects", "open projects", "just this project", "only this project", "check in", "status report", "status update", "just <project>".
 ---
 
 # Regroup
@@ -56,7 +56,7 @@ Pick the mode from the words in the request. If the request names no mode, run o
 
 Every task line in the reply and the file starts with a ref, so the user can hand that task off without searching for it.
 
-- **todo.txt.** `id:<slug>` when the line has an `id:` tag. Otherwise `<project>#<n>`, where `n` is the task's `n` from `tuxedo lsa --json` (its position among non-blank lines) and `<project>` is the list's project tag. A `#<n>` ref is valid only until that list changes: say so once in the reply when any appears.
+- **todo.txt.** `id:<slug>` when the line has an `id:` tag. Otherwise `<project>#<n>` for a task in a project's local list, or `global#<n>` for a task in `$HOME/todo.txt`, where `n` is the task's `n` from `tuxedo lsa --json` on that list (its position among non-blank lines) and `<project>` is the list's project tag. A `#<n>` ref is valid only until that list changes: say so once in the reply when any appears.
 - **GitHub board.** The issue as `#<number>`, or `<owner>/<repo>#<number>` when the board spans repos. A draft item has no number: quote its title.
 - **Any other source.** Its own ID when it has one; otherwise the task name in quotes.
 
@@ -132,7 +132,7 @@ Keep it short and scannable. No phase tree, no counts, no percents. The reply is
 
 1. **Do** `id:regroup-ids` (A) Link regroup items to task IDs
 2. **Do** `doskills#9` (B) Pages cutover. Overdue: due 2026-11-20
-3. **Answer** Which regroup layout? Unblocks `doskills#11`
+3. **Answer** `doskills#10` Pick the regroup layout. Which layout: A, B or C?
 4. **Open** `doskills#12` Tidy make-logo references. Stalled
 5. **Wait** `doskills#11` do-gh-pm Continue reads regroup. Blocked on `id:regroup-ids`
 6. **Later** `id:font-audit` make-font licence check. Backlogged until 2026-12-01
@@ -141,12 +141,14 @@ Say a number to start it.
 ```
 
 - **Header.** The project name, then the most recently done task or tasks with ref and date. If the source does not say what finished last, write "last done not in source". Add the resume-point handoff file from Shape when one exists.
-- **Hand-off list.** Each open task once, as `<n>. **<Verb>** <ref> (<priority>) <name>`, then a short sentence only when it adds something: overdue, active, stalled, or what it waits on. Verbs, in this order:
-  - **Do.** One to three tasks the source explicitly marks as next (a priority, a "next" label, a plan step, an in-progress flag), ordered by priority, then soonest `due:`. Display order alone is not a priority. If the source gives no cue, put "Up next not specified" above the list and use no Do lines.
-  - **Answer.** A blocked task whose wait is a question or decision the user can settle. Write the question, then "Unblocks <ref>".
-  - **Open.** Every other open task that is not blocked or backlogged.
-  - **Wait.** Blocked on another task (`dep:`) or on someone other than the user. Name what it waits on, with that task's ref when it has one.
-  - **Later.** Backlogged, with the date or reason.
+- **Hand-off list.** Each open task once, as `<n>. **<Verb>** <ref> (<priority>) <name>`, then a short sentence only when it adds something: overdue, active, stalled, or what it waits on. Each open task gets exactly one verb: the first of these rules that fits it.
+  1. **Later.** Backlogged, with the date or reason.
+  2. **Answer.** Blocked on a question or decision the user can settle. Write the question after the task name.
+  3. **Wait.** Every other blocked task: on another task (`dep:`), on someone other than the user, or on an unstated reason. Name what it waits on, with that task's ref when it has one, or write "reason not in source".
+  4. **Do.** Ready, and among the one to three tasks the source explicitly marks as next (a priority, a "next" label, a plan step, an in-progress flag), ranked by priority, then soonest `due:`. Display order alone is not a priority. If the source gives no cue, put "Up next not specified" above the list and use no Do lines.
+  5. **Open.** Every other ready task.
+
+  List them in the order Do, Answer, Open, Wait, Later.
 - **Close.** End with "Say a number to start it." When the user picks one, that is a new request: this skill still does not start the work. If nothing is open, write "Nothing remaining" and drop the closing line.
 
 If the source does not say what finished last or what comes next, say that instead of guessing.
