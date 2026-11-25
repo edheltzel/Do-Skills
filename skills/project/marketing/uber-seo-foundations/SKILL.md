@@ -1,5 +1,5 @@
 ---
-name: seo-foundations
+name: uber-seo-foundations
 description: >
   Core SEO know-how and the map from a user's goal to the right Ubersuggest MCP
   tool. Use whenever the user asks anything about SEO, keywords, search volume,
@@ -150,7 +150,7 @@ missing, the answer is to get them connected — not to approximate.
 
 - **Name what is waiting on it** — "volume and difficulty for your ten
   keywords", not "data". The connection has to buy something specific.
-- `pagespeed_audit` and `content-demand-finder` are the exceptions that work
+- `pagespeed_audit` and `uber-content-demand-finder` are the exceptions that work
   with no account at all; offer them while the user connects, and say plainly
   that they cover speed and planning, not volumes or rankings.
 
@@ -197,17 +197,17 @@ SERP gap" means nothing to someone who opened this to get more customers.
 
 | User says | Start with |
 | --- | --- |
-| "here's my site, what do I do?" — anything vague, or anyone who does not know the terminology | the `seo-action-plan` skill: it diagnoses and picks the next step instead of offering a menu |
-| "I just signed up / set up my site / track my rankings and brand" | the `project-setup` skill: it creates the project and configures AI visibility in one flow |
-| "find me good keywords" | the `keyword-research` skill |
-| "why does my competitor outrank me" | the `competitor-analysis` skill |
-| "is my site technically broken / slow" | the `site-audit` skill |
-| "I don't know what to write about at all" | the `content-demand-finder` skill (no data calls; produces the shortlist that keyword-research then validates) |
-| "what should I write about this keyword" | the `content-brief` skill |
-| "does ChatGPT mention my brand" | the `ai-visibility` skill |
+| "here's my site, what do I do?" — anything vague, or anyone who does not know the terminology | the `uber-seo-action-plan` skill: it diagnoses and picks the next step instead of offering a menu |
+| "I just signed up / set up my site / track my rankings and brand" | the `uber-project-setup` skill: it creates the project and configures AI visibility in one flow |
+| "find me good keywords" | the `uber-keyword-research` skill |
+| "why does my competitor outrank me" | the `uber-competitor-analysis` skill |
+| "is my site technically broken / slow" | the `uber-site-audit` skill |
+| "I don't know what to write about at all" | the `uber-content-demand-finder` skill (no data calls; produces the shortlist that uber-keyword-research then validates) |
+| "what should I write about this keyword" | the `uber-content-brief` skill |
+| "does ChatGPT mention my brand" | the `uber-ai-visibility` skill |
 | "how many backlinks do I have / where can I get links" | `backlinks_overview` → `backlinks` → `anchor_texts` → `linking_domains`; `backlink_opportunity` for links a competitor has and the user does not (run `competitors` first to fill the targets) |
 | "how much is my traffic worth" | `traffic_value` (login + a tracked project) |
-| "track my rankings over time" | `list_projects` → `project_position_info`; the `project-setup` skill if none exists |
+| "track my rankings over time" | `list_projects` → `project_position_info`; the `uber-project-setup` skill if none exists |
 | "what does Neil Patel say about X" | `search_neilpatel_blog` |
 
 ## Deeper references

@@ -1,5 +1,5 @@
 ---
-name: ai-visibility
+name: uber-ai-visibility
 description: >
   Report how visible a brand is inside AI answers (ChatGPT, Perplexity, Google
   AI Overviews, Claude) using Ubersuggest's AI Search Visibility data. Use when
@@ -23,7 +23,7 @@ AI Search Visibility configured. Call `auth_status` first.
 - Not logged in → explain that this data is tied to their Ubersuggest account,
   ask for the connection, and stop. Your impression of how often ChatGPT names
   a brand is not a measurement — never offer one in place of the report.
-- Logged in but no project → run the **project-setup** skill: it creates the
+- Logged in but no project → run the **uber-project-setup** skill: it creates the
   project and configures the AI visibility topics and prompts in one flow.
 - Project exists but no brand configured (`has_brand` is false, or `brand_config`
   says no brand was found) → `configure_brand` sets the topics and prompts up.
@@ -75,7 +75,7 @@ AI Search Visibility configured. Call `auth_status` first.
 - **Sentiment flags** — any prompt where the brand is mentioned unfavourably,
   quoted or characterised specifically.
 - **Recommendations**, grounded in how answer engines actually pick sources
-  (if the `seo-foundations` skill is installed alongside this one, its
+  (if the `uber-seo-foundations` skill is installed alongside this one, its
   `references/methodology.md` covers this in the AEO/GEO section; if it is not
   available, do not go looking for it — the guidance below is enough). Typically: content that directly answers the missing prompts with
   extractable structure; explicit entity naming; and off-site presence in the
@@ -90,4 +90,4 @@ AI Search Visibility configured. Call `auth_status` first.
   before concluding the brand is invisible; "no data" and "not mentioned" are
   very different findings and must not be conflated.
 - Plan/quota error → report which limit was hit.
-- Tools not connected, or `auth_status` says logged out → ask for the connection (*No numbers without the connection* in `seo-foundations`) and stop. Do not fill the gap with a web search, a page fetch or prior knowledge, do not send the user to run the report in the web app, and never offer another SEO provider's connector in place of Ubersuggest.
+- Tools not connected, or `auth_status` says logged out → ask for the connection (*No numbers without the connection* in `uber-seo-foundations`) and stop. Do not fill the gap with a web search, a page fetch or prior knowledge, do not send the user to run the report in the web app, and never offer another SEO provider's connector in place of Ubersuggest.
