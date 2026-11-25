@@ -104,7 +104,7 @@ Do not overwrite or delete an older regroup file. That archive is how someone la
 
 The file contains, in this order:
 
-1. A title, the request date, and the source that was read.
+1. A title, the request date, a `Scope:` line (`all projects` or the project name), and the source that was read.
 2. Counts of active projects, blocked tasks, and stalled tasks.
 3. What changed since the previous regroup file, or a line that there is no earlier file.
 4. Every project, then its phases, then its tasks, in the shape above.
