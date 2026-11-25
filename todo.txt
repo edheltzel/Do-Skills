@@ -1,6 +1,11 @@
-2026-10-14 Move the Tern Plannotator launcher from /tmp into dotfiles and export PLANNOTATOR_BROWSER, falling back to open outside Tern +doskills dep:absorb-review
+2026-10-14 Move the Tern Plannotator launcher from /tmp into dotfiles and export PLANNOTATOR_BROWSER, falling back to open outside Tern +doskills
 2026-11-19 Decide whether to salvage GAP commit f37e089 (Foundry forge/ scaffold) from gap.bundle; gitbutler/workspace is deleted and 7673fd8 + c346119 are already on GAP master +doskills @waiting Ed's call report:/Users/ed/Developer/Atlas/branch-backups-2026-11-19
-2026-11-22 Update do-plan and do-regroup to emit paired .human.md files per GAP plans.md +doskills note:/Users/ed/Developer/Atlas/GAP/global/docs/agents/plans.md
-2026-11-22 Re-pin do-skills in GAP (gap pin do-skills@master and gap sync) after v0.3.0 and docs sync land +doskills
 2026-11-22 Finish do-gh-pm Phase 4 golden templates: build views and automations on GAT boards #2-#6, resolve #6 Type field, and record template numbers in do-gh-pm +doskills issue:https://github.com/edheltzel/GAP/issues/26
-2026-11-22 Review and land or discard uncommitted do-no-comments edits (SKILL.md and references/comment-sicko.md) +doskills @waiting Ed's call
+2026-11-19 Run but teardown in Do-Skills; .git/gitbutler and virtual_branches.toml are still present +doskills dep:drop-gitbutler
+2026-11-23 PR workflow skills route through roborev and Pullfrog (do-commit cpp starts babysit; babysit waits for Pullfrog after roborev) +doskills
+2026-11-25 Commit and PR the Loop group from .worktrees/loop-group (branch feat/loop-group, stacked on feat/roborev-pr-workflow) +doskills id:loop-group
+2026-11-25 Add intake routing and assumption-mode planning to do-it and do-plan +doskills dep:loop-group note:docs/plans/research/2026-11-25-loop-comparison.md
+2026-11-25 Wire a learnings step (do-docs) into do-it and make do-plan read learnings +doskills dep:loop-group note:docs/plans/research/2026-11-25-loop-comparison.md
+2026-11-25 Add a UI browser check and a small-diff review lane to do-work +doskills dep:loop-group note:docs/plans/research/2026-11-25-loop-comparison.md
+2026-11-25 Add a /do-it land merge grant +doskills dep:loop-group note:docs/plans/research/2026-11-25-loop-comparison.md
+2026-11-25 Ship the regroup hand-off list: task refs and numbered Do/Answer/Open/Wait/Later list +doskills pr:https://github.com/edheltzel/Do-Skills/pull/72
