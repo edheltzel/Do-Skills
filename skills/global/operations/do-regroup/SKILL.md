@@ -56,7 +56,7 @@ Pick the mode from the words in the request. If the request names no mode, run o
 
 Every task line in the reply and the file starts with a ref, so the user can hand that task off without searching for it.
 
-- **todo.txt.** `id:<slug>` when the line has an `id:` tag. Otherwise `<project>#<n>` for a task in a project's local list, or `global#<n>` for a task in `$HOME/todo.txt`, where `n` is the task's `n` from `tuxedo lsa --json` on that list (its position among non-blank lines) and `<project>` is the list's project tag. A `#<n>` ref is valid only until that list changes: say so once in the reply when any appears.
+- **todo.txt.** `id:<slug>` when the line has an `id:` tag. Otherwise `<list>#<n>`, where `n` is the task's `n` from `tuxedo lsa --json` on that list (its position among non-blank lines). `<list>` is the project tag for a repo's local list, `~` for `$HOME/todo.txt`, and the file's path for any other list the user named. A `#<n>` ref is valid only until that list changes: say so once in the reply when any appears.
 - **GitHub board.** The issue as `#<number>`, or `<owner>/<repo>#<number>` when the board spans repos. A draft item has no number: quote its title.
 - **Any other source.** Its own ID when it has one; otherwise the task name in quotes.
 
@@ -119,7 +119,7 @@ Count active projects before writing the reply.
 
 Lead with the counts, then what changed since the last file. In the short form, still name every blocked task and every stalled task, with its ref, even when their project is not in the brief list.
 
-End the reply with the hand-off list (One-project brief, below) for every project with open work: one bold project line, then its items, numbered straight through the whole reply so each number is unique.
+End the reply with the hand-off list (One-project brief, below) for every project with open work: one bold project line, then its items, numbered straight through the whole reply so each number is unique. A task that belongs to several projects gets one verb and one number, under its first project; the other projects point to that number.
 
 Do not start or change the work. The only files this skill writes are the new regroup file and its human version.
 
@@ -144,7 +144,7 @@ Say a number to start it.
 - **Hand-off list.** Each open task once, as `<n>. **<Verb>** <ref> (<priority>) <name>`, then a short sentence only when it adds something: overdue, active, stalled, or what it waits on. Each open task gets exactly one verb: the first of these rules that fits it.
   1. **Later.** Backlogged, with the date or reason.
   2. **Answer.** Blocked on a question or decision the user can settle. Write the question after the task name.
-  3. **Wait.** Every other blocked task: on another task (`dep:`), on someone other than the user, or on an unstated reason. Name what it waits on, with that task's ref when it has one, or write "reason not in source".
+  3. **Wait.** Every other blocked task: on another task (`dep:`), on a `dep:` this regroup could not confirm done, on someone other than the user, or on an unstated reason. Name what it waits on, with that task's ref when it has one, or write "reason not in source".
   4. **Do.** Ready, and among the one to three tasks the source explicitly marks as next (a priority, a "next" label, a plan step, an in-progress flag), ranked by priority, then soonest `due:`. Display order alone is not a priority. If the source gives no cue, put "Up next not specified" above the list and use no Do lines.
   5. **Open.** Every other ready task.
 
