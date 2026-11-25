@@ -1,6 +1,6 @@
 # Marketing
 
-SEO marketing on the Ubersuggest MCP - keyword research, site audits, competitors, content briefs, AI visibility, and action plans.
+Marketing - do-gtm for go-to-market strategy (positioning, launches, conversion, retention), plus uber- SEO skills on the Ubersuggest MCP: keyword research, site audits, competitors, content briefs, AI visibility, and action plans.
 
 ## Installation
 
@@ -20,6 +20,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 
 | Skill | Description |
 |-------|-------------|
+| [`do-gtm`](./do-gtm/) | Build an evidence-backed marketing system from product code and authorized analytics — positioning, discovery, launches, conversion, and retention. |
 | [`uber-ai-visibility`](./uber-ai-visibility/) | Report how visible a brand is inside AI answers (ChatGPT, Perplexity, Google AI Overviews, Claude) using Ubersuggest's AI Search Visibility data. |
 | [`uber-competitor-analysis`](./uber-competitor-analysis/) | Analyse a domain and its organic competitors, then report the keyword and content gaps. |
 | [`uber-content-brief`](./uber-content-brief/) | Build a data-backed content brief for a target keyword by analysing who currently ranks and why. |
@@ -34,7 +35,8 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 
 - [Project skills](../README.md)
 - [Skill catalog](../../../README.md)
+- [Docs](../../../docs/project/marketing/) - human-facing pages for these skills
 
 ## Source
 
-Copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) (Apache-2.0, see [LICENSE](./LICENSE)).
+The `uber-` skills are copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) (Apache-2.0, see [LICENSE](./LICENSE)). `do-gtm` is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) marketing (MIT).

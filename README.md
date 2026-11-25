@@ -87,8 +87,7 @@ Pay off only when a project uses that stack or product. Install into the project
 | [Backend](./skills/project/backend/) | 1 | Backend engineering - Effect (TypeScript) services and code, and review for Effect, Go, Python, and Rust. |
 | [Tooling](./skills/project/tooling/) | 3 | CLIs and lightweight tools - TypeScript CLI scaffolding, zero-dependency patterns, and performance profiling. |
 | [Swift](./skills/project/swift/) | 3 | Swift and Apple platforms - macOS desktop apps, iOS review, and cleanup. |
-| [Product](./skills/project/product/) | 1 | Product marketing - positioning, SEO and GEO discovery, launches, conversion, and retention. |
-| [Marketing](./skills/project/marketing/) | 9 | SEO marketing on the Ubersuggest MCP - keyword research, site audits, competitors, content briefs, AI visibility, and action plans. |
+| [Marketing](./skills/project/marketing/) | 10 | Marketing - do-gtm for go-to-market strategy (positioning, launches, conversion, retention), plus uber- SEO skills on the Ubersuggest MCP: keyword research, site audits, competitors, content briefs, AI visibility, and action plans. |
 | [Personal](./skills/project/personal/) | 1 | Personal extras for specific projects - recipe diagrams. |
 
 <!-- skills-end -->
@@ -196,7 +195,7 @@ WTFPL, except `skills/project/marketing/`, which is Apache-2.0 (see its [LICENSE
 `do-teach-me` and the writing principles in `do-skill-craft` (from `writing-great-skills`) are adapted from [Matt Pocock's Skills](https://github.com/mattpocock/skills)
 `do-astro` is adapted from [Astrolicious](https://github.com/astrolicious/agent-skills)
 `do-illo` is copied from [tmchow/illo-skill](https://github.com/tmchow/illo-skill)
-`do-marketing` is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) marketing (MIT)
+`do-gtm` (renamed from `do-marketing`) is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) marketing (MIT)
 `do-perf` is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) `skills/enliven` (MIT)
 `marketing` skills (renamed with the `uber-` prefix: `uber-ai-visibility`, `uber-competitor-analysis`, `uber-content-brief`, `uber-content-demand-finder`, `uber-keyword-research`, `uber-project-setup`, `uber-seo-action-plan`, `uber-seo-foundations`, `uber-site-audit`) are copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) (Apache-2.0)
 `do-landing-page` and `do-redesign` are original to this repo. The ideas come from [elayadesign/ai-design-skills](https://github.com/elayadesign/ai-design-skills) and [elayadesign/redesign-skill](https://github.com/elayadesign/redesign-skill); nothing is copied, and no MIT grant is made (see [NOTICE.md](./skills/project/frontend/references/NOTICE.md))

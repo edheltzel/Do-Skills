@@ -150,16 +150,10 @@
       ]
     },
     {
-      "title": "Project: Product",
-      "description": "Product marketing - positioning, SEO and GEO discovery, launches, conversion, and retention.",
-      "skills": [
-        "do-marketing"
-      ]
-    },
-    {
       "title": "Project: Marketing",
-      "description": "SEO marketing on the Ubersuggest MCP - keyword research, site audits, competitors, content briefs, AI visibility, and action plans.",
+      "description": "Marketing - do-gtm for go-to-market strategy (positioning, launches, conversion, retention), plus uber- SEO skills on the Ubersuggest MCP: keyword research, site audits, competitors, content briefs, AI visibility, and action plans.",
       "skills": [
+        "do-gtm",
         "uber-ai-visibility",
         "uber-competitor-analysis",
         "uber-content-brief",
