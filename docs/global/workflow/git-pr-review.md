@@ -41,4 +41,4 @@ The review file `docs/plans/YYYY-MM-DD-pr-<number>-review.md` records the head S
 
 ## Where it fits
 
-The outside-PR counterpart to [git-pr-review-triage](./git-pr-review-triage.md). [it](./it.md) uses it for its external PR route. Posting is [git-pr-comment](./git-pr-comment.md); a re-check right before posting catches a head that moved.
+The outside-PR counterpart to [git-pr-review-triage](./git-pr-review-triage.md). [it](../loop/it.md) uses it for its external PR route. Posting is [git-pr-comment](./git-pr-comment.md); a re-check right before posting catches a head that moved.

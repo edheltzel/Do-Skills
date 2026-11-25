@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-plan
 npx skills update do-plan
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/global/workflow/do-plan)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/global/loop/do-plan)
 
 ## What it does
 

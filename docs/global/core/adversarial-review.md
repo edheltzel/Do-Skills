@@ -62,7 +62,7 @@ proposes that fix and leaves the edit to the caller.
 
 ## Where it fits
 
-A read-only correctness lens at the end of a change. [work](../workflow/work.md)
+A read-only correctness lens at the end of a change. [work](../loop/work.md)
 calls it after [simplify](./simplify.md) and applies the findings you accept.
 In that caller mode it returns the report and does not edit. It complements
 [simplify](./simplify.md), [code-comments](./code-comments.md), and

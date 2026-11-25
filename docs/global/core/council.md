@@ -22,7 +22,7 @@ A missing member or provider stops the run. It reports what is missing and never
 
 Type `/do-council`, or the agent reaches for it when you say council.
 
-Reach for it when one reviewer is not enough and you want independent opinions that can disagree. For a single correctness hunt, use [adversarial-review](./adversarial-review.md). To apply the findings, use [work](../workflow/work.md). For comments already on your PR, use [git-pr-review-triage](../workflow/git-pr-review-triage.md).
+Reach for it when one reviewer is not enough and you want independent opinions that can disagree. For a single correctness hunt, use [adversarial-review](./adversarial-review.md). To apply the findings, use [work](../loop/work.md). For comments already on your PR, use [git-pr-review-triage](../workflow/git-pr-review-triage.md).
 
 ## Before the council
 
@@ -43,4 +43,4 @@ The caller fixes known issues, answers outstanding PR comments, and runs the rel
 
 ## Where it fits
 
-A second-opinion lens next to [adversarial-review](./adversarial-review.md). [git-pr-review](../workflow/git-pr-review.md) can run it on a PR snapshot. Its next step is [work](../workflow/work.md) with the council report.
+A second-opinion lens next to [adversarial-review](./adversarial-review.md). [git-pr-review](../workflow/git-pr-review.md) can run it on a PR snapshot. Its next step is [work](../loop/work.md) with the council report.

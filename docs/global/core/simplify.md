@@ -27,7 +27,7 @@ modified and a behavior-preserving cleanup would help.
 Reach for it when nesting, vague names, duplicate logic, dead branches, or
 speculative abstractions make a change harder to understand. Over-engineering
 on a diff goes to `ponytail-review`, if that skill is installed; readability
-stays here. For a bug, use [debug](../workflow/debug.md). For a wider
+stays here. For a bug, use [debug](../loop/debug.md). For a wider
 TypeScript refactor that may reshape APIs or types, use
 [typescript-refactoring](../../project/typescript/typescript-refactoring.md). For an
 end-of-session multi-lens review, use
@@ -72,7 +72,7 @@ mechanics out of the high-level call site.
 
 ## Where it fits
 
-A reach-for-it-anytime cleanup lens, and a step [work](../workflow/work.md)
+A reach-for-it-anytime cleanup lens, and a step [work](../loop/work.md)
 runs after a build and before [adversarial-review](./adversarial-review.md).
 Called that way, it reports and applies, then returns. It does not offer a
 next rung. It complements [code-comments](./code-comments.md): simplify until

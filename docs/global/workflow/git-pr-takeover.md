@@ -28,7 +28,7 @@ For your own old PR that only needs updating, use [git-pr-modernize](./git-pr-mo
 
 - **Recover.** Read the source, its reviews, and later corrections. Resolve it to real code, the current head, and the base. Ask when ownership is unclear.
 - **Preserve.** Keep dirty changes as yours and work in a separate worktree ([git-worktree](./git-worktree.md)). A replacement PR starts on a new branch from the original commits, with fixes added on top.
-- **Continue.** Run [git-pr-modernize](./git-pr-modernize.md) on the source and respect its disposition. When you asked to finish and publish, it then runs [work](./work.md), `do-commit cpp`, and [git-pr-babysit](./git-pr-babysit.md).
+- **Continue.** Run [git-pr-modernize](./git-pr-modernize.md) on the source and respect its disposition. When you asked to finish and publish, it then runs [work](../loop/work.md), `do-commit cpp`, and [git-pr-babysit](./git-pr-babysit.md).
 
 A report under `docs/plans/` covers the inherited state, both PR links, changes, checks, credit, and open decisions.
 

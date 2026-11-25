@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-brainstorm
 npx skills update do-brainstorm
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/global/workflow/do-brainstorm)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/global/loop/do-brainstorm)
 
 ## What it does
 
