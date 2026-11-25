@@ -1,5 +1,5 @@
 ---
-name: do-marketing
+name: do-gtm
 description: "Build an evidence-backed marketing system from product code and authorized analytics — positioning, discovery, launches, conversion, and retention. Use for marketing audits, go-to-market work, SEO, GEO and AI-search discoverability, measurement reviews, or synchronized reports, decks, and videos without inventing results."
 ---
 

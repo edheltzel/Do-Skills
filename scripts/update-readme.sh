@@ -16,9 +16,9 @@ REPO_URL="https://github.com/edheltzel/Do-Skills/tree/master"
 # their authoritative owner. Unlisted groups on disk are appended.
 SCOPE_ORDER="global project"
 GROUP_ORDER_global="core loop workflow operations content personal"
-GROUP_ORDER_project="typescript frontend design backend tooling swift product marketing personal"
+GROUP_ORDER_project="typescript frontend design backend tooling swift marketing personal"
 # Groups without docs pages.
-UNPROMOTED="global/operations global/personal project/personal project/marketing"
+UNPROMOTED="global/operations global/personal project/personal"
 
 scope_title() {
     case "$1" in
@@ -49,7 +49,6 @@ group_title() {
         swift)      echo "Swift" ;;
         backend)    echo "Backend" ;;
         tooling)    echo "Tooling" ;;
-        product)    echo "Product" ;;
         marketing)  echo "Marketing" ;;
         *)          echo "$1" ;;
     esac
@@ -162,7 +161,7 @@ EOF
 group_source() {
     case "$1/$2" in
         project/design)    echo "Copied from [arla6ka/design.how](https://github.com/arla6ka/design.how) \`skills/\` (MIT). Each skill keeps its notice in its own \`LICENSE\`." ;;
-        project/marketing) echo "Copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) (Apache-2.0, see [LICENSE](./LICENSE))." ;;
+        project/marketing) echo "The \`uber-\` skills are copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) (Apache-2.0, see [LICENSE](./LICENSE)). \`do-gtm\` is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) marketing (MIT)." ;;
     esac
 }
 
