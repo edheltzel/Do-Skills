@@ -3,24 +3,24 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/Do-Skills --skill=make-font
+npx skills add edheltzel/Do-Skills --skill=do-make-font
 ```
 
 ```bash
-npx skills update make-font
+npx skills update do-make-font
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/project/design/make-font)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/project/design/do-make-font)
 
 ## What it does
 
-`make-font` makes your own font from fonts you like. It measures the references, picks the closest open-licence (OFL or Apache) font, fits that base to the numbers, checks it, and delivers an OFL family with web files and a font book.
+`do-make-font` makes your own font from fonts you like. It measures the references, picks the closest open-licence (OFL or Apache) font, fits that base to the numbers, checks it, and delivers an OFL family with web files and a font book.
 
 Every outline in the result comes from the open base. References contribute measurements only (proportions, stem and stroke thickness, class-mean widths and spacing), never outlines, kerning pairs, or per-glyph widths. The family ships under the OFL with a new name.
 
 ## When to reach for it
 
-Type `/make-font`, or the agent reaches for it automatically when a task fits ("make me a font like these", "/make-font", "build a typeface from these screenshots").
+Type `/do-make-font`, or the agent reaches for it automatically when a task fits ("make me a font like these", "/do-make-font", "build a typeface from these screenshots").
 
 Reach for this when someone wants a font from references they name (files or screenshots). It will not clone, trace, convert, or "rebuild exactly" a commercial font, and it will not rename one. It offers the proportional match instead. A screenshot is fine to measure, and a file is fine to measure if the person has it. Neither is copied into the output or committed.
 
@@ -45,4 +45,4 @@ Hand off in this order: family, weights, glyph count, and scripts; the base and 
 
 ## Where it fits
 
-A standalone brand step. Its font can set the wordmark for [make-logo](./make-logo.md) and the type in a [make-motion](./make-motion.md) video. It borrows Playwright from [build-design-system](../frontend/build-design-system.md) when that skill is installed beside it.
+A standalone brand step. Its font can set the wordmark for [do-make-logo](./make-logo.md) and the type in a [do-make-motion](./make-motion.md) video. It borrows Playwright from [build-design-system](../frontend/build-design-system.md) when that skill is installed beside it.

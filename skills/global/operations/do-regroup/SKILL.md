@@ -133,9 +133,9 @@ Keep it short and scannable. No phase tree, no counts, no percents. The reply is
 1. **Do** `id:regroup-ids` (A) Link regroup items to task IDs
 2. **Do** `doskills#9` (B) Pages cutover. Overdue: due 2026-11-20
 3. **Answer** `doskills#10` Pick the regroup layout. Which layout: A, B or C?
-4. **Open** `doskills#12` Tidy make-logo references. Stalled
+4. **Open** `doskills#12` Tidy do-make-logo references. Stalled
 5. **Wait** `doskills#11` do-gh-pm Continue reads regroup. Blocked on `id:regroup-ids`
-6. **Later** `id:font-audit` make-font licence check. Backlogged until 2026-12-01
+6. **Later** `id:font-audit` do-make-font licence check. Backlogged until 2026-12-01
 
 Say a number to start it.
 ```

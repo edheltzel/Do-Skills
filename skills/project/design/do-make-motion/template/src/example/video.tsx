@@ -107,7 +107,7 @@ function Proof({frame}: {frame: number}) {
 function End({frame}: {frame: number}) {
   const t = THEME;
   // The command types itself, a character every 3 frames, with a steady caret: you type a command, you don't click it.
-  const cmd = '/make-motion';
+  const cmd = '/do-make-motion';
   // Each character fades in over its 3 frames, so a calm end card never steps a whole glyph in one frame.
   const charOpacity = (i: number) => ramp(frame, [TYPE + i * 3, TYPE + i * 3 + 3], [0, 1], LINEAR);
   // Characters typed so far, the one fading in included; the caret follows them.

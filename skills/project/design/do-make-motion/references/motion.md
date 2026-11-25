@@ -17,7 +17,7 @@ the bar (`references/review.md`). Build for it from the script on:
   scene where each element waits for the one before is the commonest way to lose energy.
 - **The camera works.** Push in on what matters as it happens, pull back to show the result, re-frame between beats.
   A camera locked off on a panel is a screenshot with captions.
-- **Scale changes.** Something goes from small to filling the frame, or the reverse, once a scene. The make-font
+- **Scale changes.** Something goes from small to filling the frame, or the reverse, once a scene. The do-make-font
   video's crop lifted off a page and became the whole frame; that's the move people remembered.
 - **Fill the frame.** The subject takes most of the frame width. UI text at 1350 wide is 22 px or more, or the camera
   pushes in until it is: on a phone, 14 px UI text is a grey smear. Empty halves of the frame read as unfinished.

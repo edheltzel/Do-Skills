@@ -1,4 +1,4 @@
-"""Shared geometry for the make-font scripts. Python 3.9+, fontTools, uharfbuzz, numpy.
+"""Shared geometry for the do-make-font scripts. Python 3.9+, fontTools, uharfbuzz, numpy.
 
 Every length a measurement returns is in cap-normalised units: the font is scaled so its cap height is 700.
 That puts a screenshot (no em size) and a font file on the same scale. `cap_em` keeps the file's real cap

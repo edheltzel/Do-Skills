@@ -187,7 +187,7 @@ bash scripts/update-readme.sh
 
 ## License
 
-WTFPL, except `skills/project/marketing/`, which is Apache-2.0 (see its [LICENSE](./skills/project/marketing/LICENSE)), and the design.how skills under `skills/project/frontend/` (`do-build-design-system`, `do-component-docs`, `do-design-system-boss`, `do-migrate-design-system`, `do-token-mapping`, `do-ui-review`) and `skills/project/design/` (`make-font`, `make-logo`, `make-motion`), which are MIT (see each folder's LICENSE).
+WTFPL, except `skills/project/marketing/`, which is Apache-2.0 (see its [LICENSE](./skills/project/marketing/LICENSE)), and the design.how skills under `skills/project/frontend/` (`do-build-design-system`, `do-component-docs`, `do-design-system-boss`, `do-migrate-design-system`, `do-token-mapping`, `do-ui-review`) and `skills/project/design/` (`do-make-font`, `do-make-logo`, `do-make-motion`), which are MIT (see each folder's LICENSE).
 
 ---
 
@@ -200,4 +200,4 @@ WTFPL, except `skills/project/marketing/`, which is Apache-2.0 (see its [LICENSE
 `do-perf` is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) `skills/enliven` (MIT)
 `marketing` skills (`ai-visibility`, `competitor-analysis`, `content-brief`, `content-demand-finder`, `keyword-research`, `project-setup`, `seo-action-plan`, `seo-foundations`, `site-audit`) are copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) (Apache-2.0)
 `do-landing-page` and `do-redesign` are original to this repo. The ideas come from [elayadesign/ai-design-skills](https://github.com/elayadesign/ai-design-skills) and [elayadesign/redesign-skill](https://github.com/elayadesign/redesign-skill); nothing is copied, and no MIT grant is made (see [NOTICE.md](./skills/project/frontend/references/NOTICE.md))
-`do-build-design-system`, `do-component-docs`, `do-design-system-boss`, `do-migrate-design-system`, `do-token-mapping`, `do-ui-review` (renamed with the `do-` prefix), `make-font`, `make-logo`, and `make-motion` are copied from [arla6ka/design.how](https://github.com/arla6ka/design.how) `skills/` @ `1ce5304466db2ba47a7a7524603e86df77c702bd` (MIT)
+`do-build-design-system`, `do-component-docs`, `do-design-system-boss`, `do-migrate-design-system`, `do-token-mapping`, `do-ui-review` (renamed with the `do-` prefix), `do-make-font`, `do-make-logo` and `do-make-motion` (also renamed with the `do-` prefix) are copied from [arla6ka/design.how](https://github.com/arla6ka/design.how) `skills/` @ `1ce5304466db2ba47a7a7524603e86df77c702bd` (MIT)

@@ -1,6 +1,6 @@
 ---
-name: make-logo
-description: Use when someone wants a logo, mark or wordmark for their product, such as "make me a logo", "/make-logo" or "a logo like these but ours". It learns proportions from logos they like and from Are.na, builds original marks from shapes and open fonts, traces the strongest ones and changes them to fit the idea, sets wordmarks in display fonts, and delivers a logo book of six directions.
+name: do-make-logo
+description: Use when someone wants a logo, mark or wordmark for their product, such as "make me a logo", "/do-make-logo" or "a logo like these but ours". It learns proportions from logos they like and from Are.na, builds original marks from shapes and open fonts, traces the strongest ones and changes them to fit the idea, sets wordmarks in display fonts, and delivers a logo book of six directions.
 metadata:
   summary: Makes your own logo
 ---
@@ -26,7 +26,7 @@ idea. Those sit close to the original on purpose, and I'll mark which ones they 
 
 Scripts are in `scripts/`. Python 3.10+ with `numpy`, `scipy`, `scikit-image`, `pillow`, `skia-pathops`, `fonttools`,
 `uharfbuzz` and `resvg-py`, run as `python3 -I`, and `potrace` for tracing; Node 18+ for the Are.na pull, and Playwright with a Chromium for the
-logo book (`render_book.mjs` finds it the way make-font's does). Downloaded references go in their own folder, are only read, and are never committed.
+logo book (`render_book.mjs` finds it the way do-make-font's does). Downloaded references go in their own folder, are only read, and are never committed.
 
 ## Steps
 
@@ -84,7 +84,7 @@ logo book (`render_book.mjs` finds it the way make-font's does). Downloaded refe
 
 9. **Package.** `python3 -I scripts/package_logo.py build/<chosen> --out package --classes "<Nice classes>"`: SVGs
    (mark, wordmark, lockups; ink, reversed, accent, black), PNGs from 16 to 1024 px, favicon.ico, LICENSES, and the
-   trademark search sheet. For a reveal video, hand the mark and its guides to make-motion.
+   trademark search sheet. For a reveal video, hand the mark and its guides to do-make-motion.
 
 ## Never
 
