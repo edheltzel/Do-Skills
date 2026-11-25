@@ -34,7 +34,7 @@ The GitHub CLI (`gh`), signed in to the PR's repository. Roborev and Pullfrog ar
 - **Then Pullfrog.** When the current head has a `pullfrog` or `pullfrog-approval` check that is not skipped, a `pullfrog[bot]` review of that head, or a confirmed dispatch for it, the watcher runs with `--require-review-bot pullfrog`: ready waits for Pullfrog's review of this head and a passing `pullfrog-approval` check on it. A review of an older head does not count. If Pullfrog, Greptile, or Macroscope first appears during the watch, ready waits for that bot on this head too. A `pullfrog.yml` that only runs on `workflow_dispatch` does not review a push by itself, so the file alone does not make the watch wait.
 - **One watcher per PR.** The skill's `scripts/pr-wait` runs as one background job and locks the PR. It never writes its own sleep loop, and a second watcher does not start.
 - **On a failed check.** It runs `do-debug` and tells flakes from real failures.
-- **On review comments,** including Pullfrog's review and threads, it runs [git-pr-review-triage](./git-pr-review-triage.md), then [work](./work.md) for the accepted fixes and `do-commit cp` to push them.
+- **On review comments,** including Pullfrog's review and threads, it runs [git-pr-review-triage](./git-pr-review-triage.md), then [work](../loop/work.md) for the accepted fixes and `do-commit cp` to push them.
 - **On the gate.** It checks required checks, approvals, open threads, branch protection, and base movement. A branch that is behind, conflicted, or unknown is not ready.
 
 Every post or reply goes through [git-pr-comment](./git-pr-comment.md), and only when you asked for it.
@@ -48,4 +48,4 @@ Every post or reply goes through [git-pr-comment](./git-pr-comment.md), and only
 
 ## Where it fits
 
-This is the last step of Ship. [commit](./commit.md) with `cp` or `cpp` starts it on the PR, and [it](./it.md) runs it after `cpp`. Fixes go back to commit, and commit hands back here. When the PR is ready, the next step is `do-commit land`, only when you say go.
+This is the last step of Ship. [commit](./commit.md) with `cp` or `cpp` starts it on the PR, and [it](../loop/it.md) runs it after `cpp`. Fixes go back to commit, and commit hands back here. When the PR is ready, the next step is `do-commit land`, only when you say go.

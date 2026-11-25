@@ -16,12 +16,12 @@ const steps = [
   { phase: 'Build', name: 'do-adversarial-review', text: 'Hunt the diff for bugs. Reports, never edits.' },
   { phase: 'Ship', name: 'do-commit', text: 'Commit your changes, and add <code>cpp</code> to push and open a pull request.' },
 ];
-const globalGroups = ['core', 'workflow', 'operations', 'content', 'personal'];
+const globalGroups = ['core', 'loop', 'workflow', 'operations', 'content', 'personal'];
 const projectGroups = ['typescript', 'frontend', 'design', 'backend', 'tooling', 'swift', 'product', 'marketing', 'personal'];
 const starts = [
   { title: 'Install', text: 'The commands to install globally, per project, or one skill at a time.', href: installHref },
   { title: 'Which skills should I install?', text: 'Pick the groups your project needs.', href: docsHref },
-  { title: 'Your first change with /do-it', text: 'Walk one change from request to pull request.', href: '/global/workflow/it/' },
+  { title: 'Your first change with /do-it', text: 'Walk one change from request to pull request.', href: '/global/loop/it/' },
 ];
 const pad = (n: number) => String(n).padStart(2, '0');
 ---

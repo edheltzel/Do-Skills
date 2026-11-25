@@ -10,7 +10,7 @@ npx skills add edheltzel/Do-Skills --skill=do-doc-review
 npx skills update do-doc-review
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/global/workflow/do-doc-review)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/global/loop/do-doc-review)
 
 ## What it does
 

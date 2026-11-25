@@ -22,13 +22,22 @@
       ]
     },
     {
-      "title": "Global: Workflow",
-      "description": "Change delivery - the brainstorm, plan, work, debug, and ship loop (LFG), commits, docs, GitHub projects and stacks, PR workflow and review triage, worktrees, and technical writing.",
+      "title": "Global: Loop",
+      "description": "The idea-to-PR loop - brainstorm, plan, plan review, work, debug, and the do-it (LFG) runner. Ships through do-commit in Workflow.",
       "skills": [
         "do-brainstorm",
-        "do-commit",
         "do-debug",
         "do-doc-review",
+        "do-it",
+        "do-plan",
+        "do-work"
+      ]
+    },
+    {
+      "title": "Global: Workflow",
+      "description": "Shipping and collaboration - commits, PR babysitting, review and triage, GitHub projects and stacks, safe PR workflow, worktrees, docs, and technical writing.",
+      "skills": [
+        "do-commit",
         "do-docs",
         "do-gh-pm",
         "do-gh-stack",
@@ -40,11 +49,8 @@
         "do-git-pr-takeover",
         "do-git-safe-pr-workflow",
         "do-git-worktree",
-        "do-it",
-        "do-plan",
         "do-readme-update",
-        "do-tech-writing",
-        "do-work"
+        "do-tech-writing"
       ]
     },
     {

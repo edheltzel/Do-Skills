@@ -41,4 +41,4 @@ The work happens in its own worktree ([git-worktree](./git-worktree.md)), so dir
 
 ## Where it fits
 
-After a MODERNIZE push, the next step is [git-pr-babysit](./git-pr-babysit.md). A REWORK goes to [work](./work.md) when you ask for it. [git-pr-takeover](./git-pr-takeover.md) runs this skill first. Branch safety rules come from [git-safe-pr-workflow](./git-safe-pr-workflow.md).
+After a MODERNIZE push, the next step is [git-pr-babysit](./git-pr-babysit.md). A REWORK goes to [work](../loop/work.md) when you ask for it. [git-pr-takeover](./git-pr-takeover.md) runs this skill first. Branch safety rules come from [git-safe-pr-workflow](./git-safe-pr-workflow.md).

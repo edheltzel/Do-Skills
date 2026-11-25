@@ -15,7 +15,7 @@ REPO_URL="https://github.com/edheltzel/Do-Skills/tree/master"
 # Render order. Group blurbs come from skills.sh.json ("<Scope>: <Group>"),
 # their authoritative owner. Unlisted groups on disk are appended.
 SCOPE_ORDER="global project"
-GROUP_ORDER_global="core workflow operations content personal"
+GROUP_ORDER_global="core loop workflow operations content personal"
 GROUP_ORDER_project="typescript frontend design backend tooling swift product marketing personal"
 # Groups without docs pages.
 UNPROMOTED="global/operations global/personal project/personal project/marketing"
@@ -38,6 +38,7 @@ scope_blurb() {
 group_title() {
     case "$1" in
         core)       echo "Core" ;;
+        loop)       echo "Loop" ;;
         workflow)   echo "Workflow" ;;
         operations) echo "Operations" ;;
         content)    echo "Content" ;;
