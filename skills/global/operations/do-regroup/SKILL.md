@@ -13,11 +13,11 @@ Read the previous regroup file of the same mode (and, for one project, the same 
 
 Read only. Never edit `todo.txt` or `done.txt`, and never complete, archive, or reprioritize a task.
 
-- **Files.** In all-projects mode, always start from `$HOME/todo.txt`, ignoring any exported `TODO_FILE` or `TODO_DIR`; use another file only when the user names it. Each open line tagged `@route` with `todo:<path>` points at a project's local list; read that file too, plus its sibling `done.txt`. A route is not a task: never report it as one. A done route means the project is finished or parked: list it under that heading without reading its file. A missing routed file: say so for that project. With tuxedo installed, read each list as `TODO_FILE=<dir>/todo.txt DONE_FILE=<dir>/done.txt tuxedo lsa --json`, both paths absolute: it returns the file and its `done.txt` parsed, and naming both stops an exported `TODO_FILE` or `DONE_FILE` from swapping in another list. Otherwise read the lines. Format and routing conventions: the `do-todo` skill, if installed.
+- **Files.** In all-projects mode, always start from `$HOME/todo.txt`, ignoring any exported `TODO_FILE` or `TODO_DIR`; use another file only when the user names it. Each open line tagged `@route` with `todo:<path>` points at a project's local list; read that file too, plus its sibling `done.txt`. A route is not a task: never report it as one. A done route means the project is finished or parked: list it under that heading without reading its file. A missing routed file: say so for that project. With tuxedo installed, read each list as `TODO_FILE=<list path> DONE_FILE=<dir>/done.txt tuxedo lsa --json`, with the exact absolute path of the list being read and its sibling `done.txt`: it returns the file and its `done.txt` parsed, and naming both stops an exported `TODO_FILE` or `DONE_FILE` from swapping in another list. Otherwise read the lines. Format and routing conventions: the `do-todo` skill, if installed.
 - **Projects.** Each route is a project; its local list's tasks belong to it. In the global list, each `+project` tag is a project and a task with two tags appears under both. Untagged global tasks go under "No project". todo.txt has no phases. In one-project mode, read that project's routed list (or, inside the repo, `<repo root>/todo.txt`) plus global tasks tagged with its name.
 - **Statuses.** Map each line, first match wins:
   - Starts with `x `: **done**, with its completion date.
-  - Names a wait (`@waiting`, or "waiting on ..." in the text), or has a `dep:` whose `id:` task is still open: **blocked** on that wait or task.
+  - Names a wait (`@waiting`, or "waiting on ..." in the text), or has a `dep:` whose `id:` task is not confirmed done in the lists read: **blocked** on that wait or task.
   - `t:` date still in the future: **backlogged** until that date.
   - No previous regroup file, or no task there with the same words (ignoring priority, dates, and tags): **not started**. Never stalled on a first run.
   - Same words, but the raw line changed (priority, `due:`, tags): **active**.
@@ -56,7 +56,7 @@ Pick the mode from the words in the request. If the request names no mode, run o
 
 Every task line in the reply and the file starts with a ref, so the user can hand that task off without searching for it.
 
-- **todo.txt.** `id:<slug>` when the line has an `id:` tag. Otherwise `<list>#<n>`, where `n` is the task's `n` from `tuxedo lsa --json` on that list (its position among non-blank lines). `<list>` is the project tag for a repo's local list, `~` for `$HOME/todo.txt`, and the file's path for any other list the user named. A `#<n>` ref is valid only until that list changes: say so once in the reply when any appears.
+- **todo.txt.** `id:<slug>` when the line has an `id:` tag. Otherwise `<list>#<n>`, where `n` is the task's `n` from `tuxedo lsa --json` on that list (its position among non-blank lines). `<list>` is the project tag for a repo's local list, `~` for `$HOME/todo.txt`, and the list's absolute path for any other list the user named or when two read lists share a project tag. A `#<n>` ref is valid only until that list changes: say so once in the reply when any appears.
 - **GitHub board.** The issue as `#<number>`, or `<owner>/<repo>#<number>` when the board spans repos. A draft item has no number: quote its title.
 - **Any other source.** Its own ID when it has one; otherwise the task name in quotes.
 
@@ -144,7 +144,7 @@ Say a number to start it.
 - **Hand-off list.** Each open task once, as `<n>. **<Verb>** <ref> (<priority>) <name>`, then a short sentence only when it adds something: overdue, active, stalled, or what it waits on. Each open task gets exactly one verb: the first of these rules that fits it.
   1. **Later.** Backlogged, with the date or reason.
   2. **Answer.** Blocked on a question or decision the user can settle. Write the question after the task name.
-  3. **Wait.** Every other blocked task: on another task (`dep:`), on a `dep:` this regroup could not confirm done, on someone other than the user, or on an unstated reason. Name what it waits on, with that task's ref when it has one, or write "reason not in source".
+  3. **Wait.** Every other blocked task: on another task (`dep:`), on someone other than the user, or on an unstated reason. Name what it waits on, with that task's ref when it has one, or write "reason not in source".
   4. **Do.** Ready, and among the one to three tasks the source explicitly marks as next (a priority, a "next" label, a plan step, an in-progress flag), ranked by priority, then soonest `due:`. Display order alone is not a priority. If the source gives no cue, put "Up next not specified" above the list and use no Do lines.
   5. **Open.** Every other ready task.
 
