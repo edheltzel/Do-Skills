@@ -3,26 +3,26 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/Do-Skills --skill=make-motion
+npx skills add edheltzel/Do-Skills --skill=do-make-motion
 ```
 
 ```bash
-npx skills update make-motion
+npx skills update do-make-motion
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/project/design/make-motion)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/project/design/do-make-motion)
 
 ## What it does
 
-`make-motion` turns a product, feature, or launch idea into a 15 to 25 second motion graphics video, for X by default, that a stranger understands with the sound off and that looks made by hand.
+`do-make-motion` turns a product, feature, or launch idea into a 15 to 25 second motion graphics video, for X by default, that a stranger understands with the sound off and that looks made by hand.
 
 It builds that video in Remotion, in the product's own brand, with music made in code, then checks it by measurement and delivers an MP4. The loop runs by itself unless you pass `step` to approve each stage. It does not edit footage.
 
 ## When to reach for it
 
-Type `/make-motion`, or the agent reaches for it automatically when a task fits.
+Type `/do-make-motion`, or the agent reaches for it automatically when a task fits.
 
-Reach for this when you want a launch video, feature demo, teaser, or explainer ("make a launch video for this", "roast my video idea"). `/make-motion <idea>` is the whole loop. `/make-motion step <idea>` stops for a yes after the script, the stills, and the review cut. `/make-motion roast <idea>` is only the roasted pitch and three hooks. `/make-motion theme <source>` only resolves and checks a theme. For a logo instead, use [make-logo](./make-logo.md). For a typeface, use [make-font](./make-font.md).
+Reach for this when you want a launch video, feature demo, teaser, or explainer ("make a launch video for this", "roast my video idea"). `/do-make-motion <idea>` is the whole loop. `/do-make-motion step <idea>` stops for a yes after the script, the stills, and the review cut. `/do-make-motion roast <idea>` is only the roasted pitch and three hooks. `/do-make-motion theme <source>` only resolves and checks a theme. For a logo instead, use [do-make-logo](./make-logo.md). For a typeface, use [do-make-font](./make-font.md).
 
 ## Prerequisites
 
@@ -48,4 +48,4 @@ Script in beats (`SCRIPT.md` and `timing.ts` agree, within 2 s of the target). S
 
 ## Where it fits
 
-A standalone you reach for whenever the job is a short product motion video, not an edit of footage. It sits beside [make-logo](./make-logo.md) and [make-font](./make-font.md): a reveal video can take the mark from make-logo and the type from make-font.
+A standalone you reach for whenever the job is a short product motion video, not an edit of footage. It sits beside [do-make-logo](./make-logo.md) and [do-make-font](./make-font.md): a reveal video can take the mark from do-make-logo and the type from do-make-font.

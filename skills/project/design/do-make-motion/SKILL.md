@@ -1,6 +1,6 @@
 ---
-name: make-motion
-description: Use when someone wants a motion graphics video of their product (a launch video, feature demo, teaser or explainer), such as "make a launch video for this", "/make-motion" or "roast my video idea". It roasts the idea, scripts it in beats, builds it in Remotion in their design system with music made in code, checks it by measurement, and delivers an MP4. Not for editing footage.
+name: do-make-motion
+description: Use when someone wants a motion graphics video of their product (a launch video, feature demo, teaser or explainer), such as "make a launch video for this", "/do-make-motion" or "roast my video idea". It roasts the idea, scripts it in beats, builds it in Remotion in their design system with music made in code, checks it by measurement, and delivers an MP4. Not for editing footage.
 metadata:
   summary: Makes a motion graphics video
 ---
@@ -13,10 +13,10 @@ the person asks to approve each stage (`step`).
 
 | You say | It does |
 |-|-|
-| `/make-motion <idea>` | the whole loop, one shot |
-| `/make-motion step <idea>` | stops for a yes after the script, the stills and the review cut |
-| `/make-motion roast <idea>` | step 2 only: the roasted pitch and three hooks |
-| `/make-motion theme <source>` | step 3 only: resolves and checks a theme |
+| `/do-make-motion <idea>` | the whole loop, one shot |
+| `/do-make-motion step <idea>` | stops for a yes after the script, the stills and the review cut |
+| `/do-make-motion roast <idea>` | step 2 only: the roasted pitch and three hooks |
+| `/do-make-motion theme <source>` | step 3 only: resolves and checks a theme |
 
 ## Before anything
 

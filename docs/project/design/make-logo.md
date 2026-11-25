@@ -3,26 +3,26 @@
 Quickstart:
 
 ```bash
-npx skills add edheltzel/Do-Skills --skill=make-logo
+npx skills add edheltzel/Do-Skills --skill=do-make-logo
 ```
 
 ```bash
-npx skills update make-logo
+npx skills update do-make-logo
 ```
 
-[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/project/design/make-logo)
+[Source](https://github.com/edheltzel/Do-Skills/tree/master/skills/project/design/do-make-logo)
 
 ## What it does
 
-`make-logo` makes a logo, mark, or wordmark for your product. It measures logos you like and a wider set from Are.na, turns them into numbers, builds original marks to those numbers from parts it is free to use, and delivers a logo book of six directions plus a package for the one you pick.
+`do-make-logo` makes a logo, mark, or wordmark for your product. It measures logos you like and a wider set from Are.na, turns them into numbers, builds original marks to those numbers from parts it is free to use, and delivers a logo book of six directions plus a package for the one you pick.
 
 Every variant is checked against every reference before you see it. Traced directions are allowed but always marked: each names its source in its recipe (`traced_from`), and its trademark sheet says it was traced. Nothing the skill delivers is a legal clearance.
 
 ## When to reach for it
 
-Type `/make-logo`, or the agent reaches for it automatically when a task fits ("make me a logo", "a logo like these but ours").
+Type `/do-make-logo`, or the agent reaches for it automatically when a task fits ("make me a logo", "a logo like these but ours").
 
-Reach for this when you want a new mark for a product and can show logos you like. It refuses "recreate X's logo" or any famous brand named as the target. For a font instead of a mark, use [make-font](./make-font.md).
+Reach for this when you want a new mark for a product and can show logos you like. It refuses "recreate X's logo" or any famous brand named as the target. For a font instead of a mark, use [do-make-font](./make-font.md).
 
 ## Prerequisites
 
@@ -44,4 +44,4 @@ Python 3.10+ with `numpy`, `scipy`, `scikit-image`, `pillow`, `skia-pathops`, `f
 
 ## Where it fits
 
-A standalone brand step. It pairs with [make-font](./make-font.md) for the wordmark's type, and hands the chosen mark to [make-motion](./make-motion.md) for a reveal video.
+A standalone brand step. It pairs with [do-make-font](./make-font.md) for the wordmark's type, and hands the chosen mark to [do-make-motion](./make-motion.md) for a reveal video.

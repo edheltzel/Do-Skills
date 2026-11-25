@@ -27,7 +27,7 @@ Take the idea as the person gave it and push on it, in this order. Write the ans
 - **Every screen reads at a glance.** A stranger watching muted gets each screen in under a second, because it's
   something they've seen before (a phone, a browser tab, a chat, a calendar, a receipt) doing one obvious thing.
   Show the outcome, never the machinery: no diagrams of your process, no pipelines, no cards of internal steps, no
-  labels like "Picture" and "Sound". A launch video for make-motion that opened on "it writes the story first" over
+  labels like "Picture" and "Sound". A launch video for do-make-motion that opened on "it writes the story first" over
   a row of beat cards lost everyone who hadn't read the skill.
 - **A hook that is a story, not a title.** Two or three short captions that set up a problem the viewer has had.
 - **Slow enough at the start, never still.** The first 6 to 8 seconds can be calmer; the viewer is still deciding.
@@ -47,7 +47,7 @@ Take the idea as the person gave it and push on it, in this order. Write the ans
 - **Real numbers.** A real measurement reads as proof; a neat invented one reads as marketing.
 - **An ending that returns.** The opening's situation comes back changed (the screen that couldn't open the page
   now opens it); the first chord resolves. The end card keeps moving until its last beat.
-- **The call to action is what to do next.** For a tool, the command typing itself (`/make-font`); for a product,
+- **The call to action is what to do next.** For a tool, the command typing itself (`/do-make-font`); for a product,
   the domain or the one action. Never a slogan, and never a click on a command: commands are typed.
 
 ## Script

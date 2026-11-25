@@ -98,7 +98,7 @@ Search the design codes (the Vienna Classification in WIPO's database, the USPTO
 the mark is built from: {", ".join(sorted({s for s in ("circles" if '"circle"' in json.dumps(info) else "", "squares and rectangles") if s}))}.
 Look for marks in the same classes that would read as the same at a glance.
 
-## What make-logo checked
+## What do-make-logo checked
 
 {checked}
 

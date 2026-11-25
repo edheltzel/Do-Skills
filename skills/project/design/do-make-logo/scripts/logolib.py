@@ -1,4 +1,4 @@
-"""Shared image handling for make-logo: load a reference, find its ink on any ground, and normalise it.
+"""Shared image handling for do-make-logo: load a reference, find its ink on any ground, and normalise it.
 
 A reference is a raster: a screenshot, a photo of a sign, a sheet of marks. Nothing here keeps an outline. The mask
 lives in memory long enough to be measured or compared, then it's gone (references/measuring.md).
