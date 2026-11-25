@@ -34,7 +34,7 @@ Follow `do-todo`. Every command names both files, quoted and absolute: `TODO_FIL
 
 Close an open task only when the evidence shows the outcome the task asks for, not just a mention of it:
 
-- its `pr:` URL is merged and that PR's diff makes the change the task describes;
+- its `pr:` URL is merged, the merge reached the default branch (not only a stacked base branch), and that PR's diff makes the change the task describes;
 - a merged PR or default-branch commit whose diff makes that change (a commit that only names the task, or plans it, does not count);
 - its `report:` file exists on the default branch and records the task as done.
 
@@ -55,20 +55,20 @@ Plans live in the plans directory the project `AGENTS.md` names, else `docs/plan
 
 Handoffs live in the handoff directory the project `AGENTS.md` names, else `docs/plans/handoffs/`.
 
-- **Superseded.** A newer handoff explicitly replaces this one (it says it supersedes or continues it and carries its open work forward), or every task in its `## todo.txt` section is done with step 2's evidence. A newer handoff that only links this one as a dependency does not supersede it. Move it to `archive/` inside that handoff directory with `git mv`.
+- **Superseded.** A newer handoff explicitly replaces this one (it says it supersedes or continues it and carries its open work forward), or every task in its `## todo.txt` section is done with step 2's evidence and its `Next step` and `Open questions` hold nothing unresolved. A newer handoff that only links this one as a dependency does not supersede it. Move it to `archive/` inside that handoff directory with `git mv`.
 - **Still live.** Leave the body alone. Append one dated line under a `## Status` heading at the end only when a linked PR merged or a listed task closed since it was written.
 
 ## 5. Regroup files
 
-Regroup files are `regroup/*.md` with their `.human.md` pair. Group them by scope. `do-regroup` names every file `YYYY-MM-DD-regroup-status-check[-N].md`; older files may use `regroup-all` or `regroup-<project-slug>`. Read the scope from the file's header (all projects or which project), and fall back to the filename only when the header has none. In each group, keep the newest file (latest date, then highest `-N` suffix) and its pair in `regroup/`. Move every older one to `regroup/archive/` with `git mv`. `do-regroup` reads the archive when `regroup/` has no earlier file, so history stays reachable.
+Regroup files are `regroup/*.md` with their `.human.md` pair. Group them by scope. `do-regroup` names every file `YYYY-MM-DD-regroup-status-check[-N].md`; older files may use `regroup-all` or `regroup-<project-slug>`. Read the scope from the file's `Scope:` header line. For files without one, use the filename only when it names the scope (`regroup-all`, `regroup-<project-slug>`); leave any other file in place. In each group, keep the newest file (latest date, then highest `-N` suffix) and its pair in `regroup/`. Move every older one to `regroup/archive/` with `git mv`. `do-regroup` reads the archive when `regroup/` has no earlier file, so history stays reachable.
 
 ## Moving a file
 
-Before any move, find live references to the file: `grep` the repo for its path and file name (READMEs, other docs, `note:` and `report:` tags in `todo.txt` and `done.txt`). Update each to the archive path in the same apply, or list the move as blocked when a reference cannot be updated. Never move onto an existing archive file: if the destination exists, list the row as blocked.
+Before any move, find live references to the file: `grep` the repo for its path and file name (READMEs, other docs, `note:` and `report:` tags in `todo.txt` and `done.txt`). Update each to the archive path in the same apply, and rewrite the moved file's own relative links (anchors kept) so they still resolve from `archive/`, or list the move as blocked when a reference cannot be updated. Never move onto an existing archive file: if the destination exists, list the row as blocked.
 
 ## 6. Worktrees and branches
 
-List a linked worktree or local branch only when its tip is an ancestor of the default branch (`git merge-base --is-ancestor <branch> origin/<default>`), or equals the head commit of a PR that merged. A branch with commits after that point is not merged; leave it off the list. For each, say whether it has uncommitted changes (`git -C <path> status --porcelain`). Remove them only on the user's yes: `git worktree remove <path>`, then `git branch -d <branch>`. Never force-remove one with uncommitted changes; it may hold another agent's work.
+List a linked worktree or local branch only when its tip is an ancestor of the default branch (`git merge-base --is-ancestor <branch> origin/<default>`), or equals the head commit of a PR whose merge reached the default branch (squash merges leave the tip outside that history). A branch with commits after that point is not merged; leave it off the list. For a squash-merged branch, removing it needs `git branch -D`: say so in the row, and check the branch can be deleted before offering to remove its worktree. For each, say whether it has uncommitted changes (`git -C <path> status --porcelain`). Remove them only on the user's yes: `git worktree remove <path>`, then `git branch -d <branch>`. Never force-remove one with uncommitted changes; it may hold another agent's work.
 
 ## Dry run, then apply
 
