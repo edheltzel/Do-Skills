@@ -21,6 +21,7 @@ npx skills add edheltzel/Do-Skills --skill=<skill-name>
 | Skill | Description |
 |-------|-------------|
 | [`do-bitter-pill`](./do-bitter-pill/) | Audits AI instruction sets for over-prompting. |
+| [`do-cleanup`](./do-cleanup/) | Tidy a project's working records against what has actually landed: close todo.txt tasks that have proof, archive finished plans, superseded handoffs and older regroup files, and list merged worktrees and branches. |
 | [`do-delegation`](./do-delegation/) | Routes independent work through the harness's subagent tool: background execution, role briefs, worktree isolation, and coordinator-managed synthesis. |
 | [`do-handoff`](./do-handoff/) | Write a pointer-first session handoff, or resume from a source the user names. |
 | [`do-regroup`](./do-regroup/) | Use when checking project status. |
