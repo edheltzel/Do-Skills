@@ -38,7 +38,7 @@ npx skills add https://github.com/edheltzel/Do-Skills/tree/master/skills/project
 npx skills add https://github.com/edheltzel/Do-Skills/tree/master/skills/project/frontend
 ```
 
-To install a specific skill, use its exact listed name. Names carry the `do-` prefix, except vendored skills that keep their upstream name (such as `anatomy`):
+To install a specific skill, use its exact listed name. Names carry the `do-` prefix, except `anatomy`, which keeps its upstream name, and the Ubersuggest marketing skills, which carry `uber-`:
 
 ```bash
 npx skills add edheltzel/Do-Skills --skill=<skill-name>
@@ -54,7 +54,7 @@ claude-code ` or `-a claude-code -a pi`
 
 Skills are grouped by scope, then by group. The root table is an index; each scope and group README lists its skills.
 
-Names carry a `do-` prefix so they do not collide with a harness command (`/simplify` vs `/do-simplify`). Vendored skills keep their upstream name (`anatomy`) so their documented command still works.
+Names carry a `do-` prefix so they do not collide with a harness command (`/simplify` vs `/do-simplify`). `anatomy` keeps its upstream name so its documented command still works. The Ubersuggest marketing skills carry `uber-` to mark that they need the Ubersuggest connection.
 
 PR and council skills adapt [tstack](https://github.com/t3dotgg/tstack) (MIT), snapshot `1085050f3baed1ac724caa4a8166145fb2ac88af`.
 
@@ -198,6 +198,6 @@ WTFPL, except `skills/project/marketing/`, which is Apache-2.0 (see its [LICENSE
 `do-illo` is copied from [tmchow/illo-skill](https://github.com/tmchow/illo-skill)
 `do-marketing` is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) marketing (MIT)
 `do-perf` is adapted from [proxysoul/SoulStack](https://github.com/proxysoul/SoulStack) `skills/enliven` (MIT)
-`marketing` skills (`ai-visibility`, `competitor-analysis`, `content-brief`, `content-demand-finder`, `keyword-research`, `project-setup`, `seo-action-plan`, `seo-foundations`, `site-audit`) are copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) (Apache-2.0)
+`marketing` skills (renamed with the `uber-` prefix: `uber-ai-visibility`, `uber-competitor-analysis`, `uber-content-brief`, `uber-content-demand-finder`, `uber-keyword-research`, `uber-project-setup`, `uber-seo-action-plan`, `uber-seo-foundations`, `uber-site-audit`) are copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) (Apache-2.0)
 `do-landing-page` and `do-redesign` are original to this repo. The ideas come from [elayadesign/ai-design-skills](https://github.com/elayadesign/ai-design-skills) and [elayadesign/redesign-skill](https://github.com/elayadesign/redesign-skill); nothing is copied, and no MIT grant is made (see [NOTICE.md](./skills/project/frontend/references/NOTICE.md))
 `do-build-design-system`, `do-component-docs`, `do-design-system-boss`, `do-migrate-design-system`, `do-token-mapping`, `do-ui-review` (renamed with the `do-` prefix), `do-make-font`, `do-make-logo` and `do-make-motion` (also renamed with the `do-` prefix) are copied from [arla6ka/design.how](https://github.com/arla6ka/design.how) `skills/` @ `1ce5304466db2ba47a7a7524603e86df77c702bd` (MIT)

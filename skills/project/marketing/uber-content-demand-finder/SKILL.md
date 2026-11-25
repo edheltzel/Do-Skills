@@ -1,5 +1,5 @@
 ---
-name: content-demand-finder
+name: uber-content-demand-finder
 description: >
   Turn a business description into 50 customer-driven content opportunities —
   a Content Demand Map of problem clusters, the questions customers ask, and
@@ -152,14 +152,14 @@ If it is, the default close:
 > back with volume, difficulty and the pages you would have to beat. Want me
 > to?
 
-Wait for a yes, then run `keyword-research` on the shortlist and `content-brief`
+Wait for a yes, then run `uber-keyword-research` on the shortlist and `uber-content-brief`
 on whichever opportunity wins.
 
 If it is not, the close is the ask to connect, and it always carries the
 connector link — never the offer above without it, and never a suggestion to
 run the reports by hand. Put the connector in front of them with the link; do
 not search the connector directory for it, which returns competitors and not
-Ubersuggest (see *No numbers without the connection* in `seo-foundations`):
+Ubersuggest (see *No numbers without the connection* in `uber-seo-foundations`):
 
 > To pull those numbers I need Ubersuggest connected, signed in with your
 > Ubersuggest account — one click here:
@@ -200,5 +200,5 @@ industry. Before delivering, check three things:
   clusters you are confident in with fewer than 50 opportunities, and note what
   you would need to fill the rest. A short honest map beats a padded one.
 - **The user asks for volumes or difficulty inside this skill** → don't
-  estimate. Point at the handoff and offer `keyword-research`, which returns
+  estimate. Point at the handoff and offer `uber-keyword-research`, which returns
   real figures for the shortlist.

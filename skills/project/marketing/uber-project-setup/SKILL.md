@@ -1,5 +1,5 @@
 ---
-name: project-setup
+name: uber-project-setup
 description: >
   Set a website up in Ubersuggest for the first time — create the project,
   describe the business, pick competitors, choose the topics and prompts tracked
@@ -101,7 +101,7 @@ Confirm what exists now, and set expectations honestly:
 - `brand_config` shows what ended up tracked; `configure_brand` changes it.
 
 Then offer one next step, not a menu — usually the site audit, or
-`seo-action-plan` if they do not know what to do with any of it.
+`uber-seo-action-plan` if they do not know what to do with any of it.
 
 ## When things go wrong
 

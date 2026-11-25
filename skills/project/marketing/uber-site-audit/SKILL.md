@@ -1,5 +1,5 @@
 ---
-name: site-audit
+name: uber-site-audit
 description: >
   Crawl a site for technical SEO problems and report prioritised fixes with
   Core Web Vitals. Use when the user asks for a site audit, a technical SEO
