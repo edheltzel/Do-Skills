@@ -31,3 +31,5 @@ x 2026-11-22 2026-11-06 Archive edheltzel/doskills-site after production is veri
 x 2026-11-25 2026-11-22 Update do-plan and do-regroup to emit paired .human.md files per GAP plans.md +doskills note:/Users/ed/Developer/Atlas/GAP/global/docs/agents/plans.md pr:https://github.com/edheltzel/Do-Skills/pull/71
 x 2026-11-25 2026-11-22 Re-pin do-skills in GAP (gap pin do-skills@master and gap sync) after v0.3.0 and docs sync land +doskills report:GAP/gap.lock@ffe412f
 x 2026-11-25 2026-11-25 Scout Compound Engineering and PStack loops vs ours +doskills report:/Users/ed/Developer/Atlas/DoSkills/.worktrees/loop-group/docs/plans/research/2026-11-25-loop-comparison.md
+x 2026-11-25 2026-11-25 Commit and PR the Loop group from .worktrees/loop-group (branch feat/loop-group, stacked on feat/roborev-pr-workflow) +doskills id:loop-group pr:https://github.com/edheltzel/Do-Skills/pull/73
+x 2026-11-25 2026-11-25 Ship the regroup hand-off list: task refs and numbered Do/Answer/Open/Wait/Later list +doskills pr:https://github.com/edheltzel/Do-Skills/pull/72
