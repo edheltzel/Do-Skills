@@ -7,7 +7,7 @@ description: Use when checking project status. Defaults to the current project; 
 
 A status check-in across the projects in scope. This skill is portable. Do not assume a harness, an agent framework, a ticket prefix, or a runtime. Read the source of truth the user named (a board, issues, notes, a repo, or a todo.txt file). If they did not name one, use the project files in the current workspace plus todo.txt (below) when it exists, and say which sources were read.
 
-Read the previous regroup file of the same mode (and, for one project, the same project) in the `regroup/` directory when one exists. The all-projects reply and file say what changed since that file. Do not call other services to fill a gap the named source and the previous file do not already contain. If a fact is not there, say it is not in the source.
+Read the previous regroup file of the same mode (and, for one project, the same project) in the `regroup/` directory when one exists. If `regroup/` has none, look in `regroup/archive/`, where `do-cleanup` moves older files. The all-projects reply and file say what changed since that file. Do not call other services to fill a gap the named source and the previous file do not already contain. If a fact is not there, say it is not in the source.
 
 ## todo.txt
 
@@ -100,7 +100,7 @@ The human version follows the GAP plans contract: a diagram or table first, then
 
 Put the file in a `regroup/` directory in the workspace the user named. If they did not name one, use the current workspace. Create `regroup/` if it is missing.
 
-Do not overwrite or delete an older regroup file. That archive is how someone later asks what a past check-in said. If today's filename already exists, keep the earlier file and write this one with a short numeric suffix (`-2`, then `-3`).
+Do not overwrite or delete an older regroup file. That archive is how someone later asks what a past check-in said. Only `do-cleanup` may move an older file, and only into `regroup/archive/`. If today's filename already exists, keep the earlier file and write this one with a short numeric suffix (`-2`, then `-3`).
 
 The file contains, in this order:
 

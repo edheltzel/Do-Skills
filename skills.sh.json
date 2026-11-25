@@ -58,6 +58,7 @@
       "description": "Operating AI agents - delegation, handoffs, prompt audits, project status check-ins, and skill drift repair.",
       "skills": [
         "do-bitter-pill",
+        "do-cleanup",
         "do-delegation",
         "do-handoff",
         "do-regroup",
