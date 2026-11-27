@@ -24,7 +24,7 @@ Reach for it on a page or component that is already built. For a new landing pag
 
 ## Report, then fix
 
-The audit covers type, color, layout, motion, states, copy, and the things a generated page forgets (legal links, a 404, validation, a favicon). The report lands before any edit.
+The audit has two kinds of checks. Correctness checks always apply: focus rings, dead links, animating layout properties, invented proof, and the things a generated page forgets (legal links, a 404, validation, a favicon). Taste checks on type, color, layout, and motion apply only where the project's `DESIGN.md` is silent; when it exists, a choice it permits is not a finding and a deviation from it is. The report lands before any edit.
 
 Fixes run in order: font, color, states, layout, motion, the generic components, loading and empty and error, copy, then the type scale. Replacement values come from `DESIGN.md` when the project has one, and from the shared visual system otherwise.
 
