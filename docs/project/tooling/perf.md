@@ -28,7 +28,7 @@ different, thinner thing — this skill is the complete audit with scripts.
 ## Example
 
 ```
-/do-perf profile the production web build, find the slow phase, and write a before and after performance report
+/do-perf profile the production web build, fix the slowest phase, rerun the same harness, and report before and after
 ```
 
 ## When to reach for it

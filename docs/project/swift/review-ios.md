@@ -24,7 +24,7 @@ findings.
 ## Example
 
 ```
-/do-review-ios --parallel review my changed Swift files before I push
+/do-review-ios --parallel review the Swift changes I committed on this branch before I push
 ```
 
 ## When to reach for it
