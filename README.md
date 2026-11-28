@@ -14,8 +14,8 @@
 
 A skill is a folder of instructions that your coding agent reads and follows. You need an agent (Claude Code, Codex, Pi, Cursor, or Empryo) and Node.js 22+ for `npx`.
 
-1. Install one skill: `npx skills add edheltzel/Do-Skills --skill=do-it`
-2. Run `/do-it` in your agent.
+1. Install one skill to check your setup: `npx skills add edheltzel/Do-Skills --skill=do-it`
+2. Run `/do-it` in your agent. For a full first run, install the global set (see Installation) so `do-it` finds the skills it calls.
 3. Read the [install guide](./docs/global/start/install.md) and the [glossary](./docs/global/start/glossary.md).
 
 # Do Skills
