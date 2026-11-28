@@ -424,7 +424,8 @@ h1,.wrap h2{text-wrap:balance}.sub,.lead{text-wrap:pretty}
 .scp{margin:0;color:var(--t2);font-size:14px;line-height:1.6;text-wrap:pretty}
 .sc .cmd{margin:16px 0 0;background:var(--bg)}
 /* start here */
-.shs{margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.shs{margin-top:24px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.sub.what{margin:10px 0 0;font-size:13.5px}
 .sh{position:relative;overflow:hidden;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;padding:20px 22px 22px;border:1px solid var(--b3);border-radius:10px;background:var(--s1);color:var(--text);text-decoration:none;transition:border-color .18s ease-out,transform .18s ease-out}
 .sh::after{content:'';position:absolute;left:0;right:0;top:0;height:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .2s ease-out}
 .sh:hover{border-color:rgba(var(--acc-rgb),.7);transform:translateY(-2px)}.sh:hover::after{transform:scaleX(1)}

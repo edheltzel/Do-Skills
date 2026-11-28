@@ -37,7 +37,7 @@ export const counts = countSkills();
 
 /** In-site docs hub. Canonical pages live in the repo `docs/` tree. */
 export const docsHref = '/docs/';
-export const installHref = 'https://github.com/edheltzel/Do-Skills/blob/master/README.md#installation';
+export const installHref = '/global/start/install/';
 
 /**
  * Social preview image. The landing page (LandingLayout.astro) resolves `path`
