@@ -19,19 +19,15 @@ node -v
 
 ## Start small
 
-Install one skill:
+Install one skill to check your setup:
 
 ```bash
 npx skills add edheltzel/Do-Skills --skill=do-it
 ```
 
-Then open your agent in a project and type:
+Then open your agent in a project and type `/do-it`. If the agent knows the command, the install worked.
 
-```
-/do-it
-```
-
-`do-it` runs the whole idea-to-PR loop. Read [LFG](../loop/it.md) to see what it does and when it stops.
+`do-it` runs the whole idea-to-PR loop, and it calls other skills such as `do-plan` along the way. It stops when one is missing. For your first real run, install the global set (see below), then give it a concrete change, for example `/do-it add a dark mode toggle`. Read [LFG](../loop/it.md) to see what it does and when it stops.
 
 ## Global or project
 
@@ -98,4 +94,4 @@ Run `npx skills --help` and look for the `remove` command. At the time of writin
 
 A skill is a set of instructions your agent follows, and some can run commands. Open the skill's `SKILL.md` on GitHub first and read what it asks the agent to do. Install only what you understand.
 
-Next: [Glossary](./glossary.md), or the [repo README](../../../README.md).
+Next: [Glossary](./glossary.md), or the [repo README](https://github.com/edheltzel/Do-Skills#readme).

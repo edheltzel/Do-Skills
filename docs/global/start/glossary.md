@@ -48,12 +48,12 @@ A GitHub request to merge your branch into another branch. Others can review it 
 
 ## do-commit modes
 
-`do-commit` always makes a Conventional Commit. The mode decides how far it goes. See [Commit](../workflow/commit.md).
+`do-commit` makes a Conventional Commit when there are changes to commit. The mode decides how far it goes. See [Commit](../workflow/commit.md).
 
 - `commit`: commit only. This is the default.
 - `cp`: commit and push.
 - `cpp`: commit, push, and open a pull request.
-- `land`: merge the pull request. It runs only when you say go.
+- `land`: run the `cpp` flow, then merge the pull request. The merge runs only when you say go.
 
 ## GAP
 
