@@ -19,9 +19,10 @@ const steps = [
 const globalGroups = ['core', 'loop', 'workflow', 'operations', 'content', 'personal'];
 const projectGroups = ['typescript', 'frontend', 'design', 'backend', 'tooling', 'swift', 'marketing', 'personal'];
 const starts = [
-  { title: 'Install', text: 'The commands to install globally, per project, or one skill at a time.', href: installHref },
+  { title: 'Install', text: 'Prerequisites, global vs project, and checking it worked.', href: installHref },
+  { title: 'Start small with /do-it', text: 'Install one skill and run it on a change.', href: '/global/loop/it/' },
   { title: 'Which skills should I install?', text: 'Pick the groups your project needs.', href: docsHref },
-  { title: 'Your first change with /do-it', text: 'Walk one change from request to pull request.', href: '/global/loop/it/' },
+  { title: 'Glossary', text: 'LFG, harness, plan approval, cpp and other terms.', href: '/global/start/glossary/' },
 ];
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
@@ -45,11 +46,12 @@ const pad = (n: number) => String(n).padStart(2, '0');
         <div class="copy" id="install">
           <h1>Install the loop.<br /><span class="l2">Then add</span> <span class="l3">your stack.</span></h1>
           <p class="sub">A curated set of skills for coding agents. A loop from idea to pull request, plus stack skills you add per project. Install the global set once with <code>npx skills</code>.</p>
+          <p class="sub what">A skill is an instruction file your coding agent follows. You need an agent harness such as Claude Code, Codex or Pi, plus Node.js 22+.</p>
           <div class="console">
             <div class="crow"><span class="lab"><b>1</b> Once per machine <em>global</em></span><Cmd command={installCommand} /></div>
-            <div class="crow"><span class="lab"><b>2</b> Inside each project <em>per stack</em></span><Cmd command={projectCommand} /></div>
+            <div class="crow"><span class="lab"><b>2</b> Inside each project <em>per stack</em></span><Cmd command={projectCommand} /><p class="hint">Example: swap <code>&lt;group&gt;</code> for <code>frontend</code>, so the path ends in <code>…/skills/project/frontend</code>.</p></div>
           </div>
-          <p class="hint">Work in progress. It changes often, so read a skill before you install it.</p>
+          <p class="hint">Skills are instructions your agent follows. Read a skill before you install it.</p>
           <div class="cta"><a class="btn" href={installHref}>Read the install guide</a><a class="ghost" href={repo}>GitHub</a></div>
         </div>
         <i class="spark" id="sp1" aria-hidden="true"></i><i class="spark v" id="sp2" aria-hidden="true"></i>

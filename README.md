@@ -8,7 +8,15 @@
 ```
 
 > [!WARNING]
-> This is a **WIP** and changes often. Just like any code/software you find, don't blindly download and run it. Review it, learn what it does to make an educated decision if you should use it.
+> Skills are instructions your agent follows, so read a skill's `SKILL.md` before installing it.
+
+## New here?
+
+A skill is a folder of instructions that your coding agent reads and follows. You need an agent (Claude Code, Codex, Pi, Cursor, or Empryo) and Node.js 22+ for `npx`.
+
+1. Install one skill: `npx skills add edheltzel/Do-Skills --skill=do-it`
+2. Run `/do-it` in your agent.
+3. Read the [install guide](./docs/global/start/install.md) and the [glossary](./docs/global/start/glossary.md).
 
 # Do Skills
 
@@ -19,15 +27,13 @@ For site development, see [site/README.md](./site/README.md).
 
 [Skills.sh](https://skills.sh) is a good way to discover and install skills, but it lacks many features. This repo is my temporary solution for installing skills on a per-project and global basis for day-to-day work and personal projects. Many are from people I've copied, borrowed, improved, and modified to fit my use cases.
 
-**Suggestions**
-
-I would suggest you take a peak at [Matt Pocock Skills](https://github.com/mattpocock/skills) and [Lauren Tan's PStack](https://github.com/cursor/plugins/tree/main/pstack)
-
 ## Installation
 
 To keep this easy, I use [Skills.sh](https://skills.sh) for installation and updates.
 
 Skills are split by install scope. **Global** skills help in any repo; install them once per machine. **Project** skills only pay off when a project uses that stack; install them into the project.
+
+`-g` means global: the skills install once per machine and every repo can use them. Without `-g`, skills install into the current project only.
 
 ```bash
 # every global skill, once per machine
@@ -38,14 +44,17 @@ npx skills add https://github.com/edheltzel/Do-Skills/tree/master/skills/project
 npx skills add https://github.com/edheltzel/Do-Skills/tree/master/skills/project/frontend
 ```
 
+For example, in a React or Astro site, run the two `typescript` and `frontend` commands from the site's root.
+
 To install a specific skill, use its exact listed name. Names carry the `do-` prefix, except `anatomy`, which keeps its upstream name, and the Ubersuggest marketing skills, which carry `uber-`:
 
 ```bash
 npx skills add edheltzel/Do-Skills --skill=<skill-name>
 ```
 
-If you want to install for a specific agents, use the option flags ie: `-a
-claude-code ` or `-a claude-code -a pi`
+To install for specific agents, add `-a claude-code` or `-a claude-code -a pi`.
+
+Update: `npx skills update <skill>`
 
 [`gap-utility.toml`](./gap-utility.toml) declares the skill names for GAP's
 `gap add` command and distro selection.
@@ -94,7 +103,7 @@ Pay off only when a project uses that stack or product. Install into the project
 
 ## The loop (LFG)
 
-One loop takes a change from idea to merged PR. Every step ends by naming the
+LFG means "Let's go". One loop takes a change from idea to merged PR. Every step ends by naming the
 next one; pick it, pick another, or stop. `/do-it` runs the loop for you.
 Shape and Build live in [Loop](./skills/global/loop/); Ship and Respond use
 [Workflow](./skills/global/workflow/) and the review lenses in [Core](./skills/global/core/),
@@ -128,6 +137,8 @@ flowchart LR
 | Ship    | do-commit (commit, cp, cpp, land) → do-git-pr-babysit; [publication routing](./docs/global/workflow/commit.md#what-it-does) | Answer ask-user gates; say go before land                   |
 | Respond | do-git-pr-review-triage → Build → Ship; replies via do-git-pr-comment | Which comments to act on; approve replies before they post  |
 
+Plannotator and Empryo are optional tools for reviewing and approving a plan; the loop works without them. The `do-commit` modes: `commit` commits locally, `cp` commits and pushes, `cpp` commits, pushes, and opens a PR, and `land` also merges it, only when you say go.
+
 **Ways in.** New idea: `/do-brainstorm`. Known feature: `/do-plan`.
 Bug: `/do-debug` (joins at Build). PR comments: `/do-git-pr-review-triage`.
 Someone else's PR: `/do-git-pr-review`. Stale PR: `/do-git-pr-modernize`.
@@ -141,46 +152,7 @@ stops for decisions only you can make. Merging stays with you.
 `docs/plans/handoffs/` and adds its open tasks to `todo.txt`, where `do-regroup`
 and `do-gh-pm` pick them up.
 
-## Creating a Skill
-
-Each skill lives in its own folder under a scope and a group. New original
-skills use the `do-` prefix for both the folder and frontmatter `name:`.
-For vendored skills, keep the exact names listed in the catalog.
-
-```
-skills/<scope>/<group>/do-skill-name/SKILL.md
-```
-
-The skills CLI only finds skills up to three folders below `skills/`, so do not nest deeper.
-
-Pick the scope first:
-
-- `global/` - useful in any repo, or none: methodology, writing, git and GitHub, agent operations, setup you run before a project has skills, personal tools
-- `project/` - assumes a specific language, framework, platform, or product the project must use
-
-Then choose the group from the catalog above. `personal` exists in both scopes: personal tools you want everywhere go in `global/personal`, ones you only use in certain projects go in `project/personal`. Group descriptions live in [`skills.sh.json`](./skills.sh.json).
-
-The `SKILL.md` file contains YAML frontmatter and markdown instructions:
-
-```markdown
----
-name: do-skill-name
-description: A clear description of what this skill does and when to use it
----
-
-# Skill Name
-
-[Instructions for the agent go here]
-```
-
-When adding, removing, or renaming a skill, update the `skills` list in
-[`gap-utility.toml`](./gap-utility.toml) to match the skill frontmatter names.
-
-After adding, moving, renaming, or changing a skill's behaviour or description, regenerate the catalog and re-sync its docs page (`docs/`, see [`.agents/writing-docs.md`](.agents/writing-docs.md)):
-
-```bash
-bash scripts/update-readme.sh
-```
+Contributing: see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ---
 
@@ -189,6 +161,10 @@ bash scripts/update-readme.sh
 WTFPL, except `skills/project/marketing/`, which is Apache-2.0 (see its [LICENSE](./skills/project/marketing/LICENSE)), and the design.how skills under `skills/project/frontend/` (`do-build-design-system`, `do-component-docs`, `do-design-system-boss`, `do-migrate-design-system`, `do-token-mapping`, `do-ui-review`) and `skills/project/design/` (`do-make-font`, `do-make-logo`, `do-make-motion`), which are MIT (see each folder's LICENSE).
 
 ---
+
+## Suggestions
+
+Take a peek at [Matt Pocock Skills](https://github.com/mattpocock/skills) and [Lauren Tan's PStack](https://github.com/cursor/plugins/tree/main/pstack).
 
 ## Attributions
 

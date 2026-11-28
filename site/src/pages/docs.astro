@@ -19,7 +19,8 @@ for (const page of pages) {
 
 const scopes = ["global", "project"] as const;
 const hrefFor = (id: string) => withBase(`/${id}/`, import.meta.env.BASE_URL);
-const label = (value: string) => value.replace(/-/g, " ");
+const label = (value: string) => (value === "start" ? "Start here" : value.replace(/-/g, " "));
+const rank = (entry: { scope: string; group: string }) => (entry.scope === "global" && entry.group === "start" ? 0 : 1);
 ---
 
 <BaseLayout
@@ -41,8 +42,12 @@ const label = (value: string) => value.replace(/-/g, " ");
         Each page explains what a skill does, when to reach for it, and where it sits among the others.
         Internal plans and agent-only notes stay out of this site.
       </p>
+      <p class="mt-3 max-w-2xl text-[1.0625rem] leading-relaxed text-muted-foreground">
+        Global skills are installed once and work in any repo. Project skills are installed per stack, from inside the project that needs them.
+        New here? Start with the Start here group.
+      </p>
       {scopes.map((scope) => {
-        const scoped = [...groups.values()].filter((entry) => entry.scope === scope);
+        const scoped = [...groups.values()].filter((entry) => entry.scope === scope).sort((a, b) => rank(a) - rank(b));
         if (scoped.length === 0) return null;
         return (
           <section id={scope} class="mt-12 scroll-mt-20">
