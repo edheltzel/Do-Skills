@@ -27,7 +27,7 @@ npx skills add edheltzel/Do-Skills --skill=do-it
 
 Then open your agent in a project and type `/do-it`. If the agent knows the command, the install worked.
 
-`do-it` runs the whole idea-to-PR loop, and it calls other skills such as `do-plan` along the way. It stops when one is missing. For your first real run, install the global set (see below), then give it a concrete change, for example `/do-it add a dark mode toggle`. Read [LFG](../loop/it.md) to see what it does and when it stops.
+`do-it` runs the whole idea-to-PR loop, and it calls other skills such as `do-plan` along the way. It stops when one is missing. For your first real run, install the global set (see below) and use a GitHub-backed project where you can push a branch and open a pull request, with the GitHub CLI (`gh`) installed and signed in. Then give it a concrete change, for example `/do-it add a dark mode toggle`. Read [LFG](../loop/it.md) to see what it does and when it stops.
 
 ## Global or project
 
