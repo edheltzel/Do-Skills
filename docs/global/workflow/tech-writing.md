@@ -22,6 +22,12 @@ filler and hedging rather than softening it. It's a style, not a template
 factory; the formats it ships are scaffolds you trim, not sections you dutifully
 fill.
 
+## Example
+
+```
+/do-tech-writing draft a PR description for adding idempotency keys to checkout
+```
+
 ## When to reach for it
 
 Type `/do-tech-writing`, or the agent reaches for it automatically when writing a

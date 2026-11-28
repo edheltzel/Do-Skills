@@ -24,6 +24,12 @@ npx skills add edheltzel/Do-Skills --skill=do-token-mapping --skill=do-build-des
 
 It never edits. A match on value before purpose is wrong, and a gap never gets a new name. Replacing the values belongs to [build-design-system](./build-design-system.md).
 
+## Example
+
+```
+/do-token-mapping check which hardcoded colors on the settings page map to our design tokens
+```
+
 ## When to reach for it
 
 Type `/do-token-mapping`, or the agent reaches for it automatically when a task fits.

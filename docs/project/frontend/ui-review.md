@@ -24,6 +24,12 @@ npx skills add edheltzel/Do-Skills --skill=do-ui-review --skill=do-build-design-
 
 A finding needs a criterion, a findable location (the element by role and name, with its capture), the width, and the evidence. A finding that rests on taste is dropped to Left out. Any `blocking` finding makes the ship verdict `no`.
 
+## Example
+
+```
+/do-ui-review check the signup flow before I ship, including keyboard and the phone width
+```
+
 ## When to reach for it
 
 Type `/do-ui-review`, or the agent reaches for it automatically when a task fits: "check this page before I ship", "is this flow ready", "is it accessible", keyboard or screen-reader checks, "it feels off on my phone", or "it feels janky".

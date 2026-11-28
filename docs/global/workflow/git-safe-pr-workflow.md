@@ -23,6 +23,12 @@ for `git revert` over rewriting history whenever commits may already be pushed.
 Publication follows
 [commit's routing rules](./commit.md#what-it-does).
 
+## Example
+
+```
+/do-git-safe-pr-workflow update my checkout-tax branch with main so I can open a PR for the sales tax rounding fix
+```
+
 ## When to reach for it
 
 Type `/do-git-safe-pr-workflow`, or the agent reaches for it automatically on

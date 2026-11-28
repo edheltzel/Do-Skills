@@ -20,6 +20,12 @@ Copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) 
 
 It writes a brief, not the article. Generating the article through Ubersuggest's Content Studio costs 100 monthly credits, so the skill shows the title and outline and waits for a clear yes first.
 
+## Example
+
+```
+/uber-content-brief Create a brief for best standing desk for a small apartment
+```
+
 ## When to reach for it
 
 Type `/uber-content-brief`, or the agent reaches for it automatically when a task fits: what to write about a keyword, how to outline an article, how long a post should be, or how to beat the pages that rank now.

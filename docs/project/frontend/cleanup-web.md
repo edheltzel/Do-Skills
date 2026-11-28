@@ -23,6 +23,12 @@ lands until you approve.
 "No changes needed" is a valid, expected outcome — it won't invent work to look
 busy.
 
+## Example
+
+```
+/do-cleanup-web polish the React cart drawer I just finished before I commit
+```
+
 ## When to reach for it
 
 You invoke this by typing `/do-cleanup-web` — treat it as the thing you run when

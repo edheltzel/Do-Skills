@@ -18,6 +18,12 @@ npx skills update do-git-pr-review
 
 The review is a COMMENT review by default. It approves or requests changes only when you ask for that event.
 
+## Example
+
+```
+/do-git-pr-review https://github.com/acme/billing/pull/312 for the invoice tax rounding fix
+```
+
 ## When to reach for it
 
 Type `/do-git-pr-review`, or the agent reaches for it when you ask to review a PR rather than local changes.

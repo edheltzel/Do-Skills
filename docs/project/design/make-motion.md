@@ -18,6 +18,12 @@ npx skills update do-make-motion
 
 It builds that video in Remotion, in the product's own brand, with music made in code, then checks it by measurement and delivers an MP4. The loop runs by itself unless you pass `step` to approve each stage. It does not edit footage.
 
+## Example
+
+```
+/do-make-motion launch video for PocketLedger, a receipt scanner that sorts expenses into tax categories
+```
+
 ## When to reach for it
 
 Type `/do-make-motion`, or the agent reaches for it automatically when a task fits.

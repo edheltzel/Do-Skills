@@ -16,6 +16,12 @@ npx skills update do-agent-docs
 
 `do-agent-docs` makes a repository legible to coding agents: the entry file, the docs tree that file routes through, the repo shape agents can work in, and a DOX install when that contract is the ask. The defining constraint is that it is a router, not one manual. Each mode loads one reference and leaves the others unread, because a giant instruction file crowds out the task.
 
+## Example
+
+```
+/do-agent-docs add a short AGENTS.md that lists build, test, and lint commands for this repo
+```
+
 ## When to reach for it
 
 Type `/do-agent-docs`, or the agent reaches for it when you write or improve `AGENTS.md`, onboard an agent, shape an agent-first repo, route `CLAUDE.md` or a docs tree, or install DOX.

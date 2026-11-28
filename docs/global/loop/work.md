@@ -16,6 +16,12 @@ npx skills update do-work
 
 `do-work` executes a named plan, or the accepted items from a PR feedback file, one unit at a time. It works in the checkout you already have. It does not create a branch, add a worktree, commit, or push.
 
+## Example
+
+```
+/do-work implement the approved plan to add email verification on signup
+```
+
 ## When to reach for it
 
 Type `/do-work`, or the agent reaches for it when a plan is approved (in the [plan](./plan.md) menu, or with Implement or Clear & Implement in Empryo plan mode), triage hands over accepted items, or `do-it` needs the build.

@@ -19,6 +19,12 @@ changing what it does. A good simplification removes concepts, not merely lines:
 behavior, public APIs, side effects, timing, and error handling stay intact.
 It will not thin a safety check to get there.
 
+## Example
+
+```
+/do-simplify the nested discount logic I just added in checkout.ts
+```
+
 ## When to reach for it
 
 Type `/do-simplify`, or the agent reaches for it after code has been written or

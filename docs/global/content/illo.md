@@ -20,6 +20,12 @@ Upstream: [tmchow/illo-skill](https://github.com/tmchow/illo-skill)
 
 It is a house style, not a generic image generator. It fires only when you invoke it or ask for "illo", not on ordinary illustrate or draw requests.
 
+## Example
+
+```
+/do-illo mini-comic of our mascot walking a teammate through a failed deploy and the rollback that saved it
+```
+
 ## When to reach for it
 
 Type `/do-illo` or say "illo". Use it for article illustrations, one-concept scenes, surprise or random art, mini-comics, explainer diagrams, or character cutouts.

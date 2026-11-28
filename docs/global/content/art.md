@@ -24,6 +24,12 @@ selects the composition and generation approach, and its output stages in a
 preview folder (`$ART_OUTPUT_DIR`, else `~/Downloads` when it exists, else
 `./art-output`) for review before it is used in a project.
 
+## Example
+
+```
+/do-art Make a blog header and social thumbnail for a post on migrating a React app to server components
+```
+
 ## When to reach for it
 
 Type `/do-art`, or the agent reaches for it automatically when a request calls for

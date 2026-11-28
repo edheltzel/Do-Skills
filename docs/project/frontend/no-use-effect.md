@@ -23,6 +23,12 @@ event handler, or with a narrower primitive?* If you can't name the external
 system, you don't write the Effect. It draws on the React docs plus TkDodo, Dan
 Abramov, and Kent C. Dodds.
 
+## Example
+
+```
+/do-no-use-effect refactor the ProductFilters component so the filtered list is derived during render instead of synced in useEffect
+```
+
 ## When to reach for it
 
 Type `/do-no-use-effect`, or the agent reaches for it automatically when writing or

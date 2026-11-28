@@ -22,6 +22,12 @@ language features (closures, discriminated unions, generators, pattern matching,
 DI containers), so the skill keeps the pattern *names* as shared vocabulary while
 steering you away from the *scaffolding*.
 
+## Example
+
+```
+/do-design-patterns-gof review whether this cache wrapper is a Decorator or just extra indirection
+```
+
 ## When to reach for it
 
 Type `/do-design-patterns-gof`, or the agent reaches for it automatically when you

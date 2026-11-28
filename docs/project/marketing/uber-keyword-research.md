@@ -20,6 +20,12 @@ Copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) 
 
 Every figure is for a market and language it states. If you named no place, it asks once or declares the default (US / en) instead of quietly using the wrong market.
 
+## Example
+
+```
+/uber-keyword-research keyword list for a vegan meal prep service in Chicago
+```
+
 ## When to reach for it
 
 Type `/uber-keyword-research`, or the agent reaches for it automatically when a task fits: finding keywords, checking search volume or difficulty, or looking for long-tail or low-competition terms.

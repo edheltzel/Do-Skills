@@ -22,6 +22,12 @@ with a before/after, the principle behind it, and any trade-off, and nothing
 lands until you approve. "No changes" is a valid outcome — if the code is already
 clean, it says so and stops rather than inventing work.
 
+## Example
+
+```
+/do-cleanup-swift polish the SwiftUI settings pane I just finished for the menu bar app
+```
+
 ## When to reach for it
 
 Type `/do-cleanup-swift`, or the agent reaches for it automatically when you signal

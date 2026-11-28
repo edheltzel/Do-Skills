@@ -16,6 +16,12 @@ npx skills update do-redesign
 
 `do-redesign` is a diagnostic for an interface that already exists. It reads the screen, lists every generic pattern it finds, and waits. Only the findings you keep get fixed, in a fixed order, inside the stack the project already uses. It never rewrites the page.
 
+## Example
+
+```
+/do-redesign the billing settings page looks generic and unfinished, polish the existing UI
+```
+
 ## When to reach for it
 
 Type `/do-redesign`, or the agent reaches for it when you say a screen looks generic, cheap, unfinished, or AI-made, or ask to polish or upgrade an existing UI.

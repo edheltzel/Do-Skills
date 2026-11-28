@@ -18,6 +18,12 @@ npx skills update do-make-font
 
 Every outline in the result comes from the open base. References contribute measurements only (proportions, stem and stroke thickness, class-mean widths and spacing), never outlines, kerning pairs, or per-glyph widths. The family ships under the OFL with a new name.
 
+## Example
+
+```
+/do-make-font build a text face like the UI in my notes app screenshots, Latin, Regular and Medium, name it Ledger Sans
+```
+
 ## When to reach for it
 
 Type `/do-make-font`, or the agent reaches for it automatically when a task fits ("make me a font like these", "/do-make-font", "build a typeface from these screenshots").

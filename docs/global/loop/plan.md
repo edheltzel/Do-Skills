@@ -18,6 +18,12 @@ npx skills update do-plan
 
 It does not invent product behavior the requirements left open, and it does not implement. There is no research-agent farm, no HTML renderer, and no model-tier switch. After the file is written, the skill runs [doc-review](./doc-review.md) on it. In interactive mode it then opens the plan in Plannotator when installed, and in Empryo hands it to Empryo plan mode; otherwise it waits for you to pick the next move.
 
+## Example
+
+```
+/do-plan break down adding a CSV export button to the reports dashboard from docs/requirements/csv-export.md
+```
+
 ## When to reach for it
 
 Type `/do-plan`, or the agent reaches for it when you ask to plan, break down implementation, or plan from a requirements file. [brainstorm](./brainstorm.md) hands it the requirements path. A bug, or a feature whose behavior is still unsettled, is not this skill.

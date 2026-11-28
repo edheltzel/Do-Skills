@@ -18,6 +18,12 @@ npx skills update do-make-logo
 
 Every variant is checked against every reference before you see it. Traced directions are allowed but always marked: each names its source in its recipe (`traced_from`), and its trademark sheet says it was traced. Nothing the skill delivers is a legal clearance.
 
+## Example
+
+```
+/do-make-logo a logo for Northline, a bike courier app, simple compass mark, black and orange
+```
+
 ## When to reach for it
 
 Type `/do-make-logo`, or the agent reaches for it automatically when a task fits ("make me a logo", "a logo like these but ours").

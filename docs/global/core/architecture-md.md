@@ -22,6 +22,12 @@ and stable: it describes only what won't change often, names files and types ins
 of linking to them (links go stale), and is meant to be revisited a couple of times a
 year rather than synchronised with every PR.
 
+## Example
+
+```
+/do-architecture-md draft ARCHITECTURE.md for the orders service so I can find where refunds and inventory locks live
+```
+
 ## When to reach for it
 
 Type `/do-architecture-md`, or the agent reaches for it automatically when you ask to

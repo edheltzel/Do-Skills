@@ -22,6 +22,12 @@ On the push path, roborev reviews every commit locally before anything leaves th
 
 After roborev, No Mistakes runs only when this repo was already initialized (`git remote` lists `no-mistakes`, or `no-mistakes axi` shows this repo). The binary being installed is not enough. If initialized but the binary is missing or the gate cannot run, it reports a blocker without publishing. A repo that was never initialized skips the gate and uses `git push`, without asking to initialize No Mistakes or running `no-mistakes init`. The skill's [No Mistakes procedure](https://github.com/edheltzel/Do-Skills/blob/master/skills/global/workflow/do-commit/references/procedure.md#no-mistakes) owns the command details.
 
+## Example
+
+```
+/do-commit commit the password reset form validation fix on the login page
+```
+
 ## When to reach for it
 
 Type `/do-commit`, or the agent reaches for it when you say commit, push, ship, or open a PR, and when another skill hands off to it with a mode.

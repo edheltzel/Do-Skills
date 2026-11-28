@@ -24,6 +24,12 @@ product code and authorized analytics, with inventing results forbidden.
 An audit reports. An implementation changes assets. Neither one authorizes
 spending, sending, publishing, or deployment.
 
+## Example
+
+```
+/do-gtm audit positioning and draft a launch plan for the Harbor invoice app public beta
+```
+
 ## When to reach for it
 
 Type `/do-gtm`, or the agent reaches for it automatically when a request

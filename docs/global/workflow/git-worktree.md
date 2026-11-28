@@ -20,6 +20,12 @@ skill creates a linked git worktree inside the main checkout, at
 worktree. `.worktrees/` is ignored through the repo's local exclude file. Repo-level files such as
 `todo.txt` and handoffs stay in the main checkout.
 
+## Example
+
+```
+/do-git-worktree set up a parallel worktree for the checkout tax hotfix
+```
+
 ## When to reach for it
 
 Type `/do-git-worktree`, or the agent reaches for it when you ask for a worktree or

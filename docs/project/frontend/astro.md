@@ -19,6 +19,12 @@ project layout. The defining constraint is that [docs.astro.build](https://docs.
 is the API source of truth: this skill is a map of file locations, commands, and
 workflows, not a copy of the docs.
 
+## Example
+
+```
+/do-astro add a blog index page that lists posts from a content collection
+```
+
 ## When to reach for it
 
 Type `/do-astro`, or the agent reaches for it when you mention `.astro` files,

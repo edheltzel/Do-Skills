@@ -18,6 +18,12 @@ npx skills update do-gh-stack
 
 Its defining constraint is linearity: a branch has one parent and at most one child, with foundational work at the bottom and dependent work above it.
 
+## Example
+
+```
+/do-gh-stack stack the billing migration into layers for schema, API, and dashboard
+```
+
 ## When to reach for it
 
 Type `/do-gh-stack`, or the agent reaches for it automatically when work needs stacked branches, dependent pull requests, or a checked-out stack.

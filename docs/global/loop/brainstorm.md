@@ -18,6 +18,12 @@ npx skills update do-brainstorm
 
 The dialogue asks one question at a time, and only a decision the request and the repo cannot settle. The file is `docs/plans/YYYY-MM-DD-<topic>-requirements.md`, or the directory the project `AGENTS.md` names instead.
 
+## Example
+
+```
+/do-brainstorm scope a weekly meal planner for a family of four that tracks leftovers
+```
+
 ## When to reach for it
 
 Type `/do-brainstorm`, or the agent reaches for it when you want to brainstorm or scope an idea. If you have no idea yet, it offers a few grounded options, you pick one, and then the dialogue runs. A feature whose behavior is already settled belongs to [plan](./plan.md).

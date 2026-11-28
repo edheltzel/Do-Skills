@@ -18,6 +18,12 @@ Copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) 
 
 `uber-competitor-analysis` analyses a domain and its organic competitors, then reports the keyword and content gaps. It never presents a raw diff of two keyword lists. Gaps are ranked, near misses lead, and the verdict says whether the target is losing on content, on authority, or on technical or intent match.
 
+## Example
+
+```
+/uber-competitor-analysis compare notion.so to coda.io and show near-miss keywords we should target
+```
+
 ## When to reach for it
 
 Type `/uber-competitor-analysis`, or the agent reaches for it automatically when a task fits: who the competitors are, why one outranks the target, which keywords or pages drive a competitor's traffic, how two domains compare, or a domain overview and traffic estimate.

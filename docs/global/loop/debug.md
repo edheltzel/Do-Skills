@@ -16,6 +16,12 @@ npx skills update do-debug
 
 `do-debug` finds why something fails, then changes code only after you pick fix, diagnosis only, or rethink. It reproduces the failure before that choice. It does not create a branch, commit, or push.
 
+## Example
+
+```
+/do-debug checkout button does nothing after adding a second item to the cart
+```
+
 ## When to reach for it
 
 Type `/do-debug`, or the agent reaches for it when something fails or runs slowly.
