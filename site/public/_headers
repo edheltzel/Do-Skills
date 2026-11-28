@@ -1,3 +1,9 @@
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+
 # Hashed build files never change, so browsers keep them for a year without
 # asking again. Hosts that don't read _headers ignore this file.
 /_astro/*
