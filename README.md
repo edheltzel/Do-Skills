@@ -109,6 +109,8 @@ Shape and Build live in [Loop](./skills/global/loop/); Ship and Respond use
 [Workflow](./skills/global/workflow/) and the review lenses in [Core](./skills/global/core/),
 so install the whole global set.
 
+The website shows the six main steps in order: brainstorm, plan, work, simplify, adversarial review, commit. The diagram below adds the side paths: plan review before the build, PR watching after the commit, and review comments that loop back to the build.
+
 ```mermaid
 flowchart LR
   subgraph Shape
