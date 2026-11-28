@@ -21,6 +21,12 @@ README last changed, then fixes only what drifted. The defining constraint is
 that it never hand-edits a generated region: if the repo has a README
 generator, it runs that instead.
 
+## Example
+
+```
+/do-readme-update fix the README install steps and command flags after the CLI rename
+```
+
 ## When to reach for it
 
 Type `/do-readme-update`, or the agent reaches for it automatically when a

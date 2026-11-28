@@ -20,6 +20,12 @@ Copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) 
 
 Every SEO figure comes from a Ubersuggest tool call. A made-up volume, difficulty, CPC, domain authority, backlink count, or rank is worse than none. If the call fails or returns nothing, say so plainly.
 
+## Example
+
+```
+/uber-seo-foundations check search volume for sourdough bread classes in Portland
+```
+
 ## When to reach for it
 
 Type `/uber-seo-foundations`, or the agent reaches for it automatically when a task fits.

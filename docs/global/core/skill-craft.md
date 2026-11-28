@@ -16,6 +16,12 @@ npx skills update do-skill-craft
 
 Authors Agent Skills: write the file, distill a source into one, or review a skill change. Predictability is the bar: the same process every run, not the same output. A distilled skill is a decision tool, not a summary, and must still be usable if the source disappeared.
 
+## Example
+
+```
+/do-skill-craft distill our Postgres backup runbook into a skill for safe restore drills
+```
+
 ## When to reach for it
 
 - **Invocation mode.** Type `/do-skill-craft`, or the agent reaches for it automatically when a task fits. Review mode runs only on explicit request: `/do-skill-craft review [output-path] [--base <branch>]`.

@@ -20,6 +20,12 @@ Copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) 
 
 Nothing is saved until the user reviews that set. `onboard_project` stops at `stage: "review"` with no project yet, and the agent must not send `confirm: true` on its own.
 
+## Example
+
+```
+/uber-project-setup set up mapleandrye.com for SEO and AI visibility in the US
+```
+
 ## When to reach for it
 
 Type `/uber-project-setup`, or the agent reaches for it automatically when there is no project yet, someone just signed up, or they want to track a site, add a domain, set up rank tracking, or start monitoring a brand in ChatGPT and other AI assistants.

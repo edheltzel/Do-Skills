@@ -18,6 +18,12 @@ npx skills update do-gh-pm
 
 The defining constraint is **safe convergence**. Board fields, options, and repository labels are declared as typed archetypes and reconciled in dry-run-first passes; views and workflows remain explicit manual residuals because GitHub exposes no API for creating them.
 
+## Example
+
+```
+/do-gh-pm set up a project board for the checkout latency epic on the payments repo
+```
+
 ## When to reach for it
 
 Type `/do-gh-pm`, or the agent reaches for it automatically when work involves GitHub Projects: creating or linking a board, adding issues or pull requests, managing fields, decomposing an epic, running a plan against board state, or reporting progress.

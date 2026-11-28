@@ -20,6 +20,12 @@ Copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) 
 
 It does not dump every issue, invent issue ids, or replace the crawl by fetching pages itself. One missing H1 is noise. Hundreds of missing H1s are a template bug.
 
+## Example
+
+```
+/uber-site-audit acmebakery.com for broken links missing H1s and Core Web Vitals
+```
+
 ## When to reach for it
 
 Type `/uber-site-audit`, or the agent reaches for it automatically when a task fits a site audit, a technical SEO check, a health score, broken links, missing titles or H1s, duplicate content, Core Web Vitals, or a slow site.

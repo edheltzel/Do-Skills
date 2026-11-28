@@ -31,6 +31,12 @@ Effect guide: it decides whether a capability belongs behind that seam or
 should stay a plain value, then shapes the module (`make`, `layer`,
 `layerWithoutDependencies`, honest test Layers).
 
+## Example
+
+```
+/do-backend design an Effect service for sending password-reset emails with a Layer and tests
+```
+
 ## When to reach for it
 
 Type `/do-backend`, or the agent reaches for it when Effect code, an Effect

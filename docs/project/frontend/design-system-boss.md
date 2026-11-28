@@ -24,6 +24,12 @@ npx skills add edheltzel/Do-Skills --skill=do-build-design-system --skill=do-com
 
 The person's words, AGENTS.md or CLAUDE.md, and saved memory win over this skill. Words and default taste are in `do-build-design-system/references/glossary.md` and `do-build-design-system/references/taste.md`. The state wins when it disagrees with the ask, and the report says so.
 
+## Example
+
+```
+/do-design-system-boss our storefront buttons and colors are inconsistent, set up a design system before launch
+```
+
 ## When to reach for it
 
 Type `/do-design-system-boss`, or the agent reaches for it automatically when a task fits.

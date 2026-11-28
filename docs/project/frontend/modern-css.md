@@ -23,6 +23,12 @@ defining constraint is browser support: every technique is filed under a support
 tier, and the agent's freedom to use it depends on that tier, not on whether it's
 newer or cleaner.
 
+## Example
+
+```
+/do-modern-css replace the product card padding-top ratio hack with aspect-ratio and center it using place-items
+```
+
 ## When to reach for it
 
 Type `/do-modern-css`, or the agent reaches for it automatically when writing or

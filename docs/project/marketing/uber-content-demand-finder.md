@@ -20,6 +20,12 @@ Copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) 
 
 It does not call Ubersuggest, fetch the site, or search the web, and it never gives a search volume, keyword difficulty, competitor traffic figure, ranking probability, or traffic estimate, not as a number and not as a range. That is what makes it instant and what lets it run without an account. "Likely" or "high-intent" is fine. An invented figure makes the report worthless.
 
+## Example
+
+```
+/uber-content-demand-finder Content ideas for a small bakery in Portland selling custom wedding cakes to local couples
+```
+
 ## When to reach for it
 
 Type `/uber-content-demand-finder`, or the agent reaches for it automatically when a task fits: the user does not know what to write about, or asks for a content plan, content strategy, editorial calendar, or blog or video ideas, or wants to know what customers are searching for before committing to keywords.

@@ -20,6 +20,12 @@ Upstream: [humanlayer/skills](https://github.com/humanlayer/skills/tree/main/plu
 
 An HTML file is reviewed in Plannotator when that tool or the `plannotator` command is installed. Approved ends the review. Annotated feedback is applied and the file is reviewed again. If Plannotator is not installed, the file is opened locally instead. The skill never fires on its own. You call it when a reply got too dense to read.
 
+## Example
+
+```
+/do-show-me sketch the call tree for adding a discount code to the cart checkout
+```
+
 ## When to reach for it
 
 Type `/do-show-me` after a reply full of jargon, or before the agent writes code, to talk through the shape of the change: types, signatures, call stacks. It also helps when reviewing a large diff to decide what to dig into.

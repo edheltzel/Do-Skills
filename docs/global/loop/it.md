@@ -18,6 +18,12 @@ npx skills update do-it
 
 It stops for missing plan input, a debug rethink, a no-mistakes ask-user gate, or a blocked child. Shipping follows [commit's publication routing](../workflow/commit.md#what-it-does). It never lands or merges. `/do-it commit` stops at a local commit instead of opening a PR.
 
+## Example
+
+```
+/do-it add a dark mode toggle to the settings page and open a PR
+```
+
 ## When to reach for it
 
 Type `/do-it`, or the agent reaches for it when you say LFG or let's go on autonomous end-to-end work. It will not fire on a vague "continue".

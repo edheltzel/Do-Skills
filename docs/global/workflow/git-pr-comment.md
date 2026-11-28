@@ -18,6 +18,12 @@ npx skills update do-git-pr-comment
 
 It posts only when you asked to post in this run or picked Post comments. Another skill cannot give that permission for you.
 
+## Example
+
+```
+/do-git-pr-comment reply on PR 87 that the null check in parseConfig is covered by the new unit test
+```
+
 ## When to reach for it
 
 Type `/do-git-pr-comment`, or the agent reaches for it when you ask to comment or reply on a PR. The other PR skills hand their drafts to it.

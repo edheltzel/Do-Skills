@@ -21,6 +21,12 @@ structure explains the *what*, so a comment only earns its place when it carries
 the *why*, the *why not*, what must stay true, or what already went wrong here —
 context that cannot live in the code itself.
 
+## Example
+
+```
+/do-code-comments explain why the payment retry uses exponential backoff instead of a fixed delay after the March outage
+```
+
 ## When to reach for it
 
 Type `/do-code-comments`, or the agent reaches for it automatically when adding

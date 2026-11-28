@@ -23,6 +23,12 @@ Accessibility and the token scale are baselines, not features: an interactive
 component that isn't keyboard-operable, or a value that isn't on the scale, is
 wrong. The spec loop discovers tokens; it does not invent missing ones.
 
+## Example
+
+```
+/do-design-system build a keyboard-accessible settings dialog with focus trap for the billing page
+```
+
 ## When to reach for it
 
 Type `/do-design-system`, or the agent reaches for it when building buttons,

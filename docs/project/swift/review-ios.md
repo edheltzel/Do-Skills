@@ -21,6 +21,12 @@ siblings stay references — SwiftUI, SwiftData, Combine, and the rest are not
 extra registered skills. Empty scope stops with no issues; it will not invent
 findings.
 
+## Example
+
+```
+/do-review-ios --parallel review the Swift changes I committed on this branch before I push
+```
+
 ## When to reach for it
 
 You invoke this by typing `/do-review-ios` — the agent won't reach for it on its

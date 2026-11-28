@@ -18,6 +18,12 @@ npx skills update do-git-pr-review-triage
 
 Replies post and threads resolve only after the fixes are pushed and you say go. A caller cannot authorize that post.
 
+## Example
+
+```
+/do-git-pr-review-triage triage review comments on PR 247 for the auth token refresh fix
+```
+
 ## When to reach for it
 
 Type `/do-git-pr-review-triage`, or the agent reaches for it when you mention PR comments, review feedback, or triage, and when you ask to post the drafted replies.

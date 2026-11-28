@@ -18,6 +18,12 @@ npx skills update do-git-pr-babysit
 
 A wake is news, not a merge decision. It reports ready only after it checks the merge gate itself on the latest head, and it never merges without your go.
 
+## Example
+
+```
+/do-git-pr-babysit watch PR 184 for the login retry fix until CI is green and review threads are resolved
+```
+
 ## When to reach for it
 
 Type `/do-git-pr-babysit`, or the agent reaches for it on its own: [commit](./commit.md) starts it after `cp` or `cpp` when a PR is open, and you can ask it to watch a PR through CI.

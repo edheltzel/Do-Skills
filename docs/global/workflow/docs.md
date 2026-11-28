@@ -18,6 +18,12 @@ npx skills update do-docs
 
 Write mode picks the type with the compass, then follows that type's template and gates. Improve mode (`/do-docs improve <path>`) classifies an existing markdown file and refines each section with the user before any overwrite. A learning is not a Diataxis page. It exists only when a later reader of the implementation would otherwise repeat the mistake or redo the investigation. The project's AGENTS.md wins if it names a solutions location. Otherwise the note lands in `docs/solutions/`.
 
+## Example
+
+```
+/do-docs write a how-to for adding OAuth login with GitHub to the web app
+```
+
 ## When to reach for it
 
 Type `/do-docs`, or the agent reaches for it automatically when writing a tutorial, getting-started, onboarding, beginner, or learn-by-doing guide, a how-to, a reference, or an explanation, or when a hard-won fix would be lost if only the diff remained.

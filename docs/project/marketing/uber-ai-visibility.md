@@ -20,6 +20,12 @@ Copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) 
 
 An empty overview is not an invisible brand. "No data" and "not mentioned" are different findings and must not be conflated.
 
+## Example
+
+```
+/uber-ai-visibility how often does ChatGPT mention acme.com and which competitors get recommended instead
+```
+
 ## When to reach for it
 
 Type `/uber-ai-visibility`, or the agent reaches for it automatically when a task fits.

@@ -18,6 +18,12 @@ npx skills update do-humanize
 
 It judges the text, not who wrote it. A finding names the failed test. Evidence comes before a flag: every finding cites file:line and passes the bundled verification protocol. `--dry-run` previews edits. The skill will not stash. If `git status --porcelain` shows anything other than untracked `ai-writing-review.json`, fix mode stops.
 
+## Example
+
+```
+/do-humanize docs/
+```
+
 ## When to reach for it
 
 You invoke this by typing `/do-humanize`. The agent won't reach for it on its own.

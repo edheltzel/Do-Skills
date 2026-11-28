@@ -18,6 +18,12 @@ npx skills update do-council
 
 A missing member or provider stops the run. It reports what is missing and never swaps in a substitute model.
 
+## Example
+
+```
+/do-council review the checkout retry logic in src/payments/retry.ts for missed failure cases
+```
+
 ## When to reach for it
 
 Type `/do-council`, or the agent reaches for it when you say council.

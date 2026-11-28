@@ -21,6 +21,12 @@ the Remix fork — `@remix-run/*` loads the Remix v2 umbrella and skips React
 Router review; otherwise it loads React Router and shadcn. Siblings stay
 references, not extra registered skills.
 
+## Example
+
+```
+/do-review-frontend review the login form TypeScript changes before I open a PR
+```
+
 ## When to reach for it
 
 You invoke this by typing `/do-review-frontend` — the agent won't reach for it

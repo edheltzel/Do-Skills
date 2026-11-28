@@ -18,6 +18,12 @@ npx skills update do-redteam
 
 A verdict has to be earned from the code, tests, docs, and recorded decisions. A claim in the chat is a pointer to check, not proof. Choosing between alternatives is in scope once those alternatives exist, or once this skill has developed them. Attacking a code diff is not.
 
+## Example
+
+```
+/do-redteam judge whether we should cache product search results in Redis for 15 minutes instead of hitting Postgres
+```
+
 ## When to reach for it
 
 Type `/do-redteam`, or the agent reaches for it automatically when a plan, strategy, or argument needs a deliberate challenge, a verdict on one named option, or a choice that still needs alternatives built out.

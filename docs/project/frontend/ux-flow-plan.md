@@ -22,6 +22,12 @@ Its defining constraint is that architecture boundaries must be clear before
 implementation anchors appear: function names and file paths support the plan;
 they do not drive it.
 
+## Example
+
+```
+/do-ux-flow-plan plan the guest checkout flow so a shopper can save their cart and finish after signing in
+```
+
 ## When to reach for it
 
 You invoke this by typing `/do-ux-flow-plan` — the agent will not reach for it on

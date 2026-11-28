@@ -16,6 +16,12 @@ npx skills update do-landing-page
 
 `do-landing-page` builds a page that wins one intent. A landing page is one offer, for one audience, ending in one action, and the skill settles the page before it draws it: intake, section order, copy, then the visual system. A missing price, stat, testimonial, or logo stays a marked placeholder. The skill never invents one.
 
+## Example
+
+```
+/do-landing-page Build a landing page for Lumen Ledger offering a 14-day trial to freelance bookkeepers
+```
+
 ## When to reach for it
 
 Type `/do-landing-page`, or the agent reaches for it when the task is a new landing page, marketing page, or campaign page, or a rewrite of its hero, headline, or CTA.

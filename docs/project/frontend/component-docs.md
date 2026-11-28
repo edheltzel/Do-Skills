@@ -16,6 +16,12 @@ npx skills update do-component-docs
 
 `do-component-docs` writes a draft documentation entry for one component, from its code, stories, and real call sites. Gaps are marked, not filled: it never writes a variant, prop, token name, example, or use that has no listed source. It does not judge the design, it does not edit the code, stories, or spec, and it publishes nothing.
 
+## Example
+
+```
+/do-component-docs write docs for the Select component from its code, stories, and call sites
+```
+
 ## When to reach for it
 
 Type `/do-component-docs`, or the agent reaches for it automatically when a task fits.

@@ -18,6 +18,12 @@ npx skills update do-git-pr-takeover
 
 Commit authorship and co-author trailers carry over, and identities are checked against real commit data, never guessed. Closing the original PR needs your own explicit go.
 
+## Example
+
+```
+/do-git-pr-takeover take over PR 217 and finish the password reset email flow
+```
+
 ## When to reach for it
 
 Type `/do-git-pr-takeover`, or the agent reaches for it when you say "take over this PR".

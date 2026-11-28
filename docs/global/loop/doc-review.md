@@ -18,6 +18,12 @@ npx skills update do-doc-review
 
 The last line of the file is `Review complete`. That line is how a later skill knows this pass already happened. Called by [plan](./plan.md), it returns a status instead of a menu.
 
+## Example
+
+```
+/do-doc-review docs/plans/invoice-export.md and fix gaps before we build it
+```
+
 ## When to reach for it
 
 Type `/do-doc-review` and pass the file, or the agent reaches for it when you ask to review a requirements file or a plan before anyone builds from it. [plan](./plan.md) runs it automatically with `mode:return-to-caller`. Prose polish of a PRD is not this skill.

@@ -20,6 +20,12 @@ names a severity, a `file:line`, why it breaks, a suggested fix, and the
 concrete input that reaches the changed line. One reproducible bug beats ten
 plausible suspicions.
 
+## Example
+
+```
+/do-adversarial-review the checkout change that applies coupon discounts before tax on empty carts
+```
+
 ## When to reach for it
 
 Type `/do-adversarial-review`, or the agent reaches for it when reviewing a diff

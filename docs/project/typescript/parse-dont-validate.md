@@ -22,6 +22,12 @@ and *preserves it in the type* — so a non-empty check returns `[T, ...T[]]`, n
 `void`, and every caller downstream gets the proof for free. It is the TypeScript
 application of Alexis King's essay of the same name.
 
+## Example
+
+```
+/do-parse-dont-validate rewrite the request body check so it returns EmailAddress and a non-empty string list instead of void
+```
+
 ## When to reach for it
 
 Type `/do-parse-dont-validate`, or the agent reaches for it automatically when code

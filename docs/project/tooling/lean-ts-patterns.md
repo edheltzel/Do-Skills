@@ -22,6 +22,12 @@ chalk, `node:util.parseArgs` rather than commander, a native `fetch` wrapper
 rather than axios. It is distilled from studying exemplary repos in the unjs and
 antfu ecosystems, so the patterns are ones that ship in real libraries.
 
+## Example
+
+```
+/do-lean-ts-patterns build a zero-dependency CLI that parses flags with node builtins
+```
+
 ## When to reach for it
 
 Type `/do-lean-ts-patterns`, or the agent reaches for it automatically when building

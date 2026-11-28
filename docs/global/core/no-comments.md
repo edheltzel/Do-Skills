@@ -35,6 +35,12 @@ Everything else dies. A comment that explains a surprise in our own code is
 deleted, and the code it explained is flagged `MUST KILL` for a rename,
 extract, type, or redesign that makes the surprise obvious without prose.
 
+## Example
+
+```
+/do-no-comments clean narration and commented-out code in the checkout flow before review
+```
+
 ## When to reach for it
 
 Type `/do-no-comments`. It never runs on its own.

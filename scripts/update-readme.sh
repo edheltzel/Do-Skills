@@ -205,7 +205,8 @@ for scope in $SCOPE_ORDER; do
         total=$((total + count))
         group_count=$((group_count + 1))
         write_group_readme "$scope" "$group"
-        printf '| [%s](./%s/) | %s | %s |\n' "$(group_title "$group")" "$group" "$count" "$(escape_cell "$(group_blurb "$scope" "$group")")" >> "$scope_rows"
+        names=$(cut -f1 "$group_file" | sed 's/.*/`&`/' | paste -sd, - | sed 's/,/, /g')
+        printf '| [%s](./%s/) | %s | %s | %s |\n' "$(group_title "$group")" "$group" "$count" "$(escape_cell "$(group_blurb "$scope" "$group")")" "$names" >> "$scope_rows"
     done
     {
         printf '# %s Skills\n\n%s\n\n' "$(scope_title "$scope")" "$(scope_blurb "$scope")"
@@ -216,13 +217,13 @@ for scope in $SCOPE_ORDER; do
             # full-depth walk and also picks up SKILL.md files bundled under references/.
             printf '## Installation\n\nInstall one stack at a time, from inside the project:\n\n```bash\nnpx skills add %s/skills/project/<group>\n```\n\n' "$REPO_URL"
         fi
-        printf '## Groups\n\n| Group | Skills | Coverage |\n|-------|--------|----------|\n'
+        printf '## Groups\n\n| Group | Skills | Coverage | Skill names |\n|-------|--------|----------|-------------|\n'
         cat "$scope_rows"
         printf '\n## See Also\n\n- [Skill catalog](../../README.md)\n'
     } > "$SKILLS_DIR/$scope/README.md"
     {
         printf '### [%s](./skills/%s/)\n\n%s\n\n' "$(scope_title "$scope")" "$scope" "$(scope_blurb "$scope")"
-        printf '| Group | Skills | Coverage |\n|-------|--------|----------|\n'
+        printf '| Group | Skills | Coverage | Skill names |\n|-------|--------|----------|-------------|\n'
         sed "s#](\./#](./skills/$scope/#" "$scope_rows"
         printf '\n'
     } >> "$root_section"

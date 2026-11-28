@@ -20,6 +20,12 @@ Copied from [ubersuggest/seo-skills](https://github.com/ubersuggest/seo-skills) 
 
 Three next steps at most, ranked, with one marked to do first. Figures come from Ubersuggest and are reported as meaning, not as a metric dump. An invented diagnosis is refused.
 
+## Example
+
+```
+/uber-seo-action-plan my site northshoreplumbing.com gets almost no visitors what should I fix first
+```
+
 ## When to reach for it
 
 Type `/uber-seo-action-plan`, or the agent reaches for it automatically when a task fits.

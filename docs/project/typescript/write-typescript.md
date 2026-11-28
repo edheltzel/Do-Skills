@@ -22,6 +22,12 @@ it will mutate when mutation is simpler and reach for a plain `switch` before a
 nested ternary. It is a style, not a rewrite engine — for restructuring existing
 code, that's a different skill (below).
 
+## Example
+
+```
+/do-write-typescript add a typed helper that filters active users and sorts them by created date
+```
+
 ## When to reach for it
 
 Type `/do-write-typescript`, or the agent reaches for it automatically when working in

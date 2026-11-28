@@ -22,6 +22,12 @@ npx skills add edheltzel/Do-Skills --skill=do-build-design-system --skill=do-com
 
 `do-build-design-system` builds a design system from the UI an app already ships, or one phase of it, such as extracting tokens, adding states to Button, replacing hardcoded colors with tokens, or starting a system. The app's own look is the source. It invents no colour, font, shadow, gradient or motion value the app does not already have, unless the person chose a design source and confirmed a sample.
 
+## Example
+
+```
+/do-build-design-system add hover and disabled states to Button using only colors the app already ships
+```
+
 ## When to reach for it
 
 Type `/do-build-design-system`, or the agent reaches for it automatically when a task fits.

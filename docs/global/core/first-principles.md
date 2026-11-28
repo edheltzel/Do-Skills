@@ -18,6 +18,12 @@ npx skills update do-first-principles
 
 Its defining distinction is that only hard constraints are immutable. Policies, conventions, market prices, and unvalidated beliefs are soft constraints or assumptions to challenge—not fundamental truths to inherit.
 
+## Example
+
+```
+/do-first-principles Rebuild our SaaS onboarding so users reach the product before a 12-field signup form
+```
+
 ## When to reach for it
 
 Type `/do-first-principles`, or the agent reaches for it automatically when inherited assumptions may be restricting the solution space.

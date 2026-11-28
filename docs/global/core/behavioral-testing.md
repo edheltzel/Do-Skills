@@ -21,6 +21,12 @@ if a refactor breaks a test while behavior is unchanged, the test was wrong. Tha
 one line reframes every decision the skill makes, from what to assert to when a
 mock is allowed to exist.
 
+## Example
+
+```
+/do-behavioral-testing write tests for the login form that show an error when the password is empty and recover after a failed API call
+```
+
 ## When to reach for it
 
 Type `/do-behavioral-testing`, or the agent reaches for it automatically when

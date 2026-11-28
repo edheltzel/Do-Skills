@@ -24,6 +24,12 @@ npx skills add edheltzel/Do-Skills --skill=do-migrate-design-system --skill=do-b
 
 Audit mode is the default. It writes only under `.design-system/`, which `.git/info/exclude` keeps out of every commit, cuts no branch, commits nothing, and ends with the inventory, the plan, and the offer of the full run with its size. Full mode starts only when the ask names the migration or the person accepted the offer (`Go, <budget>`). "Clean it up" and "fix it" are not clearance.
 
+## Example
+
+```
+/do-migrate-design-system move the settings pages onto the existing component library
+```
+
 ## When to reach for it
 
 Type `/do-migrate-design-system`, or the agent reaches for it automatically when a task fits.

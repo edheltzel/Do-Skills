@@ -75,29 +75,29 @@ We also use our own [PStack plugin](https://github.com/edheltzel/PStack-for-OMP)
 
 Useful in any repo, or none. Install once per machine with `-g`.
 
-| Group | Skills | Coverage |
-|-------|--------|----------|
-| [Core](./skills/global/core/) | 13 | Stack-agnostic foundations - review lenses, reasoning, testing, simplification, agent-legible repos, comments, design patterns, skill authoring, and AI-writing cleanup. |
-| [Loop](./skills/global/loop/) | 6 | The idea-to-PR loop - brainstorm, plan, plan review, work, debug, and the do-it (LFG) runner. Ships through do-commit in Workflow. |
-| [Workflow](./skills/global/workflow/) | 14 | Shipping and collaboration - commits, PR babysitting, review and triage, GitHub projects and stacks, safe PR workflow, worktrees, docs, and technical writing. |
-| [Operations](./skills/global/operations/) | 6 | Operating AI agents - delegation, handoffs, prompt audits, project status check-ins, and skill drift repair. |
-| [Content](./skills/global/content/) | 3 | Audience-facing media - illustrations, diagrams, images, and visual explanations. |
-| [Personal](./skills/global/personal/) | 4 | Personal extras you want everywhere - teaching, todo.txt, isometric explainer figures. |
+| Group | Skills | Coverage | Skill names |
+|-------|--------|----------|-------------|
+| [Core](./skills/global/core/) | 13 | Stack-agnostic foundations - review lenses, reasoning, testing, simplification, agent-legible repos, comments, design patterns, skill authoring, and AI-writing cleanup. | `do-adversarial-review`, `do-agent-docs`, `do-architecture-md`, `do-behavioral-testing`, `do-code-comments`, `do-council`, `do-design-patterns-gof`, `do-first-principles`, `do-humanize`, `do-no-comments`, `do-redteam`, `do-simplify`, `do-skill-craft` |
+| [Loop](./skills/global/loop/) | 6 | The idea-to-PR loop - brainstorm, plan, plan review, work, debug, and the do-it (LFG) runner. Ships through do-commit in Workflow. | `do-brainstorm`, `do-debug`, `do-doc-review`, `do-it`, `do-plan`, `do-work` |
+| [Workflow](./skills/global/workflow/) | 14 | Shipping and collaboration - commits, PR babysitting, review and triage, GitHub projects and stacks, safe PR workflow, worktrees, docs, and technical writing. | `do-commit`, `do-docs`, `do-gh-pm`, `do-gh-stack`, `do-git-pr-babysit`, `do-git-pr-comment`, `do-git-pr-modernize`, `do-git-pr-review`, `do-git-pr-review-triage`, `do-git-pr-takeover`, `do-git-safe-pr-workflow`, `do-git-worktree`, `do-readme-update`, `do-tech-writing` |
+| [Operations](./skills/global/operations/) | 6 | Operating AI agents - delegation, handoffs, prompt audits, project status check-ins, and skill drift repair. | `do-bitter-pill`, `do-cleanup`, `do-delegation`, `do-handoff`, `do-regroup`, `do-skill-drift` |
+| [Content](./skills/global/content/) | 3 | Audience-facing media - illustrations, diagrams, images, and visual explanations. | `do-art`, `do-illo`, `do-show-me` |
+| [Personal](./skills/global/personal/) | 4 | Personal extras you want everywhere - teaching, todo.txt, isometric explainer figures. | `anatomy`, `do-ducky`, `do-teach-me`, `do-todo` |
 
 ### [Project](./skills/project/)
 
 Pay off only when a project uses that stack or product. Install into the project.
 
-| Group | Skills | Coverage |
-|-------|--------|----------|
-| [TypeScript](./skills/project/typescript/) | 4 | Language-wide TypeScript - standards, refactoring, and type-driven design. Install alongside frontend, backend, or tooling. |
-| [Frontend](./skills/project/frontend/) | 15 | Web frontend - Astro, CSS, React effects, design systems and their migration, tokens, component docs, landing pages, redesign audits, UI and code review, UX flows, and cleanup. |
-| [Design](./skills/project/design/) | 3 | Brand and media design - your own fonts, logos, and motion graphics videos. |
-| [Backend](./skills/project/backend/) | 1 | Backend engineering - Effect (TypeScript) services and code, and review for Effect, Go, Python, and Rust. |
-| [Tooling](./skills/project/tooling/) | 3 | CLIs and lightweight tools - TypeScript CLI scaffolding, zero-dependency patterns, and performance profiling. |
-| [Swift](./skills/project/swift/) | 3 | Swift and Apple platforms - macOS desktop apps, iOS review, and cleanup. |
-| [Marketing](./skills/project/marketing/) | 10 | Marketing - do-gtm for go-to-market strategy (positioning, launches, conversion, retention), plus uber- SEO skills on the Ubersuggest MCP: keyword research, site audits, competitors, content briefs, AI visibility, and action plans. |
-| [Personal](./skills/project/personal/) | 1 | Personal extras for specific projects - recipe diagrams. |
+| Group | Skills | Coverage | Skill names |
+|-------|--------|----------|-------------|
+| [TypeScript](./skills/project/typescript/) | 4 | Language-wide TypeScript - standards, refactoring, and type-driven design. Install alongside frontend, backend, or tooling. | `do-parse-dont-validate`, `do-ts-standards`, `do-typescript-refactoring`, `do-write-typescript` |
+| [Frontend](./skills/project/frontend/) | 15 | Web frontend - Astro, CSS, React effects, design systems and their migration, tokens, component docs, landing pages, redesign audits, UI and code review, UX flows, and cleanup. | `do-astro`, `do-build-design-system`, `do-cleanup-web`, `do-component-docs`, `do-design-system`, `do-design-system-boss`, `do-landing-page`, `do-migrate-design-system`, `do-modern-css`, `do-no-use-effect`, `do-redesign`, `do-review-frontend`, `do-token-mapping`, `do-ui-review`, `do-ux-flow-plan` |
+| [Design](./skills/project/design/) | 3 | Brand and media design - your own fonts, logos, and motion graphics videos. | `do-make-font`, `do-make-logo`, `do-make-motion` |
+| [Backend](./skills/project/backend/) | 1 | Backend engineering - Effect (TypeScript) services and code, and review for Effect, Go, Python, and Rust. | `do-backend` |
+| [Tooling](./skills/project/tooling/) | 3 | CLIs and lightweight tools - TypeScript CLI scaffolding, zero-dependency patterns, and performance profiling. | `do-create-cli`, `do-lean-ts-patterns`, `do-perf` |
+| [Swift](./skills/project/swift/) | 3 | Swift and Apple platforms - macOS desktop apps, iOS review, and cleanup. | `do-cleanup-swift`, `do-macos-swift-desktop`, `do-review-ios` |
+| [Marketing](./skills/project/marketing/) | 10 | Marketing - do-gtm for go-to-market strategy (positioning, launches, conversion, retention), plus uber- SEO skills on the Ubersuggest MCP: keyword research, site audits, competitors, content briefs, AI visibility, and action plans. | `do-gtm`, `uber-ai-visibility`, `uber-competitor-analysis`, `uber-content-brief`, `uber-content-demand-finder`, `uber-keyword-research`, `uber-project-setup`, `uber-seo-action-plan`, `uber-seo-foundations`, `uber-site-audit` |
+| [Personal](./skills/project/personal/) | 1 | Personal extras for specific projects - recipe diagrams. | `do-recipe-diagrams` |
 
 <!-- skills-end -->
 

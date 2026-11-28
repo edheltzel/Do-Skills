@@ -18,6 +18,12 @@ npx skills update do-git-pr-modernize
 
 Before any push it names one disposition: MODERNIZE, REWORK, SUPERSEDED, or CLOSE. It never merges, closes, or retargets the PR.
 
+## Example
+
+```
+/do-git-pr-modernize rebase PR 312 for the invoice PDF export and say if we should still ship it
+```
+
 ## When to reach for it
 
 Type `/do-git-pr-modernize`, or the agent reaches for it when you say "modernize PR" or an old PR needs a rebase and an intent check.
