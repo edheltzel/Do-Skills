@@ -22,6 +22,12 @@ Its defining constraint is that expected failures are explicit values and
 external data is parsed into meaningful application or domain types before it
 reaches inner code.
 
+## Example
+
+```
+/do-ts-standards add a signup service that parses request JSON into domain types and returns explicit validation errors
+```
+
 ## When to reach for it
 
 Type `/do-ts-standards`, or the agent reaches for it automatically when a

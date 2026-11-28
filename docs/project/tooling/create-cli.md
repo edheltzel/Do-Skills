@@ -23,6 +23,12 @@ Its defining constraint is to start with the simplest tier that fits: manual
 argument parsing is the default, Commander.js is for grouped or nested command
 surfaces, and oclif is reference-only for rare enterprise-scale cases.
 
+## Example
+
+```
+/do-create-cli create a TypeScript CLI to list open GitHub pull requests as JSON
+```
+
 ## When to reach for it
 
 Type `/do-create-cli`, or the agent reaches for it automatically when a request is

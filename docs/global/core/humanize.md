@@ -21,7 +21,7 @@ It judges the text, not who wrote it. A finding names the failed test. Evidence 
 ## Example
 
 ```
-/do-humanize docs/getting-started.md
+/do-humanize docs/
 ```
 
 ## When to reach for it

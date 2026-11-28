@@ -25,6 +25,12 @@ typed numbers, no skipped steps, no flame-graph guess in place of a named
 selector. A lightweight render-cost note such as `lite-render-perf` is a
 different, thinner thing — this skill is the complete audit with scripts.
 
+## Example
+
+```
+/do-perf profile the production web build, find the slow phase, and write a before and after performance report
+```
+
 ## When to reach for it
 
 Type `/do-perf`, or the agent reaches for it when you ask to profile, speed up,

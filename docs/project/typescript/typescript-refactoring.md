@@ -22,6 +22,12 @@ behaviour, never both, and tests pass after every single step. Where
 [write-typescript](./write-typescript.md) defines what good code looks like, this skill
 defines how to get there from bad code without breaking it.
 
+## Example
+
+```
+/do-typescript-refactoring clean up src/legacy by killing any then splitting the God file
+```
+
 ## When to reach for it
 
 Type `/do-typescript-refactoring`, or the agent reaches for it automatically when a

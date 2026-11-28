@@ -24,6 +24,12 @@ shell, SwiftUI owns the content panels — never pure SwiftUI, which is missing
 the multi-window, borderless-window, and low-level rendering APIs a real desktop
 app needs.
 
+## Example
+
+```
+/do-macos-swift-desktop build a menu bar utility with an AppKit shell and a SwiftUI settings panel
+```
+
 ## When to reach for it
 
 Type `/do-macos-swift-desktop`, or the agent reaches for it automatically when a

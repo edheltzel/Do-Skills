@@ -19,7 +19,7 @@ npx skills update do-work
 ## Example
 
 ```
-/do-work implement the approved plan to add email verification on signup
+/do-work docs/plans/email-verification.md
 ```
 
 ## When to reach for it
